@@ -4,7 +4,7 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import {
   faGithub,
   faLinkedin,
-  faMedium,
+  faTwitter,
   faStackOverflow,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
@@ -19,15 +19,15 @@ const socials = [
   },
   {
     icon: faGithub,
-    url: "https://github.com",
+    url: "https://github.com/sidkalyani9",
   },
   {
     icon: faLinkedin,
-    url: "https://www.linkedin.com",
+    url: "https://www.linkedin.com/in/siddharth-kalyani/",
   },
   {
-    icon: faMedium,
-    url: "https://medium.com",
+    icon: faTwitter,
+    url: "https://twitter.com/techybuffoon",
   },
   {
     icon: faStackOverflow,
