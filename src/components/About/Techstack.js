@@ -9,28 +9,60 @@ import {
   DiPython,
   DiGit,
   DiJava,
+  DiBootstrap,
 } from "react-icons/di";
 import {
   SiPytorch,
   SiFirebase,
   SiNextdotjs,
 } from "react-icons/si";
-import {HStack} from "@chakra-ui/react";
+import {HStack, VStack} from "@chakra-ui/react";
 
 
 function Techstack() {
   return (
     <HStack style={{ justifyContent: "center", paddingBottom: "50px" }}>
       
-      <DiJavascript1 className="tech-icons"/>
-      <DiNodejs className="tech-icons"/>
-      <DiReact className="tech-icons"/>
-      <DiMongodb className="tech-icons"/>
-      <SiNextdotjs className="tech-icons"/>
-      <DiJava className="tech-icons"/>
-      <CgCPlusPlus className="tech-icons"/>
-      <DiPython className="tech-icons"/>
-      <DiGit className="tech-icons"/>
+      <VStack >
+        <DiJavascript1 className="tech-icons"/>
+        <p>JavaScript</p>
+      </VStack>
+      <VStack>
+        <DiNodejs className="tech-icons"/>
+        <p>Node.js</p>
+      </VStack>
+      <VStack>
+        <DiReact className="tech-icons"/>
+        <p>React.js</p>
+      </VStack>
+      <VStack>
+        <DiMongodb className="tech-icons"/>
+        <p>MongoDb</p>
+      </VStack>
+      <VStack>
+        <SiNextdotjs className="tech-icons"/>
+        <p>Next.js</p>
+      </VStack>
+      <VStack>
+        <DiJava className="tech-icons"/>
+        <p>Java</p>
+      </VStack>
+      <VStack>
+        <CgCPlusPlus className="tech-icons"/>
+        <p>C/C++</p>
+      </VStack>
+      <VStack>
+        <DiPython className="tech-icons"/>
+        <p>Python</p>
+      </VStack>
+      <VStack>
+        <DiGit className="tech-icons"/>
+        <p>Git</p>
+      </VStack>
+      {/* <VStack>
+        <DiBootstrap className="tech-icons" />
+        <p>Bootstrap</p>
+      </VStack> */}
       {/* <Col xs={4} md={2} className="tech-icons">
         <CgCPlusPlus />
       </Col>
