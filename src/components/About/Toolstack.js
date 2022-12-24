@@ -1,22 +1,42 @@
 import React from "react";
-import {HStack} from "@chakra-ui/react";
+import {HStack, VStack} from "@chakra-ui/react";
 
 import {
   SiLinux,
   SiVisualstudiocode,
   SiMacos,
   SiAnaconda,
+  SiJupyter,
   SiNpm,
 } from "react-icons/si";
 
 function Toolstack() {
   return (
-    <HStack style={{ justifyContent: "center", paddingBottom: "10%" }}>
-      <SiLinux className="tech-icons"/>
-      <SiMacos className="tech-icons"/>
-      <SiVisualstudiocode className="tech-icons"/>
-      <SiAnaconda className="tech-icons"/>
-      <SiNpm className="tech-icons"/>
+    <HStack style={{ justifyContent: "center", paddingBottom: "10%", display:"flex", flex:"wrap"}}>
+      <VStack className={"tech-stack-flex"}>
+        <SiLinux className="tech-icons"/>
+        <p>Linux</p>
+      </VStack>
+      <VStack className={"tech-stack-flex"}>
+        <SiMacos className="tech-icons"/>
+        <p>MacOS</p>
+      </VStack>
+      <VStack className={"tech-stack-flex"}>
+        <SiVisualstudiocode className="tech-icons"/>
+        <p>Visual Studio Code</p>
+      </VStack>
+      <VStack className={"tech-stack-flex"}>
+        <SiAnaconda className="tech-icons"/>
+        <p>Anaconda</p>
+      </VStack>
+      <VStack className={"tech-stack-flex"}>
+        <SiJupyter className="tech-icons" />
+        <p>Juyter</p>
+      </VStack>
+      <VStack className={"tech-stack-flex"}>
+        <SiNpm className="tech-icons"/>
+        <p>NPM</p>
+      </VStack>
       {/* <Col xs={4} md={2} className="tech-icons">
         <SiLinux />
       </Col>

@@ -595,6 +595,7 @@ button:focus {
   color: white !important;
 }
 
+@media (min-width: 768px) {
 .tech-icons {
   font-size: 4.5em !important;
   margin: 15px !important;
@@ -604,19 +605,42 @@ button:focus {
   vertical-align: middle !important;
   text-align: center !important;
   border-radius: 5px !important;
-  display:inline-flexbox !important;
+  display:flexbox !important;
   flex-wrap:nowrap;
   box-shadow: 4px 5px 4px 3px rgba(89, 4, 168, 0.137) !important;
   overflow: hidden !important;
   transition: all 0.4s ease 0s !important;
-
   width: 2em !important;
   height:1.5em !important;
 }
 
+.tech-stack-flex{
+  flex:1 0 1% !important;
+}
+
+}
+
 @media (max-width: 767px) {
   .tech-icons {
-    margin: 10px !important;
+    font-size: 3em !important;
+  margin: 2% !important;
+  padding: 2% !important;
+  opacity: 0.93 !important;
+  border: 1.7px solid rgba(200, 137, 230, 0.637) !important;
+  vertical-align: middle !important;
+  text-align: center !important;
+  border-radius: 5px !important;
+  display:flexbox !important;
+  flex-wrap:nowrap;
+  box-shadow: 4px 5px 4px 3px rgba(89, 4, 168, 0.137) !important;
+  overflow: hidden !important;
+  transition: all 0.4s ease 0s !important;
+  width: 2em !important;
+  height:1.5em !important;
+  }
+
+  .tech-stack-flex{
+    flex: 1 0 30% !important;
   }
 }
 
@@ -628,6 +652,10 @@ button:focus {
 .tech-icon-images {
   padding: 20px !important;
   line-height: 1.6 !important;
+}
+
+.tech-stack-flex{
+  flex: 1 0 21%;
 }
 
 .quote-card-view {
