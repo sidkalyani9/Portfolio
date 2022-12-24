@@ -26,11 +26,11 @@ const projects = [
     ghLink: "https://github.com/sidkalyani9/Meta-portfolio-project1",
   },
   {
-    title: "Event planner",
+    title: "Meta Calculator",
     description:
-      "A mobile application for leisure seekers to discover unique events and activities in their city with a few taps",
-    getImageSrc: () => require("../images/photo4.jpg"),
-    ghLink: "https://github.com/sidkalyani9/Meta-portfolio-project1",
+      "This was a part of Meta's React Course's Submission. I have used many Fundamental hooks like useRef, useState, ContextAPI etc.",
+    getImageSrc: () => require("../images/project4.png"),
+    ghLink: "https://github.com/sidkalyani9/Meta-Calculator-App",
   },
 ];
 
