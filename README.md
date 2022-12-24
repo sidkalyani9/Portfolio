@@ -1,6 +1,6 @@
 First of all you will need to install all the dependencies by directing to the folder and then using:
 
-### 'npm install'
+### `npm install`
 
 In the project directory, you can run:
 
