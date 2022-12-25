@@ -141,23 +141,34 @@ button:focus {
   background-color: transparent !important;
 }
 
-.navbar-toggler:not(.collapsed) span:nth-child(3) {
+/* .navbar-toggler:not(.collapsed) span:nth-child(3) {
   position: absolute !important;
   left: 12px !important;
   top: 10px !important;
   transform: rotate(-135deg) !important;
   opacity: 0.9 !important;
-}
+} */
 
-@media (max-width: 767px) {
+@media (max-width: 829px){
   .navbar {
-    padding: 1rem 2rem !important;
-    font-size: 1.4rem !important;
-    background-color: #181a27 !important;
+    position: absolute !important;
+    padding: 5% !important;
+    font-size: 1em !important;
+    
   }
-  .navbar-nav .nav-item a::after {
+
+  .sticky {
+    padding: 2% 2%;
+    font-size: 0.8em;
+    
+  }
+
+  .headerRightLinks {
+    justify-content: center !important;
+  }
+  /* .navbar-nav .nav-item a::after {
     display: none !important;
-  }
+  } */
 }
 .navbar-brand {
   color: rgb(250, 250, 250) !important;

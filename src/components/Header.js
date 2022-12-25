@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import Navbar from "react-bootstrap/Navbar";
 import {
   faGithub,
   faLinkedin,
@@ -40,8 +41,9 @@ const Header = () => {
   const[isHidden,setHidden] = useState(false);
   const[translateVal,setTranslateVal] = useState("translateY(0px)");
   const[scrollVal,setScrollVal] = useState(0);
-
+  const [expand, updateExpanded] = useState(false);
   const[classN,setClass] = useState(false);
+  const[showLink,setShowLink] = useState(true);
 
   const handleClick = (anchor) => () => {
     const id = `${anchor}-section`;
@@ -53,6 +55,23 @@ const Header = () => {
       });
     }
   };
+
+  useEffect(() => {
+    const handleWindowSize = () => {
+      if(window.innerWidth > 829){
+        setShowLink(true);
+      }
+      else{
+        setShowLink(false);
+      }
+    }
+    
+    window.addEventListener("resize", handleWindowSize);
+    window.addEventListener("load", handleWindowSize);
+
+    // Return a function from the effect that removes the event listener
+    return () => window.removeEventListener("resize", handleWindowSize);
+  }, []);
 
     const handleScroll = () => {
     
@@ -82,6 +101,7 @@ const Header = () => {
     // return () => window.removeEventListener('scroll', handleScroll)
 
   return (
+      
     <Box
       position="fixed"
       top={0}
@@ -91,25 +111,23 @@ const Header = () => {
     >
       <Box color="white" maxWidth="1920px" margin="0 auto">
         <HStack
-          px={20}
-          py={4}
+          px={showLink?21:0}
+          py={showLink?4:0}
           justifyContent="space-between"
           alignItems="center"
         >
-          <nav>
-            {/* Add social media links based on the `socials` data */}
+          {showLink && <nav>
             <HStack className="left-nav" spacing={8}>
             <a href="https://youtube.com/@techybuffoon"><FontAwesomeIcon icon={faYoutube} size="1x" /></a>
-            {/* <a href={socials[0].url}><FontAwesomeIcon icon={socials[0].icon} size="1x" /></a> */}
+             <a href={socials[0].url}><FontAwesomeIcon icon={socials[0].icon} size="1x" /></a> 
             <a href={socials[1].url}><FontAwesomeIcon icon={socials[1].icon} size="1x" /></a>
             <a href={socials[2].url}><FontAwesomeIcon icon={socials[2].icon} size="1x" /></a>
             <a href={socials[3].url}><FontAwesomeIcon icon={socials[3].icon} size="1x" /></a>
             <a href={socials[4].url}><FontAwesomeIcon icon={socials[4].icon} size="1x" /></a>
             </HStack>
-          </nav>
-          <nav>
-            <HStack spacing={8}>
-              {/* Add links to Projects and Contact me section */}
+          </nav>}
+          <nav className={"headerRightLinks"}>
+            <HStack spacing={8} >
               <a href="/#home1" onClick={handleClick("home")}>Home</a>
               <a href="/#about" onClick={handleClick("about")}>About Me</a>
               <a href="/#projects" onClick={handleClick("projects")}>Projects</a>

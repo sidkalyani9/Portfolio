@@ -8,7 +8,7 @@ import { AlertProvider } from "./context/alertContext";
 import Alert from "./components/Alert";
 import Particle from "./components/Particle";
 import About from "./components/About/About";
-import Home from "./components/Home";
+import NavBar from "./components/Navbar";
 import "./css/style.css";
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
       <AlertProvider>
         <main>
           <Header />
+          {/* <NavBar /> */}
           <LandingSection />
           <About/>
           <ProjectsSection />

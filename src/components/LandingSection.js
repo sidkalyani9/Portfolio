@@ -25,7 +25,6 @@ const LandingSection = () => (
           👋🏻
         </span>
       </h1>
-
       <h1 className="heading-name">
         I am  
         <strong className="main-name">    Siddharth Kalyani</strong>

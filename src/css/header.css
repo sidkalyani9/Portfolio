@@ -23,3 +23,15 @@ a:hover{
     transform: scale(1.2);
     color:#be6adf
 }
+
+.headerRightLinks{
+    font-size: 1em !important;
+    
+}
+
+/* @media (max-width: 500px) {
+    .headerRightLinks{
+        font-size: 0.6em !important;
+        margin-left: 0 auto !important;
+    }
+} */
