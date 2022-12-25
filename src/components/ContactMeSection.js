@@ -30,18 +30,8 @@ const LandingSection = () => {
       type:"Freelance project proposal",
       comment:"",
     },
-    onSubmit: (values, {resetForm}) => {
-      // event.preventDefault();
-      submit("../",values);
-      console.log(isLoading);
-      // if(isLoading){
-      //   <Spinner />
-      // }
-      <Spinner></Spinner>
-      
-      onOpen(response.type,response.message);
-      resetForm();
-      
+    onSubmit: (values) => {
+      submit('https://john.com/contactme', values);
     },
     validationSchema: Yup.object({
       firstName: Yup.string().required("Please Enter your First Name"),
@@ -49,6 +39,15 @@ const LandingSection = () => {
       comment: Yup.string().required("Please Enter Your Comment").min(25,"Enter minimum 25 characters"),
     }),
   });
+
+  useEffect(() => { 
+    if (response) { 
+      onOpen(response.type, response.message); 
+      if (response.type === 'success') { 
+        formik.resetForm(); 
+      } 
+    } 
+  }, [response]); 
 
   return (
     <FullScreenSection
@@ -112,9 +111,9 @@ const LandingSection = () => {
                 />
                 <FormErrorMessage name="comment">{formik.errors.comment}</FormErrorMessage>
               </FormControl>
-              <Button type="submit" colorScheme="purple" width="full" >
+              <Button type="submit" colorScheme="purple" width="full" isLoading={isLoading}>
                 Submit  
-                {isLoading && <Spinner thickness='2px' spacing={4} marginLeft={2}></Spinner>}
+                {/* {isLoading && <Spinner thickness='2px' spacing={4} marginLeft={2}></Spinner>} */}
               </Button>
             </VStack>
           </form>

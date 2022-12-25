@@ -595,7 +595,7 @@ button:focus {
   color: white !important;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 901px) {
 .tech-icons {
   font-size: 4.5em !important;
   margin: 15px !important;
@@ -615,12 +615,38 @@ button:focus {
 }
 
 .tech-stack-flex{
-  flex:1 0 1% !important;
+  flex:1 1 10% !important;
 }
 
 }
 
-@media (max-width: 767px) {
+@media (max-width: 901px) and (min-width: 601px) {
+  .tech-icons {
+    font-size: 3em !important;
+  margin: 2% !important;
+  padding: 2% !important;
+  opacity: 0.93 !important;
+  border: 1.7px solid rgba(200, 137, 230, 0.637) !important;
+  vertical-align: middle !important;
+  text-align: center !important;
+  border-radius: 5px !important;
+  display:flexbox !important;
+  flex-wrap:nowrap;
+  box-shadow: 4px 5px 4px 3px rgba(89, 4, 168, 0.137) !important;
+  overflow: hidden !important;
+  transition: all 0.4s ease 0s !important;
+  width: 2em !important;
+  height:1.5em !important;
+  }
+
+  .tech-stack-flex{
+    flex: 1 0 20% !important;
+
+  }
+
+}
+
+@media (max-width: 600px) {
   .tech-icons {
     font-size: 3em !important;
   margin: 2% !important;
@@ -641,6 +667,8 @@ button:focus {
 
   .tech-stack-flex{
     flex: 1 0 30% !important;
+    margin-top: 2% !important;
+    margin-bottom: 5% !important;
   }
 }
 
