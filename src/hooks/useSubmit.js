@@ -13,7 +13,7 @@ const useSubmit = () => {
   const submit = async (url, data) => {
     setLoading(true);
     try {
-      await wait(2000);
+      await wait(1000);
       setResponse({
         type: 'success',
         message: `Thanks for your submission ${data.firstName}, we will get back to you shortly!`,
