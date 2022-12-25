@@ -24,17 +24,18 @@ const Card = ({ title, description, imageSrc,ghLink }) => {
           <Image borderTopRadius="4%" className="banner" src={imageSrc}></Image>
           <Heading pl={5} size="1x">{title}</Heading>
           <Text pl={3} size="1xs">{description}</Text>
-          <Button style={{width:"20%", alignItems:"center", borderRadius:"5px", marginBottom:"3%", marginTop:"2%"}} variant="primary" href={ghLink} target="_blank">
-          <HStack
-          maxWidth="200px"
-          height="10"
-          alignItems="center"
-          fontSize="1vw"
-          >
-          <BsGithub style={{marginLeft:"15%"}}/> <p>Github</p>
-          </HStack>
-        </Button>
-          
+          <Button className="ghBtn" variant="primary" href={ghLink} target="_blank">
+            <HStack
+            maxWidth="200px"
+            height="10"
+            alignItems="center"
+            fontSize="1em"
+            className={"centerGh"}
+            >
+                <BsGithub /> <p>Github</p>
+            </HStack>
+            
+          </Button>
         </VStack>
      
 

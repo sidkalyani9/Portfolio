@@ -514,8 +514,29 @@ button:focus {
 }
 
 .ghBtn{
+  padding:0% auto;
   width:20%;
-  align-items: center !important;
+  align-items:center;
+  border-radius:5px !important;
+  margin-bottom:3% !important;
+  margin-top:2% !important;
+  justify-content: center !important;
+}
+
+.centerGh{
+  justify-content: center !important;
+}
+
+@media (min-width:668px) and (max-width:950px) {
+  .ghBtn{
+    width:30%;
+  }
+}
+
+@media (max-width:667px) {
+  .ghBtn{
+    width:40%;
+  }
 }
 
 .blog-card {
@@ -847,4 +868,20 @@ button:focus {
 }
 .fork-btn-inner::after {
   display: none !important;
+}
+
+.contactForm {
+  width:65%;
+}
+
+@media (max-width:1000px) and (min-width:768px) {
+  .contactForm{
+    width:80%;
+  }
+}
+
+@media (max-width:767px) {
+  .contactForm{
+    width:90%;
+  }
 }

@@ -54,8 +54,9 @@ const LandingSection = () => {
       py={16}
       spacing={8}
       id="contactme-section"
+      w="100%"
     >
-      <VStack w="1024px" p={32} alignItems="flex-start"
+      <VStack className="contactForm" alignItems="flex-start"
         onSubmit={formik.handleSubmit}>
         <Heading as="h1" >
           Contact me
