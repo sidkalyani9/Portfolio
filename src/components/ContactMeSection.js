@@ -11,13 +11,11 @@ import {
   Select,
   Textarea,
   VStack,
-  Spinner,
 } from "@chakra-ui/react";
 import * as Yup from 'yup';
 import FullScreenSection from "./FullScreenSection";
 import useSubmit from "../hooks/useSubmit";
 import {useAlertContext} from "../context/alertContext";
-import { faPersonMilitaryPointing } from "@fortawesome/free-solid-svg-icons";
 
 const LandingSection = () => {
   const {isLoading, response, submit} = useSubmit();

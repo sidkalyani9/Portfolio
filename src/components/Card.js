@@ -2,7 +2,6 @@ import { Heading, Image, Text, VStack,HStack } from "@chakra-ui/react";
 import React from "react";
 import '../css/card.css';
 import Button from "react-bootstrap/Button";
-import { CgWebsite } from "react-icons/cg";
 import { BsGithub } from "react-icons/bs";
 
 const Card = ({ title, description, imageSrc,ghLink }) => {

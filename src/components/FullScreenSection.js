@@ -1,6 +1,5 @@
 import * as React from "react";
 import { VStack } from "@chakra-ui/react";
-import homeBg from '../images/home-bg.jpg';
 import '../css/style.css';
 
 /**

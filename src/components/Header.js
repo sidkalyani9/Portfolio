@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import Navbar from "react-bootstrap/Navbar";
 import {
   faGithub,
   faLinkedin,
@@ -12,7 +11,6 @@ import {
 import { Box, HStack } from "@chakra-ui/react";
 import '../css/header.css';
 import '../css/style.css';
-import useWindow from "../hooks/useWindow";
 
 const socials = [
   {
@@ -42,7 +40,7 @@ const Header = () => {
   const[isHidden,setHidden] = useState(false);
   const[translateVal,setTranslateVal] = useState("translateY(0px)");
   const[scrollVal,setScrollVal] = useState(0);
-  const [expand, updateExpanded] = useState(false);
+  // const [expand, updateExpanded] = useState(false);
   const[classN,setClass] = useState(false);
   const[showLink,setShowLink] = useState(true);
 

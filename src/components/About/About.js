@@ -5,7 +5,7 @@ import Techstack from "./Techstack";
 import Aboutcard from "./AboutCard";
 import laptopImg from "../../css/Assets/about.png";
 import Toolstack from "./Toolstack";
-import { Box,Heading, HStack, Image, Text, VStack } from "@chakra-ui/react";
+import { HStack, VStack } from "@chakra-ui/react";
 import FullScreenSection from "../FullScreenSection";
 
 function About() {

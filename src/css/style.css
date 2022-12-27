@@ -93,7 +93,7 @@ button:focus {
 .navbar {
   position: fixed !important;
   transition: all 0.3s ease-out 0s !important;
-  padding: 0 !important;
+  padding: 0.8rem 2rem !important;
   background-color: transparent !important;
   font-size: 1.2rem !important;
 }

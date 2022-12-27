@@ -1,11 +1,8 @@
 import React from "react";
-import { Row,Col } from "react-bootstrap";
-import { Image,Avatar, Heading, VStack,HStack, Center } from "@chakra-ui/react";
+import { Image, VStack,HStack} from "@chakra-ui/react";
 import FullScreenSection from "./FullScreenSection";
-import Particle from "./Particle";
+
 import Type from "./Type";
-import { useEffect, useState } from "react";
-import useWindow from "../hooks/useWindow";
 
 const LandingSection = () => {
   

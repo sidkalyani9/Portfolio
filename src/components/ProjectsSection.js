@@ -3,7 +3,6 @@ import FullScreenSection from "./FullScreenSection";
 import { Box, Heading } from "@chakra-ui/react";
 import Card from "./Card";
 import {useState,useEffect} from "react";
-import useWindow from "../hooks/useWindow";
 
 const projects = [
   {
