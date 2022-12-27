@@ -142,7 +142,7 @@ button:focus {
 }
 
 .navLink{
-  /* margin: 0 5% !important; */
+
 }
 
 /* .navbar-toggler:not(.collapsed) span:nth-child(3) {
@@ -157,13 +157,13 @@ button:focus {
   .navbar {
     position: absolute !important;
     padding: 5% !important;
-    font-size: 1em !important;
+    font-size: 1.4em !important;
 
   }
 
   .sticky {
-    padding: 2% 2%;
-    font-size: 0.8em;
+    padding: 3% !important;
+    font-size: 1.2em;
     
   }
 
@@ -180,13 +180,12 @@ button:focus {
   .navbar {
     position: absolute !important;
     padding: 5% !important;
-    font-size: 3.5vw !important;
-
+    font-size: 5vw !important;
   }
 
   .sticky {
-    padding: 2% 2%;
-    font-size: 3vw;
+    padding: 4% !important;
+    font-size: 4vw;
     
   }
 

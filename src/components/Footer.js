@@ -57,7 +57,7 @@ const Footer = () => {
           justifyContent="center"
           alignItems="center"
           maxWidth="1024px"
-          height={10}
+          height={14}
         >
           <HStack className="left-nav" spacing={8}>
               <a href={socials[0].url}><FontAwesomeIcon icon={socials[0].icon} size="xl" /></a>
@@ -70,7 +70,8 @@ const Footer = () => {
         </Flex>
 
         <Flex
-          margin="0 auto"
+          margin="0% auto"
+          paddingTop="2%"
           px={12}
           color="white"
           justifyContent="center"
