@@ -4,40 +4,6 @@ import FullScreenSection from "./FullScreenSection";
 import Type from "./Type";
 
 const LandingSection = () => {
-  
-  // const[mobView,setmobView] = useState(false);
-
-  // useEffect(() => {
-  //   const handleWindowSize = () => {
-  //     if(window.innerWidth < 600){
-  //       setmobView(true);
-  //     }
-  //     else{
-  //       setmobView(false);
-  //     }
-  //   }
-    
-  //   window.addEventListener("resize", handleWindowSize);
-
-  //   // Return a function from the effect that removes the event listener
-  //   return () => window.removeEventListener("resize", handleWindowSize);
-  // }, []);
-
-  // useEffect(() => {
-  //   const handleWindowSize = () => {
-  //     if(window.innerWidth < 600){
-  //       setmobView(true);
-  //     }
-  //     else{
-  //       setmobView(false);
-  //     }
-  //   }
-    
-  //   window.addEventListener("load", handleWindowSize);
-
-  //   // Return a function from the effect that removes the event listener
-  //   return () => window.removeEventListener("load", handleWindowSize);
-  // }, []);
 
   return(
   <FullScreenSection
