@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope} from "@fortawesome/free-solid-svg-icons";
 import {
   faGithub,
   faLinkedin,
   faTwitter,
-  faStackOverflow,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
+import { SiLeetcode } from "react-icons/si";
 import { Box, HStack } from "@chakra-ui/react";
 import '../css/header.css';
 import '../css/style.css';
@@ -15,7 +15,7 @@ import '../css/style.css';
 const socials = [
   {
     icon: faEnvelope,
-    url: "mailto: hello@example.com",
+    url: "mailto: sidkalyani9@gmail.com",
   },
   {
     icon: faGithub,
@@ -30,8 +30,8 @@ const socials = [
     url: "https://twitter.com/techybuffoon",
   },
   {
-    icon: faStackOverflow,
-    url: "https://stackoverflow.com",
+    icon: SiLeetcode,
+    url: "https://leetcode.com/sidkalyani9/",
   },
 ];
 
@@ -125,12 +125,12 @@ const Header = () => {
         >
           {showLink && <><nav>
             <HStack className="left-nav" spacing={8}>
-              <a href="https://youtube.com/@techybuffoon"><FontAwesomeIcon icon={faYoutube} size="1x" /></a>
               <a href={socials[0].url}><FontAwesomeIcon icon={socials[0].icon} size="1x" /></a>
+              <a href="https://youtube.com/@techybuffoon"><FontAwesomeIcon icon={faYoutube} size="1x" /></a>
               <a href={socials[1].url}><FontAwesomeIcon icon={socials[1].icon} size="1x" /></a>
               <a href={socials[2].url}><FontAwesomeIcon icon={socials[2].icon} size="1x" /></a>
               <a href={socials[3].url}><FontAwesomeIcon icon={socials[3].icon} size="1x" /></a>
-              <a href={socials[4].url}><FontAwesomeIcon icon={socials[4].icon} size="1x" /></a>
+              <a href={socials[4].url}><SiLeetcode /> </a>
             </HStack>
           </nav><nav>
               <HStack spacing={8}>
