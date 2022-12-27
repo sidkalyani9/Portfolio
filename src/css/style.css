@@ -140,10 +140,12 @@ button:focus {
   visibility: hidden !important;
   background-color: transparent !important;
 }
-
+/* 
 .navLink{
-
-}
+  background-color:#68187a;
+  margin: 5;
+  padding: 2% 4%;
+} */
 
 /* .navbar-toggler:not(.collapsed) span:nth-child(3) {
   position: absolute !important;
@@ -157,13 +159,13 @@ button:focus {
   .navbar {
     position: absolute !important;
     padding: 5% !important;
-    font-size: 1.4em !important;
+    font-size: 1.2em !important;
 
   }
 
   .sticky {
     padding: 3% !important;
-    font-size: 1.2em;
+    font-size: 1.2em !important;
     
   }
 
@@ -180,7 +182,7 @@ button:focus {
   .navbar {
     position: absolute !important;
     padding: 5% !important;
-    font-size: 5vw !important;
+    font-size: 4.5vw !important;
   }
 
   .sticky {
