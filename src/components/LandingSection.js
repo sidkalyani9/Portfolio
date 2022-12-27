@@ -1,7 +1,6 @@
 import React from "react";
 import { Image, VStack,HStack} from "@chakra-ui/react";
 import FullScreenSection from "./FullScreenSection";
-
 import Type from "./Type";
 
 const LandingSection = () => {

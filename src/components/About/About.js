@@ -1,6 +1,4 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import Particle from "../Particle";
 import Techstack from "./Techstack";
 import Aboutcard from "./AboutCard";
 import laptopImg from "../../css/Assets/about.png";
@@ -15,7 +13,6 @@ function About() {
     alignItems="center"
     id="about-section"
   >
-      <Particle />
         <HStack style={{ justifyContent: "center", padding: "5%", textAlign:"center" , width:"100%"}}>
           <VStack
             style={{
