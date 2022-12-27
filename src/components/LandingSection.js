@@ -48,12 +48,13 @@ const LandingSection = () => {
     justifyContent="center"
     alignItems="center"
     id="home-section"
+    
   >
     {/* {!mobView && */}
-    <HStack style={{marginLeft:"10%"}}
+    <HStack className={"landingSection"}
     >
      {/* <Avatar name='Siddharth' src='' size="2xl" /> */}
-     <Image src='https://media-exp1.licdn.com/dms/image/D4D03AQGx2G3efiS3qQ/profile-displayphoto-shrink_800_800/0/1664881316202?e=1675900800&v=beta&t=igThhgxKtg57FySsN-NMIbKk5PUgbg7y8o1f1_WLSs0' w='35%' borderRadius='full'/>
+     <Image src='https://media-exp1.licdn.com/dms/image/D4D03AQGx2G3efiS3qQ/profile-displayphoto-shrink_800_800/0/1664881316202?e=1675900800&v=beta&t=igThhgxKtg57FySsN-NMIbKk5PUgbg7y8o1f1_WLSs0' w='35%' borderRadius='full' className={"imgLand"} />
      {/* <Heading size="1xs">{greeting}</Heading> */}
      <VStack className="right-heading">
      <h1 className="heading">

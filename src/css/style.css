@@ -352,12 +352,12 @@ button:focus {
 @media (max-width: 767px) and (min-width:452px) {
 
   .heading{
-    font-size: 5vw !important;
+    font-size: 7vw !important;
     padding: 0% !important;
   }
 
   .heading-name{
-    font-size: 5vw !important;
+    font-size: 7vw !important;
     margin: 0% !important;
     padding-left: 0% !important;
   }
@@ -369,7 +369,7 @@ button:focus {
     text-align: center;
   }
   .Typewriter__wrapper {
-    font-size: 1em !important;
+    font-size: 5vw !important;
     font-weight: 500 !important;
     margin: 0% !important;
     position: relative !important;
@@ -383,18 +383,28 @@ button:focus {
 
   .right-heading{
     margin-left:5%  !important;
-    margin-top: 15% !important;
+    margin-top: 3% !important;
+  }
+
+  .landingSection{
+    display:grid !important;
+    grid-template-columns: auto !important;
+  }
+  .imgLand{
+    margin:0% auto;
+    margin-top: 17%;
+    width: 65% !important;
   }
 }
 
 @media (max-width:451px) {
   .heading{
-    font-size: 5vw !important;
+    font-size: 7vw !important;
     padding: 0% !important;
   }
 
   .heading-name{
-    font-size: 5vw !important;
+    font-size: 7vw !important;
     margin: 0% !important;
     padding-left: 0% !important;
   }
@@ -406,7 +416,7 @@ button:focus {
     text-align: center;
   }
   .Typewriter__wrapper {
-    font-size: 1em !important;
+    font-size: 5vw !important;
     font-weight: 500 !important;
     margin: 0% !important;
     position: relative !important;
@@ -420,9 +430,18 @@ button:focus {
 
   .right-heading{
     margin-left:5%  !important;
-    margin-top: 20% !important;
+    margin-top: 4% !important;
   }
-  
+  .landingSection{
+    display:grid !important;
+    grid-template-columns: auto !important;
+  }
+
+  .imgLand{
+    margin-top:25% !important;
+    width:75% !important;
+    margin:0 auto;
+  }
 }
 
 .myAvtar {
