@@ -1,10 +1,11 @@
 import { Heading, Image, Text, VStack,HStack } from "@chakra-ui/react";
 import React from "react";
+
 import '../css/card.css';
 import Button from "react-bootstrap/Button";
 import { BsGithub } from "react-icons/bs";
 
-const Card = ({ title, description, imageSrc,ghLink }) => {
+const CardB = ({ title, description, imageSrc,ghLink }) => {
   // Implement the UI for the Card component according to the instructions.
   // You should be able to implement the component with the elements imported above.
   // Feel free to import other UI components from Chakra UI if you wish to.
@@ -19,6 +20,7 @@ const Card = ({ title, description, imageSrc,ghLink }) => {
           className="project-card-view"
           color="white"
           borderRadius="4%"
+          marginBottom="10%"
           >
           <Image borderTopRadius="4%" className="banner" src={imageSrc}></Image>
           <Heading pl={5} size="md" className="purple">{title}</Heading>
@@ -42,4 +44,4 @@ const Card = ({ title, description, imageSrc,ghLink }) => {
 
 };
 
-export default Card;
+export default CardB;

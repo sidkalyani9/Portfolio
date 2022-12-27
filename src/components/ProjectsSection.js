@@ -94,8 +94,9 @@ const ProjectsSection = () => {
         Featured Projects
       </Heading>
       <Box
-        display="grid"
-        gridTemplateColumns={showSingleProj}
+        // display="grid"
+        // gridTemplateColumns={showSingleProj}
+        className="projectBox"
         gridGap={8}
         
       >

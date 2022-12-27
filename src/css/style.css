@@ -625,6 +625,20 @@ button:focus {
 /* --------- */
 /* Projects */
 /* --------- */
+
+  .projectBox{
+    display: grid;
+    grid-template-columns: auto auto !important;
+    grid-gap: 8px;
+  }
+
+
+@media (max-width:600px) {
+  .projectBox{
+    display: block !important;
+  }
+}
+
 .project-section {
   position: relative !important;
   padding-top: 150px !important;
