@@ -2,7 +2,6 @@ import React from "react";
 import FullScreenSection from "./FullScreenSection";
 import { Box, Heading } from "@chakra-ui/react";
 import Card from "./Card";
-import {useState,useEffect} from "react";
 
 const projects = [
   {
@@ -37,52 +36,6 @@ const projects = [
 
 const ProjectsSection = () => {
 
-  // var loadWidth = useWindow();
-  var initialVal = "repeat(2,minmax(0,1fr))";
-
-  // console.log(loadWidth);
-  
-  // if(loadWidth < 600 && loadWidth > 0){
-  //   initialVal = "repeat(1,minmax(0,1fr))";
-  // }
-  // else{
-  //   initialVal = "repeat(2,minmax(0,1fr))";
-  // }
-
-  const[showSingleProj,setShowSingleProj] = useState(initialVal);
-  
-  useEffect(() => {
-    const handleWindowSize = () => {
-      if(window.innerWidth < 600){
-        setShowSingleProj("repeat(1,minmax(0,1fr))");
-      }
-      else{
-        setShowSingleProj("repeat(2,minmax(0,1fr))");
-      }
-    }
-    
-    window.addEventListener("resize", handleWindowSize);
-
-    return () => window.removeEventListener("resize", handleWindowSize);
-  }, []);
-  
-
-  useEffect(() => {
-    const handleWindowSize = () => {
-      if(window.innerWidth < 600){
-        setShowSingleProj("repeat(1,minmax(0,1fr))");
-      }
-      else{
-        setShowSingleProj("repeat(2,minmax(0,1fr))");
-      }
-    }
-    
-    window.addEventListener("load", handleWindowSize);
-
-    // Return a function from the effect that removes the event listener
-    return () => window.removeEventListener("load", handleWindowSize);
-  }, []);
-
   return (
     <FullScreenSection
       p={8}
@@ -94,8 +47,6 @@ const ProjectsSection = () => {
         Featured Projects
       </Heading>
       <Box
-        // display="grid"
-        // gridTemplateColumns={showSingleProj}
         className="projectBox"
         gridGap={8}
         

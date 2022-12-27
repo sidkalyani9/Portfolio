@@ -142,7 +142,8 @@ const Header = () => {
               </HStack>
             </nav></>}
 
-            {/* {!showLink && 
+            {!showLink && 
+            <Center w='100%'>
             <nav>
             <HStack spacing={5} className={"mobileNav"}>
               <a href="/#home1" onClick={handleClick("home")} class={"navLink"}>Home</a>
@@ -150,8 +151,10 @@ const Header = () => {
               <a href="/#projects" onClick={handleClick("projects")} class={"navLink"}>Projects</a>
               <a href="/#contact-me" onClick={handleClick("contactme")} class={"navLink"}>Contact Me</a>
             </HStack>
-          </nav>} */}
-          {!showLink && 
+          </nav>
+          </Center>
+          }
+          {/* {!showLink && 
           <Center w='100%'>
             <nav>
             <HStack className="left-nav-mobile" spacing={8}>
@@ -164,7 +167,7 @@ const Header = () => {
             </HStack>
           </nav>
           </Center>
-          }
+          } */}
         </HStack>
       </Box>
     </Box>
