@@ -8,7 +8,6 @@ import {
   DiPython,
   DiGit,
   DiJava,
-  DiBootstrap,
 } from "react-icons/di";
 import {
   SiNextdotjs,

@@ -15,7 +15,7 @@ const FullScreenSection = ({ children, isDarkBackground, ...boxProps }) => {
     // Change here
       // backgroundImage={homeBg}
       color={"white"}
-      className={boxProps.id=="home-section"?"mainSection":"mainSection2"}
+      className={boxProps.id==="home-section"?"mainSection":"mainSection2"}
     >
       <VStack 
         backgroundBlendMode="color-burn"

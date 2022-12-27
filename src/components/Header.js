@@ -37,9 +37,9 @@ const socials = [
 
 const Header = () => {
 
-  const[isHidden,setHidden] = useState(false);
-  const[translateVal,setTranslateVal] = useState("translateY(0px)");
-  const[scrollVal,setScrollVal] = useState(0);
+  // const[isHidden,setHidden] = useState(false);
+  // const[translateVal,setTranslateVal] = useState("translateY(0px)");
+  // const[scrollVal,setScrollVal] = useState(0);
   // const [expand, updateExpanded] = useState(false);
   const[classN,setClass] = useState(false);
   const[showLink,setShowLink] = useState(true);
@@ -93,15 +93,15 @@ const Header = () => {
         setClass(true);
       }
   
-      setScrollVal(window.scrollY);
+      // setScrollVal(window.scrollY);
   
-      if(isHidden){
+      // if(isHidden){
 
-        setTranslateVal("translateY(-200px)");
-      }
-      else{
-        setTranslateVal("translateY(0px)");
-      }
+      //   setTranslateVal("translateY(-200px)");
+      // }
+      // else{
+      //   setTranslateVal("translateY(0px)");
+      // }
     }
 
     window.addEventListener('scroll', handleScroll)
