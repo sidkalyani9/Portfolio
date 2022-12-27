@@ -10,14 +10,16 @@ import Particle from "./components/Particle";
 import About from "./components/About/About";
 import NavBar from "./components/Navbar";
 import "./css/style.css";
+import { useEffect, useState, useContext} from "react";
 
 function App() {
+
+
   return (
       <ChakraProvider>
       <AlertProvider>
         <main>
           <Header />
-          {/* <NavBar /> */}
           <LandingSection />
           <About/>
           <ProjectsSection />

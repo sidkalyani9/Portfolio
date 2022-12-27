@@ -272,9 +272,18 @@ button:focus {
   height: 100%;
   z-index: -999;
 }
-
+@media (min-width:794) {
+  
+}
 .right-heading{
-  margin-left: 20% !important;
+  margin-left: 10% !important;
+}
+
+@media (max-width:793) {
+  .right-heading{
+    margin-left: 5% !important;
+  }
+  
 }
 
 .home-header {
@@ -298,12 +307,12 @@ button:focus {
 }
 
 .heading {
-  font-size: 2.4em !important;
+  font-size: 2.4vw !important;
   padding-left: 50px !important;
 }
 
 .heading-name {
-  font-size: 2.5em !important;
+  font-size: 2.5vw !important;
   padding-left: 45px !important;
 }
 
@@ -340,17 +349,80 @@ button:focus {
   color: #b562d6 !important;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767px) and (min-width:452px) {
+
+  .heading{
+    font-size: 5vw !important;
+    padding: 0% !important;
+  }
+
+  .heading-name{
+    font-size: 5vw !important;
+    margin: 0% !important;
+    padding-left: 0% !important;
+  }
+
+  .typewrite{
+    width:100%;
+    margin: 0% !important;
+    height:100px !important; 
+    text-align: center;
+  }
   .Typewriter__wrapper {
-    font-size: 2em !important;
+    font-size: 1em !important;
     font-weight: 500 !important;
-    position: absolute !important;
-    text-align: left;
+    margin: 0% !important;
+    position: relative !important;
+    text-align: center;
   }
   .Typewriter__cursor {
     display: none !important;
-    text-align: left;
+    margin: 0% !important;
+    text-align: center;
   }
+
+  .right-heading{
+    margin-left:5%  !important;
+    margin-top: 15% !important;
+  }
+}
+
+@media (max-width:451px) {
+  .heading{
+    font-size: 5vw !important;
+    padding: 0% !important;
+  }
+
+  .heading-name{
+    font-size: 5vw !important;
+    margin: 0% !important;
+    padding-left: 0% !important;
+  }
+
+  .typewrite{
+    width:100%;
+    margin: 0% !important;
+    height:100px !important; 
+    text-align: center;
+  }
+  .Typewriter__wrapper {
+    font-size: 1em !important;
+    font-weight: 500 !important;
+    margin: 0% !important;
+    position: relative !important;
+    text-align: center;
+  }
+  .Typewriter__cursor {
+    display: none !important;
+    margin: 0% !important;
+    text-align: center;
+  }
+
+  .right-heading{
+    margin-left:5%  !important;
+    margin-top: 20% !important;
+  }
+  
 }
 
 .myAvtar {

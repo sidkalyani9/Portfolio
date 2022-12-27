@@ -12,6 +12,7 @@ import {
 import { Box, HStack } from "@chakra-ui/react";
 import '../css/header.css';
 import '../css/style.css';
+import useWindow from "../hooks/useWindow";
 
 const socials = [
   {
@@ -67,10 +68,21 @@ const Header = () => {
     }
     
     window.addEventListener("resize", handleWindowSize);
-    window.addEventListener("load", handleWindowSize);
-
-    // Return a function from the effect that removes the event listener
     return () => window.removeEventListener("resize", handleWindowSize);
+  }, []);
+
+  useEffect(() => {
+    const handleWindowSize = () => {
+      if(window.innerWidth > 829){
+        setShowLink(true);
+      }
+      else{
+        setShowLink(false);
+      }
+    }
+    
+    window.addEventListener("load", handleWindowSize);
+    return () => window.removeEventListener("load", handleWindowSize);
   }, []);
 
     const handleScroll = () => {

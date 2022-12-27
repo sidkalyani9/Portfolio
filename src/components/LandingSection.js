@@ -1,18 +1,55 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row,Col } from "react-bootstrap";
 import { Image,Avatar, Heading, VStack,HStack, Center } from "@chakra-ui/react";
 import FullScreenSection from "./FullScreenSection";
 import Particle from "./Particle";
 import Type from "./Type";
-import homeLogo from "../css/Assets/home-main.svg";
+import { useEffect, useState } from "react";
+import useWindow from "../hooks/useWindow";
 
-const LandingSection = () => (
+const LandingSection = () => {
+  
+  // const[mobView,setmobView] = useState(false);
+
+  // useEffect(() => {
+  //   const handleWindowSize = () => {
+  //     if(window.innerWidth < 600){
+  //       setmobView(true);
+  //     }
+  //     else{
+  //       setmobView(false);
+  //     }
+  //   }
+    
+  //   window.addEventListener("resize", handleWindowSize);
+
+  //   // Return a function from the effect that removes the event listener
+  //   return () => window.removeEventListener("resize", handleWindowSize);
+  // }, []);
+
+  // useEffect(() => {
+  //   const handleWindowSize = () => {
+  //     if(window.innerWidth < 600){
+  //       setmobView(true);
+  //     }
+  //     else{
+  //       setmobView(false);
+  //     }
+  //   }
+    
+  //   window.addEventListener("load", handleWindowSize);
+
+  //   // Return a function from the effect that removes the event listener
+  //   return () => window.removeEventListener("load", handleWindowSize);
+  // }, []);
+
+  return(
   <FullScreenSection
     justifyContent="center"
     alignItems="center"
     id="home-section"
   >
-    <Particle />
+    {/* {!mobView && */}
     <HStack style={{marginLeft:"10%"}}
     >
      {/* <Avatar name='Siddharth' src='' size="2xl" /> */}
@@ -30,13 +67,15 @@ const LandingSection = () => (
         <strong className="main-name">    Siddharth Kalyani</strong>
       </h1>
 
-      <div style={{fontSize:'1em',marginLeft: '6%'}}>
+      <div className="typewrite">
         <Type />
       </div>
       </VStack>
      </HStack>
+{/* } */}
   </FullScreenSection>
-
+  );
+};
   // Changes here
   // <section>
   // <Container fluid className="home-section" id="home">
@@ -80,7 +119,5 @@ const LandingSection = () => (
   //       </Container>
   //     </Container>
   //   </section>
-
-);
 
 export default LandingSection;
