@@ -93,7 +93,7 @@ button:focus {
 .navbar {
   position: fixed !important;
   transition: all 0.3s ease-out 0s !important;
-  padding: 0.3rem 2rem !important;
+  padding: 0 !important;
   background-color: transparent !important;
   font-size: 1.2rem !important;
 }
@@ -141,6 +141,10 @@ button:focus {
   background-color: transparent !important;
 }
 
+.navLink{
+  /* margin: 0 5% !important; */
+}
+
 /* .navbar-toggler:not(.collapsed) span:nth-child(3) {
   position: absolute !important;
   left: 12px !important;
@@ -149,17 +153,40 @@ button:focus {
   opacity: 0.9 !important;
 } */
 
-@media (max-width: 829px){
+@media (max-width: 829px) and (min-width:402px) {
   .navbar {
     position: absolute !important;
     padding: 5% !important;
     font-size: 1em !important;
-    
+
   }
 
   .sticky {
     padding: 2% 2%;
     font-size: 0.8em;
+    
+  }
+
+  .mobileNav{
+    margin-left: 0 auto !important;
+  }
+
+  /* .navbar-nav .nav-item a::after {
+    display: none !important;
+  } */
+}
+
+@media (max-width:402px) {
+  .navbar {
+    position: absolute !important;
+    padding: 5% !important;
+    font-size: 3.5vw !important;
+
+  }
+
+  .sticky {
+    padding: 2% 2%;
+    font-size: 3vw;
     
   }
 
@@ -170,6 +197,7 @@ button:focus {
     display: none !important;
   } */
 }
+
 .navbar-brand {
   color: rgb(250, 250, 250) !important;
 }
@@ -454,9 +482,20 @@ button:focus {
     padding-top: 2em !important;
     padding-bottom: 2em !important;
   }
+}
 
+@media (max-width:850px) and (min-width:701px) {
+  .aboutCard{
+    font-size: 2.5vw !important;
+    padding: 0 2% !important;
+  }
+}
 
-
+@media (max-widht:700px) {
+  .aboutCard{
+    font-size: 4vw !important;
+    padding: 0 10% !important;
+  }
 }
 
 .home-about-section {
@@ -823,9 +862,14 @@ button:focus {
   padding-left: 4% !important;
 }
 
+.about-img {
+  margin-left: 20% !important;
+}
+
 @media (max-width: 767px) {
   .about-img {
     padding-top: 0 !important;
+    margin-left: 10% !important;
   }
 }
 /* --------- */

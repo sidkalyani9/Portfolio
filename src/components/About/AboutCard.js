@@ -7,11 +7,11 @@ function AboutCard() {
     <Card className="quote-card-view">
       <Card.Body>
         <blockquote className="blockquote mb-0">
-          <p style={{ textAlign: "justify" }}>
+          <p style={{ textAlign: "justify" }} className={"aboutCard"}>
             Hi Everyone, I am <span className="purple">Siddharth Kalyani </span>
-            from <span className="purple"> Ahemdabad, India.</span>
-            <br />I am a junior pursuing <span className="purple">B.Tech</span> in<span className="purple"> Information technology </span>  from 
-            <br />Vishwakarma Government Engineering College, Chandkheda
+            from <span className="purple"> Ahemdabad, India. </span>
+            <span>I am a junior pursuing</span><span className="purple"> B.Tech</span> in<span className="purple"> Information technology </span> from 
+            Vishwakarma Government Engineering College, Chandkheda
             <br></br>
             <br />
             Apart from coding, some other activities that I love to do!

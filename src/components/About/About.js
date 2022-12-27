@@ -16,7 +16,7 @@ function About() {
     id="about-section"
   >
       <Particle />
-        <HStack style={{ justifyContent: "center", padding: "10px", textAlign:"center" , width:"100%"}}>
+        <HStack style={{ justifyContent: "center", padding: "5%", textAlign:"center" , width:"100%"}}>
           <VStack
             style={{
               justifyContent: "center",

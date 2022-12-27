@@ -105,11 +105,8 @@ const Header = () => {
         setTranslateVal("translateY(0px)");
       }
     }
-  
-    window.addEventListener('scroll', handleScroll)
-  
-    
 
+    window.addEventListener('scroll', handleScroll)
     // return () => window.removeEventListener('scroll', handleScroll)
 
   return (
@@ -128,24 +125,33 @@ const Header = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          {showLink && <nav>
+          {showLink && <><nav>
             <HStack className="left-nav" spacing={8}>
-            <a href="https://youtube.com/@techybuffoon"><FontAwesomeIcon icon={faYoutube} size="1x" /></a>
-             <a href={socials[0].url}><FontAwesomeIcon icon={socials[0].icon} size="1x" /></a> 
-            <a href={socials[1].url}><FontAwesomeIcon icon={socials[1].icon} size="1x" /></a>
-            <a href={socials[2].url}><FontAwesomeIcon icon={socials[2].icon} size="1x" /></a>
-            <a href={socials[3].url}><FontAwesomeIcon icon={socials[3].icon} size="1x" /></a>
-            <a href={socials[4].url}><FontAwesomeIcon icon={socials[4].icon} size="1x" /></a>
+              <a href="https://youtube.com/@techybuffoon"><FontAwesomeIcon icon={faYoutube} size="1x" /></a>
+              <a href={socials[0].url}><FontAwesomeIcon icon={socials[0].icon} size="1x" /></a>
+              <a href={socials[1].url}><FontAwesomeIcon icon={socials[1].icon} size="1x" /></a>
+              <a href={socials[2].url}><FontAwesomeIcon icon={socials[2].icon} size="1x" /></a>
+              <a href={socials[3].url}><FontAwesomeIcon icon={socials[3].icon} size="1x" /></a>
+              <a href={socials[4].url}><FontAwesomeIcon icon={socials[4].icon} size="1x" /></a>
+            </HStack>
+          </nav><nav>
+              <HStack spacing={8}>
+                <a href="/#home1" onClick={handleClick("home")} class={"navLink"}>Home</a>
+                <a href="/#about" onClick={handleClick("about")} class={"navLink"}>About Me</a>
+                <a href="/#projects" onClick={handleClick("projects")} class={"navLink"}>Projects</a>
+                <a href="/#contact-me" onClick={handleClick("contactme")} class={"navLink"}>Contact Me</a>
+              </HStack>
+            </nav></>}
+
+            {!showLink && 
+            <nav>
+            <HStack spacing={5} className={"mobileNav"}>
+              <a href="/#home1" onClick={handleClick("home")} class={"navLink"}>Home</a>
+              <a href="/#about" onClick={handleClick("about")} class={"navLink"}>About Me</a>
+              <a href="/#projects" onClick={handleClick("projects")} class={"navLink"}>Projects</a>
+              <a href="/#contact-me" onClick={handleClick("contactme")} class={"navLink"}>Contact Me</a>
             </HStack>
           </nav>}
-          <nav className={"headerRightLinks"}>
-            <HStack spacing={8} >
-              <a href="/#home1" onClick={handleClick("home")}>Home</a>
-              <a href="/#about" onClick={handleClick("about")}>About Me</a>
-              <a href="/#projects" onClick={handleClick("projects")}>Projects</a>
-              <a href="/#contact-me" onClick={handleClick("contactme")}>Contact Me</a>
-            </HStack>
-          </nav>
         </HStack>
       </Box>
     </Box>
