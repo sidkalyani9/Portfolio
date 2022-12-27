@@ -145,11 +145,11 @@ const Header = () => {
             {!showLink && 
             <Center w='100%'>
             <nav>
-            <HStack spacing={5} className={"mobileNav"}>
+            <HStack spacing={10} className={"mobileNav"}>
               <a href="/#home1" onClick={handleClick("home")} class={"navLink"}>Home</a>
               <a href="/#about" onClick={handleClick("about")} class={"navLink"}>About Me</a>
               <a href="/#projects" onClick={handleClick("projects")} class={"navLink"}>Projects</a>
-              <a href="/#contact-me" onClick={handleClick("contactme")} class={"navLink"}>Contact Me</a>
+              {/* <a href="/#contact-me" onClick={handleClick("contactme")} class={"navLink"}>Contact Me</a> */}
             </HStack>
           </nav>
           </Center>

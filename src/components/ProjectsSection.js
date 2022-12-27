@@ -49,7 +49,6 @@ const ProjectsSection = () => {
       <Box
         className="projectBox"
         gridGap={8}
-        
       >
         {projects.map((project) => (
           <Card
