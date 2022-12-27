@@ -19,7 +19,7 @@ import {useAlertContext} from "../context/alertContext";
 
 const LandingSection = () => {
   const {isLoading, response, submit} = useSubmit();
-  const { onOpen } = useAlertContext();
+  const { onOpen,onClose } = useAlertContext();
 
   const formik = useFormik({
     initialValues: {
@@ -41,11 +41,13 @@ const LandingSection = () => {
   useEffect(() => { 
     if (response) { 
       onOpen(response.type, response.message); 
+      
       if (response.type === 'success') { 
-        formik.resetForm(); 
+        // formik.resetForm(); 
       } 
+      
     } 
-},[response]); 
+},[response,onOpen]); 
 
   return (
     <FullScreenSection
