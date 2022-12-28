@@ -6,7 +6,6 @@ function AboutCard() {
   return (
     <Card className="quote-card-view">
       <Card.Body>
-        <blockquote className="blockquote mb-0">
           <p className={"aboutCard"}>
             Hi Everyone, I am <span className="purple">Siddharth Kalyani </span>
             from <span className="purple"> Ahemdabad, India. </span>
@@ -31,7 +30,6 @@ function AboutCard() {
             "Strive to build things that make a difference!"{" "}
           </p>
           <footer className="blockquote-footer">Siddharth K.</footer> */}
-        </blockquote>
       </Card.Body>
     </Card>
   );

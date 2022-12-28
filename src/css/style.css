@@ -524,7 +524,7 @@ button:focus {
   }
 
   .aboutHobbies{
-    font-size: 2.7vw !important;
+    font-size: 3vw !important;
   }
 }
 
@@ -538,7 +538,7 @@ button:focus {
   }
 
   .aboutHobbies{
-    font-size: 2vw !important;
+    font-size: 4vw !important;
   }
 }
 
@@ -911,7 +911,7 @@ button:focus {
   color: white !important;
   background-color: transparent !important;
   font-size: 1.3em;
-  text-align: center;
+  text-align: justify;
 }
 
 .about-activity {
