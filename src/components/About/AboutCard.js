@@ -1,8 +1,6 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
-import { ImPointRight } from "react-icons/im";
 import {AiFillCaretRight} from "react-icons/ai";
-import { MDBIcon } from "mdb-react-ui-kit";
 
 function AboutCard() {
   return (
