@@ -110,7 +110,7 @@ const Header = () => {
     // return () => window.removeEventListener('scroll', handleScroll)
 
   return (
-      
+      <>
     <Box
       position="fixed"
       top={0}
@@ -159,23 +159,32 @@ const Header = () => {
           </nav>
           </Center>
           </MediaQuery>
-          {/* {!showLink && 
-          <Center w='100%'>
-            <nav>
-            <HStack className="left-nav-mobile" spacing={8}>
-              <a href={socials[0].url}><FontAwesomeIcon icon={socials[0].icon} size="xl"/></a>
-              <a href="https://youtube.com/@techybuffoon"><FontAwesomeIcon icon={faYoutube} size="xl" /></a>
-              <a href={socials[1].url}><FontAwesomeIcon icon={socials[1].icon} size="xl" /></a>
-              <a href={socials[2].url}><FontAwesomeIcon icon={socials[2].icon} size="xl" /></a>
-              <a href={socials[3].url}><FontAwesomeIcon icon={socials[3].icon} size="xl" /></a>
-              <a href={socials[4].url}><SiLeetcode size={"25"}/> </a>
-            </HStack>
-          </nav>
-          </Center>
-          } */}
         </HStack>
       </Box>
     </Box>
+    <MediaQuery maxWidth={829}>
+    <Box
+    position="fixed"
+    bottom={0}
+    className={classN?"stickyB":"stickyB2"}
+    color="white"
+    width="100%"
+    >
+      <Center>
+      <nav>
+            <HStack className="left-nav" spacing={8}>
+              <a href={socials[0].url}><FontAwesomeIcon icon={socials[0].icon} size="lg" /></a>
+              <a href="https://youtube.com/@techybuffoon"><FontAwesomeIcon icon={faYoutube} size="lg" /></a>
+              <a href={socials[1].url}><FontAwesomeIcon icon={socials[1].icon} size="lg" /></a>
+              <a href={socials[2].url}><FontAwesomeIcon icon={socials[2].icon} size="lg" /></a>
+              <a href={socials[3].url}><FontAwesomeIcon icon={socials[3].icon} size="lg" /></a>
+              <a href={socials[4].url}><SiLeetcode size={"20"}/> </a>
+            </HStack>
+          </nav>
+          </Center>
+    </Box>
+    </MediaQuery>
+    </>
   );
 };
 export default Header;

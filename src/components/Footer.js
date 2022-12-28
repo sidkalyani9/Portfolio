@@ -9,6 +9,7 @@ import {
 import { SiLeetcode } from "react-icons/si";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope} from "@fortawesome/free-solid-svg-icons";
+import MediaQuery from "react-responsive";
 
 const socials = [
   {
@@ -37,7 +38,7 @@ const Footer = () => {
   return (
     <Box className="mainSection2">
       <footer>
-
+      <MediaQuery minWidth={830}>
       <Flex
           margin="0% auto"
           padding={"1rem 0 0 0"}
@@ -59,7 +60,8 @@ const Footer = () => {
           maxWidth="1024px"
           height={14}
         >
-          <HStack className="left-nav" spacing={8}>
+          <MediaQuery maxWidth={1000}>
+          <HStack className="left-nav" spacing={"5vw"}>
               <a href={socials[0].url}><FontAwesomeIcon icon={socials[0].icon} size="xl" /></a>
               <a href="https://youtube.com/@techybuffoon"><FontAwesomeIcon icon={faYoutube} size="xl" /></a>
               <a href={socials[1].url}><FontAwesomeIcon icon={socials[1].icon} size="xl" /></a>
@@ -67,21 +69,49 @@ const Footer = () => {
               <a href={socials[3].url}><FontAwesomeIcon icon={socials[3].icon} size="xl" /></a>
               <a href={socials[4].url}><SiLeetcode size={"23"} /> </a>
             </HStack>
+            </MediaQuery>
+            <MediaQuery minWidth={1001}>
+          <HStack className="left-nav" spacing={"2vw"}>
+              <a href={socials[0].url}><FontAwesomeIcon icon={socials[0].icon} size="xl" /></a>
+              <a href="https://youtube.com/@techybuffoon"><FontAwesomeIcon icon={faYoutube} size="xl" /></a>
+              <a href={socials[1].url}><FontAwesomeIcon icon={socials[1].icon} size="xl" /></a>
+              <a href={socials[2].url}><FontAwesomeIcon icon={socials[2].icon} size="xl" /></a>
+              <a href={socials[3].url}><FontAwesomeIcon icon={socials[3].icon} size="xl" /></a>
+              <a href={socials[4].url}><SiLeetcode size={"23"} /> </a>
+            </HStack>
+            </MediaQuery>
         </Flex>
-
+        <hr className={"footerLine"}/>
         <Flex
           margin="0% auto"
-          paddingTop="2%"
+          paddingTop={"2%"}
           px={12}
           color="white"
           justifyContent="center"
           alignItems="center"
           maxWidth="1024px"
-          height={10}
+          height={12}
+          paddingBottom="2%"
         >
           {/* <p>Siddharth Kalyani AKA TechyBuffoon • © 2022</p> */}
           <p>Siddharth K. • © 2022</p>
         </Flex>
+        </MediaQuery>
+        <MediaQuery maxWidth={829}>
+        <Flex
+          margin="0% auto"
+          paddingTop={"5%"}
+          px={12}
+          color="white"
+          justifyContent="center"
+          alignItems="center"
+          maxWidth="1024px"
+          height={12}
+          paddingBottom="20%"
+        >
+          <p>Siddharth K. • © 2022</p>
+        </Flex>
+        </MediaQuery>
 
       </footer>
     </Box>

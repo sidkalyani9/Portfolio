@@ -87,17 +87,35 @@ button:focus {
   transition: all 0.2s ease-in-out 0s !important;
   box-shadow: 0px 10px 10px 0px rgba(9, 5, 29, 0.171) !important;
   backdrop-filter: blur(15px) !important;
-  padding: 0.5% 2% !important;
+  padding: 0% 2% !important;
+  z-index: 1;
+}
+
+.stickyB {
+  background-color: #1b1a2ea9 !important;
+  transition: all 0.2s ease-in-out 0s !important;
+  box-shadow: 0px 10px 10px 0px rgba(9, 5, 29, 0.171) !important;
+  backdrop-filter: blur(15px) !important;
+  padding: 3% 2% !important;
+  z-index: 1;
+}
+
+.stickyB2 {
+  background-color: transparent !important;
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out 0s !important;
+  box-shadow: 0px 10px 10px 0px rgba(9, 5, 29, 0.171) !important;
+  padding: 5% 2% !important;
   z-index: 1;
 }
 
 .navbar {
   position: fixed !important;
   transition: all 0.2s ease-in-out 0s !important;
-  padding: 0.8rem 2rem !important;
+  padding: 0.6rem 2rem !important;
   background-color: transparent !important;
-  font-size: 1.2rem !important;
 }
+
 /* 
 .navbar-toggler {
   position: relative !important;
@@ -178,12 +196,12 @@ button:focus {
 @media (max-width:402px) {
   .navbar {
     position: absolute !important;
-    padding: 5% !important;
+    padding:2% 5% !important;
     font-size: 4.5vw !important;
   }
 
   .sticky {
-    padding: 1.5% 4% !important;
+    padding: 0% 4% !important;
     font-size: 4vw;
     
   }
@@ -470,7 +488,7 @@ button:focus {
   }
 }
 
-.aboutCard{
+.Card{
   text-align: justify;
 }
 
@@ -520,7 +538,7 @@ button:focus {
   }
 
   .aboutHobbies{
-    font-size: 1vw !important;
+    font-size: 2vw !important;
   }
 }
 
@@ -1058,6 +1076,14 @@ button:focus {
 
 .contactForm {
   width:65%;
+}
+
+.footerLine{
+  margin: 0 auto;
+  max-width: 80% !important;
+  margin: 1% 10% 0 10%;
+  /* border:1px solid; */
+  border-image:linear-gradient(#c770f0, transparent) 1;
 }
 
 @media (max-width:1000px) and (min-width:768px) {
