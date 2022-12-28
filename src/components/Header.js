@@ -120,8 +120,8 @@ const Header = () => {
     >
       <Box color="white" maxWidth="1920px" margin="0 auto">
         <HStack
-          // px={showLink?21:0}
-          // py={showLink?4:0}
+          px={21}
+          py={4}
           justifyContent="space-between"
           alignItems="center"
         >

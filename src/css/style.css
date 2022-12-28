@@ -20,7 +20,7 @@ html {
 
   --imp-text-color: #c770f0;
 }
-
+ 
 .purple {
   color: var(--imp-text-color) !important;
 }
@@ -84,20 +84,21 @@ button:focus {
 /* --------- */
 .sticky {
   background-color: #1b1a2ea9 !important;
-  transition: all 0.3s ease-out 0s !important;
+  transition: all 0.2s ease-in-out 0s !important;
   box-shadow: 0px 10px 10px 0px rgba(9, 5, 29, 0.171) !important;
   backdrop-filter: blur(15px) !important;
+  padding: 0.5% 2% !important;
   z-index: 1;
 }
 
 .navbar {
   position: fixed !important;
-  transition: all 0.3s ease-out 0s !important;
+  transition: all 0.2s ease-in-out 0s !important;
   padding: 0.8rem 2rem !important;
   background-color: transparent !important;
   font-size: 1.2rem !important;
 }
-
+/* 
 .navbar-toggler {
   position: relative !important;
   background-color: transparent !important;
@@ -139,7 +140,7 @@ button:focus {
   height: 12px !important;
   visibility: hidden !important;
   background-color: transparent !important;
-}
+} */
 /* 
 .navLink{
   background-color:#68187a;
@@ -158,14 +159,14 @@ button:focus {
 @media (max-width: 829px) and (min-width:402px) {
   .navbar {
     position: absolute !important;
-    padding: 5% !important;
+    padding: 3% 5%!important;
     font-size: 1.2em !important;
 
   }
 
   .sticky {
-    padding: 3% !important;
-    font-size: 1.2em !important;
+    padding: 2% 3% !important;
+    font-size: 1.1em !important;
     
   }
 
