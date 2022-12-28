@@ -1,13 +1,15 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 import { ImPointRight } from "react-icons/im";
+import {AiFillCaretRight} from "react-icons/ai";
+import { MDBIcon } from "mdb-react-ui-kit";
 
 function AboutCard() {
   return (
     <Card className="quote-card-view">
       <Card.Body>
         <blockquote className="blockquote mb-0">
-          <p style={{ textAlign: "justify" }} className={"aboutCard"}>
+          <p className={"aboutCard"}>
             Hi Everyone, I am <span className="purple">Siddharth Kalyani </span>
             from <span className="purple"> Ahemdabad, India. </span>
             <span>I am a junior pursuing</span><span className="purple"> B.Tech</span> in<span className="purple"> Information technology</span> from Vishwakarma Government Engineering College, Chandkheda
@@ -17,13 +19,13 @@ function AboutCard() {
           </p>
           <ul>
             <li className="about-activity">
-              <ImPointRight style={{display:"inline-block"}}/> Gymnasium
+               <AiFillCaretRight className={"aboutHobbies"} /> Gymnasium
             </li>
             <li className="about-activity">
-              <ImPointRight style={{display:"inline-block"}}/> Watching Formula 1
+            <AiFillCaretRight className={"aboutHobbies"} /> Watching Formula 1
             </li>
             <li className="about-activity">
-              <ImPointRight style={{display:"inline-block"}}/> Travelling
+            <AiFillCaretRight className={"aboutHobbies"}/> Travelling
             </li>
           </ul>
 

@@ -170,10 +170,6 @@ button:focus {
     
   }
 
-  .mobileNav{
-    margin-left: 0 auto !important;
-  }
-
   /* .navbar-nav .nav-item a::after {
     display: none !important;
   } */
@@ -187,7 +183,7 @@ button:focus {
   }
 
   .sticky {
-    padding: 4% !important;
+    padding: 1.5% 4% !important;
     font-size: 4vw;
     
   }
@@ -422,7 +418,7 @@ button:focus {
   }
   .imgLand{
     margin:0% auto;
-    margin-top: 17%;
+    margin-top: 17% !important;
     width: 65% !important;
   }
 }
@@ -468,10 +464,14 @@ button:focus {
   }
 
   .imgLand{
-    margin-top:25% !important;
+    margin-top:21% !important;
     width:75% !important;
     margin:0 auto;
   }
+}
+
+.aboutCard{
+  text-align: justify;
 }
 
 .myAvtar {
@@ -487,16 +487,40 @@ button:focus {
 }
 
 @media (max-width:850px) and (min-width:701px) {
-  .aboutCard{
+  .about-activity{
     font-size: 2.5vw !important;
-    padding: 0 2% !important;
   }
 }
 
-@media (max-widht:700px) {
+.aboutHobbies{
+  display: inline-block;
+}
+
+@media (max-width:700px) and (min-width:450) {
   .aboutCard{
-    font-size: 4vw !important;
-    padding: 0 10% !important;
+    font-size: 3vw !important;
+  }
+
+  .about-activity{
+    font-size: 3vw !important;
+  }
+
+  .aboutHobbies{
+    font-size: 2.7vw !important;
+  }
+}
+
+@media (max-width:449px) {
+  .aboutCard{
+    font-size: 5vw !important;
+  }
+
+  .about-activity{
+    font-size: 5vw !important;
+  }
+
+  .aboutHobbies{
+    font-size: 1vw !important;
   }
 }
 
