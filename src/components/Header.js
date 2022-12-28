@@ -172,12 +172,12 @@ const Header = () => {
     >
       <Center>
       <nav>
-            <HStack className="left-nav" spacing={8}>
+            <HStack className="left-nav" spacing={"12vw"}>
               <a href={socials[0].url}><FontAwesomeIcon icon={socials[0].icon} size="lg" /></a>
               <a href="https://youtube.com/@techybuffoon"><FontAwesomeIcon icon={faYoutube} size="lg" /></a>
               <a href={socials[1].url}><FontAwesomeIcon icon={socials[1].icon} size="lg" /></a>
               <a href={socials[2].url}><FontAwesomeIcon icon={socials[2].icon} size="lg" /></a>
-              <a href={socials[3].url}><FontAwesomeIcon icon={socials[3].icon} size="lg" /></a>
+              {/* <a href={socials[3].url}><FontAwesomeIcon icon={socials[3].icon} size="lg" /></a> */}
               <a href={socials[4].url}><SiLeetcode size={"20"}/> </a>
             </HStack>
           </nav>

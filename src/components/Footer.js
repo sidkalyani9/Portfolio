@@ -71,7 +71,7 @@ const Footer = () => {
             </HStack>
             </MediaQuery>
             <MediaQuery minWidth={1001}>
-          <HStack className="left-nav" spacing={"2vw"}>
+          <HStack className="left-nav" spacing={"10"}>
               <a href={socials[0].url}><FontAwesomeIcon icon={socials[0].icon} size="xl" /></a>
               <a href="https://youtube.com/@techybuffoon"><FontAwesomeIcon icon={faYoutube} size="xl" /></a>
               <a href={socials[1].url}><FontAwesomeIcon icon={socials[1].icon} size="xl" /></a>
