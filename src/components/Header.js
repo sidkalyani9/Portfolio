@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope} from "@fortawesome/free-solid-svg-icons";
 import { Center } from "@chakra-ui/react";
@@ -12,6 +12,7 @@ import { SiLeetcode } from "react-icons/si";
 import { Box, HStack } from "@chakra-ui/react";
 import '../css/header.css';
 import '../css/style.css';
+import MediaQuery from "react-responsive";
 
 const socials = [
   {
@@ -43,7 +44,7 @@ const Header = () => {
   // const[scrollVal,setScrollVal] = useState(0);
   // const [expand, updateExpanded] = useState(false);
   const[classN,setClass] = useState(false);
-  const[showLink,setShowLink] = useState(true);
+  // const[showLink,setShowLink] = useState(true);
 
   const handleClick = (anchor) => () => {
     const id = `${anchor}-section`;
@@ -56,33 +57,33 @@ const Header = () => {
     }
   };
 
-  useEffect(() => {
-    const handleWindowSize = () => {
-      if(window.innerWidth > 829){
-        setShowLink(true);
-      }
-      else{
-        setShowLink(false);
-      }
-    }
+  // useEffect(() => {
+  //   const handleWindowSize = () => {
+  //     if(window.innerWidth > 829){
+  //       setShowLink(true);
+  //     }
+  //     else{
+  //       setShowLink(false);
+  //     }
+  //   }
     
-    window.addEventListener("resize", handleWindowSize);
-    return () => window.removeEventListener("resize", handleWindowSize);
-  }, []);
+  //   window.addEventListener("resize", handleWindowSize);
+  //   return () => window.removeEventListener("resize", handleWindowSize);
+  // }, []);
 
-  useEffect(() => {
-    const handleWindowSize = () => {
-      if(window.innerWidth > 829){
-        setShowLink(true);
-      }
-      else{
-        setShowLink(false);
-      }
-    }
-    
-    window.addEventListener("load", handleWindowSize);
-    return () => window.removeEventListener("load", handleWindowSize);
-  }, []);
+  // useEffect(() => {
+  //   const handleWindowSize = () => {
+  //     if(window.innerWidth > 829){
+  //       setShowLink(true);
+  //     }
+  //     else{
+  //       setShowLink(false);
+  //     }
+  //   }
+    //
+  //   window.addEventListener("load", handleWindowSize);
+  //   return () => window.removeEventListener("load", handleWindowSize);
+  // }, []);
 
     const handleScroll = () => {
     
@@ -119,12 +120,14 @@ const Header = () => {
     >
       <Box color="white" maxWidth="1920px" margin="0 auto">
         <HStack
-          px={showLink?21:0}
-          py={showLink?4:0}
+          // px={showLink?21:0}
+          // py={showLink?4:0}
           justifyContent="space-between"
           alignItems="center"
         >
-          {showLink && <><nav>
+          
+          <MediaQuery minWidth={830}>
+          <nav>
             <HStack className="left-nav" spacing={8}>
               <a href={socials[0].url}><FontAwesomeIcon icon={socials[0].icon} size="1x" /></a>
               <a href="https://youtube.com/@techybuffoon"><FontAwesomeIcon icon={faYoutube} size="1x" /></a>
@@ -133,16 +136,18 @@ const Header = () => {
               <a href={socials[3].url}><FontAwesomeIcon icon={socials[3].icon} size="1x" /></a>
               <a href={socials[4].url}><SiLeetcode /> </a>
             </HStack>
-          </nav><nav>
+          </nav>
+          <nav>
               <HStack spacing={8}>
                 <a href="/#home1" onClick={handleClick("home")} class={"navLink"}>Home</a>
                 <a href="/#about" onClick={handleClick("about")} class={"navLink"}>About Me</a>
                 <a href="/#projects" onClick={handleClick("projects")} class={"navLink"}>Projects</a>
                 {/* <a href="/#contact-me" onClick={handleClick("contactme")} class={"navLink"}>Contact Me</a> */}
               </HStack>
-            </nav></>}
+            </nav>
+            </MediaQuery>
 
-            {!showLink && 
+            <MediaQuery maxWidth={829}>
             <Center w='100%'>
             <nav>
             <HStack spacing={12} className={"mobileNav"}>
@@ -153,7 +158,7 @@ const Header = () => {
             </HStack>
           </nav>
           </Center>
-          }
+          </MediaQuery>
           {/* {!showLink && 
           <Center w='100%'>
             <nav>
