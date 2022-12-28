@@ -24,10 +24,11 @@ function App() {
   }, []);
 
   return (
-      
+    <>
+      <Preloader load={load} />
       <ChakraProvider>
       <AlertProvider>
-      <Preloader load={load} />
+      
         <main>
           <Header />
           <LandingSection />
@@ -39,6 +40,7 @@ function App() {
         </main>
       </AlertProvider>
     </ChakraProvider>
+    </>
   );
 }
 
