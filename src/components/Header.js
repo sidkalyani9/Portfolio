@@ -38,13 +38,7 @@ const socials = [
 ];
 
 const Header = () => {
-
-  // const[isHidden,setHidden] = useState(false);
-  // const[translateVal,setTranslateVal] = useState("translateY(0px)");
-  // const[scrollVal,setScrollVal] = useState(0);
-  // const [expand, updateExpanded] = useState(false);
   const[classN,setClass] = useState(false);
-  // const[showLink,setShowLink] = useState(true);
 
   const handleClick = (anchor) => () => {
     const id = `${anchor}-section`;
@@ -57,34 +51,6 @@ const Header = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const handleWindowSize = () => {
-  //     if(window.innerWidth > 829){
-  //       setShowLink(true);
-  //     }
-  //     else{
-  //       setShowLink(false);
-  //     }
-  //   }
-    
-  //   window.addEventListener("resize", handleWindowSize);
-  //   return () => window.removeEventListener("resize", handleWindowSize);
-  // }, []);
-
-  // useEffect(() => {
-  //   const handleWindowSize = () => {
-  //     if(window.innerWidth > 829){
-  //       setShowLink(true);
-  //     }
-  //     else{
-  //       setShowLink(false);
-  //     }
-  //   }
-    //
-  //   window.addEventListener("load", handleWindowSize);
-  //   return () => window.removeEventListener("load", handleWindowSize);
-  // }, []);
-
     const handleScroll = () => {
     
 
@@ -94,20 +60,9 @@ const Header = () => {
       else{
         setClass(true);
       }
-  
-      // setScrollVal(window.scrollY);
-  
-      // if(isHidden){
-
-      //   setTranslateVal("translateY(-200px)");
-      // }
-      // else{
-      //   setTranslateVal("translateY(0px)");
-      // }
     }
 
     window.addEventListener('scroll', handleScroll)
-    // return () => window.removeEventListener('scroll', handleScroll)
 
   return (
       <>
@@ -129,12 +84,12 @@ const Header = () => {
           <MediaQuery minWidth={830}>
           <nav>
             <HStack className="left-nav" spacing={8}>
-              <a href={socials[0].url} aria-label="Email" target="_blank"><FontAwesomeIcon icon={socials[0].icon} size="lg" /></a>
-              <a href="https://youtube.com/@techybuffoon" aria-label="Youtube" target="_blank"><FontAwesomeIcon icon={faYoutube} size="lg" /></a>
-              <a href={socials[1].url} aria-label="Git Hub" target="_blank"><FontAwesomeIcon icon={socials[1].icon} size="lg" /></a>
-              <a href={socials[2].url} aria-label="LinkedIn" target="_blank"><FontAwesomeIcon icon={socials[2].icon} size="lg" /></a>
-              <a href={socials[3].url} aria-label="Twitter" target="_blank"><FontAwesomeIcon icon={socials[3].icon} size="lg" /></a>
-              <a href={socials[4].url} aria-label="Leet Code" target="_blank"><SiLeetcode size={"20"}/> </a>
+              <a href={socials[0].url} aria-label="Email" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[0].icon} size="lg" /></a>
+              <a href="https://youtube.com/@techybuffoon" aria-label="Youtube" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={faYoutube} size="lg" /></a>
+              <a href={socials[1].url} aria-label="Git Hub" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[1].icon} size="lg" /></a>
+              <a href={socials[2].url} aria-label="LinkedIn" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[2].icon} size="lg" /></a>
+              <a href={socials[3].url} aria-label="Twitter" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[3].icon} size="lg" /></a>
+              <a href={socials[4].url} aria-label="Leet Code" target="_blank" rel="noreferrer" ><SiLeetcode size={"20"}/> </a>
             </HStack>
           </nav>
           <nav>
@@ -173,12 +128,12 @@ const Header = () => {
       <Center>
       <nav>
             <HStack className="left-nav" spacing={"12vw"}>
-              <a href={socials[0].url} aria-label="Email" target="_blank"><FontAwesomeIcon icon={socials[0].icon} size="lg"/></a>
-              <a href="https://youtube.com/@techybuffoon" aria-label="Youtube" target="_blank"><FontAwesomeIcon icon={faYoutube} size="lg" /></a>
-              <a href={socials[1].url} aria-label="Github" target="_blank"><FontAwesomeIcon icon={socials[1].icon} size="lg" /></a>
-              <a href={socials[2].url} aria-label="LinkedIn" target="_blank"><FontAwesomeIcon icon={socials[2].icon} size="lg" /></a>
+              <a href={socials[0].url} aria-label="Email" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[0].icon} size="lg"/></a>
+              <a href="https://youtube.com/@techybuffoon" aria-label="Youtube" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={faYoutube} size="lg" /></a>
+              <a href={socials[1].url} aria-label="Github" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[1].icon} size="lg" /></a>
+              <a href={socials[2].url} aria-label="LinkedIn" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[2].icon} size="lg" /></a>
               {/* <a href={socials[3].url}><FontAwesomeIcon icon={socials[3].icon} size="lg" /></a> */}
-              <a href={socials[4].url} aria-label="Leet Code" target="_blank"><SiLeetcode size={"20"}/> </a>
+              <a href={socials[4].url} aria-label="Leet Code" target="_blank" rel="noreferrer" ><SiLeetcode size={"20"}/> </a>
             </HStack>
           </nav>
           </Center>

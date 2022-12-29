@@ -18,7 +18,7 @@ import {HStack, VStack} from "@chakra-ui/react";
 
 function Techstack() {
   return (
-    <HStack style={{ justifyContent: "center", paddingBottom: "50px", width:"90%", display:"flex", flexWrap:"wrap"}}>
+    <HStack style={{ justifyContent: "center", paddingBottom: "50px", width:"100%", display:"flex", flexWrap:"wrap"}}>
       
       <AnimationOnScroll animateIn="animate__fadeInUp" duration="1" animateOnce={true}>
       <VStack className={"tech-stack-flex"}>

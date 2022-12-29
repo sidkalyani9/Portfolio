@@ -62,22 +62,22 @@ const Footer = () => {
         >
           <MediaQuery maxWidth={1000}>
           <HStack className="left-nav" spacing={"5vw"}>
-              <a href={socials[0].url} target="_blank" aria-label="Email"><FontAwesomeIcon icon={socials[0].icon} size="xl" /></a>
-              <a href="https://youtube.com/@techybuffoon" aria-label="YouTube"><FontAwesomeIcon icon={faYoutube} size="xl" /></a>
-              <a href={socials[1].url} target="_blank" aria-label="Git Hub"><FontAwesomeIcon icon={socials[1].icon} size="xl" /></a>
-              <a href={socials[2].url} target="_blank" aria-label="LinkedIn"><FontAwesomeIcon icon={socials[2].icon} size="xl" /></a>
-              <a href={socials[3].url} target="_blank" aria-label="Twitter"><FontAwesomeIcon icon={socials[3].icon} size="xl" /></a>
-              <a href={socials[4].url} target="_blank" aria-label="Leet Code"><SiLeetcode size={"23"} /> </a>
+              <a href={socials[0].url} target="_blank" aria-label="Email" rel="noreferrer" ><FontAwesomeIcon icon={socials[0].icon} size="xl" /></a>
+              <a href="https://youtube.com/@techybuffoon" aria-label="YouTube" rel="noreferrer" ><FontAwesomeIcon icon={faYoutube} size="xl" /></a>
+              <a href={socials[1].url} target="_blank" aria-label="Git Hub" rel="noreferrer" ><FontAwesomeIcon icon={socials[1].icon} size="xl" /></a>
+              <a href={socials[2].url} target="_blank" aria-label="LinkedIn" rel="noreferrer" ><FontAwesomeIcon icon={socials[2].icon} size="xl" /></a>
+              <a href={socials[3].url} target="_blank" aria-label="Twitter" rel="noreferrer" ><FontAwesomeIcon icon={socials[3].icon} size="xl" /></a>
+              <a href={socials[4].url} target="_blank" aria-label="Leet Code" rel="noreferrer" ><SiLeetcode size={"23"} /> </a>
             </HStack>
             </MediaQuery>
             <MediaQuery minWidth={1001}>
           <HStack className="left-nav" spacing={"10"}>
-              <a href={socials[0].url} target="_blank" aria-label="Email"><FontAwesomeIcon icon={socials[0].icon} size="xl" /></a>
-              <a href="https://youtube.com/@techybuffoon" target="_blank" aria-label="YouTube"><FontAwesomeIcon icon={faYoutube} size="xl" /></a>
-              <a href={socials[1].url} target="_blank" aria-label="Git Hub"><FontAwesomeIcon icon={socials[1].icon} size="xl" /></a>
-              <a href={socials[2].url} target="_blank" aria-label="LinkedIn"><FontAwesomeIcon icon={socials[2].icon} size="xl" /></a>
-              <a href={socials[3].url} target="_blank" aria-label="Twitter"><FontAwesomeIcon icon={socials[3].icon} size="xl" /></a>
-              <a href={socials[4].url} target="_blank" aria-label="LeetCode"><SiLeetcode size={"23"} /> </a>
+              <a href={socials[0].url} target="_blank" aria-label="Email" rel="noreferrer" ><FontAwesomeIcon icon={socials[0].icon} size="xl" /></a>
+              <a href="https://youtube.com/@techybuffoon" target="_blank" aria-label="YouTube" rel="noreferrer" ><FontAwesomeIcon icon={faYoutube} size="xl" /></a>
+              <a href={socials[1].url} target="_blank" aria-label="Git Hub" rel="noreferrer" ><FontAwesomeIcon icon={socials[1].icon} size="xl" /></a>
+              <a href={socials[2].url} target="_blank" aria-label="LinkedIn" rel="noreferrer" ><FontAwesomeIcon icon={socials[2].icon} size="xl" /></a>
+              <a href={socials[3].url} target="_blank" aria-label="Twitter" rel="noreferrer" ><FontAwesomeIcon icon={socials[3].icon} size="xl" /></a>
+              <a href={socials[4].url} target="_blank" aria-label="LeetCode" rel="noreferrer" ><SiLeetcode size={"23"} /> </a>
             </HStack>
             </MediaQuery>
         </Flex>

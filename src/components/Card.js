@@ -25,7 +25,7 @@ const CardB = ({ title, description, imageSrc,ghLink }) => {
           <Image borderTopRadius="4%" className="banner" src={imageSrc} alt="Project screenshot banner image"></Image>
           <Heading pl={5} size="md" className="purple">{title}</Heading>
           <Text pl={3} size="1xs">{description}</Text>
-          <Button className="ghBtn" variant="primary" href={ghLink} target="_blank">
+          <Button className="ghBtn" variant="primary" href={ghLink} target="_blank" rel="noopener" >
             <HStack
             maxWidth="200px"
             height="10"
