@@ -129,12 +129,12 @@ const Header = () => {
           <MediaQuery minWidth={830}>
           <nav>
             <HStack className="left-nav" spacing={8}>
-              <a href={socials[0].url}><FontAwesomeIcon icon={socials[0].icon} size="1x" /></a>
-              <a href="https://youtube.com/@techybuffoon"><FontAwesomeIcon icon={faYoutube} size="1x" /></a>
-              <a href={socials[1].url}><FontAwesomeIcon icon={socials[1].icon} size="1x" /></a>
-              <a href={socials[2].url}><FontAwesomeIcon icon={socials[2].icon} size="1x" /></a>
-              <a href={socials[3].url}><FontAwesomeIcon icon={socials[3].icon} size="1x" /></a>
-              <a href={socials[4].url}><SiLeetcode /> </a>
+              <a href={socials[0].url}><FontAwesomeIcon icon={socials[0].icon} size="lg" /></a>
+              <a href="https://youtube.com/@techybuffoon"><FontAwesomeIcon icon={faYoutube} size="lg" /></a>
+              <a href={socials[1].url}><FontAwesomeIcon icon={socials[1].icon} size="lg" /></a>
+              <a href={socials[2].url}><FontAwesomeIcon icon={socials[2].icon} size="lg" /></a>
+              <a href={socials[3].url}><FontAwesomeIcon icon={socials[3].icon} size="lg" /></a>
+              <a href={socials[4].url}><SiLeetcode size={"20"}/> </a>
             </HStack>
           </nav>
           <nav>

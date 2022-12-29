@@ -161,7 +161,14 @@ button:focus {
 } */
 
 .navLink{
+  font-size: 1.3em !important;
+}
+
+@media (max-width:750px) {
+  
+.navLink{
   font-size: 4.2vw !important;
+} 
 }
 
 /* .navbar-toggler:not(.collapsed) span:nth-child(3) {
@@ -361,6 +368,21 @@ button:focus {
   background-position: top center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+@media (max-width:600px) {
+  .mainSection{
+    background-position: right !important;
+    background-repeat: no-repeat !important;
+    background-size:cover !important;
+  }
+
+  .mainSection2{
+    background-position: right !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+  }
+  
 }
 
 .mainSection2{
