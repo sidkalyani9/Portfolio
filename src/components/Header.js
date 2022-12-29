@@ -147,7 +147,7 @@ const Header = () => {
             </nav>
             </MediaQuery>
 
-            <MediaQuery maxWidth={829}>
+            <MediaQuery maxWidth={830}>
             <Center w='100%'>
             <nav>
             <HStack spacing={12} className={"mobileNav"}>

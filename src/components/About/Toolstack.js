@@ -12,7 +12,7 @@ import {
 
 function Toolstack() {
   return (
-    <HStack style={{ justifyContent: "center", paddingBottom: "10%", width:"95%", display:"flex", flexWrap:"wrap"}}>
+    <HStack style={{ justifyContent: "center", paddingBottom: "10%", width:"85%", display:"flex", flexWrap:"wrap"}}>
       <VStack className={"tech-stack-flex"}>
         <SiLinux className="tech-icons"/>
         <p>Linux</p>

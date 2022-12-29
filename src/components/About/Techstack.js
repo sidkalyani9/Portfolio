@@ -17,7 +17,7 @@ import {HStack, VStack} from "@chakra-ui/react";
 
 function Techstack() {
   return (
-    <HStack style={{ justifyContent: "center", paddingBottom: "50px", width:"95%", display:"flex", flexWrap:"wrap"}}>
+    <HStack style={{ justifyContent: "center", paddingBottom: "50px", width:"85%", display:"flex", flexWrap:"wrap"}}>
       
       <VStack className={"tech-stack-flex"}>
         <DiJavascript1 className="tech-icons"/>
