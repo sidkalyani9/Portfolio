@@ -344,7 +344,7 @@ button:focus {
 .home-section {
   position: relative;
   /* z-index: -1; */
-  background-image: var(--image-gradient), url(./Assets/home-bg.jpg);
+  background-image: var(--image-gradient), url(./Assets/home-bg.webp);
   background-position: top center;
   background-repeat: no-repeat;
   padding-bottom: 30px !important;
@@ -372,7 +372,7 @@ button:focus {
 }
 
 .mainSection{
-  background-image: var(--image-gradient), url(./Assets/home-bg.jpg);
+  background-image: var(--image-gradient), url(./Assets/home-bg.webp);
   position: relative;
   z-index: 0;
   background-position: top center;
@@ -396,7 +396,7 @@ button:focus {
 }
 
 .mainSection2{
-  background-image: var(--image-gradient2), url(./Assets/home-bg.jpg);
+  background-image: var(--image-gradient2), url(./Assets/home-bg.webp);
   /* background-image: linear-gradient(to left, rgb(27 20 41), rgb(20 15 35)); */
   position: relative;
   z-index: 0;
@@ -852,7 +852,7 @@ button:focus {
   position: relative !important;
   padding-top: 150px !important;
   padding-bottom: 30px !important;
-  background-image: var(--section-background-color),url(./Assets/home-bg.jpg) !important;
+  background-image: var(--section-background-color),url(./Assets/home-bg.webp) !important;
   color: white !important;
 }
 

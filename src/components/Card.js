@@ -22,7 +22,7 @@ const CardB = ({ title, description, imageSrc,ghLink }) => {
           borderRadius="4%"
           marginBottom="10%"
           >
-          <Image borderTopRadius="4%" className="banner" src={imageSrc}></Image>
+          <Image borderTopRadius="4%" className="banner" src={imageSrc} alt="Project screenshot banner image"></Image>
           <Heading pl={5} size="md" className="purple">{title}</Heading>
           <Text pl={3} size="1xs">{description}</Text>
           <Button className="ghBtn" variant="primary" href={ghLink} target="_blank">

@@ -16,7 +16,7 @@ function AboutCard() {
             <br></br>
             <br />
             </AnimationOnScroll>
-            <AnimationOnScroll animateIn="animate__fadeInUp" duration="2" delay="150" animateOnce={true}>
+            <AnimationOnScroll animateIn="animate__fadeInUp" duration="2" animateOnce={true}>
               Apart from coding, some other activities that I love to do!
             </AnimationOnScroll>
           </p>
@@ -25,17 +25,23 @@ function AboutCard() {
           {/* <AnimationOnScroll animateIn="animate__fadeInRight" duration="3" delay="1400" animateOnce={true}> */}
           {/* <AnimationOnScroll animateIn="animate__fadeInUp" duration="3" delay="1400" animateOnce={true}> */}
             <li className="about-activity">
-               <AiFillCaretRight className={"aboutHobbies"} /> Gymnasium
+               <AiFillCaretRight className={"aboutHobbies"} /> Making Youtube Content
             </li>
           </AnimationOnScroll>
 
-            <AnimationOnScroll animateIn="animate__fadeInUp" duration="1" delay="900" animateOnce={true}>
+            <AnimationOnScroll animateIn="animate__fadeInUp"  duration="1" delay="900" animateOnce={true}>
             <li className="about-activity">
-            <AiFillCaretRight className={"aboutHobbies"} /> Watching Formula 1
+            <AiFillCaretRight className={"aboutHobbies"} /> Gymnasium
             </li>
             </AnimationOnScroll>
 
             <AnimationOnScroll animateIn="animate__fadeInUp" duration="1" delay="1300" animateOnce={true}>
+            <li className="about-activity">
+            <AiFillCaretRight className={"aboutHobbies"}/> Watching Formula 1
+            </li>
+            </AnimationOnScroll>
+
+            <AnimationOnScroll animateIn="animate__fadeInUp" duration="1" delay="1700" animateOnce={true}>
             <li className="about-activity">
             <AiFillCaretRight className={"aboutHobbies"}/> Travelling
             </li>

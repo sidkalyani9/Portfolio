@@ -129,12 +129,12 @@ const Header = () => {
           <MediaQuery minWidth={830}>
           <nav>
             <HStack className="left-nav" spacing={8}>
-              <a href={socials[0].url}><FontAwesomeIcon icon={socials[0].icon} size="lg" /></a>
-              <a href="https://youtube.com/@techybuffoon"><FontAwesomeIcon icon={faYoutube} size="lg" /></a>
-              <a href={socials[1].url}><FontAwesomeIcon icon={socials[1].icon} size="lg" /></a>
-              <a href={socials[2].url}><FontAwesomeIcon icon={socials[2].icon} size="lg" /></a>
-              <a href={socials[3].url}><FontAwesomeIcon icon={socials[3].icon} size="lg" /></a>
-              <a href={socials[4].url}><SiLeetcode size={"20"}/> </a>
+              <a href={socials[0].url} aria-label="Email" target="_blank"><FontAwesomeIcon icon={socials[0].icon} size="lg" /></a>
+              <a href="https://youtube.com/@techybuffoon" aria-label="Youtube" target="_blank"><FontAwesomeIcon icon={faYoutube} size="lg" /></a>
+              <a href={socials[1].url} aria-label="Git Hub" target="_blank"><FontAwesomeIcon icon={socials[1].icon} size="lg" /></a>
+              <a href={socials[2].url} aria-label="LinkedIn" target="_blank"><FontAwesomeIcon icon={socials[2].icon} size="lg" /></a>
+              <a href={socials[3].url} aria-label="Twitter" target="_blank"><FontAwesomeIcon icon={socials[3].icon} size="lg" /></a>
+              <a href={socials[4].url} aria-label="Leet Code" target="_blank"><SiLeetcode size={"20"}/> </a>
             </HStack>
           </nav>
           <nav>
@@ -173,12 +173,12 @@ const Header = () => {
       <Center>
       <nav>
             <HStack className="left-nav" spacing={"12vw"}>
-              <a href={socials[0].url}><FontAwesomeIcon icon={socials[0].icon} size="lg" /></a>
-              <a href="https://youtube.com/@techybuffoon"><FontAwesomeIcon icon={faYoutube} size="lg" /></a>
-              <a href={socials[1].url}><FontAwesomeIcon icon={socials[1].icon} size="lg" /></a>
-              <a href={socials[2].url}><FontAwesomeIcon icon={socials[2].icon} size="lg" /></a>
+              <a href={socials[0].url} aria-label="Email" target="_blank"><FontAwesomeIcon icon={socials[0].icon} size="lg"/></a>
+              <a href="https://youtube.com/@techybuffoon" aria-label="Youtube" target="_blank"><FontAwesomeIcon icon={faYoutube} size="lg" /></a>
+              <a href={socials[1].url} aria-label="Github" target="_blank"><FontAwesomeIcon icon={socials[1].icon} size="lg" /></a>
+              <a href={socials[2].url} aria-label="LinkedIn" target="_blank"><FontAwesomeIcon icon={socials[2].icon} size="lg" /></a>
               {/* <a href={socials[3].url}><FontAwesomeIcon icon={socials[3].icon} size="lg" /></a> */}
-              <a href={socials[4].url}><SiLeetcode size={"20"}/> </a>
+              <a href={socials[4].url} aria-label="Leet Code" target="_blank"><SiLeetcode size={"20"}/> </a>
             </HStack>
           </nav>
           </Center>

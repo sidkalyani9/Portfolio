@@ -3,6 +3,7 @@ import { Image, VStack,HStack} from "@chakra-ui/react";
 import FullScreenSection from "./FullScreenSection";
 import Type from "./Type";
 import "animate.css";
+import displayPic from '../images/displayPic.webp';
 // import { AnimationOnScroll } from "react-animation-on-scroll";
 
 
@@ -20,7 +21,7 @@ const LandingSection = () => {
     <HStack className={"landingSection"}
     >
      {/* <Avatar name='Siddharth' src='' size="2xl" /> */}
-     <Image src='https://media-exp1.licdn.com/dms/image/D4D03AQGx2G3efiS3qQ/profile-displayphoto-shrink_800_800/0/1664881316202?e=1675900800&v=beta&t=igThhgxKtg57FySsN-NMIbKk5PUgbg7y8o1f1_WLSs0' w='35%' borderRadius='full' className={"imgLand"} />
+     <Image src={displayPic} w='35%' borderRadius='full' className={"imgLand"} alt="Display Picture of Admin" h="auto" />
      {/* <Heading size="1xs">{greeting}</Heading> */}
      <VStack className="right-heading">
      <h1 className="heading">
