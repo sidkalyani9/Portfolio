@@ -43,12 +43,19 @@ function About() {
 
 
       <MediaQuery maxWidth={700}>
+      <VStack
+        md={5}
+        style={{width:"90%"}}
+        className="about-img"
+      >
+            <img src={laptopImg} alt="about" className="img-fluid" width={"100%"} />
+      </VStack>
+
         <VStack
             style={{
               justifyContent: "center",
               display:"inline-block",
-              width:"90%",
-              paddingTop: "8%"
+              width:"85%",
             }}
           >
             <Center>
@@ -59,13 +66,13 @@ function About() {
             <Aboutcard/>
           </VStack>
           <br/>
-          <VStack
+          {/* <VStack
             md={5}
             style={{ paddingTop: "120px", paddingBottom: "50px", width:"90%"}}
             className="about-img"
           >
             <img src={laptopImg} alt="about" className="img-fluid" width={"100%"} />
-          </VStack>
+          </VStack> */}
       </MediaQuery>
         <h1 className="project-heading">
           Professional <strong className="purple">Skillset </strong>

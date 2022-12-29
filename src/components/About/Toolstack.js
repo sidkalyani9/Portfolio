@@ -23,7 +23,7 @@ function Toolstack() {
       </VStack>
       <VStack className={"tech-stack-flex"}>
         <SiVisualstudiocode className="tech-icons"/>
-        <p>Visual Studio Code</p>
+        <p>VS Code</p>
       </VStack>
       <VStack className={"tech-stack-flex"}>
         <SiAnaconda className="tech-icons"/>
@@ -31,7 +31,7 @@ function Toolstack() {
       </VStack>
       <VStack className={"tech-stack-flex"}>
         <SiJupyter className="tech-icons" />
-        <p>Juyter</p>
+        <p>Jupyter</p>
       </VStack>
       <VStack className={"tech-stack-flex"}>
         <SiNpm className="tech-icons"/>

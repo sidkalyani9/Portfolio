@@ -159,12 +159,10 @@ button:focus {
   visibility: hidden !important;
   background-color: transparent !important;
 } */
-/* 
+
 .navLink{
-  background-color:#68187a;
-  margin: 5;
-  padding: 2% 4%;
-} */
+  font-size: 4.2vw !important;
+}
 
 /* .navbar-toggler:not(.collapsed) span:nth-child(3) {
   position: absolute !important;
@@ -187,10 +185,6 @@ button:focus {
     font-size: 1.1em !important;
     
   }
-
-  /* .navbar-nav .nav-item a::after {
-    display: none !important;
-  } */
 }
 
 @media (max-width:402px) {
@@ -206,12 +200,11 @@ button:focus {
     
   }
 
+  .stickyB2{}
+
   .headerRightLinks {
     justify-content: center !important;
   }
-  /* .navbar-nav .nav-item a::after {
-    display: none !important;
-  } */
 }
 
 .navbar-brand {
@@ -315,9 +308,6 @@ button:focus {
   width: 100%;
   height: 100%;
   z-index: -999;
-}
-@media (min-width:794) {
-  
 }
 .right-heading{
   margin-left: 10% !important;
@@ -443,12 +433,12 @@ button:focus {
 
 @media (max-width:451px) {
   .heading{
-    font-size: 7vw !important;
+    font-size: 6vw !important;
     padding: 0% !important;
   }
 
   .heading-name{
-    font-size: 7vw !important;
+    font-size: 6vw !important;
     margin: 0% !important;
     padding-left: 0% !important;
   }
@@ -482,8 +472,8 @@ button:focus {
   }
 
   .imgLand{
-    margin-top:21% !important;
-    width:75% !important;
+    margin-top:2% !important;
+    width:70% !important;
     margin:0 auto;
   }
 }
@@ -530,11 +520,11 @@ button:focus {
 
 @media (max-width:449px) {
   .aboutCard{
-    font-size: 5vw !important;
+    font-size:4.5vw !important;
   }
 
   .about-activity{
-    font-size: 5vw !important;
+    font-size: 4.5vw !important;
   }
 
   .aboutHobbies{
@@ -926,7 +916,7 @@ button:focus {
 
 @media (max-width: 767px) {
   .about-img {
-    padding-top: 0 !important;
+    padding-top: 8% !important;
     margin-left: 10% !important;
   }
 }
