@@ -1,5 +1,6 @@
 import React from "react";
 import { CgCPlusPlus } from "react-icons/cg";
+import { AnimationOnScroll } from "react-animation-on-scroll";
 import {
   DiJavascript1,
   DiReact,
@@ -19,42 +20,68 @@ function Techstack() {
   return (
     <HStack style={{ justifyContent: "center", paddingBottom: "50px", width:"90%", display:"flex", flexWrap:"wrap"}}>
       
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="2" animateOnce={true}>
       <VStack className={"tech-stack-flex"}>
         <DiJavascript1 className="tech-icons"/>
         <p>JavaScript</p>
       </VStack>
+      </AnimationOnScroll>
+
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="2.5" animateOnce={true}>
       <VStack className={"tech-stack-flex"}>
         <DiNodejs className="tech-icons"/>
         <p>Node.js</p>
       </VStack>
+      </AnimationOnScroll>
+
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="3" animateOnce={true}>
       <VStack className={"tech-stack-flex"}>
         <DiReact className="tech-icons"/>
         <p>React.js</p>
       </VStack>
+      </AnimationOnScroll>
+
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="2" animateOnce={true}>
       <VStack className={"tech-stack-flex"}>
         <DiMongodb className="tech-icons"/>
         <p>MongoDb</p>
       </VStack>
+      </AnimationOnScroll>
+
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="2.5" animateOnce={true}>
       <VStack className={"tech-stack-flex"}>
         <SiNextdotjs className="tech-icons"/>
         <p>Next.js</p>
       </VStack>
+      </AnimationOnScroll>
+
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="3" animateOnce={true}>
       <VStack className={"tech-stack-flex"}>
         <DiJava className="tech-icons"/>
         <p>Java</p>
       </VStack>
+      </AnimationOnScroll>
+
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="2" animateOnce={true}>
       <VStack className={"tech-stack-flex"}>
         <CgCPlusPlus className="tech-icons"/>
         <p>C/C++</p>
       </VStack>
+      </AnimationOnScroll>
+
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="2.5" animateOnce={true}>
       <VStack className={"tech-stack-flex"}>
         <DiPython className="tech-icons"/>
         <p>Python</p>
       </VStack>
+      </AnimationOnScroll>
+
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="3" animateOnce={true}>
       <VStack className={"tech-stack-flex"}>
         <DiGit className="tech-icons"/>
         <p>Git</p>
       </VStack>
+      </AnimationOnScroll>
       {/* <VStack>
         <DiBootstrap className="tech-icons" />
         <p>Bootstrap</p>

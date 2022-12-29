@@ -2,6 +2,7 @@ import React from "react";
 import FullScreenSection from "./FullScreenSection";
 import { Box, Heading } from "@chakra-ui/react";
 import Card from "./Card";
+import { AnimationOnScroll } from "react-animation-on-scroll";
 
 const projects = [
   {
@@ -39,13 +40,15 @@ const ProjectsSection = () => {
   return (
     <FullScreenSection
       p={8}
-      alignItems="flex-start"
+      alignItems="center"
       spacing={8}
       id="projects-section"
     >
-      <Heading as="h1" >
-        Featured Projects
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="2.5" animateOnce={true}>
+      <Heading as="h1">
+        <span className="purple">Featured</span> Projects
       </Heading>
+      </AnimationOnScroll>
       <Box
         className="projectBox"
         gridGap={8}

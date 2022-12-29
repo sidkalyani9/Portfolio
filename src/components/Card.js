@@ -1,6 +1,6 @@
 import { Heading, Image, Text, VStack,HStack } from "@chakra-ui/react";
 import React from "react";
-
+import { AnimationOnScroll } from "react-animation-on-scroll";
 import '../css/card.css';
 import Button from "react-bootstrap/Button";
 import { BsGithub } from "react-icons/bs";
@@ -11,7 +11,7 @@ const CardB = ({ title, description, imageSrc,ghLink }) => {
   // Feel free to import other UI components from Chakra UI if you wish to.
     return(
       
-      
+      <AnimationOnScroll animateIn="animate__fadeIn" duration="2" animateOnce={true}>
         <VStack
           maxWidth="1200px"
           width="100%"
@@ -38,6 +38,7 @@ const CardB = ({ title, description, imageSrc,ghLink }) => {
             
           </Button>
         </VStack>
+        </AnimationOnScroll>
      
 
     );
