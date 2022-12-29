@@ -3,7 +3,7 @@ import { Image, VStack,HStack} from "@chakra-ui/react";
 import FullScreenSection from "./FullScreenSection";
 import Type from "./Type";
 import "animate.css";
-import { AnimationOnScroll } from "react-animation-on-scroll";
+// import { AnimationOnScroll } from "react-animation-on-scroll";
 
 
 const LandingSection = () => {
