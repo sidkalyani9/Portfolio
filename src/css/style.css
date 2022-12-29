@@ -167,7 +167,14 @@ button:focus {
   font-size: 1.3em !important;
 }
 
-@media (max-width:750px) {
+@media (max-width:830px) and (min-width:451px) {
+  
+  .navLink{
+    font-size: 3vw !important;
+  } 
+  }
+
+@media (max-width:450px) {
   
 .navLink{
   font-size: 4.2vw !important;
@@ -411,12 +418,12 @@ button:focus {
 @media (max-width: 767px) and (min-width:452px) {
 
   .heading{
-    font-size: 7vw !important;
+    font-size: 5vw !important;
     padding: 0% !important;
   }
 
   .heading-name{
-    font-size: 7vw !important;
+    font-size: 5vw !important;
     margin: 0% !important;
     padding-left: 0% !important;
   }
@@ -428,7 +435,7 @@ button:focus {
     text-align: center;
   }
   .Typewriter__wrapper {
-    font-size: 5vw !important;
+    font-size: 3vw !important;
     font-weight: 500 !important;
     margin: 0% !important;
     position: relative !important;
@@ -902,7 +909,7 @@ button:focus {
 
 @media (max-width: 600px) {
   .tech-icons {
-    font-size: 3em !important;
+    font-size: 12vw !important;
   margin: 2% !important;
   padding: 2% !important;
   opacity: 0.93 !important;
