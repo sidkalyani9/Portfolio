@@ -13,6 +13,7 @@ import { Box, HStack } from "@chakra-ui/react";
 import '../css/header.css';
 import '../css/style.css';
 import MediaQuery from "react-responsive";
+import { motion } from "framer-motion";
 
 const socials = [
   {
@@ -84,19 +85,71 @@ const Header = () => {
           <MediaQuery minWidth={830}>
           <nav>
             <HStack className="left-nav" spacing={8}>
+
+            <motion.div
+              initial={{ opacity: 0,y:"-200%"}}
+              animate={{ opacity: 1, y:"0%"}}
+              transition={{ duration: 2 }}>
               <a href={socials[0].url} aria-label="Email" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[0].icon} size="lg" /></a>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0,y:"-200%"}}
+              animate={{ opacity: 1, y:"0%"}}
+              transition={{ delay:0.15 , duration: 2 }}>
               <a href="https://youtube.com/@techybuffoon" aria-label="Youtube" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={faYoutube} size="lg" /></a>
-              <a href={socials[1].url} aria-label="Git Hub" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[1].icon} size="lg" /></a>
-              <a href={socials[2].url} aria-label="LinkedIn" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[2].icon} size="lg" /></a>
-              <a href={socials[3].url} aria-label="Twitter" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[3].icon} size="lg" /></a>
-              <a href={socials[4].url} aria-label="Leet Code" target="_blank" rel="noreferrer" ><SiLeetcode size={"20"}/> </a>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0,y:"-200%"}}
+              animate={{ opacity: 1, y:"0%"}}
+              transition={{ delay:0.3 , duration: 2 }}>
+                <a href={socials[1].url} aria-label="Git Hub" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[1].icon} size="lg" /></a>
+            </motion.div>
+              <motion.div
+              initial={{ opacity: 0,y:"-200%"}}
+              animate={{ opacity: 1, y:"0%"}}
+              transition={{ delay:0.45 , duration: 2 }}>
+                <a href={socials[2].url} aria-label="LinkedIn" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[2].icon} size="lg" /></a>
+              </motion.div>
+
+              <motion.div
+              initial={{ opacity: 0,y:"-200%"}}
+              animate={{ opacity: 1, y:"0%"}}
+              transition={{ delay:0.6 , duration: 2 }}>
+                <a href={socials[3].url} aria-label="Twitter" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[3].icon} size="lg" /></a>
+              </motion.div>
+
+              <motion.div
+              initial={{ opacity: 0,y:"-200%"}}
+              animate={{ opacity: 1, y:"0%"}}
+              transition={{ delay:0.75 , duration: 2 }}>
+                <a href={socials[4].url} aria-label="Leet Code" target="_blank" rel="noreferrer" ><SiLeetcode size={"20"}/> </a>
+              </motion.div>
             </HStack>
           </nav>
           <nav>
               <HStack spacing={8}>
-                <a href="/#home1" onClick={handleClick("home")} class={"navLink"}>Home</a>
-                <a href="/#about" onClick={handleClick("about")} class={"navLink"}>About Me</a>
-                <a href="/#projects" onClick={handleClick("projects")} class={"navLink"}>Projects</a>
+                <motion.div
+                initial={{ opacity: 0,y:"-100%"}}
+                animate={{ opacity: 1, y:"0%"}}
+                transition={{ delay:1.2 , duration: 2 }}>
+                  <a href="/#home1" onClick={handleClick("home")} class={"navLink"}>Home</a>
+                </motion.div>
+
+                <motion.div
+                initial={{ opacity: 0,y:"-100%"}}
+                animate={{ opacity: 1, y:"0%"}}
+                transition={{ delay:1.35 , duration: 2 }}>
+                  <a href="/#about" onClick={handleClick("about")} class={"navLink"}>About Me</a>
+                </motion.div>
+
+                <motion.div
+                initial={{ opacity: 0,y:"-100%"}}
+                animate={{ opacity: 1, y:"0%"}}
+                transition={{ delay:1.5 , duration: 2 }}>
+                  <a href="/#projects" onClick={handleClick("projects")} class={"navLink"}>Projects</a>
+                </motion.div>
                 {/* <a href="/#contact-me" onClick={handleClick("contactme")} class={"navLink"}>Contact Me</a> */}
               </HStack>
             </nav>
@@ -106,9 +159,28 @@ const Header = () => {
             <Center w='100%'>
             <nav>
             <HStack spacing={12} className={"mobileNav"}>
-              <a href="/#home1" onClick={handleClick("home")} class={"navLink"}>Home</a>
-              <a href="/#about" onClick={handleClick("about")} class={"navLink"}>About Me</a>
-              <a href="/#projects" onClick={handleClick("projects")} class={"navLink"}>Projects</a>
+              <motion.div
+              initial={{ opacity: 0,y:"-100%"}}
+              animate={{ opacity: 1, y:"0%"}}
+              transition={{ duration: 2 }}
+              >
+                
+                <a href="/#home1" onClick={handleClick("home")} class={"navLink"}>Home</a>
+              </motion.div>
+
+              <motion.div
+              initial={{ opacity: 0,y:"-100%"}}
+              animate={{ opacity: 1, y:"0%"}}
+              transition={{ delay:0.5 , duration: 2 }}>
+                <a href="/#about" onClick={handleClick("about")} class={"navLink"}>About Me</a>
+              </motion.div>
+
+              <motion.div
+              initial={{ opacity: 0,y:"-100%"}}
+              animate={{ opacity: 1, y:"0%"}}
+              transition={{ delay:1, duration: 2 }}>
+                <a href="/#projects" onClick={handleClick("projects")} class={"navLink"}>Projects</a>
+              </motion.div>
               {/* <a href="/#contact-me" onClick={handleClick("contactme")} class={"navLink"}>Contact Me</a> */}
             </HStack>
           </nav>
@@ -128,12 +200,42 @@ const Header = () => {
       <Center>
       <nav>
             <HStack className="left-nav" spacing={"12vw"}>
-              <a href={socials[0].url} aria-label="Email" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[0].icon} size="lg"/></a>
-              <a href="https://youtube.com/@techybuffoon" aria-label="Youtube" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={faYoutube} size="lg" /></a>
-              <a href={socials[1].url} aria-label="Github" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[1].icon} size="lg" /></a>
-              <a href={socials[2].url} aria-label="LinkedIn" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[2].icon} size="lg" /></a>
+            <motion.div
+              initial={{ opacity: 0,y:"200%"}}
+              animate={{ opacity: 1, y:"0%"}}
+              transition={{ duration: 2 }}>
+                  <a href={socials[0].url} aria-label="Email" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[0].icon} size="lg"/></a>
+            </motion.div>  
+              
+              <motion.div
+              initial={{ opacity: 0,y:"200%"}}
+              animate={{ opacity: 1, y:"0%"}}
+              transition={{ delay:0.4 , duration: 2 }}>
+                  <a href="https://youtube.com/@techybuffoon" aria-label="Youtube" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={faYoutube} size="lg" /></a>
+              </motion.div>
+              
+              <motion.div
+              initial={{ opacity: 0,y:"200%"}}
+              animate={{ opacity: 1, y:"0%"}}
+              transition={{ delay:0.8 , duration: 2 }}>
+                  <a href={socials[1].url} aria-label="Github" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[1].icon} size="lg" /></a>
+              </motion.div>
+              
+              <motion.div
+              initial={{ opacity: 0,y:"200%"}}
+              animate={{ opacity: 1, y:"0%"}}
+              transition={{ delay:1.2 , duration: 2 }}>
+                  <a href={socials[2].url} aria-label="LinkedIn" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[2].icon} size="lg" /></a>
+              </motion.div>
+
+              <motion.div
+              initial={{ opacity: 0,y:"200%"}}
+              animate={{ opacity: 1, y:"0%"}}
+              transition={{ delay:1.6 , duration: 2 }}>
               {/* <a href={socials[3].url}><FontAwesomeIcon icon={socials[3].icon} size="lg" /></a> */}
-              <a href={socials[4].url} aria-label="Leet Code" target="_blank" rel="noreferrer" ><SiLeetcode size={"20"}/> </a>
+                  <a href={socials[4].url} aria-label="Leet Code" target="_blank" rel="noreferrer" ><SiLeetcode size={"20"}/> </a>
+              </motion.div>
+            
             </HStack>
           </nav>
           </Center>

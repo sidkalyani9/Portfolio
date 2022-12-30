@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "animate.css": "^4.1.1",
     "formik": "^2.2.9",
+    "framer-motion": "^8.0.2",
     "mdb-react-ui-kit": "^5.1.0",
     "react": "^18.2.0",
     "react-animation-on-scroll": "^5.1.0",

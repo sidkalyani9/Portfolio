@@ -5,6 +5,7 @@ import Type from "./Type";
 import "animate.css";
 import displayPic from '../images/displayPic.webp';
 // import { AnimationOnScroll } from "react-animation-on-scroll";
+import { motion } from "framer-motion";
 
 
 const LandingSection = () => {
@@ -17,11 +18,18 @@ const LandingSection = () => {
     id="home-section"
     
   >
+    <motion.div
+    initial={{ opacity: 0, scale: 0.5 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 2 }}>
     {/* {!mobView && */}
     <HStack className={"landingSection"}
     >
      {/* <Avatar name='Siddharth' src='' size="2xl" /> */}
-     <Image src={displayPic} w='35%' borderRadius='full' className={"imgLand"} alt="Display Picture of Admin" h="auto" />
+
+
+        <Image src={displayPic} w='35%' borderRadius='full' className={"imgLand"} alt="Display Picture of Admin" h="auto" />
+
      {/* <Heading size="1xs">{greeting}</Heading> */}
      <VStack className="right-heading">
      <h1 className="heading">
@@ -40,6 +48,7 @@ const LandingSection = () => {
       </div>
       </VStack>
      </HStack>
+     </motion.div>
   </FullScreenSection>
   );
 };
