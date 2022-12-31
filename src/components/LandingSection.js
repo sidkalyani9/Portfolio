@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, VStack,HStack} from "@chakra-ui/react";
+import { Image, VStack,HStack, Center} from "@chakra-ui/react";
 import FullScreenSection from "./FullScreenSection";
 import Type from "./Type";
 import "animate.css";
@@ -32,6 +32,7 @@ const LandingSection = () => {
 
      {/* <Heading size="1xs">{greeting}</Heading> */}
      <VStack className="right-heading">
+     
      <h1 className="heading">
         Hi There!{" "}
         <span className="wave" role="img" aria-labelledby="wave">
@@ -42,10 +43,11 @@ const LandingSection = () => {
         I am  
         <strong className="main-name">    Siddharth Kalyani</strong>
       </h1>
-
+      
       <div className="typewrite">
         <Type />
       </div>
+
       </VStack>
      </HStack>
      </motion.div>

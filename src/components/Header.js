@@ -90,41 +90,41 @@ const Header = () => {
               initial={{ opacity: 0,y:"-200%"}}
               animate={{ opacity: 1, y:"0%"}}
               transition={{ duration: 2 }}>
-              <a href={socials[0].url} aria-label="Email" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[0].icon} size="lg" /></a>
+              <a href={socials[0].url} aria-label="Email" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[0].icon} size="xl" /></a>
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0,y:"-200%"}}
               animate={{ opacity: 1, y:"0%"}}
               transition={{ delay:0.15 , duration: 2 }}>
-              <a href="https://youtube.com/@techybuffoon" aria-label="Youtube" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={faYoutube} size="lg" /></a>
+              <a href="https://youtube.com/@techybuffoon" aria-label="Youtube" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={faYoutube} size="xl" /></a>
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0,y:"-200%"}}
               animate={{ opacity: 1, y:"0%"}}
               transition={{ delay:0.3 , duration: 2 }}>
-                <a href={socials[1].url} aria-label="Git Hub" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[1].icon} size="lg" /></a>
+                <a href={socials[1].url} aria-label="Git Hub" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[1].icon} size="xl" /></a>
             </motion.div>
               <motion.div
               initial={{ opacity: 0,y:"-200%"}}
               animate={{ opacity: 1, y:"0%"}}
               transition={{ delay:0.45 , duration: 2 }}>
-                <a href={socials[2].url} aria-label="LinkedIn" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[2].icon} size="lg" /></a>
+                <a href={socials[2].url} aria-label="LinkedIn" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[2].icon} size="xl" /></a>
               </motion.div>
 
               <motion.div
               initial={{ opacity: 0,y:"-200%"}}
               animate={{ opacity: 1, y:"0%"}}
               transition={{ delay:0.6 , duration: 2 }}>
-                <a href={socials[3].url} aria-label="Twitter" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[3].icon} size="lg" /></a>
+                <a href={socials[3].url} aria-label="Twitter" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[3].icon} size="xl" /></a>
               </motion.div>
 
               <motion.div
               initial={{ opacity: 0,y:"-200%"}}
               animate={{ opacity: 1, y:"0%"}}
               transition={{ delay:0.75 , duration: 2 }}>
-                <a href={socials[4].url} aria-label="Leet Code" target="_blank" rel="noreferrer" ><SiLeetcode size={"20"}/> </a>
+                <a href={socials[4].url} aria-label="Leet Code" target="_blank" rel="noreferrer" ><SiLeetcode size={"24"}/> </a>
               </motion.div>
             </HStack>
           </nav>
@@ -204,28 +204,28 @@ const Header = () => {
               initial={{ opacity: 0,y:"200%"}}
               animate={{ opacity: 1, y:"0%"}}
               transition={{ duration: 2 }}>
-                  <a href={socials[0].url} aria-label="Email" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[0].icon} size="lg"/></a>
+                  <a href={socials[0].url} aria-label="Email" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[0].icon} size="xl"/></a>
             </motion.div>  
               
               <motion.div
               initial={{ opacity: 0,y:"200%"}}
               animate={{ opacity: 1, y:"0%"}}
               transition={{ delay:0.4 , duration: 2 }}>
-                  <a href="https://youtube.com/@techybuffoon" aria-label="Youtube" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={faYoutube} size="lg" /></a>
+                  <a href="https://youtube.com/@techybuffoon" aria-label="Youtube" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={faYoutube} size="xl" /></a>
               </motion.div>
               
               <motion.div
               initial={{ opacity: 0,y:"200%"}}
               animate={{ opacity: 1, y:"0%"}}
               transition={{ delay:0.8 , duration: 2 }}>
-                  <a href={socials[1].url} aria-label="Github" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[1].icon} size="lg" /></a>
+                  <a href={socials[1].url} aria-label="Github" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[1].icon} size="xl" /></a>
               </motion.div>
               
               <motion.div
               initial={{ opacity: 0,y:"200%"}}
               animate={{ opacity: 1, y:"0%"}}
               transition={{ delay:1.2 , duration: 2 }}>
-                  <a href={socials[2].url} aria-label="LinkedIn" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[2].icon} size="lg" /></a>
+                  <a href={socials[2].url} aria-label="LinkedIn" target="_blank" rel="noreferrer" ><FontAwesomeIcon icon={socials[2].icon} size="xl" /></a>
               </motion.div>
 
               <motion.div
@@ -233,7 +233,7 @@ const Header = () => {
               animate={{ opacity: 1, y:"0%"}}
               transition={{ delay:1.6 , duration: 2 }}>
               {/* <a href={socials[3].url}><FontAwesomeIcon icon={socials[3].icon} size="lg" /></a> */}
-                  <a href={socials[4].url} aria-label="Leet Code" target="_blank" rel="noreferrer" ><SiLeetcode size={"20"}/> </a>
+                  <a href={socials[4].url} aria-label="Leet Code" target="_blank" rel="noreferrer" ><SiLeetcode size={"24"}/> </a>
               </motion.div>
             
             </HStack>
