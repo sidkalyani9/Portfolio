@@ -25,10 +25,10 @@ function App() {
 
   return (
     <>
+
       <Preloader load={load} />
       <ChakraProvider>
       <AlertProvider>
-      
         <main>
           <Header />
           <LandingSection />

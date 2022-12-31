@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, VStack,HStack, Center} from "@chakra-ui/react";
+import { Image, VStack,HStack} from "@chakra-ui/react";
 import FullScreenSection from "./FullScreenSection";
 import Type from "./Type";
 import "animate.css";
@@ -18,6 +18,7 @@ const LandingSection = () => {
     id="home-section"
     
   >
+
     <motion.div
     initial={{ opacity: 0, scale: 0.5 }}
     animate={{ opacity: 1, scale: 1 }}

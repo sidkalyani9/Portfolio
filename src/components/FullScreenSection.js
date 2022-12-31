@@ -2,6 +2,7 @@ import * as React from "react";
 import { VStack } from "@chakra-ui/react";
 import '../css/style.css';
 
+
 /**
  * Illustrates the use of children prop and spread operator
  */
@@ -23,7 +24,7 @@ const FullScreenSection = ({ children, isDarkBackground, ...boxProps }) => {
         backgroundSize="cover"
         backgroundRepeat="no-repeat"
         maxWidth="1280px" minHeight="100vh" {...boxProps}>
-        {children}
+          {children}
       </VStack>
     </VStack>
   );

@@ -44,6 +44,7 @@ const ProjectsSection = () => {
       spacing={8}
       id="projects-section"
     >
+
       <AnimationOnScroll animateIn="animate__fadeInUp" duration="2.5" animateOnce={true}>
       <Heading as="h1">
         <span className="purple">Featured</span> Projects

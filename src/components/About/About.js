@@ -7,6 +7,7 @@ import { Center, HStack, VStack } from "@chakra-ui/react";
 import FullScreenSection from "../FullScreenSection";
 import MediaQuery from "react-responsive";
 import { AnimationOnScroll } from "react-animation-on-scroll";
+import Particle from "../Particle";
 
 
 function About() {
@@ -17,6 +18,7 @@ function About() {
     alignItems="center"
     id="about-section"
   >
+    <Particle />
       <MediaQuery minWidth={701}>
       
         <HStack style={{ justifyContent: "center", padding: "5%", textAlign:"center" , width:"100%"}}>
