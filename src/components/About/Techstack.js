@@ -7,11 +7,11 @@ import {
   DiNodejs,
   DiMongodb,
   DiPython,
-  DiGit,
   DiJava,
 } from "react-icons/di";
 import {
   SiNextdotjs,
+  SiMysql
 } from "react-icons/si";
 import {HStack, VStack} from "@chakra-ui/react";
 
@@ -78,8 +78,8 @@ function Techstack() {
 
       <AnimationOnScroll animateIn="animate__fadeInUp" duration="2.5" animateOnce={true}>
       <VStack className={"tech-stack-flex"}>
-        <DiGit className="tech-icons"/>
-        <p>Git</p>
+        <SiMysql className="tech-icons"/>
+        <p>SQL</p>
       </VStack>
       </AnimationOnScroll>
       {/* <VStack>
