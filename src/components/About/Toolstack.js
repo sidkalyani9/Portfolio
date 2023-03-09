@@ -9,11 +9,20 @@ import {
   SiAnaconda,
   SiJupyter,
   SiNpm,
+  SiExpo,
 } from "react-icons/si";
 
 function Toolstack() {
   return (
     <HStack style={{ justifyContent: "center", paddingBottom: "10%", width:"90%", display:"flex", flexWrap:"wrap"}}>
+
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="2.5" delay="2" animateOnce={true}>
+        <VStack className={"tech-stack-flex"}>
+          <SiExpo className="tech-icons"/>
+          <p>Expo</p>
+        </VStack>
+      </AnimationOnScroll>  
+
       <AnimationOnScroll animateIn="animate__fadeInUp" duration="1.5" delay="2" animateOnce={true}>
       <VStack className={"tech-stack-flex"}>
         <SiLinux className="tech-icons"/>
@@ -55,6 +64,7 @@ function Toolstack() {
         <p>NPM</p>
       </VStack>
       </AnimationOnScroll>
+      
       {/* <Col xs={4} md={2} className="tech-icons">
         <SiLinux />
       </Col>

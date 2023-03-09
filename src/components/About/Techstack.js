@@ -41,6 +41,13 @@ function Techstack() {
       </VStack>
       </AnimationOnScroll>
 
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="2" animateOnce={true}>
+      <VStack className={"tech-stack-flex"}>
+        <DiReact className="tech-icons"/>
+        <p>React Native</p>
+      </VStack>
+      </AnimationOnScroll>
+
       <AnimationOnScroll animateIn="animate__fadeInUp" duration="1" animateOnce={true}>
       <VStack className={"tech-stack-flex"}>
         <DiMongodb className="tech-icons"/>
