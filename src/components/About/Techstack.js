@@ -8,10 +8,13 @@ import {
   DiMongodb,
   DiPython,
   DiJava,
+  DiAngularSimple,
 } from "react-icons/di";
 import {
   SiNextdotjs,
-  SiMysql
+  SiMysql,
+  SiPostgresql,
+  SiSpringboot
 } from "react-icons/si";
 import {HStack, VStack} from "@chakra-ui/react";
 
@@ -22,12 +25,6 @@ function Techstack() {
       
       
 
-      <AnimationOnScroll animateIn="animate__fadeInUp" duration="1.5" animateOnce={true}>
-      <VStack className={"tech-stack-flex"}>
-        <DiNodejs className="tech-icons"/>
-        <p>Node.js</p>
-      </VStack>
-      </AnimationOnScroll>
 
       <AnimationOnScroll animateIn="animate__fadeInUp" duration="2" animateOnce={true}>
       <VStack className={"tech-stack-flex"}>
@@ -43,10 +40,24 @@ function Techstack() {
       </VStack>
       </AnimationOnScroll>
 
-      <AnimationOnScroll animateIn="animate__fadeInUp" duration="1" animateOnce={true}>
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="2" animateOnce={true}>
       <VStack className={"tech-stack-flex"}>
-        <DiMongodb className="tech-icons"/>
-        <p>MongoDb</p>
+        <DiAngularSimple className="tech-icons"/>
+        <p>Angular</p>
+      </VStack>
+      </AnimationOnScroll>
+
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="2" animateOnce={true}>
+      <VStack className={"tech-stack-flex"}>
+        <SiSpringboot className="tech-icons"/>
+        <p>Springboot</p>
+      </VStack>
+      </AnimationOnScroll>
+      
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="1.5" animateOnce={true}>
+      <VStack className={"tech-stack-flex"}>
+        <DiNodejs className="tech-icons"/>
+        <p>Node.js</p>
       </VStack>
       </AnimationOnScroll>
 
@@ -56,6 +67,14 @@ function Techstack() {
         <p>Next.js</p>
       </VStack>
       </AnimationOnScroll>
+
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="1" animateOnce={true}>
+      <VStack className={"tech-stack-flex"}>
+        <DiMongodb className="tech-icons"/>
+        <p>MongoDb</p>
+      </VStack>
+      </AnimationOnScroll>
+
 
       <AnimationOnScroll animateIn="animate__fadeInUp" duration="2" animateOnce={true}>
       <VStack className={"tech-stack-flex"}>
@@ -80,8 +99,8 @@ function Techstack() {
 
       <AnimationOnScroll animateIn="animate__fadeInUp" duration="2.5" animateOnce={true}>
       <VStack className={"tech-stack-flex"}>
-        <SiMysql className="tech-icons"/>
-        <p>SQL</p>
+        <SiPostgresql className="tech-icons"/>
+        <p>PostgreSQL</p>
       </VStack>
       </AnimationOnScroll>
 

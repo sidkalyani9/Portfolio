@@ -10,11 +10,27 @@ import {
   SiJupyter,
   SiNpm,
   SiExpo,
+  SiGit,
+  SiJira,
 } from "react-icons/si";
 
 function Toolstack() {
   return (
     <HStack style={{ justifyContent: "center", paddingBottom: "10%", width:"90%", display:"flex", flexWrap:"wrap"}}>
+
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="2.5" delay="2" animateOnce={true}>
+        <VStack className={"tech-stack-flex"}>
+          <SiGit className="tech-icons"/>
+          <p>Github</p>
+        </VStack>
+      </AnimationOnScroll>  
+
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="2.5" delay="2" animateOnce={true}>
+        <VStack className={"tech-stack-flex"}>
+          <SiJira className="tech-icons"/>
+          <p>Jira</p>
+        </VStack>
+      </AnimationOnScroll>  
 
       <AnimationOnScroll animateIn="animate__fadeInUp" duration="2.5" delay="2" animateOnce={true}>
         <VStack className={"tech-stack-flex"}>
