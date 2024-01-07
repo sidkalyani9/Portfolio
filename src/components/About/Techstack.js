@@ -20,12 +20,7 @@ function Techstack() {
   return (
     <HStack style={{ justifyContent: "center", paddingBottom: "50px", width:"100%", display:"flex", flexWrap:"wrap"}}>
       
-      <AnimationOnScroll animateIn="animate__fadeInUp" duration="1" animateOnce={true}>
-      <VStack className={"tech-stack-flex"}>
-        <DiJavascript1 className="tech-icons"/>
-        <p>JavaScript</p>
-      </VStack>
-      </AnimationOnScroll>
+      
 
       <AnimationOnScroll animateIn="animate__fadeInUp" duration="1.5" animateOnce={true}>
       <VStack className={"tech-stack-flex"}>
@@ -87,6 +82,13 @@ function Techstack() {
       <VStack className={"tech-stack-flex"}>
         <SiMysql className="tech-icons"/>
         <p>SQL</p>
+      </VStack>
+      </AnimationOnScroll>
+
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="1" animateOnce={true}>
+      <VStack className={"tech-stack-flex"}>
+        <DiJavascript1 className="tech-icons"/>
+        <p>JavaScript</p>
       </VStack>
       </AnimationOnScroll>
       {/* <VStack>
