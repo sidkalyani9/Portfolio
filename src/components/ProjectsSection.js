@@ -8,9 +8,9 @@ const projects = [
   {
     title: "Health Sync",
     description:
-      "HealthSync was a POC during my internship at Argusoft management. HealthSync is a diet tracking Webapp that contains functionalities like Diet Tracking, Verified Diets, Calorie tracking with history, determining target calorie, BMI tracking etc.This is an E-Commerce website made for a hypothetical Plant Nursery. HTML, CSS, Bootstrap, JQuery and JavaScript is used for Front-end and PHP is used for the Back-end",
+      "HealthSync is a diet tracking Webapp that contains functionalities like Diet Tracking, Verified Diets, Calorie tracking with history, determining target calorie, BMI tracking etc.",
     getImageSrc: () => require("../images/healthsync.webp"),
-    ghLink: "https://github.com/sidkalyani9/Lucky-Shrub",
+    ghLink: "https://github.com/sidkalyani9/HealthSync",
   },
   {
     title: "React Portfolio",
@@ -20,11 +20,11 @@ const projects = [
     ghLink: "https://github.com/sidkalyani9/Portfolio",
   },
   {
-    title: "Malaria Detection System",
+    title: "MealDash",
     description:
-      "This system is used to find if the blood sample is Parasitized or not, if parasitized, then it outputs the type of Malaria Disese. I used various Machine Learning Artificial Intelligence Models out of which Random Forst Classifier gave the Best Result (96%) ",
-    getImageSrc: () => require("../images/Project3.webp"),
-    ghLink: "https://github.com/sidkalyani9/Meta-portfolio-project1",
+      "MealDash is a food delivery mobile app developed using React Native technology. The app includes fully developed front-end features such as a home page, featured section, cartmanagement through Redux, menu section, a delivery map with pin functionality, and more.",
+    getImageSrc: () => require("../images/mealdash.webp"),
+    ghLink: "https://github.com/sidkalyani9/MealDash",
   },
   {
     title: "Lucky Shrub",
@@ -32,13 +32,6 @@ const projects = [
       "This is an E-Commerce website made for a hypothetical Plant Nursery. HTML, CSS, Bootstrap, JQuery and JavaScript is used for Front-end and PHP is used for the Back-end",
     getImageSrc: () => require("../images/project1.webp"),
     ghLink: "https://github.com/sidkalyani9/Lucky-Shrub",
-  },
-  {
-    title: "Meta Calculator",
-    description:
-      "This was a part of Meta's React Course's Submission. I have used many Fundamental hooks like useRef, useState, ContextAPI etc.",
-    getImageSrc: () => require("../images/project4.webp"),
-    ghLink: "https://github.com/sidkalyani9/Meta-Calculator-App",
   },
 ];
 
