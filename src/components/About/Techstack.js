@@ -12,7 +12,6 @@ import {
 } from "react-icons/di";
 import {
   SiNextdotjs,
-  SiMysql,
   SiPostgresql,
   SiSpringboot
 } from "react-icons/si";
