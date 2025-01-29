@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Timeline } from 'primereact/timeline';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
-import { ScrollPanel } from 'primereact/scrollpanel';
-import FullScreenSection from './FullScreenSection';
 import { Heading, Img, VStack } from '@chakra-ui/react';
 import vgecLogo from '../images/vgeclogo.png';
 import argusoftLogo from '../images/argusoftLogo.png';
