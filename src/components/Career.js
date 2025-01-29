@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Timeline } from 'primereact/timeline';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
+import { ScrollPanel } from 'primereact/scrollpanel';
 import FullScreenSection from './FullScreenSection';
 import { Heading, Img, VStack } from '@chakra-ui/react';
 import vgecLogo from '../images/vgeclogo.png';
@@ -9,13 +10,21 @@ import argusoftLogo from '../images/argusoftLogo.png';
 
 export default function Career() {
     const [timelineAlign, setTimelineAlign] = useState('alternate');
+    const [expandedCards, setExpandedCards] = useState({});
+
+    const toggleExpand = (index) => {
+        setExpandedCards(prev => ({
+            ...prev,
+            [index]: !prev[index]
+        }));
+    };
 
     const events = [
         { 
             status: 'B.tech in Information Technology', 
             date: '2021-2024', 
             image: vgecLogo ,
-            description: 'At V.G. Engineering College, I earned my B.Tech in Information Technology, mastering core computer science principles and practical skills. I excelled academically, completed impactful projects, and gained hands-on experience through internship. This journey equipped me with essential skills in app & web development, and machine learning, fueling my passion for innovation where I managed to score a 9.11 CGPA.'
+            description: 'At V.G. Engineering College, I earned my B.Tech in Information Technology, mastering core computer science principles and practical skills. I excelled academically with a 9.11 CGPA, completed impactful projects, and gained hands-on experience through internship.'
         },
         { 
             status: 'Summer Intern', 
@@ -27,13 +36,13 @@ export default function Career() {
             status: 'Programmer Analyst Intern', 
             date: 'Jan 2024 - Jun 2024', 
             image: argusoftLogo,
-            description: 'During my tenure as a Programmer Analyst Intern at Argusoft, I had the opportunity to work within a dynamic team of nine, where I honed my skills in Angular and Java. Our primary project was the development of a full-stack Canteen Management WebApp, leveraging Angular, Java, PostgreSQL, Git, and Chart.js. Throughout the internship, we maintained daily stand-up calls to ensure seamless collaboration and progress tracking. This experience not only bolstered my technical proficiency but also underscored the importance of teamwork and iterative development.'
+            description: 'During my tenure as a Programmer Analyst Intern at Argusoft, we were paired with a team of 9, where I trained my skills in Angular and Java. Our primary project was the development of a full-stack Canteen Management WebApp, leveraging Angular, Java, PostgreSQL, Git, and Chart.js. Throughout the internship, we maintained daily stand-up calls to ensure seamless collaboration and progress tracking.'
         },
         { 
             status: 'Programmer Analyst Trainee', 
             date: 'Jul 2024 - Dec 2024', 
             image: argusoftLogo ,
-            description: "As a Programmer Analyst Trainee/Probationer at Argusoft, I was paired with a peer for collaborative learning, mentored by Mrs. Namrata Raval. We were given access to Udemy courses and encouraged to learn from various resources. Our primary focus was on mastering React, Java Spring Boot, and PostgreSQL. We applied these skills to develop the FlightEase project, a modern, responsive web application for booking flight tickets. The project incorporated Spring Security and Google login, showcasing our ability to create secure and user-friendly applications. This experience significantly enhanced my technical capabilities and collaborative skills."
+            description: "As a Programmer Analyst Trainee at Argusoft, I was partnered with a peer under the mentorship of Mrs. Namrata Raval to master React, Java Spring Boot, and PostgreSQL using Udemy courses and diverse learning resources. We developed the FlightEase project, a secure, responsive web app for booking flight tickets, featuring Spring Security and Google login."
         },
         { 
             status: 'Programmer Analyst', 
@@ -46,8 +55,11 @@ export default function Career() {
     const customizedContent = (item, index) => {
         const alignment = index % 2 === 0 ? 'left' : 'right';
         const imageStyle = {
-            margin: alignment === 'right' ? '0 0 5% auto' : '0 auto 5% 0',
+            margin: window.innerWidth>768? alignment === 'right' ? '0 0 5% auto' : '0 auto 5% 0' : '0 auto 5% auto',
         };
+
+        const isMobile = window.innerWidth < 768;
+        const isExpanded = expandedCards[index];
 
         return (
             <Card title={item.status} subTitle={item.date}>
@@ -58,7 +70,37 @@ export default function Career() {
                     style={imageStyle}
                     className='TimelineCardImg'
                 />
-                <p>{item.description}</p>
+                {isMobile ? (
+                    <div>
+                        <p style={{
+                            fontSize: '3.5vw',
+                            textAlign: 'justify',
+                            maxHeight: isExpanded ? 'none' : '120px',
+                            overflow: 'hidden',
+                            transition: 'max-height 0.3s ease-out'
+                        }}>
+                            {item.description}
+                        </p>
+                        <Button
+                            link
+                            onClick={() => toggleExpand(index)}
+                            style={{
+                                color: '#c770f0',
+                                padding: '0.5rem 0',
+                                fontSize: '0.9rem'
+                            }}
+                        >
+                            {isExpanded ? 'Show Less' : 'Show More'}
+                        </Button>
+                    </div>
+                ) : (
+                    <p style={{
+                        fontSize: '1vw',
+                        textAlign: 'inherit'
+                    }}>
+                        {item.description}
+                    </p>
+                )}
             </Card>
         );
     };
@@ -120,7 +162,7 @@ export default function Career() {
         <VStack
             className="contactForm"
             alignItems="center"
-            w={'90%'}
+            w={window.innerWidth>768?'90%':'110%'}
         >
             <Heading id='career' as="h1" style={{paddingBottom: "5%" }}>Career <strong className="purple">Timeline</strong></Heading>
             <Timeline 

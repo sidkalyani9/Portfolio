@@ -298,3 +298,24 @@
 .TimelineCardImg{
   margin: 0 0 5% auto;
 }
+
+/* Add these to your existing styles */
+.p-scrollpanel {
+    background: transparent !important;
+    border: none !important;
+}
+
+.p-scrollpanel .p-scrollpanel-wrapper {
+    border-right: none !important;
+}
+
+.p-scrollpanel .p-scrollpanel-bar {
+    background: #c770f0 !important;
+    opacity: 0.3;
+}
+
+.p-button.p-button-link:not(:disabled):hover {
+    background: transparent !important;
+    color: #cd5ff8 !important;
+    text-decoration: underline !important;
+}

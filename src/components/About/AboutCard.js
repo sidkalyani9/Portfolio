@@ -12,7 +12,7 @@ function AboutCard() {
           <AnimationOnScroll animateIn="animate__fadeInUp" duration="2" animateOnce={true}>
             Hi Everyone, I am <span className="purple">Siddharth Kalyani </span>
             from <span className="purple"> Ahemdabad, India. </span>
-            <span>I am a junior pursuing</span><span className="purple"> B.Tech</span> in<span className="purple"> Information technology</span> from Vishwakarma Government Engineering College, Chandkheda
+            <span>I am currently workign as a</span><span className="purple"> Programmer Analyst</span> at<span className="purple"> Argusoft India Pvt. Ltd.</span>, located in GIDC, Gandhinagar
             <br></br>
             <br />
             </AnimationOnScroll>
