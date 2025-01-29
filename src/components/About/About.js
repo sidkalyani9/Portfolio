@@ -8,6 +8,7 @@ import FullScreenSection from "../FullScreenSection";
 import MediaQuery from "react-responsive";
 import { AnimationOnScroll } from "react-animation-on-scroll";
 import Particle from "../Particle";
+import Career from "../Career";
 
 
 function About() {
@@ -39,6 +40,7 @@ function About() {
             </AnimationOnScroll>
             <Aboutcard />
           </VStack>
+          
           <VStack
             md={5}
             style={{ paddingTop: "120px", paddingBottom: "50px", width:"40%"}}
@@ -91,19 +93,21 @@ function About() {
           </VStack> */}
       </MediaQuery>
 
+      <Career />
 
       <AnimationOnScroll animateIn="animate__fadeInUp" duration="2" animateOnce={"once"}>
         <h1 className="project-heading" style={{marginTop:"30%"}}>
           Professional <strong className="purple">Skillset </strong>
         </h1>
       </AnimationOnScroll>
-        <Techstack />
-        <AnimationOnScroll animateIn="animate__fadeInUp" duration="2.3" animateOnce={"once"}>
+      <Techstack />
+      
+      <AnimationOnScroll animateIn="animate__fadeInUp" duration="2.3" animateOnce={"once"}>
         <h1 className="project-heading">
           <strong className="purple">Tools</strong> I use
         </h1>
-        </AnimationOnScroll>
-        <Toolstack />
+      </AnimationOnScroll>
+      <Toolstack />
 
       
     </FullScreenSection>
