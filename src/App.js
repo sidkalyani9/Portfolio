@@ -12,7 +12,6 @@ import "./App.css";
 import Preloader from "./components/Pre";
 import {useEffect , useState} from "react";
 import { PrimeReactProvider } from 'primereact/api';
-import Career from "./components/Career";
 
 // Import PrimeReact styles - order is important
 import "primereact/resources/themes/lara-dark-indigo/theme.css";  // base theme
