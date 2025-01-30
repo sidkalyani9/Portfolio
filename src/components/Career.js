@@ -5,6 +5,7 @@ import { Button } from 'primereact/button';
 import { Heading, Img, VStack } from '@chakra-ui/react';
 import vgecLogo from '../images/vgeclogo.png';
 import argusoftLogo from '../images/argusoftLogo.png';
+import { AnimationOnScroll } from 'react-animation-on-scroll';
 
 export default function Career() {
     const [timelineAlign, setTimelineAlign] = useState('alternate');
@@ -154,15 +155,22 @@ export default function Career() {
             className="contactForm"
             alignItems="center"
             w={window.innerWidth>768?'90%':'100%'}
-            style={{marginTop:"100px"}}
+            style={{marginTop:"50px"}}
         >
-            <Heading id='career' as="h1" style={{paddingBottom: "5%"}}>Career <strong className="purple">Timeline</strong></Heading>
+            <AnimationOnScroll animateIn="animate__fadeInUp" duration="2" animateOnce={"once"}>
+                <h1 className="project-heading" style={{marginBottom:"20%"}}>
+                    Career <strong className="purple">Timeline </strong>
+                </h1>
+            {/* <Heading id='career' as="h1" style={{paddingBottom: "5%"}}>Career <strong className="purple">Timeline</strong></Heading> */}
+            </AnimationOnScroll>
+            <AnimationOnScroll animateIn="animate__fadeInUp" duration="2" animateOnce={"once"} offset={-100}>
             <Timeline 
                 value={events} 
                 align={timelineAlign}
                 content={(item, index) => customizedContent(item, index)}
                 className="custom-timeline"
             />
+            </AnimationOnScroll>
         </VStack>
     );
 }
