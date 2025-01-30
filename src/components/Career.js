@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Timeline } from 'primereact/timeline';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
-import { Heading, Img, VStack } from '@chakra-ui/react';
+import { Img, VStack } from '@chakra-ui/react';
 import vgecLogo from '../images/vgeclogo.png';
 import argusoftLogo from '../images/argusoftLogo.png';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
