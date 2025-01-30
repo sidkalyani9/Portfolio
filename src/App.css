@@ -39,7 +39,7 @@
 
 /* Timeline customization */
 .p-timeline {
-  padding: 2rem;
+  padding: 0.5rem;
   width: 100%;
   max-width: 2400px !important;
   margin: 0 auto !important;
@@ -55,12 +55,17 @@
   margin: 0 1rem;
 }
 
+.p-timeline .p-timeline-event {
+  display: flex !important;
+  position: relative !important;
+  min-height: 70px !important;
+}
+
 .p-timeline .p-timeline-event-marker {
   width: 1.2rem !important;
   height: 1.2rem !important;
   border: 2px solid #c770f0 !important;
-  /* background-color: #1b1a2ea9 !important; */
-  /* background-color: #ffffffa9 !important; */
+  background-color: transparent !important;
   border-radius: 50% !important;
   margin: 0 !important;
   z-index: 1 !important;
@@ -71,14 +76,14 @@
 
 .p-timeline .p-timeline-event-connector {
   width: 3px !important;
-  /* background: linear-gradient(
+  background: linear-gradient(
     to bottom,
     #c770f0,
     #cd5ff8
-  ) !important; */
+  ) !important;
   box-shadow: 0 0 10px #c770f0,
               0 0 20px rgba(199, 112, 240, 0.5) !important;
-  height: 100%;
+  height: 100% !important;
 }
 
 /* Card styling */
@@ -92,6 +97,8 @@
   max-width: 1100px !important;
   width: 100% !important;
   backdrop-filter: blur(4px) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .p-card .p-card-title {
@@ -115,10 +122,12 @@
   flex-direction: row-reverse !important;
 }
 
-.p-timeline .p-timeline-event {
-  display: flex !important;
-  position: relative !important;
-  min-height: 70px !important;
+.p-timeline .p-timeline-event-content {
+  opacity: 0;
+}
+
+.p-timeline .p-timeline-event-content.animate {
+  animation: fadeIn 0.6s ease-out forwards;
 }
 
 /* Responsive adjustments */
@@ -200,55 +209,9 @@
   }
 }
 
-@keyframes markerAppear {
-  from {
-    transform: scale(0);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes lineGrow {
-  from {
-    height: 0;
-  }
-  to {
-    height: 100%;
-  }
-}
-
 .p-card-body
 .p-card-title{
   background-color: transparent !important;
-}
-
-/* Hide elements by default */
-.p-timeline .p-timeline-event {
-  opacity: 0;
-}
-
-.p-timeline .p-timeline-event.animate {
-  animation: fadeIn 0.6s ease-out forwards;
-}
-
-.p-timeline .p-timeline-event-marker {
-  opacity: 0;
-  transform: scale(0);
-}
-
-.p-timeline .p-timeline-event-marker.animate {
-  animation: markerAppear 0.3s ease-out forwards;
-}
-
-.p-timeline .p-timeline-event-connector {
-  height: 0;
-}
-
-.p-timeline .p-timeline-event-connector.animate {
-  animation: lineGrow 0.5s ease-out forwards;
 }
 
 /* Card hover animation */
@@ -260,31 +223,6 @@
 .p-card:hover {
   transform: translateY(-5px) !important;
   box-shadow: 0 0 25px rgba(199, 112, 240, 0.5) !important;
-}
-
-/* Update existing marker styles to work with animation */
-.p-timeline .p-timeline-event-marker {
-  width: 1.2rem !important;
-  height: 1.2rem !important;
-  border: 2px solid #c770f0 !important;
-  /* background-color: #1b1a2ea9 !important; */
-  background-color: transparent !important;
-  border-radius: 50% !important;
-  margin: 0 !important;
-  z-index: 1 !important;
-  /* Remove static box-shadow as it's now handled by animation */
-}
-
-/* Update connector for smoother animation */
-.p-timeline .p-timeline-event-connector {
-  width: 3px !important;
-  background: linear-gradient(
-    to bottom,
-    #c770f0,
-    #cd5ff8
-  ) !important;
-  box-shadow: 0 0 10px #c770f0,
-              0 0 20px rgba(199, 112, 240, 0.5) !important;
 }
 
 /* Add smooth transitions for layout changes */

@@ -123,34 +123,27 @@ export default function Career() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // Intersection Observer for animations
+    // Modify the Intersection Observer
     useEffect(() => {
         const observerOptions = {
             root: null,
-            rootMargin: '0px',
-            threshold: 0.3
+            rootMargin: '-100px 0px',  // Only trigger when element is 100px into viewport
+            threshold: 0.3  // Increased threshold - requires more visibility
         };
 
         const handleIntersection = (entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const marker = entry.target.querySelector('.p-timeline-event-marker');
-                    if (marker) marker.classList.add('animate');
-                    
-                    const connector = entry.target.querySelector('.p-timeline-event-connector');
-                    if (connector) connector.classList.add('animate');
-                    
-                    setTimeout(() => {
-                        entry.target.classList.add('animate');
-                    }, 300);
+                    entry.target.classList.add('animate');
                 }
             });
         };
 
         const observer = new IntersectionObserver(handleIntersection, observerOptions);
 
-        document.querySelectorAll('.p-timeline-event').forEach(event => {
-            observer.observe(event);
+        // Observe the timeline event contents
+        document.querySelectorAll('.p-timeline-event-content').forEach(content => {
+            observer.observe(content);
         });
 
         return () => observer.disconnect();
@@ -160,9 +153,10 @@ export default function Career() {
         <VStack
             className="contactForm"
             alignItems="center"
-            w={window.innerWidth>768?'90%':'110%'}
+            w={window.innerWidth>768?'90%':'100%'}
+            style={{marginTop:"100px"}}
         >
-            <Heading id='career' as="h1" style={{paddingBottom: "5%" }}>Career <strong className="purple">Timeline</strong></Heading>
+            <Heading id='career' as="h1" style={{paddingBottom: "5%"}}>Career <strong className="purple">Timeline</strong></Heading>
             <Timeline 
                 value={events} 
                 align={timelineAlign}
