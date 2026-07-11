@@ -1,26 +1,33 @@
-First of all you will need to install all the dependencies by directing to the folder and then using:
+# Siddharth Kalyani — Portfolio (Hybrid A+C)
 
-### `npm install`
+Award-oriented personal portfolio for **GenAI Engineer / Forward Deployed Engineer** roles.
 
-In the project directory, you can run:
+- **Concept:** Hybrid A (cinematic scroll SPA) + C (BidStreamAI product modules)
+- **Stack:** Vite · React 19 · TypeScript · Tailwind CSS v4 · GSAP · Lenis · React Three Fiber
 
-### `npm start`
+## Scripts
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # production → dist/
+npm run preview
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Structure
 
-### `npm test`
+- `src/content/` — locked facts (profile, BidStreamAI, GrantFlow, projects, experience)
+- `src/sections/` — home page chapters
+- `src/pages/` — home + case studies (`/work/:slug`)
+- `src/three/` — lazy-loaded hero WebGL
+- `public/media/` — screenshots & photos
+- `docs/PORTFOLIO-REVAMP-PLANS-A-E.md` — full plan
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Resume
 
-### `npm run build`
+Place `public/resume.pdf` and set `resume.exists = true` in `src/content/socials.ts`.  
+Until then the header shows **Request resume** (mailto).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Notes
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Legacy CRA sources live under `_legacy_cra/` (not used by Vite).

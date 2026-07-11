@@ -1,0 +1,21 @@
+/** Allowed factual claims — use for content QA; do not invent beyond this set. */
+export const allowedClaims = [
+  "6 LLM agents/calls in scoring workflow",
+  "specialised persona classifier with DB cache",
+  "long-context / overflow handling for RFP insights",
+  "automatic Proposal CV generation",
+  "L2 validation vs medical-domain client product catalog with explicit caching",
+  "LlamaIndex / Vertex AI / FastAPI / React",
+  "Gemini ~1M context used",
+  "VibelySane team of 4",
+  "GrantFlow",
+  "~8 hours",
+  "org hackathon win",
+  "red-team prompt strategy",
+  "chatbot form-fill guardrails",
+  "B.Tech IT VGEC 2021–2024",
+  "9.11 CGPA",
+  "Ahmedabad",
+  "open to remote",
+  "Argusoft",
+] as const;
