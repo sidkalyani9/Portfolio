@@ -7,6 +7,7 @@ import {
 } from "@/content/bidstream";
 import { grantflow } from "@/content/grantflow";
 import { projects } from "@/content/projects";
+import { systemPanels } from "@/content/systems";
 import { Chip } from "@/components/ui/Chip";
 import { ButtonLink } from "@/components/ui/Button";
 import { PullQuote } from "@/components/ui/PullQuote";
@@ -14,14 +15,31 @@ import { LongreadSection } from "@/components/ui/LongreadSection";
 import { FigureWithCaption } from "@/components/ui/FigureWithCaption";
 import { useReveal } from "@/hooks/useReveal";
 
-function BackLink() {
+function BackLink({ section = "work" }: { section?: string }) {
   return (
     <Link
-      to="/#work"
+      to={`/#${section}`}
       className="inline-flex items-center gap-2 font-sans text-sm text-fg-1 transition hover:text-accent"
+      onClick={(e) => {
+        if (window.location.pathname === "/") {
+          e.preventDefault();
+          const el = document.getElementById(section);
+          el?.scrollIntoView({ behavior: "smooth", block: "start" });
+          window.history.replaceState(null, "", `/#${section}`);
+        }
+      }}
     >
       <ArrowLeft size={16} aria-hidden /> Back to work
     </Link>
+  );
+}
+
+function ConfidentialNote() {
+  return (
+    <p className="rounded-xl border border-border bg-bg-1/50 px-4 py-3 text-sm text-fg-2">
+      Confidential client engagement — product name and UI redacted. Facts below
+      describe ownership and architecture only.
+    </p>
   );
 }
 
@@ -33,13 +51,14 @@ export function CaseStudyPage() {
     return (
       <article className="section-y pt-28">
         <header className="container-measure reveal">
-          <BackLink />
+          <BackLink section="systems" />
           <p className="mt-10 font-sans text-[11px] font-semibold uppercase tracking-[0.22em] text-accent">
-            Case study · P0 · BidStreamAI
+            Case study · P0 · Internal product
           </p>
           <h1 className="mt-4 font-display text-[clamp(2.5rem,6vw,4.25rem)] text-fg-0">
             {bidstreamCaseStudy.title}
           </h1>
+          <p className="mt-2 text-sm text-fg-2">{bidstreamCaseStudy.productLine}</p>
           <p className="mt-4 font-display text-xl italic text-fg-1 md:text-2xl">
             {bidstreamCaseStudy.subtitle}
           </p>
@@ -50,18 +69,11 @@ export function CaseStudyPage() {
           </div>
         </header>
 
-        <div className="reveal mt-14">
-          <FigureWithCaption
-            wide
-            src={bidstreamCaseStudy.media[0]}
-            alt="BidStreamAI proposal scoring UI"
-            caption="Proposal scoring interface — multi-agent evaluation for high-stakes bidding documents."
-            credit="Figure 01"
-            imgClassName="max-h-[480px] w-full object-cover object-top"
-          />
+        <div className="container-measure reveal mt-12">
+          <ConfidentialNote />
         </div>
 
-        <div className="container-measure reveal mt-16 space-y-14">
+        <div className="container-measure reveal mt-12 space-y-14">
           <LongreadSection number="01" title="Problem">
             <p>{bidstreamCaseStudy.problem}</p>
           </LongreadSection>
@@ -72,8 +84,8 @@ export function CaseStudyPage() {
 
           <LongreadSection number="03" title="System map">
             <p>
-              BidStreamAI runs an end-to-end pipeline from RFP intake through proposal
-              scoring. I contributed across the product while owning the modules below.
+              End-to-end pipeline from RFP intake through proposal scoring. I owned the
+              modules below while contributing across the product.
             </p>
             <ol className="mt-4 flex flex-wrap gap-2">
               {bidstreamCaseStudy.pipeline.map((s) => (
@@ -98,9 +110,7 @@ export function CaseStudyPage() {
               {bidstreamModules.map((m, i) => (
                 <div key={m.id} className="border-t border-border pt-6">
                   <h3 className="font-display text-xl text-fg-0">
-                    <span className="mr-2 font-sans text-xs text-ink">
-                      0{i + 1}
-                    </span>
+                    <span className="mr-2 font-sans text-xs text-ink">0{i + 1}</span>
                     {m.title}
                   </h3>
                   <ul className="mt-3 space-y-2">
@@ -119,16 +129,16 @@ export function CaseStudyPage() {
           <LongreadSection number="05" title="Engineering notes">
             <p>
               Stack: <strong>LlamaIndex</strong>, <strong>Vertex AI</strong>,{" "}
-              <strong>FastAPI</strong>, <strong>React</strong>, with Gemini long-context
-              (~1M) for large RFP packs. Caching is first-class for persona prompts and
-              Level-2 validation against a medical-domain product catalog.
+              <strong>FastAPI</strong>, <strong>React</strong>, Gemini long-context
+              (~1M). Caching is first-class for persona prompts and Level-2 validation
+              against a medical-domain product catalog.
             </p>
           </LongreadSection>
 
           <LongreadSection number="06" title="Outcome">
             <p>{bidstreamCaseStudy.outcome}</p>
             <p className="text-sm text-fg-2">
-              Client specifics kept generic. No invented performance metrics.
+              No company UI screenshots. No invented performance metrics.
             </p>
           </LongreadSection>
 
@@ -160,16 +170,16 @@ export function CaseStudyPage() {
             wide
             src={grantflow.media[0]}
             alt="Hackathon team photo"
-            caption="VibelySane shipping GrantFlow against a client-like brief in about eight hours."
+            caption="VibelySane shipping GrantFlow under an eight-hour constraint."
             credit="Figure 01"
             imgClassName="aspect-[16/10] w-full object-cover"
           />
           <FigureWithCaption
             src={grantflow.media[1]}
             alt="Hackathon dinner"
-            caption="After the win — prioritisation and resilient LLM UX over unfinished sprawl."
+            caption="Celebration after the win — prioritisation over unfinished sprawl."
             credit="Figure 02"
-            imgClassName="aspect-[4/3] w-full object-cover"
+            imgClassName="max-h-[420px] w-full object-contain"
           />
         </div>
 
@@ -189,11 +199,9 @@ export function CaseStudyPage() {
           </LongreadSection>
           <LongreadSection number="04" title="Skills transferred">
             <p>
-              The same judgement shows up on BidStreamAI and in Forward Deployed work:
+              The same judgement shows up in production GenAI and platform work:
               prioritise under constraint, design LLM paths that fail safely, and treat
-              scoring prompts as systems — not one-off messages. Red-team evaluation and
-              chatbot guardrails map directly to production proposal scoring and
-              operator-facing flows.
+              scoring prompts as systems — not one-off messages.
             </p>
           </LongreadSection>
           <div className="flex flex-wrap gap-2">
@@ -202,6 +210,76 @@ export function CaseStudyPage() {
             ))}
           </div>
           <ButtonLink to="/#contact">Get in touch</ButtonLink>
+        </div>
+      </article>
+    );
+  }
+
+  // Anonymous systems from systems.ts
+  const system = systemPanels.find((p) => p.caseSlug === slug && p.kind === "anonymous");
+  if (system) {
+    return (
+      <article className="section-y pt-28">
+        <header className="container-measure reveal">
+          <BackLink section="systems" />
+          <p className="mt-10 font-sans text-[11px] font-semibold uppercase tracking-[0.22em] text-accent">
+            Case study · Confidential
+          </p>
+          <h1 className="mt-4 font-display text-[clamp(2.5rem,6vw,4rem)] text-fg-0">
+            {system.title}
+          </h1>
+          <p className="mt-4 text-lg text-fg-1">{system.short}</p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {system.stack.map((s) => (
+              <Chip key={s}>{s}</Chip>
+            ))}
+          </div>
+        </header>
+
+        <div className="container-measure reveal mt-10 space-y-12">
+          <ConfidentialNote />
+          <LongreadSection number="01" title="Context">
+            <p>
+              {slug === "authenticated-scraping-automation"
+                ? "Client scraping platform requiring reliable authenticated access for automated collection workflows."
+                : "Client messaging platform with a video meeting feature that needed post-meeting intelligence in product."}
+            </p>
+          </LongreadSection>
+          <LongreadSection number="02" title="Problem">
+            <p>
+              {slug === "authenticated-scraping-automation"
+                ? "Automated login had to handle credentials securely and complete 2FA without hardcoding secrets or manual OTP entry each run."
+                : "Video meetings produced speech that needed to become transcripts and actionable summaries inside the messaging experience."}
+            </p>
+          </LongreadSection>
+          <LongreadSection number="03" title="Role">
+            <p>Owned the end-to-end solution described below.</p>
+          </LongreadSection>
+          <LongreadSection number="04" title="Approach">
+            <ul className="space-y-2">
+              {system.detail.map((d) => (
+                <li key={d} className="flex gap-3">
+                  <span className="mt-2 h-px w-3 shrink-0 bg-accent/60" />
+                  {d}
+                </li>
+              ))}
+            </ul>
+          </LongreadSection>
+          <LongreadSection number="05" title="Stack">
+            <p>
+              {system.stack.join(" · ")}
+              {slug === "meeting-intelligence-pipeline"
+                ? ". Speech-to-text and summarization use cost-efficient production-style models (representative: Whisper-class STT + Flash/mini-class LLM) — exact production model names may vary."
+                : "."}
+            </p>
+          </LongreadSection>
+          <LongreadSection number="06" title="Outcome">
+            <p>
+              {projects.find((p) => p.slug === slug)?.outcome ??
+                "Shipped as a reliable production path without exposing client UI."}
+            </p>
+          </LongreadSection>
+          <ButtonLink to="/#contact">Discuss similar systems</ButtonLink>
         </div>
       </article>
     );
@@ -223,16 +301,22 @@ export function CaseStudyPage() {
           ))}
         </div>
       </div>
-      <div className="reveal mt-10">
-        <FigureWithCaption
-          wide
-          src={project.cover}
-          alt={`${project.title} cover`}
-          caption={project.outcome}
-          credit={project.priority}
-          imgClassName="aspect-video w-full object-cover"
-        />
-      </div>
+      {project.cover ? (
+        <div className="reveal mt-10">
+          <FigureWithCaption
+            wide
+            src={project.cover}
+            alt={`${project.title} cover`}
+            caption={project.outcome}
+            credit={project.priority}
+            imgClassName="aspect-video w-full object-cover"
+          />
+        </div>
+      ) : (
+        <div className="container-measure reveal mt-10">
+          <ConfidentialNote />
+        </div>
+      )}
       <div className="container-measure reveal mt-12 space-y-8">
         <LongreadSection title="Problem">
           <p>{project.problem}</p>

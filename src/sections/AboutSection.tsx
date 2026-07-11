@@ -6,7 +6,7 @@ export function AboutSection() {
   return (
     <section id="about" className="section-y bg-bg-1/15">
       <div className="container-page grid items-start gap-14 lg:grid-cols-[0.85fr_1.15fr]">
-        <div className="reveal">
+        <div className="reveal" data-reveal="clip">
           <FigureWithCaption
             wide
             src="/media/display-pic.webp"
@@ -25,13 +25,14 @@ export function AboutSection() {
           />
           <div className="mt-8 max-w-[38rem] space-y-5 text-base leading-relaxed text-fg-1">
             <p>
-              On <strong className="text-fg-0">BidStreamAI</strong> at Argusoft, I own
-              multi-agent proposal scoring — including a specialised persona classifier
-              with DB-backed prompt caching — long-context RFP insights, automatic
-              proposal CV generation, and level-2 catalog-grounded validation.
+              At Argusoft I ship production GenAI and platform systems: multi-agent
+              proposal scoring (including a specialised persona classifier with DB-backed
+              prompt caching), long-context document insights, authenticated scraping
+              automation (Secrets Manager + Gmail OTP), and meeting speech-to-summary
+              pipelines.
             </p>
             <p>
-              The work that holds up is specialised, cached, and inspectable — not a
+              The work that holds up is specialised, secured, and inspectable — not a
               single chat prompt hoping for the best.
             </p>
             <p className="text-sm text-fg-2">

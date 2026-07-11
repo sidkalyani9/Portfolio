@@ -92,7 +92,8 @@ export const bidstreamModules: BidStreamModule[] = [
 
 export const bidstreamCaseStudy = {
   slug: "bidstream-ai",
-  title: "BidStreamAI",
+  title: "Multi-agent proposal scoring",
+  productLine: "BidStreamAI (internal product)",
   subtitle: "End-to-end RFP → proposal intelligence",
   role: "GenAI Engineer / Forward Deployed Engineer — owned scoring, insights, CV generation, and L2 validation modules",
   problem:
@@ -101,7 +102,8 @@ export const bidstreamCaseStudy = {
     "Contributed across the BidStreamAI pipeline while owning the Proposal Scoring multi-agent workflow, RFP insights with long-context handling, automatic Proposal CV generation, and Level-2 catalog-grounded validation with caching.",
   outcome:
     "A production GenAI workflow that specialises scoring personas, reuses cached prompts, handles long RFPs, generates resource CVs from a knowledge base, and validates fit against a medical-domain product catalog.",
-  media: ["/media/bidstream-proposal-scoring.png"],
+  /** Confidential — no company UI screenshots */
+  media: [] as string[],
   pipeline: [
     "Scrape RFPs",
     "Extract insights",

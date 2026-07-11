@@ -9,7 +9,7 @@ export function ExperienceSection() {
         <SectionHeading
           eyebrow="Experience"
           title="Curriculum"
-          description="Path into GenAI product engineering — from full-stack foundations at Argusoft to multi-agent systems on BidStreamAI."
+          description="Path into GenAI and platform engineering — full-stack foundations at Argusoft through multi-agent systems, auth automation, and meeting intelligence."
           className="reveal"
         />
 

@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState, type MouseEvent } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { ButtonLink } from "@/components/ui/Button";
 import { useResumeHref } from "@/hooks/useResumeHref";
 import { profile } from "@/content/profile";
+import { useScrollTo } from "@/components/SmoothScroll";
 
 const nav = [
-  { label: "Work", href: "/#work" },
-  { label: "Experience", href: "/#experience" },
-  { label: "About", href: "/#about" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Work", id: "systems" },
+  { label: "About", id: "about" },
+  { label: "Experience", id: "experience" },
+  { label: "Contact", id: "contact" },
 ];
 
 export function SiteHeader() {
@@ -18,6 +19,8 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const resume = useResumeHref();
   const location = useLocation();
+  const navigate = useNavigate();
+  const { scrollToId } = useScrollTo();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -29,6 +32,17 @@ export function SiteHeader() {
   useEffect(() => {
     setOpen(false);
   }, [location.pathname, location.hash]);
+
+  const goSection = (e: MouseEvent, id: string) => {
+    e.preventDefault();
+    setOpen(false);
+    if (location.pathname === "/") {
+      scrollToId(id);
+      window.history.replaceState(null, "", `/#${id}`);
+    } else {
+      navigate(`/#${id}`);
+    }
+  };
 
   const linkClass =
     "text-sm text-fg-1 transition-colors hover:text-fg-0 focus-visible:text-fg-0";
@@ -64,7 +78,12 @@ export function SiteHeader() {
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
           {nav.map((item) => (
-            <a key={item.href} href={item.href} className={linkClass}>
+            <a
+              key={item.id}
+              href={`/#${item.id}`}
+              className={linkClass}
+              onClick={(e) => goSection(e, item.id)}
+            >
               {item.label}
             </a>
           ))}
@@ -116,10 +135,10 @@ export function SiteHeader() {
         <nav className="container-page flex flex-col gap-1 py-4" aria-label="Mobile">
           {nav.map((item) => (
             <a
-              key={item.href}
-              href={item.href}
+              key={item.id}
+              href={`/#${item.id}`}
               className="rounded-xl px-3 py-3 text-base text-fg-0 hover:bg-white/5"
-              onClick={() => setOpen(false)}
+              onClick={(e) => goSection(e, item.id)}
             >
               {item.label}
             </a>

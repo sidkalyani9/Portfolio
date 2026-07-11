@@ -2,7 +2,7 @@ export const profile = {
   name: "Siddharth Kalyani",
   roleLine: "GenAI Engineer · Forward Deployed Engineer",
   oneLiner:
-    "Building end-to-end GenAI systems for high-stakes bidding — from RFP intelligence to multi-agent proposal scoring.",
+    "Building end-to-end GenAI systems in production — multi-agent scoring, authenticated automation, and meeting intelligence pipelines.",
   location: "Ahmedabad, India",
   remote: true,
   company: "Argusoft India Pvt. Ltd.",
