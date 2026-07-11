@@ -54,10 +54,10 @@ export function SiteHeader() {
           className="group flex items-center gap-3"
           aria-label={`${profile.name} home`}
         >
-          <span className="grid h-9 w-9 place-items-center rounded-xl border border-border bg-bg-2 font-display text-sm font-bold text-accent shadow-[0_0_24px_rgba(46,230,166,0.12)] transition group-hover:border-accent/30">
+          <span className="grid h-9 w-9 place-items-center rounded-xl border border-border bg-bg-2 font-sans text-sm font-bold text-accent shadow-[0_0_24px_rgba(46,230,166,0.1)] transition group-hover:border-accent/30">
             SK
           </span>
-          <span className="max-w-[10rem] truncate text-sm font-medium text-fg-0 sm:max-w-none">
+          <span className="max-w-[10rem] truncate text-sm font-medium tracking-tight text-fg-0 sm:max-w-none">
             {profile.name}
           </span>
         </Link>
@@ -82,9 +82,16 @@ export function SiteHeader() {
           <ButtonLink
             to="https://www.linkedin.com/in/siddharth-kalyani/"
             variant="ghost"
-            className="hidden !px-3 !py-2 text-sm sm:inline-flex"
+            className="hidden !px-3 !py-2 text-sm md:inline-flex"
           >
             LinkedIn
+          </ButtonLink>
+          <ButtonLink
+            to="mailto:sidkalyani9@gmail.com"
+            variant="ghost"
+            className="hidden !px-3 !py-2 text-sm lg:inline-flex"
+          >
+            Email
           </ButtonLink>
           <button
             type="button"

@@ -8,15 +8,15 @@ export function ProofSection() {
           {proofPoints.map((p) => (
             <li
               key={p.label}
-              className="reveal rounded-2xl border border-border bg-bg-0/60 p-5 transition hover:border-accent/25"
+              className="reveal border border-border bg-bg-0/40 p-6 transition hover:border-accent/20"
             >
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-fg-2">
+              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-fg-2">
                 {p.label}
               </p>
-              <p className="mt-3 font-display text-xl font-bold text-fg-0 md:text-2xl">
+              <p className="mt-3 font-display text-xl text-fg-0 md:text-2xl">
                 {p.value}
               </p>
-              <p className="mt-2 text-sm text-fg-1">{p.hint}</p>
+              <p className="mt-2 text-sm leading-relaxed text-fg-1">{p.hint}</p>
             </li>
           ))}
         </ul>

@@ -10,7 +10,7 @@ export function SiteFooter() {
     <footer className="border-t border-border bg-bg-1">
       <div className="container-page flex flex-col gap-8 py-12 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="font-display text-xl font-bold text-fg-0">{profile.name}</p>
+          <p className="font-display text-2xl text-fg-0">{profile.name}</p>
           <p className="mt-1 text-sm text-fg-1">{profile.roleLine}</p>
           <p className="mt-4 text-xs text-fg-2">
             © {year} · Portfolio for GenAI / Forward Deployed Engineer roles

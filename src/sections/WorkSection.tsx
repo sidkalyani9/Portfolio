@@ -28,7 +28,6 @@ export function WorkSection() {
               <article
                 key={project.slug}
                 role="listitem"
-                tabIndex={0}
                 className={cn(
                   "group overflow-hidden rounded-3xl border border-border bg-bg-1/40 transition hover:border-accent/30 focus-within:border-accent/40",
                   isP0 && index === 0 && "md:col-span-2",
@@ -65,7 +64,7 @@ export function WorkSection() {
                         <Chip key={t}>{t}</Chip>
                       ))}
                     </div>
-                    <h3 className="mt-4 font-display text-2xl font-bold text-fg-0 md:text-3xl">
+                    <h3 className="mt-4 font-display text-2xl text-fg-0 md:text-3xl">
                       {project.title}
                     </h3>
                     <p className="mt-3 text-sm text-fg-1 md:text-base">

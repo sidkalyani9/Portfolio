@@ -13,6 +13,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Chip } from "@/components/ui/Chip";
 import { MediaFrame } from "@/components/ui/MediaFrame";
 import { ButtonLink } from "@/components/ui/Button";
+import { PullQuote } from "@/components/ui/PullQuote";
 import { cn } from "@/lib/cn";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
@@ -84,8 +85,15 @@ export function BidStreamSection() {
           ))}
         </div>
 
+        <div className="reveal max-w-2xl">
+          <PullQuote attribution="Specialised persona classifier · BidStreamAI">
+            For each proposal section, choose a specialised scoring persona, reuse it
+            from the database when it exists, otherwise write it, cache it, then score.
+          </PullQuote>
+        </div>
+
         {/* Pipeline */}
-        <ol className="reveal mt-10 flex flex-wrap gap-2 md:gap-3" aria-label="BidStreamAI pipeline">
+        <ol className="reveal mt-2 flex flex-wrap gap-2 md:gap-3" aria-label="BidStreamAI pipeline">
           {bidstreamCaseStudy.pipeline.map((step, i) => (
             <li key={step} className="flex items-center gap-2 text-sm text-fg-1">
               <span className="rounded-full border border-border bg-bg-2 px-3 py-1.5 text-fg-0">
@@ -121,7 +129,7 @@ export function BidStreamSection() {
                     role="tab"
                     id={`${baseId}-tab-${m.id}`}
                     aria-selected={selected}
-                    aria-controls={`${baseId}-panel-${m.id}`}
+                    aria-controls={`${baseId}-panel`}
                     tabIndex={selected ? 0 : -1}
                     onClick={() => select(m.id)}
                     onKeyDown={(e) => {
@@ -144,7 +152,7 @@ export function BidStreamSection() {
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <p className="font-display text-lg font-bold text-fg-0">
+                        <p className="font-display text-lg text-fg-0">
                           {m.title}
                         </p>
                         <p className="mt-1 text-sm text-fg-1">{m.short}</p>
@@ -165,7 +173,7 @@ export function BidStreamSection() {
           <div
             className="reveal rounded-3xl border border-border bg-bg-1/50 p-6 md:p-8"
             role="tabpanel"
-            id={`${baseId}-panel-${module.id}`}
+            id={`${baseId}-panel`}
             aria-labelledby={`${baseId}-tab-${module.id}`}
           >
             <div className="flex items-center gap-2 text-accent">

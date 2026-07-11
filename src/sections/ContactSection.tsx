@@ -10,24 +10,23 @@ const icons = {
   github: Github,
 } as const;
 
+/** Concept E — sparse contact */
 export function ContactSection() {
   const resume = useResumeHref();
 
   return (
-    <section id="contact" className="section-y relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,rgba(46,230,166,0.12),transparent_55%)]" />
-      <div className="container-page relative">
-        <div className="reveal rounded-[2rem] border border-border bg-bg-1/60 px-6 py-12 text-center md:px-12 md:py-16">
+    <section id="contact" className="section-y">
+      <div className="container-measure text-center">
+        <div className="reveal">
           <SectionHeading
             align="center"
             eyebrow="Contact"
             title="Open to GenAI / FDE roles"
-            description="If you're hiring for AI / GenAI Developer or Forward Deployed Engineer roles — especially end-to-end LLM systems in production — let's talk."
-            className="mx-auto"
+            description="Hiring for AI / GenAI Developer or Forward Deployed Engineer roles — especially end-to-end LLM systems in production — get in touch."
           />
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <ButtonLink to="mailto:sidkalyani9@gmail.com">Email me</ButtonLink>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <ButtonLink to="mailto:sidkalyani9@gmail.com">Email</ButtonLink>
             <ButtonLink
               to="https://www.linkedin.com/in/siddharth-kalyani/"
               variant="outline"
@@ -39,7 +38,9 @@ export function ContactSection() {
             </ButtonLink>
           </div>
 
-          <ul className="mt-10 flex flex-wrap items-center justify-center gap-6">
+          <div className="rule mx-auto my-12 max-w-xs" />
+
+          <ul className="flex flex-wrap items-center justify-center gap-8">
             {primarySocials.map((s) => {
               const Icon = icons[s.id as keyof typeof icons];
               return (
@@ -50,10 +51,10 @@ export function ContactSection() {
                     rel={
                       s.href.startsWith("http") ? "noopener noreferrer" : undefined
                     }
-                    className="inline-flex items-center gap-2 text-sm text-fg-1 transition hover:text-accent"
+                    className="inline-flex items-center gap-2 font-sans text-sm text-fg-2 transition hover:text-accent"
                     aria-label={s.label}
                   >
-                    {Icon ? <Icon size={16} aria-hidden /> : null}
+                    {Icon ? <Icon size={15} aria-hidden /> : null}
                     {s.label}
                   </a>
                 </li>

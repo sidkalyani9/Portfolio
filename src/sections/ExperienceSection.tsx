@@ -1,56 +1,55 @@
 import { experience } from "@/content/experience";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
+/** Concept E — CV-like experience, sparse and scannable */
 export function ExperienceSection() {
   return (
-    <section id="experience" className="section-y bg-bg-1/25">
+    <section id="experience" className="section-y">
       <div className="container-page">
         <SectionHeading
           eyebrow="Experience"
-          title="Path into GenAI product engineering"
-          description="From full-stack foundations at Argusoft to owning multi-agent workflows on BidStreamAI."
+          title="Curriculum"
+          description="Path into GenAI product engineering — from full-stack foundations at Argusoft to multi-agent systems on BidStreamAI."
           className="reveal"
         />
 
-        <ol className="reveal relative mt-12 space-y-6 border-l border-border pl-6 md:pl-8">
+        <div className="reveal mt-16 border-t border-border">
           {experience.map((item) => (
-            <li key={`${item.title}-${item.date}`} className="relative">
-              <span
-                className="absolute -left-[1.9rem] top-2 h-3 w-3 rounded-full border-2 border-bg-0 bg-accent md:-left-[2.4rem]"
-                aria-hidden
-              />
-              <article className="rounded-2xl border border-border bg-bg-0/50 p-5 md:p-6">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div className="flex items-start gap-3">
-                    {item.logo ? (
-                      <img
-                        src={item.logo}
-                        alt=""
-                        className="mt-0.5 h-10 w-10 rounded-lg border border-border bg-white object-contain p-1"
-                      />
-                    ) : null}
-                    <div>
-                      <h3 className="font-display text-lg font-bold text-fg-0 md:text-xl">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-fg-1">{item.org}</p>
-                    </div>
-                  </div>
-                  <p className="text-xs font-medium uppercase tracking-wide text-fg-2">
-                    {item.date}
-                  </p>
-                </div>
-                <ul className="mt-4 space-y-2">
+            <article
+              key={`${item.title}-${item.date}`}
+              className="grid gap-4 border-b border-border py-8 md:grid-cols-[minmax(0,0.35fr)_minmax(0,0.65fr)] md:gap-10"
+            >
+              <div>
+                <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-fg-2">
+                  {item.date}
+                </p>
+                <p className="mt-2 text-sm text-fg-1">{item.org}</p>
+                {item.logo ? (
+                  <img
+                    src={item.logo}
+                    alt=""
+                    width={36}
+                    height={36}
+                    className="mt-4 h-9 w-9 rounded-md border border-border bg-white object-contain p-1"
+                  />
+                ) : null}
+              </div>
+              <div>
+                <h3 className="font-display text-2xl text-fg-0">{item.title}</h3>
+                <ul className="mt-4 space-y-2.5">
                   {item.bullets.map((b) => (
-                    <li key={b} className="text-sm text-fg-1 md:text-[0.95rem]">
+                    <li
+                      key={b}
+                      className="max-w-[42rem] text-sm leading-relaxed text-fg-1 md:text-[0.95rem]"
+                    >
                       {b}
                     </li>
                   ))}
                 </ul>
-              </article>
-            </li>
+              </div>
+            </article>
           ))}
-        </ol>
+        </div>
       </div>
     </section>
   );
