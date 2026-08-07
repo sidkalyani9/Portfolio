@@ -196,6 +196,7 @@ export function SystemsSection() {
           title="Systems I own end-to-end"
           description="Production GenAI on Bidstream — multi-agent generation, agentic scoring, GraphRAG retrieval, caching infrastructure, batch validation and observability. Confidential UIs redacted."
           className="reveal"
+          kinetic
         />
 
         <div className="reveal max-w-2xl">

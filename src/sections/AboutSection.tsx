@@ -28,6 +28,7 @@ export function AboutSection() {
           <SectionHeading
             eyebrow="About"
             title="Quiet systems, high stakes"
+            kinetic
             description={`I'm ${profile.name} — ${profile.roleLine} based in ${profile.location}, open to remote roles.`}
           />
           <div className="mt-8 max-w-[38rem] space-y-5 text-base leading-relaxed text-fg-1">

@@ -1,9 +1,17 @@
 import { ArrowUpRight } from "lucide-react";
-import { alsoProjects, featuredProjects, type Project } from "@/content/projects";
+import {
+  alsoProjects,
+  featuredProjects,
+  projects,
+  type Project,
+} from "@/content/projects";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { MediaFrame } from "@/components/ui/MediaFrame";
 import { Chip } from "@/components/ui/Chip";
 import { WipeLink } from "@/components/PageWipe";
+import { HoverPreview } from "@/components/fx/HoverPreview";
+import { TextRoll } from "@/components/fx/TextRoll";
+import { Magnetic } from "@/components/fx/Magnetic";
 import { cn } from "@/lib/cn";
 
 function ProjectMeta({ project }: { project: Project }) {
@@ -23,7 +31,7 @@ function ProjectMeta({ project }: { project: Project }) {
           <Chip key={t}>{t}</Chip>
         ))}
       </div>
-      <h3 className="mt-4 font-display text-2xl text-fg-0 md:text-3xl">
+      <h3 className="mt-4 font-display text-2xl text-fg-0 transition group-hover:text-accent md:text-3xl">
         {project.title}
       </h3>
       <p className="mt-3 text-sm text-fg-1 md:text-base">{project.problem}</p>
@@ -31,7 +39,9 @@ function ProjectMeta({ project }: { project: Project }) {
         <span className="text-fg-1">Role:</span> {project.role}
       </p>
       <span className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-accent">
-        View
+        <span className="group/view">
+          <TextRoll text="View project" />
+        </span>
         <ArrowUpRight
           size={16}
           className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -45,6 +55,7 @@ function ProjectMeta({ project }: { project: Project }) {
 function MediaCard({ project, full }: { project: Project; full?: boolean }) {
   return (
     <article
+      data-preview-id={project.slug}
       className={cn(
         "group overflow-hidden rounded-3xl border border-border bg-bg-1/40 transition hover:border-accent/30 focus-within:border-accent/40",
         full && "md:col-span-2",
@@ -53,6 +64,7 @@ function MediaCard({ project, full }: { project: Project; full?: boolean }) {
       <WipeLink
         to={`/work/${project.slug}`}
         data-cursor="view"
+        data-cursor-label="View"
         className={cn("grid gap-0 outline-none", full && "lg:grid-cols-2")}
       >
         {project.cover ? (
@@ -61,7 +73,7 @@ function MediaCard({ project, full }: { project: Project; full?: boolean }) {
             alt={`${project.title} preview`}
             className="rounded-none border-0 shadow-none"
             imgClassName={cn(
-              "w-full object-cover transition duration-500 group-hover:scale-[1.02]",
+              "w-full object-cover transition duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]",
               full ? "aspect-[16/10] lg:aspect-auto lg:min-h-[300px]" : "aspect-[16/10]",
             )}
           />
@@ -76,10 +88,14 @@ function MediaCard({ project, full }: { project: Project; full?: boolean }) {
 
 function TextRow({ project }: { project: Project }) {
   return (
-    <article className="group md:col-span-2 overflow-hidden rounded-3xl border border-border bg-bg-1/30 transition hover:border-accent/30 hover:bg-bg-1/50 focus-within:border-accent/40">
+    <article
+      data-preview-id={project.slug}
+      className="group md:col-span-2 overflow-hidden rounded-3xl border border-border bg-bg-1/30 transition hover:border-accent/30 hover:bg-bg-1/50 focus-within:border-accent/40"
+    >
       <WipeLink
         to={`/work/${project.slug}`}
         data-cursor="view"
+        data-cursor-label="View"
         className="grid gap-6 p-6 outline-none md:grid-cols-[1fr_1.1fr] md:p-8"
       >
         <div>
@@ -108,14 +124,22 @@ function TextRow({ project }: { project: Project }) {
 }
 
 export function WorkSection() {
+  const previewItems = projects.map((p) => ({
+    id: p.slug,
+    src: p.cover,
+    title: p.title,
+  }));
+
   return (
     <section id="work" className="section-y">
+      <HoverPreview items={previewItems} />
       <div className="container-page">
         <SectionHeading
           eyebrow="Selected work"
           title="Systems & products"
           description="Production GenAI ownership, confidential platform integrations, public apps, and a hackathon win — architecture and role first."
           className="reveal"
+          kinetic
         />
 
         <div
@@ -147,14 +171,18 @@ export function WorkSection() {
           <ul className="mt-4 flex flex-wrap gap-3">
             {alsoProjects.map((p) => (
               <li key={p.slug}>
-                <WipeLink
-                  to={`/work/${p.slug}`}
-                  data-cursor="view"
-                  className="inline-flex items-center gap-2 rounded-full border border-border bg-bg-1/50 px-4 py-2 text-sm text-fg-1 transition hover:border-accent/30 hover:text-fg-0"
-                >
-                  {p.title}
-                  <ArrowUpRight size={14} aria-hidden />
-                </WipeLink>
+                <Magnetic strength={0.22}>
+                  <WipeLink
+                    to={`/work/${p.slug}`}
+                    data-cursor="view"
+                    data-cursor-label="View"
+                    data-preview-id={p.slug}
+                    className="group inline-flex items-center gap-2 rounded-full border border-border bg-bg-1/50 px-4 py-2 text-sm text-fg-1 transition hover:border-accent/30 hover:text-fg-0"
+                  >
+                    <TextRoll text={p.title} />
+                    <ArrowUpRight size={14} aria-hidden />
+                  </WipeLink>
+                </Magnetic>
               </li>
             ))}
           </ul>

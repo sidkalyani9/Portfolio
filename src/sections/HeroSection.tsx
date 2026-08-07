@@ -1,25 +1,28 @@
 import { lazy, Suspense } from "react";
-import { ArrowDownRight, MapPin } from "lucide-react";
+import { ArrowDownRight } from "lucide-react";
 import { profile } from "@/content/profile";
 import { ButtonLink } from "@/components/ui/Button";
 import { Magnetic } from "@/components/fx/Magnetic";
 import { SplitText } from "@/components/fx/SplitText";
-import { TokenStream } from "@/components/fx/TokenStream";
+import { Marquee } from "@/components/fx/Marquee";
+import { TextRoll } from "@/components/fx/TextRoll";
 import { useResumeHref } from "@/hooks/useResumeHref";
 import { useBooted } from "@/components/Boot";
-import { openPalette } from "@/components/CommandPalette";
 import { useScrollTo } from "@/components/SmoothScroll";
 
 const GlyphField = lazy(() =>
   import("@/three/GlyphField").then((m) => ({ default: m.GlyphField })),
 );
 
-const STATUS_ROWS: [string, string][] = [
-  ["role", "AI/GenAI & Forward-Deployed Engineer"],
-  ["org", "Argusoft · Bidstream"],
-  ["focus", "multi-agent systems · GraphRAG · caching"],
-  ["scale", "1B+ tokens · 1M+ pages in production"],
-];
+const HERO_MARQUEE = [
+  "Multi-agent systems",
+  "GraphRAG",
+  "Vertex AI",
+  "1B+ tokens",
+  "80% cost cut",
+  "Forward-Deployed",
+  "Production GenAI",
+] as const;
 
 export function HeroSection() {
   const resume = useResumeHref();
@@ -29,142 +32,93 @@ export function HeroSection() {
   return (
     <section
       id="home"
-      className="relative flex min-h-[100svh] items-center overflow-hidden pt-20"
+      className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden pt-24"
       aria-label="Introduction"
     >
-      {/* ambient glows under the glyph field */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_85%_20%,rgba(46,230,166,0.07),transparent_42%),radial-gradient(ellipse_at_10%_90%,rgba(225,29,72,0.05),transparent_40%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_10%,rgba(46,230,166,0.09),transparent_45%),radial-gradient(ellipse_at_15%_85%,rgba(124,92,255,0.06),transparent_40%)]" />
 
       <Suspense fallback={null}>
-        <GlyphField className="pointer-events-none absolute inset-0 z-0 opacity-90" />
+        <GlyphField className="pointer-events-none absolute inset-0 z-0 opacity-70" />
       </Suspense>
 
-      {/* readability vignette */}
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(90deg,rgba(7,8,12,0.72)_0%,rgba(7,8,12,0.25)_45%,transparent_75%)]" />
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(180deg,rgba(7,8,12,0.2)_0%,rgba(7,8,12,0.55)_55%,rgba(7,8,12,0.92)_100%)]" />
 
-      <div className="container-page relative z-10 grid gap-12 py-20 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-end lg:py-24">
-        <div>
-          <p
-            className="font-mono text-xs text-fg-2 transition-opacity duration-700"
-            style={{ opacity: booted ? 1 : 0 }}
-          >
-            <span className="text-accent">~</span>/siddharth-kalyani —{" "}
-            {profile.location.toLowerCase()} · open to remote
-            <MapPin size={12} className="ml-2 inline text-accent" aria-hidden />
-          </p>
+      <div className="container-page relative z-10 pb-10 pt-16 md:pb-14">
+        <div
+          className="flex flex-wrap items-center gap-3 text-sm text-fg-2 transition-opacity duration-700"
+          style={{ opacity: booted ? 1 : 0 }}
+        >
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-bg-1/50 px-3 py-1 font-sans text-[11px] uppercase tracking-[0.18em]">
+            <span className="status-dot h-1.5 w-1.5 rounded-full bg-accent" />
+            Open to remote · {profile.location}
+          </span>
+        </div>
 
-          <h1 className="mt-6 font-display uppercase leading-[0.92] text-fg-0">
-            <SplitText
-              text="Siddharth"
-              start={booted}
-              delay={0.05}
-              className="block text-[clamp(3.4rem,11vw,9rem)]"
-            />
-            <SplitText
-              text="Kalyani"
-              start={booted}
-              delay={0.28}
-              className="block text-[clamp(3.4rem,11vw,9rem)] italic text-accent"
-            />
-          </h1>
+        <h1 className="mt-8 max-w-[18ch] font-display leading-[0.9] text-fg-0">
+          <SplitText
+            text="Siddharth"
+            start={booted}
+            delay={0.06}
+            className="block text-[clamp(3.8rem,13vw,10rem)]"
+          />
+          <SplitText
+            text="Kalyani"
+            start={booted}
+            delay={0.32}
+            className="block text-[clamp(3.8rem,13vw,10rem)] italic text-accent"
+          />
+        </h1>
 
-          <p className="mt-7 min-h-[1.5em] font-mono text-sm text-accent md:text-base">
-            <TokenStream
-              text={`${profile.roleLine} — ${profile.roleSub}`}
-              start={booted}
-              speed={1.35}
-            />
-          </p>
-
-          <div className="rule my-8 max-w-xs" />
-
-          <p className="max-w-[24ch] font-display text-[clamp(1.6rem,3.2vw,2.4rem)] italic leading-[1.15] text-fg-0">
-            LLM systems that survive production — and prove it in tokens and
-            dollars.
-          </p>
-
-          <p className="mt-6 max-w-[38rem] text-base leading-relaxed text-fg-1 md:text-lg">
-            {profile.oneLiner} Currently at {profile.company}.
-          </p>
+        <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-end">
+          <div>
+            <p className="max-w-[22ch] font-display text-[clamp(1.55rem,3vw,2.35rem)] italic leading-[1.15] text-fg-0">
+              AI/GenAI & Forward-Deployed Engineer crafting production LLM systems.
+            </p>
+            <p className="mt-5 max-w-[36rem] text-base leading-relaxed text-fg-1 md:text-lg">
+              {profile.oneLiner}
+            </p>
+          </div>
 
           <div
-            className="mt-10 flex flex-wrap items-center gap-3 transition-all duration-700"
+            className="flex flex-wrap items-center gap-3 transition-all duration-700 lg:justify-end"
             style={{
               opacity: booted ? 1 : 0,
-              transform: booted ? "none" : "translateY(10px)",
+              transform: booted ? "none" : "translateY(12px)",
             }}
           >
             <Magnetic>
               <button
                 type="button"
-                onClick={() => scrollToId("pipeline")}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 font-sans text-sm font-semibold text-bg-0 shadow-[0_0_0_1px_rgba(46,230,166,0.25),0_10px_40px_rgba(46,230,166,0.12)] transition hover:brightness-110"
+                onClick={() => scrollToId("work")}
+                data-cursor="view"
+                data-cursor-label="Work"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 font-sans text-sm font-semibold text-bg-0 shadow-[0_10px_40px_rgba(46,230,166,0.18)] transition hover:brightness-110"
               >
-                Trace the runtime
+                <TextRoll text="Selected work" />
                 <ArrowDownRight size={16} aria-hidden />
               </button>
             </Magnetic>
-            <Magnetic strength={0.25}>
-              <ButtonLink to={resume.href} variant="outline">
+            <Magnetic strength={0.28}>
+              <ButtonLink to={resume.href} variant="outline" data-cursor="link">
                 {resume.label}
               </ButtonLink>
             </Magnetic>
-            <Magnetic strength={0.25}>
+            <Magnetic strength={0.28}>
               <ButtonLink
                 to="https://www.linkedin.com/in/siddharth-kalyani/"
                 variant="ghost"
+                data-cursor="link"
               >
                 LinkedIn
               </ButtonLink>
             </Magnetic>
-            <button
-              type="button"
-              onClick={openPalette}
-              className="ml-1 hidden items-center gap-1.5 rounded-lg border border-border bg-bg-1/60 px-2.5 py-1.5 font-mono text-[11px] text-fg-2 transition hover:border-accent/40 hover:text-accent md:inline-flex"
-            >
-              <span className="text-fg-1">⌘K</span> to command
-            </button>
           </div>
         </div>
-
-        <aside
-          className="hidden transition-all delay-300 duration-1000 lg:block"
-          aria-label="Runtime status"
-          style={{
-            opacity: booted ? 1 : 0,
-            transform: booted ? "none" : "translateY(14px)",
-          }}
-        >
-          <div className="ml-auto max-w-sm border border-border bg-bg-0/55 p-6 font-mono text-[13px] leading-7 backdrop-blur-md">
-            <p className="text-fg-2">
-              <span className="text-accent">$</span> status --now
-            </p>
-            <dl className="mt-3 space-y-1.5">
-              {STATUS_ROWS.map(([k, v]) => (
-                <div key={k} className="flex gap-3">
-                  <dt className="w-14 shrink-0 text-fg-2/70">{k}</dt>
-                  <dd className="text-fg-1">{v}</dd>
-                </div>
-              ))}
-              <div className="flex gap-3">
-                <dt className="w-14 shrink-0 text-fg-2/70">state</dt>
-                <dd className="flex items-center gap-2 text-fg-0">
-                  <span className="status-dot inline-block h-1.5 w-1.5 rounded-full bg-accent" />
-                  open to GenAI / FDE roles
-                </dd>
-              </div>
-            </dl>
-          </div>
-        </aside>
       </div>
 
-      <button
-        type="button"
-        onClick={() => scrollToId("about")}
-        className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.28em] text-fg-2 transition hover:text-accent md:block"
-      >
-        scroll ↓
-      </button>
+      <div className="relative z-10 border-y border-border bg-bg-0/40 py-4 backdrop-blur-sm">
+        <Marquee items={HERO_MARQUEE} speed={32} />
+      </div>
     </section>
   );
 }

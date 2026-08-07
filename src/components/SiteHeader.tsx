@@ -1,29 +1,46 @@
 import { useEffect, useState, type MouseEvent } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, TerminalSquare, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { ButtonLink } from "@/components/ui/Button";
+import { Magnetic } from "@/components/fx/Magnetic";
+import { TextRoll } from "@/components/fx/TextRoll";
+import { FullscreenMenu } from "@/components/FullscreenMenu";
 import { openPalette } from "@/components/CommandPalette";
 import { useResumeHref } from "@/hooks/useResumeHref";
 import { profile } from "@/content/profile";
 import { useScrollTo } from "@/components/SmoothScroll";
 
 const nav = [
-  { label: "Runtime", id: "pipeline" },
-  { label: "Systems", id: "systems" },
   { label: "Work", id: "work" },
+  { label: "Systems", id: "systems" },
   { label: "About", id: "about" },
   { label: "Experience", id: "experience" },
   { label: "Contact", id: "contact" },
 ];
 
+function useLocalClock() {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const id = window.setInterval(() => setNow(new Date()), 1000);
+    return () => window.clearInterval(id);
+  }, []);
+  return now.toLocaleTimeString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+}
+
 export function SiteHeader() {
-  const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const resume = useResumeHref();
   const location = useLocation();
   const navigate = useNavigate();
   const { scrollToId } = useScrollTo();
+  const clock = useLocalClock();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -33,12 +50,11 @@ export function SiteHeader() {
   }, []);
 
   useEffect(() => {
-    setOpen(false);
+    setMenuOpen(false);
   }, [location.pathname, location.hash]);
 
   const goSection = (e: MouseEvent, id: string) => {
     e.preventDefault();
-    setOpen(false);
     if (location.pathname === "/") {
       scrollToId(id);
       window.history.replaceState(null, "", `/#${id}`);
@@ -47,122 +63,97 @@ export function SiteHeader() {
     }
   };
 
-  const linkClass =
-    "text-sm text-fg-1 transition-colors hover:text-fg-0 focus-visible:text-fg-0";
-
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background,border-color,backdrop-filter] duration-300",
-        scrolled || open
-          ? "border-b border-border bg-bg-0/75 backdrop-blur-xl"
-          : "border-b border-transparent bg-transparent",
-      )}
-    >
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-bg-2 focus:px-3 focus:py-2"
-      >
-        Skip to content
-      </a>
-      <div className="container-page flex h-16 items-center justify-between gap-4 md:h-[4.25rem]">
-        <Link
-          to="/"
-          className="group flex items-center gap-3"
-          aria-label={`${profile.name} home`}
-        >
-          <span className="grid h-9 w-9 place-items-center rounded-xl border border-border bg-bg-2 font-sans text-sm font-bold text-accent shadow-[0_0_24px_rgba(46,230,166,0.1)] transition group-hover:border-accent/30">
-            SK
-          </span>
-          <span className="flex max-w-[14rem] items-center gap-2 sm:max-w-none">
-            <span className="truncate text-sm font-medium tracking-tight text-fg-0">
-              {profile.name}
-            </span>
-            <span className="hidden items-center gap-1.5 rounded-full border border-border bg-bg-1/60 px-2 py-0.5 font-mono text-[10px] text-fg-2 xl:inline-flex">
-              <span className="status-dot inline-block h-1.5 w-1.5 rounded-full bg-accent" />
-              open
-            </span>
-          </span>
-        </Link>
-
-        <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
-          {nav.map((item) => (
-            <a
-              key={item.id}
-              href={`/#${item.id}`}
-              className={linkClass}
-              onClick={(e) => goSection(e, item.id)}
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={openPalette}
-            aria-label="Open command palette"
-            className="hidden items-center gap-2 rounded-lg border border-border bg-bg-1/50 px-3 py-2 font-mono text-xs text-fg-2 transition hover:border-accent/40 hover:text-accent md:inline-flex"
-          >
-            <TerminalSquare size={14} aria-hidden />
-            <span>⌘K</span>
-          </button>
-          <ButtonLink
-            to={resume.href}
-            variant="primary"
-            className="!px-4 !py-2 text-xs md:text-sm"
-            {...(resume.isMailto ? {} : { download: true })}
-          >
-            {resume.label}
-          </ButtonLink>
-          <ButtonLink
-            to="https://www.linkedin.com/in/siddharth-kalyani/"
-            variant="ghost"
-            className="hidden !px-3 !py-2 text-sm md:inline-flex"
-          >
-            LinkedIn
-          </ButtonLink>
-          <ButtonLink
-            to="mailto:sidkalyani9@gmail.com"
-            variant="ghost"
-            className="hidden !px-3 !py-2 text-sm lg:inline-flex"
-          >
-            Email
-          </ButtonLink>
-          <button
-            type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-bg-2/50 text-fg-0 lg:hidden"
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? <X size={18} /> : <Menu size={18} />}
-          </button>
-        </div>
-      </div>
-
-      <div
-        id="mobile-nav"
+    <>
+      <header
         className={cn(
-          "border-t border-border bg-bg-0/95 backdrop-blur-xl lg:hidden",
-          open ? "block" : "hidden",
+          "fixed inset-x-0 top-0 z-50 transition-[background,border-color,backdrop-filter] duration-500",
+          scrolled || menuOpen
+            ? "border-b border-border bg-bg-0/70 backdrop-blur-xl"
+            : "border-b border-transparent bg-transparent",
         )}
       >
-        <nav className="container-page flex flex-col gap-1 py-4" aria-label="Mobile">
-          {nav.map((item) => (
-            <a
-              key={item.id}
-              href={`/#${item.id}`}
-              className="rounded-xl px-3 py-3 text-base text-fg-0 hover:bg-white/5"
-              onClick={(e) => goSection(e, item.id)}
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-bg-2 focus:px-3 focus:py-2"
+        >
+          Skip to content
+        </a>
+        <div className="container-page flex h-16 items-center justify-between gap-4 md:h-[4.25rem]">
+          <Magnetic strength={0.2}>
+            <Link
+              to="/"
+              className="group flex items-center gap-3"
+              aria-label={`${profile.name} home`}
+              data-cursor="link"
             >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-      </div>
-    </header>
+              <span className="grid h-9 w-9 place-items-center rounded-full border border-border bg-bg-2 font-sans text-sm font-bold text-accent transition group-hover:border-accent/40">
+                SK
+              </span>
+              <span className="hidden text-sm font-medium tracking-tight text-fg-0 sm:inline">
+                <TextRoll text={profile.name} />
+              </span>
+            </Link>
+          </Magnetic>
+
+          <nav className="hidden items-center gap-7 xl:flex" aria-label="Primary">
+            {nav.map((item) => (
+              <a
+                key={item.id}
+                href={`/#${item.id}`}
+                className="group text-sm text-fg-1 transition-colors hover:text-fg-0"
+                onClick={(e) => goSection(e, item.id)}
+                data-cursor="link"
+              >
+                <TextRoll text={item.label} />
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-2 md:gap-3">
+            <span className="hidden font-mono text-[11px] tabular-nums text-fg-2 lg:inline">
+              IST {clock}
+            </span>
+            <Magnetic strength={0.25}>
+              <button
+                type="button"
+                onClick={openPalette}
+                className="hidden rounded-full border border-border px-3 py-2 font-mono text-[11px] text-fg-2 transition hover:border-accent/40 hover:text-accent md:inline-flex"
+                data-cursor="link"
+                data-cursor-label="Cmd"
+              >
+                ⌘K
+              </button>
+            </Magnetic>
+            <Magnetic strength={0.25}>
+              <ButtonLink
+                to={resume.href}
+                variant="primary"
+                className="!px-4 !py-2 text-xs md:text-sm"
+                data-cursor="link"
+                {...(resume.isMailto ? {} : { download: true })}
+              >
+                {resume.label}
+              </ButtonLink>
+            </Magnetic>
+            <Magnetic strength={0.3}>
+              <button
+                type="button"
+                className="inline-flex h-10 items-center gap-2 rounded-full border border-border bg-bg-2/40 px-3 text-sm text-fg-0 transition hover:border-accent/40"
+                aria-expanded={menuOpen}
+                aria-label="Open menu"
+                data-cursor="menu"
+                data-cursor-label="Menu"
+                onClick={() => setMenuOpen(true)}
+              >
+                <Menu size={16} />
+                <span className="hidden sm:inline">Menu</span>
+              </button>
+            </Magnetic>
+          </div>
+        </div>
+      </header>
+      <FullscreenMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+    </>
   );
 }

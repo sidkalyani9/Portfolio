@@ -11,6 +11,7 @@ export function ExperienceSection() {
           title="Curriculum"
           description="From internship foundations into production GenAI — multi-agent systems, GraphRAG, Vertex AI caching, and LLMOps at scale."
           className="reveal"
+          kinetic
         />
 
         <div className="reveal mt-16 border-t border-border">

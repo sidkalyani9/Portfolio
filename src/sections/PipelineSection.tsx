@@ -119,6 +119,7 @@ export function PipelineSection() {
           title="Trace a request through the system"
           description="A real path through Bidstream's agent loop — the same architecture that cut proposal rework from ~50% of sections to ~5% minor edits."
           className="reveal"
+          kinetic
         />
 
         <div ref={pinRef} className="mt-14" data-reveal="none">

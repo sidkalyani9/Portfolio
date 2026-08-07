@@ -12,6 +12,7 @@ export function AwardsSection() {
           title="Proof under pressure"
           description="Hackathons, competitions, and credentials that back the production work — not the other way around."
           className="reveal"
+          kinetic
         />
 
         <ol className="reveal mt-14 grid gap-4 md:grid-cols-3">

@@ -1,4 +1,5 @@
 import { cn } from "@/lib/cn";
+import { SplitText } from "@/components/fx/SplitText";
 
 export function SectionHeading({
   eyebrow,
@@ -6,12 +7,15 @@ export function SectionHeading({
   description,
   className,
   align = "left",
+  kinetic = false,
 }: {
   eyebrow?: string;
   title: string;
   description?: string;
   className?: string;
   align?: "left" | "center";
+  /** Use split-char reveal on scroll */
+  kinetic?: boolean;
 }) {
   return (
     <div
@@ -27,7 +31,11 @@ export function SectionHeading({
         </p>
       ) : null}
       <h2 className="font-display text-[clamp(2rem,4.5vw,3.25rem)] text-fg-0">
-        {title}
+        {kinetic ? (
+          <SplitText text={title} onScroll className="inline-block" />
+        ) : (
+          title
+        )}
       </h2>
       {description ? (
         <p
