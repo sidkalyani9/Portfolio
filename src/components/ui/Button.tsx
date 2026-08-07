@@ -12,14 +12,14 @@ type Common = {
 
 const styles: Record<Variant, string> = {
   primary:
-    "bg-accent text-bg-0 hover:brightness-110 shadow-[0_0_0_1px_rgba(46,230,166,0.25),0_10px_40px_rgba(46,230,166,0.12)]",
+    "bg-accent text-bg-0 hover:brightness-110 shadow-[0_0_0_1px_rgba(199,125,255,0.28),0_10px_40px_rgba(199,125,255,0.16)]",
   ghost: "bg-transparent text-fg-0 hover:bg-white/5",
   outline:
     "bg-transparent text-fg-0 border border-border hover:border-accent/40 hover:bg-accent-dim",
 };
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 font-sans text-sm font-semibold tracking-tight transition-[transform,background,border-color,filter] duration-300 ease-out active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-bg-0";
+  "inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 font-sans text-sm font-semibold tracking-tight transition-[transform,background,border-color,filter] duration-500 ease-out active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-bg-0";
 
 export function ButtonLink({
   to,

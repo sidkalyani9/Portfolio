@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { DUR, EASE_OUT_EXPO } from "@/lib/motion";
 import { cn } from "@/lib/cn";
 
 type CursorState = "default" | "link" | "view" | "text" | "menu";
@@ -43,10 +44,22 @@ export function CustomCursor() {
       x: innerWidth / 2,
       y: innerHeight / 2,
     });
-    const coreX = gsap.quickTo(core, "x", { duration: 0.16, ease: "power3.out" });
-    const coreY = gsap.quickTo(core, "y", { duration: 0.16, ease: "power3.out" });
-    const ringX = gsap.quickTo(ring, "x", { duration: 0.45, ease: "expo.out" });
-    const ringY = gsap.quickTo(ring, "y", { duration: 0.45, ease: "expo.out" });
+    const coreX = gsap.quickTo(core, "x", {
+      duration: DUR.cursorCore,
+      ease: "power3.out",
+    });
+    const coreY = gsap.quickTo(core, "y", {
+      duration: DUR.cursorCore,
+      ease: "power3.out",
+    });
+    const ringX = gsap.quickTo(ring, "x", {
+      duration: DUR.cursorRing,
+      ease: EASE_OUT_EXPO,
+    });
+    const ringY = gsap.quickTo(ring, "y", {
+      duration: DUR.cursorRing,
+      ease: EASE_OUT_EXPO,
+    });
 
     const onMove = (e: PointerEvent) => {
       setVisible(true);
@@ -80,10 +93,14 @@ export function CustomCursor() {
     };
 
     const onDown = () => {
-      gsap.to(ring, { scale: 0.75, duration: 0.25, ease: "power2.out" });
+      gsap.to(ring, { scale: 0.78, duration: DUR.micro, ease: "power2.out" });
     };
     const onUp = () => {
-      gsap.to(ring, { scale: 1, duration: 0.45, ease: "expo.out" });
+      gsap.to(ring, {
+        scale: 1,
+        duration: DUR.cursorRing,
+        ease: EASE_OUT_EXPO,
+      });
     };
     const onLeave = () => setVisible(false);
 
@@ -113,12 +130,12 @@ export function CustomCursor() {
         ref={ringRef}
         aria-hidden
         className={cn(
-          "pointer-events-none fixed left-0 top-0 z-[201] grid place-items-center rounded-full border transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]",
+          "pointer-events-none fixed left-0 top-0 z-[201] grid place-items-center rounded-full border transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
           visible ? "opacity-100" : "opacity-0",
           state === "default" && "h-8 w-8 border-fg-0/25",
           state === "link" && "h-12 w-12 border-accent/70 bg-accent/5",
           big &&
-            "h-[5.5rem] w-[5.5rem] border-transparent bg-accent text-bg-0 shadow-[0_0_60px_rgba(46,230,166,0.35)]",
+            "h-[5.5rem] w-[5.5rem] border-transparent bg-accent text-bg-0 shadow-[0_0_60px_rgba(199,125,255,0.35)]",
           state === "text" && "h-6 w-6 border-accent/40 opacity-40",
         )}
       >
@@ -132,7 +149,7 @@ export function CustomCursor() {
         ref={coreRef}
         aria-hidden
         className={cn(
-          "pointer-events-none fixed left-0 top-0 z-[202] rounded-full bg-accent mix-blend-difference transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+          "pointer-events-none fixed left-0 top-0 z-[202] rounded-full bg-accent mix-blend-difference transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]",
           visible ? "opacity-100" : "opacity-0",
           state === "default" && "h-2 w-2",
           state === "link" && "h-1.5 w-1.5",

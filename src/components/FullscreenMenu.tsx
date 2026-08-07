@@ -48,10 +48,10 @@ export function FullscreenMenu({ open, onClose }: Props) {
       {
         yPercent: 0,
         autoAlpha: 1,
-        duration: 0.9,
-        stagger: 0.07,
+        duration: 1.05,
+        stagger: 0.085,
         ease: "expo.out",
-        delay: 0.08,
+        delay: 0.1,
       },
     );
   }, [open]);

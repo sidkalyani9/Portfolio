@@ -95,10 +95,10 @@ export function PipelineSection() {
       ScrollTrigger.create({
         trigger: pinRef.current,
         start: "top top",
-        end: `+=${N * 55}%`,
+        end: `+=${N * 65}%`,
         pin: stageRef.current,
         pinSpacing: true,
-        scrub: 0.6,
+        scrub: 0.95,
         anticipatePin: 1,
         onUpdate: (self) => setProgress(self.progress),
       });
@@ -112,7 +112,7 @@ export function PipelineSection() {
 
   return (
     <section id="pipeline" className="section-y relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(46,230,166,0.05),transparent_55%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(199,125,255,0.07),transparent_55%)]" />
       <div className="container-page relative">
         <SectionHeading
           eyebrow="The runtime"
@@ -148,12 +148,12 @@ export function PipelineSection() {
                 <div className="relative">
                   <div className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-border" />
                   <div
-                    className="absolute left-0 top-1/2 h-px -translate-y-1/2 bg-accent shadow-[0_0_12px_rgba(46,230,166,0.6)] transition-none"
+                    className="absolute left-0 top-1/2 h-px -translate-y-1/2 bg-accent shadow-[0_0_12px_rgba(199,125,255,0.55)] transition-none"
                     style={{ width: `${packetPct}%` }}
                   />
                   {/* packet */}
                   <div
-                    className="absolute top-1/2 z-10 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent shadow-[0_0_18px_4px_rgba(46,230,166,0.5)]"
+                    className="absolute top-1/2 z-10 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent shadow-[0_0_18px_4px_rgba(199,125,255,0.45)]"
                     style={{ left: `${packetPct}%` }}
                   />
                   {/* nodes */}
@@ -171,7 +171,7 @@ export function PipelineSection() {
                             className={cn(
                               "grid h-14 w-14 place-items-center rounded-2xl border transition-all duration-500",
                               activeNode
-                                ? "border-accent bg-accent/15 text-accent shadow-[0_0_30px_rgba(46,230,166,0.35)] scale-110"
+                                ? "border-accent bg-accent/15 text-accent shadow-[0_0_30px_rgba(199,125,255,0.32)] scale-110"
                                 : passed
                                   ? "border-accent/40 bg-bg-1 text-accent/80"
                                   : "border-border bg-bg-1/60 text-fg-2",

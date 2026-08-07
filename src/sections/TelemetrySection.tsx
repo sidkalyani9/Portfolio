@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Marquee } from "@/components/fx/Marquee";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { EASE_OUT_EXPO } from "@/lib/motion";
+import { DUR, EASE_OUT_EXPO } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -75,7 +75,7 @@ function Counter({ stat, started }: { stat: Stat; started: boolean }) {
     const obj = { v: 0 };
     const tween = gsap.to(obj, {
       v: stat.target,
-      duration: 2.2,
+      duration: DUR.counter,
       ease: EASE_OUT_EXPO,
       onUpdate: () => setValue(obj.v),
       onComplete: () => setValue(stat.target),

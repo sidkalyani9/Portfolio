@@ -1,4 +1,4 @@
-import{r as l,j as u,C as y,u as M,V as d,a as w,b as R,L as x}from"./three-DthGHSTo.js";import{u as b,a as k}from"./index-CnisiwqP.js";import"./motion-CuvA2zXY.js";const C=" ·:=~+x%#@01{}",E=`
+import{r as l,j as u,C as y,u as M,V as d,a as w,b as R,L as x}from"./three-DthGHSTo.js";import{u as b,a as k}from"./index-DgusyaP7.js";import"./motion-CuvA2zXY.js";const C=" ·:=~+x%#@01{}",E=`
   void main() {
     gl_Position = vec4(position.xy, 0.0, 1.0);
   }
@@ -64,9 +64,9 @@ import{r as l,j as u,C as y,u as M,V as d,a as w,b as R,L as x}from"./three-DthG
     vec2 auv = vec2((g + uv.x) / 16.0, uv.y);
     float a = texture2D(uAtlas, auv).a;
 
-    vec3 dim = vec3(0.42, 0.41, 0.39);
-    vec3 accent = vec3(0.18, 0.90, 0.65);
-    vec3 ink = vec3(0.88, 0.11, 0.28);
+    vec3 dim = vec3(0.38, 0.34, 0.48);
+    vec3 accent = vec3(0.78, 0.49, 1.0);
+    vec3 ink = vec3(0.91, 0.63, 0.75);
 
     float bright = smoothstep(0.60, 0.95, n);
     vec3 col = mix(dim, accent, bright);

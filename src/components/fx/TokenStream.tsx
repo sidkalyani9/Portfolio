@@ -7,11 +7,11 @@ function tokenize(text: string): string[] {
   return text.split(/(\s+)/).filter((t) => t.length > 0);
 }
 
-/** Variable cadence — pauses after punctuation like a model "thinking". */
+/** Variable cadence — Motion B: slower stream, longer punctuation hangs. */
 function delayFor(token: string): number {
-  const base = 22 + Math.random() * 46;
-  if (/[.!?—:;]$/.test(token)) return base + 260 + Math.random() * 180;
-  if (/[,)]$/.test(token)) return base + 120;
+  const base = 36 + Math.random() * 58;
+  if (/[.!?—:;]$/.test(token)) return base + 360 + Math.random() * 220;
+  if (/[,)]$/.test(token)) return base + 170;
   return base;
 }
 
@@ -35,7 +35,7 @@ export function TokenStream({
   start,
   className,
   caret = true,
-  speed = 1,
+  speed = 0.72,
   onDone,
   as: Tag = "span",
 }: StreamProps) {

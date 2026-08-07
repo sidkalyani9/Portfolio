@@ -30,8 +30,8 @@ export function HoverPreview({ items, className }: Props) {
     const el = ref.current;
     gsap.set(el, { xPercent: -50, yPercent: -50 });
 
-    const xTo = gsap.quickTo(el, "x", { duration: 0.55, ease: "expo.out" });
-    const yTo = gsap.quickTo(el, "y", { duration: 0.55, ease: "expo.out" });
+    const xTo = gsap.quickTo(el, "x", { duration: 0.7, ease: "expo.out" });
+    const yTo = gsap.quickTo(el, "y", { duration: 0.7, ease: "expo.out" });
 
     const onMove = (e: PointerEvent) => {
       xTo(e.clientX);

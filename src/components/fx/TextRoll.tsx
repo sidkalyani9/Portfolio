@@ -21,8 +21,8 @@ export function TextRoll({ text, className }: Props) {
             style={{ width: ch === " " ? "0.3em" : undefined }}
           >
             <span
-              className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1/2"
-              style={{ transitionDelay: `${i * 18}ms` }}
+              className="flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1/2"
+              style={{ transitionDelay: `${i * 28}ms` }}
             >
               <span className="inline-block leading-[1.1]">{ch === " " ? "\u00A0" : ch}</span>
               <span className="inline-block leading-[1.1] text-accent">

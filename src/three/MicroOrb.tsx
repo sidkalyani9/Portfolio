@@ -26,8 +26,8 @@ function Atom({ animate }: { animate: boolean }) {
       <mesh ref={mesh}>
         <icosahedronGeometry args={[0.72, 1]} />
         <meshStandardMaterial
-          color="#2ee6a6"
-          emissive="#2ee6a6"
+          color="#c77dff"
+          emissive="#c77dff"
           emissiveIntensity={0.28}
           roughness={0.28}
           metalness={0.35}
@@ -36,14 +36,14 @@ function Atom({ animate }: { animate: boolean }) {
       </mesh>
       <mesh ref={ring} scale={1.15}>
         <torusGeometry args={[0.95, 0.012, 8, 64]} />
-        <meshBasicMaterial color="#e11d48" transparent opacity={0.45} />
+        <meshBasicMaterial color="#e8a0bf" transparent opacity={0.45} />
       </mesh>
       <mesh scale={1.35}>
         <torusGeometry args={[0.95, 0.006, 8, 64]} />
-        <meshBasicMaterial color="#2ee6a6" transparent opacity={0.15} />
+        <meshBasicMaterial color="#8b5cf6" transparent opacity={0.18} />
       </mesh>
-      <pointLight position={[2, 1, 2]} intensity={1.1} color="#2ee6a6" />
-      <pointLight position={[-1.5, -1, 1]} intensity={0.4} color="#e11d48" />
+      <pointLight position={[2, 1, 2]} intensity={1.1} color="#c77dff" />
+      <pointLight position={[-1.5, -1, 1]} intensity={0.4} color="#e8a0bf" />
       <ambientLight intensity={0.45} />
     </group>
   );

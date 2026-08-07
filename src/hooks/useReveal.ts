@@ -54,14 +54,14 @@ export function useReveal(rootSelector = "main") {
           return;
         }
 
-        // soft: buttery rise — Awwwards craft weight
+        // Motion B: editorial rise — slow settle, premium weight
         gsap.fromTo(
           el,
           { autoAlpha: 0, y: 36 },
           {
             autoAlpha: 1,
             y: 0,
-            duration: 1.05,
+            duration: DUR.reveal,
             ease: EASE_OUT_EXPO,
             scrollTrigger: {
               trigger: el,

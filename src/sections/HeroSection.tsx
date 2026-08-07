@@ -35,7 +35,7 @@ export function HeroSection() {
       className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden pt-24"
       aria-label="Introduction"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_10%,rgba(46,230,166,0.09),transparent_45%),radial-gradient(ellipse_at_15%_85%,rgba(124,92,255,0.06),transparent_40%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_10%,rgba(199,125,255,0.12),transparent_45%),radial-gradient(ellipse_at_15%_85%,rgba(139,92,246,0.08),transparent_40%)]" />
 
       <Suspense fallback={null}>
         <GlyphField className="pointer-events-none absolute inset-0 z-0 opacity-70" />
@@ -92,7 +92,7 @@ export function HeroSection() {
                 onClick={() => scrollToId("work")}
                 data-cursor="view"
                 data-cursor-label="Work"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 font-sans text-sm font-semibold text-bg-0 shadow-[0_10px_40px_rgba(46,230,166,0.18)] transition hover:brightness-110"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 font-sans text-sm font-semibold text-bg-0 shadow-[0_10px_40px_rgba(199,125,255,0.22)] transition hover:brightness-110"
               >
                 <TextRoll text="Selected work" />
                 <ArrowDownRight size={16} aria-hidden />
@@ -117,7 +117,7 @@ export function HeroSection() {
       </div>
 
       <div className="relative z-10 border-y border-border bg-bg-0/40 py-4 backdrop-blur-sm">
-        <Marquee items={HERO_MARQUEE} speed={32} />
+        <Marquee items={HERO_MARQUEE} speed={40} />
       </div>
     </section>
   );

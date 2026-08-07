@@ -224,7 +224,7 @@ export function CommandPalette() {
       gsap.fromTo(
         panelRef.current,
         { autoAlpha: 0, y: 12, scale: 0.98 },
-        { autoAlpha: 1, y: 0, scale: 1, duration: 0.32, ease: "expo.out" },
+        { autoAlpha: 1, y: 0, scale: 1, duration: 0.48, ease: "expo.out" },
       );
     }
   }, [open]);

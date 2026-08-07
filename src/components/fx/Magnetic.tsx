@@ -2,6 +2,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 import gsap from "gsap";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { DUR, EASE_OUT_EXPO } from "@/lib/motion";
 
 type Props = {
   children: ReactNode;
@@ -11,10 +12,9 @@ type Props = {
 };
 
 /**
- * Magnetic wrapper — element is pulled toward the pointer and springs back.
- * Disabled for touch / reduced-motion.
+ * Magnetic wrapper — Motion B: softer follow, expo return (no elastic bounce).
  */
-export function Magnetic({ children, strength = 0.35, className }: Props) {
+export function Magnetic({ children, strength = 0.32, className }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
   const fine = useMediaQuery("(pointer: fine)");
@@ -23,8 +23,14 @@ export function Magnetic({ children, strength = 0.35, className }: Props) {
     const el = ref.current;
     if (!el || reduced || !fine) return;
 
-    const xTo = gsap.quickTo(el, "x", { duration: 0.4, ease: "expo.out" });
-    const yTo = gsap.quickTo(el, "y", { duration: 0.4, ease: "expo.out" });
+    const xTo = gsap.quickTo(el, "x", {
+      duration: DUR.magnetic,
+      ease: EASE_OUT_EXPO,
+    });
+    const yTo = gsap.quickTo(el, "y", {
+      duration: DUR.magnetic,
+      ease: EASE_OUT_EXPO,
+    });
 
     const onMove = (e: PointerEvent) => {
       const r = el.getBoundingClientRect();
@@ -34,7 +40,12 @@ export function Magnetic({ children, strength = 0.35, className }: Props) {
       yTo(relY * strength);
     };
     const onLeave = () => {
-      gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.45)" });
+      gsap.to(el, {
+        x: 0,
+        y: 0,
+        duration: DUR.magneticReturn,
+        ease: EASE_OUT_EXPO,
+      });
     };
 
     el.addEventListener("pointermove", onMove);

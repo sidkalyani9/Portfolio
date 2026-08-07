@@ -2,7 +2,7 @@ import { useEffect, useRef, type ElementType } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { DUR, EASE_OUT_EXPO } from "@/lib/motion";
+import { DUR, EASE_OUT_EXPO, STAGGER } from "@/lib/motion";
 import { cn } from "@/lib/cn";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -20,8 +20,7 @@ type Props = {
 };
 
 /**
- * Kinetic typography — splits into per-char spans and staggers them up
- * out of an overflow mask, expo.out. The award-site staple.
+ * Kinetic typography — Motion B: slower char rise, softer stagger.
  */
 export function SplitText({
   text,
@@ -30,7 +29,7 @@ export function SplitText({
   start = true,
   onScroll = false,
   delay = 0,
-  stagger = 0.028,
+  stagger = STAGGER.char,
 }: Props) {
   const ref = useRef<HTMLElement>(null);
   const reduced = usePrefersReducedMotion();
@@ -51,7 +50,7 @@ export function SplitText({
       played.current = true;
       gsap.to(chars, {
         yPercent: 0,
-        duration: DUR.reveal + 0.15,
+        duration: DUR.reveal + 0.2,
         ease: EASE_OUT_EXPO,
         stagger,
         delay,

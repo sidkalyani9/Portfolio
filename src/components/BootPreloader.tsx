@@ -16,7 +16,7 @@ const GREETINGS = [
   "Welcome",
 ] as const;
 
-const MIN_MS = 2100;
+const MIN_MS = 2200;
 
 /**
  * Option B preloader — rotating multilingual greeting + counter,
@@ -46,7 +46,7 @@ export function BootPreloader() {
     if (reduced || exiting || gone) return;
     const id = window.setInterval(() => {
       setGreetIdx((i) => (i + 1) % GREETINGS.length);
-    }, 220);
+    }, 280);
     return () => window.clearInterval(id);
   }, [reduced, exiting, gone]);
 
@@ -55,8 +55,8 @@ export function BootPreloader() {
     if (!wordRef.current || reduced) return;
     gsap.fromTo(
       wordRef.current,
-      { autoAlpha: 0.35, y: 8 },
-      { autoAlpha: 1, y: 0, duration: 0.18, ease: "power2.out" },
+      { autoAlpha: 0.3, y: 10 },
+      { autoAlpha: 1, y: 0, duration: 0.28, ease: "power2.out" },
     );
   }, [greetIdx, reduced]);
 
@@ -120,7 +120,7 @@ export function BootPreloader() {
     if (!exiting || !rootRef.current) return;
     gsap.to(rootRef.current, {
       yPercent: -100,
-      duration: 0.95,
+      duration: 1.05,
       ease: "expo.inOut",
     });
   }, [exiting]);
