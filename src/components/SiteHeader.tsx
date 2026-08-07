@@ -1,14 +1,16 @@
 import { useEffect, useState, type MouseEvent } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, TerminalSquare, X } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { ButtonLink } from "@/components/ui/Button";
+import { openPalette } from "@/components/CommandPalette";
 import { useResumeHref } from "@/hooks/useResumeHref";
 import { profile } from "@/content/profile";
 import { useScrollTo } from "@/components/SmoothScroll";
 
 const nav = [
-  { label: "Work", id: "systems" },
+  { label: "Runtime", id: "pipeline" },
+  { label: "Systems", id: "systems" },
   { label: "About", id: "about" },
   { label: "Experience", id: "experience" },
   { label: "Contact", id: "contact" },
@@ -90,6 +92,15 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={openPalette}
+            aria-label="Open command palette"
+            className="hidden items-center gap-2 rounded-lg border border-border bg-bg-1/50 px-3 py-2 font-mono text-xs text-fg-2 transition hover:border-accent/40 hover:text-accent md:inline-flex"
+          >
+            <TerminalSquare size={14} aria-hidden />
+            <span>⌘K</span>
+          </button>
           <ButtonLink
             to={resume.href}
             variant="primary"

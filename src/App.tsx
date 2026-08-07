@@ -2,8 +2,12 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { Preloader } from "@/components/Preloader";
+import { BootPreloader } from "@/components/BootPreloader";
+import { BootProvider } from "@/components/Boot";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { CommandPalette } from "@/components/CommandPalette";
+import { PageWipe } from "@/components/PageWipe";
+import { CustomCursor } from "@/components/fx/CustomCursor";
 import { HomePage } from "@/pages/HomePage";
 import { CaseStudyPage } from "@/pages/CaseStudyPage";
 
@@ -20,20 +24,26 @@ function ScrollToTop() {
 export default function App() {
   return (
     <BrowserRouter>
-      <SmoothScroll>
-        <div className="grain min-h-screen bg-bg-0 text-fg-0">
-          <Preloader />
-          <SiteHeader />
-          <ScrollToTop />
-          <main id="main">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/work/:slug" element={<CaseStudyPage />} />
-            </Routes>
-          </main>
-          <SiteFooter />
-        </div>
-      </SmoothScroll>
+      <BootProvider>
+        <PageWipe>
+          <SmoothScroll>
+            <div className="grain min-h-screen bg-bg-0 text-fg-0">
+              <BootPreloader />
+              <CustomCursor />
+              <SiteHeader />
+              <ScrollToTop />
+              <main id="main">
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/work/:slug" element={<CaseStudyPage />} />
+                </Routes>
+              </main>
+              <SiteFooter />
+            </div>
+            <CommandPalette />
+          </SmoothScroll>
+        </PageWipe>
+      </BootProvider>
     </BrowserRouter>
   );
 }

@@ -1,12 +1,16 @@
 export const profile = {
   name: "Siddharth Kalyani",
-  roleLine: "GenAI Engineer · Forward Deployed Engineer",
+  firstName: "Siddharth",
+  lastName: "Kalyani",
+  roleLine: "AI/GenAI & Forward-Deployed Engineer",
+  roleSub: "LLM Systems · Backend Engineering",
   oneLiner:
-    "Building end-to-end GenAI systems in production — multi-agent scoring, authenticated automation, and meeting intelligence pipelines.",
+    "I architect and ship production LLM systems on Vertex AI & Gemini — multi-agent RAG, GraphRAG retrieval, and caching infrastructure that has processed 1B+ tokens and 1M+ pages.",
   location: "Ahmedabad, India",
   remote: true,
-  company: "Argusoft India Pvt. Ltd.",
-  product: "BidStreamAI",
+  company: "Argusoft India Ltd.",
+  product: "Bidstream",
   productOneLiner:
-    "BidStreamAI is an end-to-end automated system that scrapes RFPs, extracts insights, validates RFP relevance with AI, and generates, refines, and scores proposal bidding documents.",
+    "Bidstream is an RFP discovery, validation and proposal-automation platform — multi-agent generation, agentic scoring, GraphRAG search and a production LLM caching layer.",
+  email: "sidkalyani9@gmail.com",
 } as const;

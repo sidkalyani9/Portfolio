@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { alsoProjects, featuredProjects, type Project } from "@/content/projects";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { MediaFrame } from "@/components/ui/MediaFrame";
 import { Chip } from "@/components/ui/Chip";
+import { WipeLink } from "@/components/PageWipe";
 import { cn } from "@/lib/cn";
 
 function ProjectMeta({ project }: { project: Project }) {
@@ -50,8 +50,9 @@ function MediaCard({ project, full }: { project: Project; full?: boolean }) {
         full && "md:col-span-2",
       )}
     >
-      <Link
+      <WipeLink
         to={`/work/${project.slug}`}
+        data-cursor="view"
         className={cn("grid gap-0 outline-none", full && "lg:grid-cols-2")}
       >
         {project.cover ? (
@@ -68,7 +69,7 @@ function MediaCard({ project, full }: { project: Project; full?: boolean }) {
         <div className="flex flex-col justify-center p-6 md:p-8">
           <ProjectMeta project={project} />
         </div>
-      </Link>
+      </WipeLink>
     </article>
   );
 }
@@ -76,8 +77,9 @@ function MediaCard({ project, full }: { project: Project; full?: boolean }) {
 function TextRow({ project }: { project: Project }) {
   return (
     <article className="group md:col-span-2 overflow-hidden rounded-3xl border border-border bg-bg-1/30 transition hover:border-accent/30 focus-within:border-accent/40">
-      <Link
+      <WipeLink
         to={`/work/${project.slug}`}
+        data-cursor="view"
         className="grid gap-6 p-6 outline-none md:grid-cols-[1fr_1.1fr] md:p-8"
       >
         <div>

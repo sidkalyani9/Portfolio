@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { HeroSection } from "@/sections/HeroSection";
+import { TelemetrySection } from "@/sections/TelemetrySection";
 import { AboutSection } from "@/sections/AboutSection";
 import { ExperienceSection } from "@/sections/ExperienceSection";
+import { PipelineSection } from "@/sections/PipelineSection";
 import { SystemsSection } from "@/sections/SystemsSection";
 import { HackathonSection } from "@/sections/HackathonSection";
 import { WorkSection } from "@/sections/WorkSection";
@@ -25,8 +27,10 @@ export function HomePage() {
   return (
     <>
       <HeroSection />
+      <TelemetrySection />
       <AboutSection />
       <ExperienceSection />
+      <PipelineSection />
       <SystemsSection />
       <HackathonSection />
       <WorkSection />

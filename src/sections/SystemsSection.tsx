@@ -24,10 +24,15 @@ const N = systemPanels.length;
 
 function PanelBody({ panel }: { panel: SystemPanel }) {
   return (
-    <div className="flex h-full flex-col">
-      <div className="flex items-center gap-2 text-accent">
-        <Sparkles size={18} aria-hidden />
-        <p className="font-sans text-sm font-semibold">{panel.title}</p>
+      <div className="flex h-full flex-col">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2 text-accent">
+          <Sparkles size={18} aria-hidden />
+          <p className="font-sans text-sm font-semibold">{panel.title}</p>
+        </div>
+        <span className="rounded-full border border-accent/30 bg-accent-dim px-3 py-1 font-mono text-[11px] text-accent">
+          {panel.metric}
+        </span>
       </div>
       <p className="mt-1 text-sm text-fg-2">{panel.short}</p>
       <ul className="mt-5 space-y-3">
@@ -186,7 +191,7 @@ export function SystemsSection() {
         <SectionHeading
           eyebrow="Featured systems"
           title="Systems I own end-to-end"
-          description="Production GenAI and platform work — multi-agent scoring, long-document intelligence, authenticated automation, and meeting speech pipelines. Confidential UIs redacted."
+          description="Production GenAI on Bidstream — multi-agent generation, agentic scoring, GraphRAG retrieval, caching infrastructure, batch validation and observability. Confidential UIs redacted."
           className="reveal"
         />
 
@@ -274,6 +279,9 @@ export function SystemsSection() {
                       <div>
                         <p className="font-display text-lg text-fg-0">{m.title}</p>
                         <p className="mt-1 text-sm text-fg-1">{m.short}</p>
+                        <p className="mt-1.5 font-mono text-[11px] text-accent/90">
+                          {m.metric}
+                        </p>
                       </div>
                       <span
                         className={cn(

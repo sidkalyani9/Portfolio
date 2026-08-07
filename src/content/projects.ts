@@ -19,18 +19,18 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "bidstream-ai",
-    title: "Multi-agent proposal scoring",
+    title: "Bidstream — RFP intelligence platform",
     priority: "P0",
     featured: true,
     layout: "text",
     cover: null,
     confidential: true,
     problem:
-      "High-stakes bidding needs reliable multi-agent scoring, long-document insights, and catalog-grounded validation — without one-off chat prompts.",
-    role: "Owned Proposal Scoring (6-agent workflow), RFP insights, Proposal CV generation, and Level-2 validation on BidStreamAI",
-    tech: ["LlamaIndex", "Vertex AI", "FastAPI", "React", "Gemini long-context"],
+      "High-stakes bidding needs autonomous proposal generation, agentic compliance scoring, and retrieval over a massive RFP corpus — without one-off chat prompts.",
+    role: "Multi-agent generation (Google ADK), 6-stage scoring engine, GraphRAG search, caching infrastructure, batch validation, LLMOps observability",
+    tech: ["Google ADK", "Vertex AI", "Gemini", "GraphRAG", "FastAPI", "PostgreSQL"],
     outcome:
-      "Production multi-agent scoring with persona caching, long-document insights, KB-grounded CVs, and catalog-grounded validation.",
+      "~50% → ~5% proposal rework · −95% compliance-review effort · −80% inference cost · 1B+ tokens observed across 5+ production pipelines.",
     links: [{ label: "Case study", href: "/work/bidstream-ai" }],
   },
   {
@@ -68,18 +68,18 @@ export const projects: Project[] = [
   },
   {
     slug: "authenticated-scraping-automation",
-    title: "Authenticated Scraping Automation",
+    title: "Data Collection Platform",
     priority: "P0",
     featured: true,
     layout: "text",
     cover: null,
     confidential: true,
     problem:
-      "A client scraping platform needed reliable automated login with secure credentials and 2FA — without hardcoding secrets.",
-    role: "Owned end-to-end automatic login solution",
-    tech: ["AWS Secrets Manager", "Gmail API", "Automated auth"],
+      "RFP intelligence needs continuous collection from 30+ government and enterprise portals — through bot detection, CAPTCHAs and 2FA — without hardcoded secrets.",
+    role: "Owned the scraping fleet and end-to-end automated authentication",
+    tech: ["Playwright", "SeleniumBase", "Gemini multimodal", "AWS Secrets Manager", "Gmail API"],
     outcome:
-      "Secure automated authentication with Secrets Manager–backed credentials and Gmail API–driven 2FA OTP handling for reliable session access.",
+      "30+ production scrapers with multimodal CAPTCHA solving; Secrets Manager credentials with Gmail API OTP handling for automated 2FA.",
     links: [
       {
         label: "Case study",
@@ -89,18 +89,18 @@ export const projects: Project[] = [
   },
   {
     slug: "meeting-intelligence-pipeline",
-    title: "Meeting Intelligence Pipeline",
+    title: "MeghDoot Audio Intelligence",
     priority: "P0",
     featured: true,
     layout: "text",
     cover: null,
     confidential: true,
     problem:
-      "A client messaging platform needed video-meeting speech captured as transcript and turned into usable summaries in product flow.",
-    role: "Owned end-to-end speech-to-text → summarization integration",
-    tech: ["Speech-to-text", "LLM summarization", "Messaging UX"],
+      "An internal messaging platform needed meeting audio turned into searchable, attributable conversation transcripts automatically.",
+    role: "Owned the end-to-end audio signal pipeline",
+    tech: ["Audio processing", "Speech-to-text", "Speaker diarization"],
     outcome:
-      "Meeting speech pipeline into messaging UX: STT to summary with cost-efficient model choices (representative: Whisper-class STT + Flash/mini-class LLM).",
+      "Noise reduction, silence trimming, STT and diarization auto-generate searchable transcripts for an internal Slack/Teams-style platform.",
     links: [
       { label: "Case study", href: "/work/meeting-intelligence-pipeline" },
     ],
