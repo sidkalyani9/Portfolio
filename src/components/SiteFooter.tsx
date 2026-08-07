@@ -1,10 +1,44 @@
+import { useEffect, useState } from "react";
 import { primarySocials, secondarySocials } from "@/content/socials";
 import { profile } from "@/content/profile";
 import { useResumeHref } from "@/hooks/useResumeHref";
 
+function useLocalClock() {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const id = window.setInterval(() => setNow(new Date()), 1000);
+    return () => window.clearInterval(id);
+  }, []);
+  return now.toLocaleTimeString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  });
+}
+
+function useLoadMs() {
+  const [ms, setMs] = useState<number | null>(null);
+  useEffect(() => {
+    const nav = performance.getEntriesByType("navigation")[0] as
+      | PerformanceNavigationTiming
+      | undefined;
+    if (nav) {
+      setMs(Math.round(nav.domContentLoadedEventEnd));
+      return;
+    }
+    setMs(Math.round(performance.now()));
+  }, []);
+  return ms;
+}
+
+/** Colophon footer — local time · load ms · version · links */
 export function SiteFooter() {
   const year = new Date().getFullYear();
   const resume = useResumeHref();
+  const clock = useLocalClock();
+  const loadMs = useLoadMs();
 
   return (
     <footer className="border-t border-border bg-bg-1">
@@ -50,6 +84,37 @@ export function SiteFooter() {
                 {s.label}
               </a>
             ))}
+          </div>
+        </div>
+      </div>
+
+      {/* colophon — the tiny details that read as craft */}
+      <div className="border-t border-border">
+        <div className="container-page flex flex-wrap items-center justify-between gap-3 py-4 font-mono text-[11px] text-fg-2">
+          <p>
+            <span className="text-accent">$</span> colophon{" "}
+            <span className="text-fg-2/60">// agent-runtime v3.0</span>
+          </p>
+          <div className="flex flex-wrap items-center gap-4 tabular-nums">
+            <span title="Asia/Kolkata">
+              IST <span className="text-fg-1">{clock}</span>
+            </span>
+            <span aria-hidden className="text-border">
+              ·
+            </span>
+            <span>
+              load{" "}
+              <span className="text-fg-1">
+                {loadMs != null ? `${loadMs}ms` : "—"}
+              </span>
+            </span>
+            <span aria-hidden className="text-border">
+              ·
+            </span>
+            <span>
+              built with{" "}
+              <span className="text-fg-1">React · GSAP · R3F · Lenis</span>
+            </span>
           </div>
         </div>
       </div>

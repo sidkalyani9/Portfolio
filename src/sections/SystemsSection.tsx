@@ -1,5 +1,4 @@
 import { useEffect, useId, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { ArrowUpRight, Database, Sparkles } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,8 +9,8 @@ import {
 } from "@/content/systems";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Chip } from "@/components/ui/Chip";
-import { ButtonLink } from "@/components/ui/Button";
 import { PullQuote } from "@/components/ui/PullQuote";
+import { WipeLink } from "@/components/PageWipe";
 import { cn } from "@/lib/cn";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
@@ -84,10 +83,14 @@ function PanelBody({ panel }: { panel: SystemPanel }) {
       ) : null}
 
       <div className="mt-auto pt-6">
-        <ButtonLink to={`/work/${panel.caseSlug}`} variant="outline">
+        <WipeLink
+          to={`/work/${panel.caseSlug}`}
+          data-cursor="view"
+          className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-transparent px-5 py-2.5 font-sans text-sm font-semibold text-fg-0 transition hover:border-accent/40 hover:bg-accent-dim"
+        >
           Case study
           <ArrowUpRight size={16} aria-hidden />
-        </ButtonLink>
+        </WipeLink>
       </div>
     </div>
   );
@@ -321,9 +324,13 @@ export function SystemsSection() {
             All selected work
           </button>
           {" · "}
-          <Link to="/work/bidstream-ai" className="text-accent hover:underline">
+          <WipeLink
+            to="/work/bidstream-ai"
+            data-cursor="view"
+            className="text-accent hover:underline"
+          >
             Scoring deep dive
-          </Link>
+          </WipeLink>
         </p>
       </div>
     </section>

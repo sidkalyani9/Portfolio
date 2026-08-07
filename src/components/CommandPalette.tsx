@@ -5,7 +5,6 @@ import {
   useRef,
   useState,
 } from "react";
-import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import {
   ArrowDown,
@@ -22,15 +21,18 @@ import { projects } from "@/content/projects";
 import { profile } from "@/content/profile";
 import { useResumeHref } from "@/hooks/useResumeHref";
 import { useScrollTo } from "@/components/SmoothScroll";
+import { useWipe } from "@/components/PageWipe";
 import { cn } from "@/lib/cn";
 
 const SECTIONS = [
   { id: "pipeline", label: "the runtime — agent pipeline trace" },
   { id: "telemetry", label: "production metrics" },
   { id: "systems", label: "systems owned end-to-end" },
+  { id: "awards", label: "awards & recognition" },
   { id: "work", label: "selected work" },
   { id: "about", label: "about" },
   { id: "experience", label: "experience" },
+  { id: "hackathon", label: "hackathon win — grantflow" },
   { id: "contact", label: "contact" },
 ] as const;
 
@@ -66,7 +68,7 @@ export function CommandPalette() {
   const panelRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
+  const { go } = useWipe();
   const { scrollToId } = useScrollTo();
   const resume = useResumeHref();
 
@@ -84,7 +86,7 @@ export function CommandPalette() {
   const items = useMemo<Item[]>(() => {
     const goHome = (hash?: string) => {
       if (window.location.pathname !== "/") {
-        navigate(hash ? `/#${hash}` : "/");
+        go(hash ? `/#${hash}` : "/");
       }
     };
     const list: Item[] = SECTIONS.map((s) => ({
@@ -112,7 +114,7 @@ export function CommandPalette() {
           icon: FolderGit2,
           run: () => {
             setOpen(false);
-            navigate(`/work/${p.slug}`);
+            go(`/work/${p.slug}`);
           },
         }),
       );
@@ -160,7 +162,7 @@ export function CommandPalette() {
       },
     );
     return list;
-  }, [navigate, scrollToId, resume, copied, copyEmail]);
+  }, [go, scrollToId, resume, copied, copyEmail]);
 
   const filtered = useMemo(() => {
     const base = items.filter((i) => fuzzy(query, `${i.group} ${i.label}`));

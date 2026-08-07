@@ -6,6 +6,7 @@ import { AboutSection } from "@/sections/AboutSection";
 import { ExperienceSection } from "@/sections/ExperienceSection";
 import { PipelineSection } from "@/sections/PipelineSection";
 import { SystemsSection } from "@/sections/SystemsSection";
+import { AwardsSection } from "@/sections/AwardsSection";
 import { HackathonSection } from "@/sections/HackathonSection";
 import { WorkSection } from "@/sections/WorkSection";
 import { ContactSection } from "@/sections/ContactSection";
@@ -20,7 +21,8 @@ export function HomePage() {
   useEffect(() => {
     if (!hash) return;
     const id = hash.replace("#", "");
-    const t = window.setTimeout(() => scrollToId(id), 80);
+    // wait for boot + layout settle
+    const t = window.setTimeout(() => scrollToId(id), 120);
     return () => window.clearTimeout(t);
   }, [hash, scrollToId]);
 
@@ -32,6 +34,7 @@ export function HomePage() {
       <ExperienceSection />
       <PipelineSection />
       <SystemsSection />
+      <AwardsSection />
       <HackathonSection />
       <WorkSection />
       <ContactSection />

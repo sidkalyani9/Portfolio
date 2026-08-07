@@ -76,7 +76,7 @@ function MediaCard({ project, full }: { project: Project; full?: boolean }) {
 
 function TextRow({ project }: { project: Project }) {
   return (
-    <article className="group md:col-span-2 overflow-hidden rounded-3xl border border-border bg-bg-1/30 transition hover:border-accent/30 focus-within:border-accent/40">
+    <article className="group md:col-span-2 overflow-hidden rounded-3xl border border-border bg-bg-1/30 transition hover:border-accent/30 hover:bg-bg-1/50 focus-within:border-accent/40">
       <WipeLink
         to={`/work/${project.slug}`}
         data-cursor="view"
@@ -102,7 +102,7 @@ function TextRow({ project }: { project: Project }) {
             </li>
           ) : null}
         </ul>
-      </Link>
+      </WipeLink>
     </article>
   );
 }
@@ -114,7 +114,7 @@ export function WorkSection() {
         <SectionHeading
           eyebrow="Selected work"
           title="Systems & products"
-          description="A mix of production GenAI ownership, confidential platform integrations, public apps, and a hackathon win — architecture and role first."
+          description="Production GenAI ownership, confidential platform integrations, public apps, and a hackathon win — architecture and role first."
           className="reveal"
         />
 
@@ -147,13 +147,14 @@ export function WorkSection() {
           <ul className="mt-4 flex flex-wrap gap-3">
             {alsoProjects.map((p) => (
               <li key={p.slug}>
-                <Link
+                <WipeLink
                   to={`/work/${p.slug}`}
+                  data-cursor="view"
                   className="inline-flex items-center gap-2 rounded-full border border-border bg-bg-1/50 px-4 py-2 text-sm text-fg-1 transition hover:border-accent/30 hover:text-fg-0"
                 >
                   {p.title}
                   <ArrowUpRight size={14} aria-hidden />
-                </Link>
+                </WipeLink>
               </li>
             ))}
           </ul>

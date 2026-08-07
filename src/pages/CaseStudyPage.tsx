@@ -1,4 +1,4 @@
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import {
   bidstreamCaseStudy,
@@ -13,32 +13,35 @@ import { ButtonLink } from "@/components/ui/Button";
 import { PullQuote } from "@/components/ui/PullQuote";
 import { LongreadSection } from "@/components/ui/LongreadSection";
 import { FigureWithCaption } from "@/components/ui/FigureWithCaption";
+import { SplitText } from "@/components/fx/SplitText";
+import { Magnetic } from "@/components/fx/Magnetic";
+import { WipeLink } from "@/components/PageWipe";
 import { useReveal } from "@/hooks/useReveal";
 
 function BackLink({ section = "work" }: { section?: string }) {
   return (
-    <Link
+    <WipeLink
       to={`/#${section}`}
       className="inline-flex items-center gap-2 font-sans text-sm text-fg-1 transition hover:text-accent"
-      onClick={(e) => {
-        if (window.location.pathname === "/") {
-          e.preventDefault();
-          const el = document.getElementById(section);
-          el?.scrollIntoView({ behavior: "smooth", block: "start" });
-          window.history.replaceState(null, "", `/#${section}`);
-        }
-      }}
     >
       <ArrowLeft size={16} aria-hidden /> Back to work
-    </Link>
+    </WipeLink>
   );
 }
 
 function ConfidentialNote() {
   return (
-    <p className="rounded-xl border border-border bg-bg-1/50 px-4 py-3 text-sm text-fg-2">
-      Confidential client engagement — product name and UI redacted. Facts below
-      describe ownership and architecture only.
+    <p className="rounded-xl border border-border bg-bg-1/50 px-4 py-3 font-mono text-sm text-fg-2">
+      <span className="text-accent">//</span> Confidential client engagement — product
+      name and UI redacted. Facts below describe ownership and architecture only.
+    </p>
+  );
+}
+
+function CaseEyebrow({ children }: { children: string }) {
+  return (
+    <p className="mt-10 font-mono text-[11px] font-medium uppercase tracking-[0.22em] text-accent">
+      {children}
     </p>
   );
 }
@@ -52,13 +55,13 @@ export function CaseStudyPage() {
       <article className="section-y pt-28">
         <header className="container-measure reveal">
           <BackLink section="systems" />
-          <p className="mt-10 font-sans text-[11px] font-semibold uppercase tracking-[0.22em] text-accent">
-            Case study · P0 · Internal product
-          </p>
+          <CaseEyebrow>Case study · P0 · Internal product</CaseEyebrow>
           <h1 className="mt-4 font-display text-[clamp(2.5rem,6vw,4.25rem)] text-fg-0">
-            {bidstreamCaseStudy.title}
+            <SplitText text={bidstreamCaseStudy.title} start delay={0.05} />
           </h1>
-          <p className="mt-2 text-sm text-fg-2">{bidstreamCaseStudy.productLine}</p>
+          <p className="mt-2 font-mono text-sm text-fg-2">
+            {bidstreamCaseStudy.productLine}
+          </p>
           <p className="mt-4 font-display text-xl italic text-fg-1 md:text-2xl">
             {bidstreamCaseStudy.subtitle}
           </p>
@@ -91,7 +94,7 @@ export function CaseStudyPage() {
               {bidstreamCaseStudy.pipeline.map((s) => (
                 <li
                   key={s}
-                  className="rounded-full border border-border bg-bg-1 px-3 py-1.5 font-sans text-xs font-medium text-fg-0"
+                  className="rounded-full border border-border bg-bg-1 px-3 py-1.5 font-mono text-xs font-medium text-fg-0"
                 >
                   {s}
                 </li>
@@ -110,7 +113,9 @@ export function CaseStudyPage() {
               {bidstreamModules.map((m, i) => (
                 <div key={m.id} className="border-t border-border pt-6">
                   <h3 className="font-display text-xl text-fg-0">
-                    <span className="mr-2 font-sans text-xs text-ink">0{i + 1}</span>
+                    <span className="mr-2 font-mono text-xs text-ink">
+                      0{i + 1}
+                    </span>
                     {m.title}
                   </h3>
                   <ul className="mt-3 space-y-2">
@@ -143,7 +148,9 @@ export function CaseStudyPage() {
           </LongreadSection>
 
           <div className="rule" />
-          <ButtonLink to="/#contact">Discuss GenAI / FDE roles</ButtonLink>
+          <Magnetic>
+            <ButtonLink to="/#contact">Discuss GenAI / FDE roles</ButtonLink>
+          </Magnetic>
         </div>
       </article>
     );
@@ -154,11 +161,11 @@ export function CaseStudyPage() {
       <article className="section-y pt-28">
         <header className="container-measure reveal">
           <BackLink />
-          <p className="mt-10 font-sans text-[11px] font-semibold uppercase tracking-[0.22em] text-accent">
-            Hackathon · {grantflow.team}
-          </p>
+          <CaseEyebrow>
+            {`Hackathon · ${grantflow.team}`}
+          </CaseEyebrow>
           <h1 className="mt-4 font-display text-[clamp(2.5rem,6vw,4.25rem)] text-fg-0">
-            {grantflow.title}
+            <SplitText text={grantflow.title} start delay={0.05} />
           </h1>
           <p className="mt-4 text-lg text-fg-1">
             {grantflow.result} · team of {grantflow.teamSize} · {grantflow.duration}
@@ -209,7 +216,9 @@ export function CaseStudyPage() {
               <Chip key={t}>{t}</Chip>
             ))}
           </div>
-          <ButtonLink to="/#contact">Get in touch</ButtonLink>
+          <Magnetic>
+            <ButtonLink to="/#contact">Get in touch</ButtonLink>
+          </Magnetic>
         </div>
       </article>
     );
@@ -222,11 +231,9 @@ export function CaseStudyPage() {
       <article className="section-y pt-28">
         <header className="container-measure reveal">
           <BackLink section="systems" />
-          <p className="mt-10 font-sans text-[11px] font-semibold uppercase tracking-[0.22em] text-accent">
-            Case study · Confidential
-          </p>
+          <CaseEyebrow>Case study · Confidential</CaseEyebrow>
           <h1 className="mt-4 font-display text-[clamp(2.5rem,6vw,4rem)] text-fg-0">
-            {system.title}
+            <SplitText text={system.title} start delay={0.05} />
           </h1>
           <p className="mt-4 text-lg text-fg-1">{system.short}</p>
           <div className="mt-6 flex flex-wrap gap-2">
@@ -279,7 +286,9 @@ export function CaseStudyPage() {
                 "Shipped as a reliable production path without exposing client UI."}
             </p>
           </LongreadSection>
-          <ButtonLink to="/#contact">Discuss similar systems</ButtonLink>
+          <Magnetic>
+            <ButtonLink to="/#contact">Discuss similar systems</ButtonLink>
+          </Magnetic>
         </div>
       </article>
     );
@@ -293,7 +302,7 @@ export function CaseStudyPage() {
       <div className="container-measure reveal">
         <BackLink />
         <h1 className="mt-10 font-display text-[clamp(2.25rem,5vw,3.5rem)] text-fg-0">
-          {project.title}
+          <SplitText text={project.title} start delay={0.05} />
         </h1>
         <div className="mt-5 flex flex-wrap gap-2">
           {project.tech.map((t) => (
@@ -302,7 +311,7 @@ export function CaseStudyPage() {
         </div>
       </div>
       {project.cover ? (
-        <div className="reveal mt-10">
+        <div className="reveal mt-10" data-reveal="clip">
           <FigureWithCaption
             wide
             src={project.cover}
@@ -329,13 +338,14 @@ export function CaseStudyPage() {
         </LongreadSection>
         <div className="flex flex-wrap gap-3">
           {project.links.map((l) => (
-            <ButtonLink
-              key={l.href}
-              to={l.href}
-              variant={l.href.startsWith("http") ? "outline" : "primary"}
-            >
-              {l.label}
-            </ButtonLink>
+            <Magnetic key={l.href} strength={0.25}>
+              <ButtonLink
+                to={l.href}
+                variant={l.href.startsWith("http") ? "outline" : "primary"}
+              >
+                {l.label}
+              </ButtonLink>
+            </Magnetic>
           ))}
         </div>
       </div>

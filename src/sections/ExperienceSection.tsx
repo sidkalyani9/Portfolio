@@ -9,7 +9,7 @@ export function ExperienceSection() {
         <SectionHeading
           eyebrow="Experience"
           title="Curriculum"
-          description="Path into GenAI and platform engineering — full-stack foundations at Argusoft through multi-agent systems, auth automation, and meeting intelligence."
+          description="From internship foundations into production GenAI — multi-agent systems, GraphRAG, Vertex AI caching, and LLMOps at scale."
           className="reveal"
         />
 
@@ -17,10 +17,10 @@ export function ExperienceSection() {
           {experience.map((item) => (
             <article
               key={`${item.title}-${item.date}`}
-              className="grid gap-4 border-b border-border py-8 md:grid-cols-[minmax(0,0.35fr)_minmax(0,0.65fr)] md:gap-10"
+              className="group grid gap-4 border-b border-border py-8 transition hover:bg-bg-1/20 md:grid-cols-[minmax(0,0.35fr)_minmax(0,0.65fr)] md:gap-10 md:px-4"
             >
               <div>
-                <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-fg-2">
+                <p className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-fg-2">
                   {item.date}
                 </p>
                 <p className="mt-2 text-sm text-fg-1">{item.org}</p>

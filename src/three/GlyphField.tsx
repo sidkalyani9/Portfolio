@@ -220,6 +220,8 @@ export function GlyphField({ className = "" }: { className?: string }) {
           frameloop="always"
           camera={{ position: [0, 0, 1] }}
           style={{ background: "transparent" }}
+          eventSource={typeof document !== "undefined" ? document.documentElement : undefined}
+          eventPrefix="client"
         >
           <GlyphScene />
         </Canvas>

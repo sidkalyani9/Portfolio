@@ -85,7 +85,7 @@ export function TokenStream({
       {caret && !done && start ? (
         <span
           aria-hidden
-          className="ml-0.5 inline-block h-[1em] w-[0.55ch] translate-y-[0.15em] bg-accent"
+          className="caret-blink ml-0.5 inline-block h-[1em] w-[0.55ch] translate-y-[0.15em] bg-accent"
         />
       ) : null}
       {caret && done ? (

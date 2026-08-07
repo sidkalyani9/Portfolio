@@ -1,9 +1,10 @@
 import { Trophy } from "lucide-react";
 import { grantflow } from "@/content/grantflow";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ButtonLink } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 import { PullQuote } from "@/components/ui/PullQuote";
+import { WipeLink } from "@/components/PageWipe";
+import { Magnetic } from "@/components/fx/Magnetic";
 
 export function HackathonSection() {
   return (
@@ -38,9 +39,15 @@ export function HackathonSection() {
               ))}
             </div>
             <div className="mt-10">
-              <ButtonLink to="/work/grantflow" variant="outline">
-                Full essay
-              </ButtonLink>
+              <Magnetic strength={0.25}>
+                <WipeLink
+                  to="/work/grantflow"
+                  data-cursor="view"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-transparent px-5 py-2.5 font-sans text-sm font-semibold text-fg-0 transition hover:border-accent/40 hover:bg-accent-dim"
+                >
+                  Full essay
+                </WipeLink>
+              </Magnetic>
             </div>
           </div>
 

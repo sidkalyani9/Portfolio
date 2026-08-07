@@ -11,6 +11,7 @@ import { useScrollTo } from "@/components/SmoothScroll";
 const nav = [
   { label: "Runtime", id: "pipeline" },
   { label: "Systems", id: "systems" },
+  { label: "Work", id: "work" },
   { label: "About", id: "about" },
   { label: "Experience", id: "experience" },
   { label: "Contact", id: "contact" },
@@ -73,8 +74,14 @@ export function SiteHeader() {
           <span className="grid h-9 w-9 place-items-center rounded-xl border border-border bg-bg-2 font-sans text-sm font-bold text-accent shadow-[0_0_24px_rgba(46,230,166,0.1)] transition group-hover:border-accent/30">
             SK
           </span>
-          <span className="max-w-[10rem] truncate text-sm font-medium tracking-tight text-fg-0 sm:max-w-none">
-            {profile.name}
+          <span className="flex max-w-[14rem] items-center gap-2 sm:max-w-none">
+            <span className="truncate text-sm font-medium tracking-tight text-fg-0">
+              {profile.name}
+            </span>
+            <span className="hidden items-center gap-1.5 rounded-full border border-border bg-bg-1/60 px-2 py-0.5 font-mono text-[10px] text-fg-2 xl:inline-flex">
+              <span className="status-dot inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+              open
+            </span>
           </span>
         </Link>
 

@@ -8,6 +8,7 @@ import { SmoothScroll } from "@/components/SmoothScroll";
 import { CommandPalette } from "@/components/CommandPalette";
 import { PageWipe } from "@/components/PageWipe";
 import { CustomCursor } from "@/components/fx/CustomCursor";
+import { Konami } from "@/components/fx/Konami";
 import { HomePage } from "@/pages/HomePage";
 import { CaseStudyPage } from "@/pages/CaseStudyPage";
 
@@ -30,6 +31,7 @@ export default function App() {
             <div className="grain min-h-screen bg-bg-0 text-fg-0">
               <BootPreloader />
               <CustomCursor />
+              <Konami />
               <SiteHeader />
               <ScrollToTop />
               <main id="main">
