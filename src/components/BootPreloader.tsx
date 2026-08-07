@@ -10,13 +10,13 @@ const BOOT_LINES = [
   "mounting agent constellation [6 nodes]",
   "warming bloom · chromatic · vignette",
   "syncing camera path to scroll …",
-  "ready — enter the journey",
+  "ready · enter the journey",
 ] as const;
 
 const MIN_MS = 2200;
 
 /**
- * Cinematic boot sequence — log lines with timestamps, an epoch-style
+ * Cinematic boot sequence · log lines with timestamps, an epoch-style
  * progress bar synced to *real* page readiness, then a curtain lift.
  */
 export function BootPreloader() {
@@ -79,7 +79,7 @@ export function BootPreloader() {
         );
         window.clearInterval(finish);
       }
-      // hard cap — never hold the page hostage
+      // hard cap · never hold the page hostage
       if (elapsed > 3400 && !doneRef.current) {
         doneRef.current = true;
         window.clearInterval(progressTimer);

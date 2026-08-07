@@ -9,8 +9,8 @@ type Props = {
   speed?: number;
 };
 
-/** Infinite marquee strip — award-site staple, mono uppercase. */
-export function Marquee({ items, className, separator = "—", speed = 28 }: Props) {
+/** Infinite marquee strip · award-site staple, mono uppercase. */
+export function Marquee({ items, className, separator = " · ", speed = 28 }: Props) {
   const row = (key: string, hidden: boolean) => (
     <div
       key={key}

@@ -74,7 +74,7 @@ export const systemPanels: SystemPanel[] = [
     bullets: [
       "Production-grade caching platform on Vertex AI's CachedContent API",
       "Cut generation costs by 80% across pipelines",
-      "100+ standardised prompt templates — a further 20% via implicit caching",
+      "100+ standardised prompt templates · a further 20% via implicit caching",
     ],
     detail: [
       "Explicit cache lifecycles for shared context across agents",
@@ -93,7 +93,7 @@ export const systemPanels: SystemPanel[] = [
     stack: ["GraphRAG", "Knowledge graphs", "PostgreSQL"],
     bullets: [
       "Natural-language structured queries across 100,000+ RFP insights",
-      "Replaced noisy vector retrieval — irrelevant LLM context cut sharply",
+      "Replaced noisy vector retrieval · irrelevant LLM context cut sharply",
       "Knowledge-graph relationships make answers explainable",
     ],
     detail: [
@@ -119,7 +119,7 @@ export const systemPanels: SystemPanel[] = [
     detail: [
       "Every validation request fingerprinted and deduplicated",
       "Batch windows trade latency for cost where UX allows",
-      "Accuracy measured, not assumed — labeled-set driven tuning",
+      "Accuracy measured, not assumed · labeled-set driven tuning",
     ],
   },
   {
@@ -158,7 +158,7 @@ export const systemPanels: SystemPanel[] = [
     ],
     detail: [
       "Playwright where it's enough, SeleniumBase where bot detection fights back",
-      "Credentials in AWS Secrets Manager — never hardcoded",
+      "Credentials in AWS Secrets Manager · never hardcoded",
       "2FA OTP retrieved and entered automatically via Gmail API",
     ],
   },

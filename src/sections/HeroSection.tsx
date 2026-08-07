@@ -32,7 +32,7 @@ export function HeroSection() {
       className="relative flex min-h-[100svh] items-center overflow-hidden pt-20"
       aria-label="Introduction"
     >
-      {/* left readability veil — world shows through the right */}
+      {/* left readability veil · world shows through the right */}
       <div className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(105deg,rgba(10,7,18,0.78)_0%,rgba(10,7,18,0.35)_48%,transparent_72%)]" />
 
       <div
@@ -47,31 +47,31 @@ export function HeroSection() {
             className="font-mono text-xs text-fg-2 transition-opacity duration-700"
             style={{ opacity: booted ? 1 : 0 }}
           >
-            <span className="text-accent">//</span> cinematic runtime —{" "}
+            <span className="text-accent">//</span> cinematic runtime ·{" "}
             {profile.location.toLowerCase()} · open to remote
             <MapPin size={12} className="ml-2 inline text-accent" aria-hidden />
           </p>
 
-          <h1 className="mt-6 font-display uppercase leading-[0.9] text-fg-0">
+          <h1 className="mt-6 font-display uppercase leading-[0.95] text-fg-0">
             <SplitText
               text="Siddharth"
               start={booted}
               delay={0.05}
-              className="block text-[clamp(3.6rem,12vw,9.5rem)] drop-shadow-[0_8px_40px_rgba(0,0,0,0.55)]"
+              className="block text-[clamp(3.4rem,11vw,9rem)] drop-shadow-[0_8px_40px_rgba(0,0,0,0.55)]"
             />
             <SplitText
               text="Kalyani"
               start={booted}
               delay={0.28}
-              className="block text-[clamp(3.6rem,12vw,9.5rem)] italic text-accent drop-shadow-[0_0_40px_rgba(199,125,255,0.25)]"
+              className="mt-1 block text-[clamp(3.4rem,11vw,9rem)] italic text-accent drop-shadow-[0_0_40px_rgba(199,125,255,0.25)]"
             />
           </h1>
 
           <p className="mt-7 min-h-[1.5em] font-mono text-sm text-accent md:text-base">
             <TokenStream
-              text={`${profile.roleLine} — ${profile.roleSub}`}
+              text={`${profile.roleLine} · ${profile.roleSub}`}
               start={booted}
-              speed={1.35}
+              speed={0.72}
             />
           </p>
 

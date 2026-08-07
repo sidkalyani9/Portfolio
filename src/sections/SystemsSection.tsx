@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
-import { ArrowUpRight, Database, Sparkles } from "lucide-react";
+import { ArrowUpRight, Database } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -25,10 +25,7 @@ function PanelBody({ panel }: { panel: SystemPanel }) {
   return (
       <div className="flex h-full flex-col">
       <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2 text-accent">
-          <Sparkles size={18} aria-hidden />
-          <p className="font-sans text-sm font-semibold">{panel.title}</p>
-        </div>
+        <p className="font-sans text-sm font-semibold text-accent">{panel.title}</p>
         <span className="rounded-full border border-accent/30 bg-accent-dim px-3 py-1 font-mono text-[11px] text-accent">
           {panel.metric}
         </span>
@@ -77,7 +74,7 @@ function PanelBody({ panel }: { panel: SystemPanel }) {
 
       {panel.kind === "anonymous" ? (
         <p className="mt-4 text-xs text-fg-2">
-          Confidential client work — product name and UI redacted. Architecture and
+          Confidential client work · product name and UI redacted. Architecture and
           ownership only.
         </p>
       ) : null}
@@ -194,7 +191,7 @@ export function SystemsSection() {
         <SectionHeading
           eyebrow="Featured systems"
           title="Systems I own end-to-end"
-          description="Production GenAI on Bidstream — multi-agent generation, agentic scoring, GraphRAG retrieval, caching infrastructure, batch validation and observability. Confidential UIs redacted."
+          description="Production GenAI on Bidstream · multi-agent generation, agentic scoring, GraphRAG retrieval, caching infrastructure, batch validation and observability. Confidential UIs redacted."
           className="reveal"
         />
 

@@ -25,14 +25,14 @@ import { useWipe } from "@/components/PageWipe";
 import { cn } from "@/lib/cn";
 
 const SECTIONS = [
-  { id: "pipeline", label: "the runtime — agent pipeline trace" },
+  { id: "pipeline", label: "the runtime · agent pipeline trace" },
   { id: "telemetry", label: "production metrics" },
   { id: "systems", label: "systems owned end-to-end" },
   { id: "awards", label: "awards & recognition" },
   { id: "work", label: "selected work" },
   { id: "about", label: "about" },
   { id: "experience", label: "experience" },
-  { id: "hackathon", label: "hackathon win — grantflow" },
+  { id: "hackathon", label: "hackathon win · grantflow" },
   { id: "contact", label: "contact" },
 ] as const;
 
@@ -44,7 +44,7 @@ type Item = {
   run: () => void;
 };
 
-/** Subsequence match — simple, predictable fuzzy scoring. */
+/** Subsequence match · simple, predictable fuzzy scoring. */
 function fuzzy(query: string, text: string): boolean {
   const q = query.toLowerCase();
   const t = text.toLowerCase();
@@ -122,7 +122,7 @@ export function CommandPalette() {
       {
         id: "act-email",
         group: "actions",
-        label: copied ? "copied ✓" : `copy email — ${profile.email}`,
+        label: copied ? "copied ✓" : `copy email · ${profile.email}`,
         icon: Mail,
         run: copyEmail,
       },
@@ -166,16 +166,16 @@ export function CommandPalette() {
 
   const filtered = useMemo(() => {
     const base = items.filter((i) => fuzzy(query, `${i.group} ${i.label}`));
-    // easter egg — `sudo hire siddharth`
+    // easter egg · `sudo hire siddharth`
     if (query.trim().toLowerCase().startsWith("sudo")) {
       base.unshift({
         id: "sudo-hire",
         group: "root",
-        label: "sudo hire siddharth — permission granted",
+        label: "sudo hire siddharth · permission granted",
         icon: TerminalSquare,
         run: () => {
           window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(
-            "permission granted — let's talk",
+            "permission granted · let's talk",
           )}`;
           setOpen(false);
         },
@@ -293,7 +293,7 @@ export function CommandPalette() {
         <div ref={listRef} className="max-h-[46vh] overflow-y-auto p-2">
           {filtered.length === 0 ? (
             <p className="px-4 py-8 text-center font-mono text-xs text-fg-2">
-              no matches — try "systems", "email", "resume"
+              no matches · try "systems", "email", "resume"
             </p>
           ) : (
             filtered.map((item, i) => {

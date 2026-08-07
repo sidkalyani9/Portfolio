@@ -101,7 +101,7 @@ function TextRow({ project }: { project: Project }) {
             ))}
           {project.confidential ? (
             <li className="text-xs text-fg-2">
-              No product screenshots — confidential client work.
+              No product screenshots · confidential client work.
             </li>
           ) : null}
         </ul>
@@ -117,7 +117,7 @@ export function WorkSection() {
         <SectionHeading
           eyebrow="Selected work"
           title="Systems & products"
-          description="Production GenAI ownership, confidential platform integrations, public apps, and a hackathon win — architecture and role first."
+          description="Production GenAI ownership, confidential platform integrations, public apps, and a hackathon win · architecture and role first."
           className="reveal"
         />
 

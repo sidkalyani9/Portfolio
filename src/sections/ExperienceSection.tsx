@@ -1,7 +1,7 @@
 import { experience } from "@/content/experience";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
-/** Concept E — CV-like experience, sparse and scannable */
+/** Concept E · CV-like experience, sparse and scannable */
 export function ExperienceSection() {
   return (
     <section id="experience" className="section-y">
@@ -9,7 +9,7 @@ export function ExperienceSection() {
         <SectionHeading
           eyebrow="Experience"
           title="Curriculum"
-          description="From internship foundations into production GenAI — multi-agent systems, GraphRAG, Vertex AI caching, and LLMOps at scale."
+          description="From internship foundations into production GenAI · multi-agent systems, GraphRAG, Vertex AI caching, and LLMOps at scale."
           className="reveal"
         />
 

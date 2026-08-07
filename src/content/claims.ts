@@ -1,5 +1,5 @@
 /**
- * Allowed factual claims — sourced from the latest resume (Aug 2026).
+ * Allowed factual claims · sourced from the latest resume (Aug 2026).
  * Use for content QA; do not invent beyond this set. Medplat excluded by request.
  */
 export const allowedClaims = [
@@ -23,10 +23,10 @@ export const allowedClaims = [
   "documents up to 1M+ tokens ingested natively (multimodal Gemini)",
   "deployment cadence 2x/week to production",
   "MeghDoot audio pipeline: STT + diarization → searchable transcripts",
-  "1st Place — Argusoft internal 8-hour AI hackathon",
-  "Top 5 — Argusoft ML competition",
-  "2nd Prize — TechXIT 2022 Web Developer competition (VGEC)",
+  "1st Place · Argusoft internal 8-hour AI hackathon",
+  "Top 5 · Argusoft ML competition",
+  "2nd Prize · TechXIT 2022 Web Developer competition (VGEC)",
   "Meta Front-End Developer specialization (Coursera)",
-  "B.Tech IT — VGEC 2021–2024 · 9.11 CGPA",
+  "B.Tech IT · VGEC 2021–2024 · 9.11 CGPA",
   "Ahmedabad · open to remote",
 ] as const;

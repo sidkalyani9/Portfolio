@@ -33,7 +33,7 @@ function useLoadMs() {
   return ms;
 }
 
-/** Colophon footer — local time · load ms · version · links */
+/** Colophon footer · local time · load ms · version · links */
 export function SiteFooter() {
   const year = new Date().getFullYear();
   const resume = useResumeHref();
@@ -88,7 +88,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* colophon — seamless with the world; no hard divider */}
+      {/* colophon · seamless with the world; no hard divider */}
       <div className="mt-2">
         <div className="container-page flex flex-wrap items-center justify-between gap-3 border-t border-border/40 py-4 font-mono text-[11px] text-fg-2">
           <p>
@@ -100,16 +100,16 @@ export function SiteFooter() {
               IST <span className="text-fg-1">{clock}</span>
             </span>
             <span aria-hidden className="text-border">
-              ·
+ ·
             </span>
             <span>
               load{" "}
               <span className="text-fg-1">
-                {loadMs != null ? `${loadMs}ms` : "—"}
+                {loadMs != null ? `${loadMs}ms` : " · "}
               </span>
             </span>
             <span aria-hidden className="text-border">
-              ·
+ ·
             </span>
             <span>
               built with{" "}

@@ -92,7 +92,7 @@ function Counter({ stat, started }: { stat: Stat; started: boolean }) {
   );
 }
 
-/** Telemetry band — production numbers as design elements. */
+/** Telemetry band · production numbers as design elements. */
 export function TelemetrySection() {
   const rootRef = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();

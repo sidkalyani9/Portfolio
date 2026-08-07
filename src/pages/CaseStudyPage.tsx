@@ -32,7 +32,7 @@ function BackLink({ section = "work" }: { section?: string }) {
 function ConfidentialNote() {
   return (
     <p className="rounded-xl border border-border bg-bg-1/50 px-4 py-3 font-mono text-sm text-fg-2">
-      <span className="text-accent">//</span> Confidential client engagement — product
+      <span className="text-accent">//</span> Confidential client engagement · product
       name and UI redacted. Facts below describe ownership and architecture only.
     </p>
   );
@@ -102,7 +102,7 @@ export function CaseStudyPage() {
             </ol>
           </LongreadSection>
 
-          <PullQuote attribution="Flagship design — specialised persona classifier">
+          <PullQuote attribution="Flagship design · specialised persona classifier">
             Read the section. Choose a persona such as technical:fastapi/python. Check
             the database. On a miss, write the prompt, cache it, then hand off to the
             section scoring agent.
@@ -184,7 +184,7 @@ export function CaseStudyPage() {
           <FigureWithCaption
             src={grantflow.media[1]}
             alt="Hackathon dinner"
-            caption="Celebration after the win — prioritisation over unfinished sprawl."
+            caption="Celebration after the win · prioritisation over unfinished sprawl."
             credit="Figure 02"
             imgClassName="max-h-[420px] w-full object-contain"
           />
@@ -208,7 +208,7 @@ export function CaseStudyPage() {
             <p>
               The same judgement shows up in production GenAI and platform work:
               prioritise under constraint, design LLM paths that fail safely, and treat
-              scoring prompts as systems — not one-off messages.
+              scoring prompts as systems · not one-off messages.
             </p>
           </LongreadSection>
           <div className="flex flex-wrap gap-2">
@@ -276,7 +276,7 @@ export function CaseStudyPage() {
             <p>
               {system.stack.join(" · ")}
               {slug === "meeting-intelligence-pipeline"
-                ? ". Speech-to-text and summarization use cost-efficient production-style models (representative: Whisper-class STT + Flash/mini-class LLM) — exact production model names may vary."
+                ? ". Speech-to-text and summarization use cost-efficient production-style models (representative: Whisper-class STT + Flash/mini-class LLM) · exact production model names may vary."
                 : "."}
             </p>
           </LongreadSection>

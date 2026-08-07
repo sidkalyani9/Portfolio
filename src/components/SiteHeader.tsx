@@ -1,5 +1,5 @@
 import { useEffect, useState, type MouseEvent } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Menu, TerminalSquare, X } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { ButtonLink } from "@/components/ui/Button";
@@ -23,7 +23,7 @@ export function SiteHeader() {
   const resume = useResumeHref();
   const location = useLocation();
   const navigate = useNavigate();
-  const { scrollToId } = useScrollTo();
+  const { scrollToId, scrollToY } = useScrollTo();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -47,6 +47,17 @@ export function SiteHeader() {
     }
   };
 
+  const goHomeTop = (e: MouseEvent) => {
+    e.preventDefault();
+    setOpen(false);
+    if (location.pathname === "/") {
+      scrollToY(0);
+      window.history.replaceState(null, "", "/");
+    } else {
+      navigate("/");
+    }
+  };
+
   const linkClass =
     "text-sm text-fg-1 transition-colors hover:text-fg-0 focus-visible:text-fg-0";
 
@@ -66,16 +77,14 @@ export function SiteHeader() {
         Skip to content
       </a>
       <div className="container-page flex h-16 items-center justify-between gap-4 md:h-[4.25rem]">
-        <Link
-          to="/"
+        <a
+          href="/"
+          onClick={goHomeTop}
           className="group flex items-center gap-3"
-          aria-label={`${profile.name} home`}
+          aria-label={`${profile.name} · back to top`}
         >
-          <span className="grid h-9 w-9 place-items-center rounded-xl border border-border bg-bg-2 font-sans text-sm font-bold text-accent shadow-[0_0_24px_rgba(199,125,255,0.1)] transition group-hover:border-accent/30">
-            SK
-          </span>
-          <span className="flex max-w-[14rem] items-center gap-2 sm:max-w-none">
-            <span className="truncate text-sm font-medium tracking-tight text-fg-0">
+          <span className="flex max-w-[16rem] items-center gap-2 sm:max-w-none">
+            <span className="truncate text-sm font-medium tracking-tight text-fg-0 transition group-hover:text-accent">
               {profile.name}
             </span>
             <span className="hidden items-center gap-1.5 rounded-full border border-border bg-bg-1/60 px-2 py-0.5 font-mono text-[10px] text-fg-2 xl:inline-flex">
@@ -83,7 +92,7 @@ export function SiteHeader() {
               open
             </span>
           </span>
-        </Link>
+        </a>
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
           {nav.map((item) => (

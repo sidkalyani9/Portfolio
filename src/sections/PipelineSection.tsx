@@ -95,7 +95,8 @@ export function PipelineSection() {
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: pinRef.current,
-        start: "top top",
+        // keep pinned HUD fully below the fixed header
+        start: "top 5.5rem",
         end: `+=${N * 70}%`,
         pin: stageRef.current,
         pinSpacing: true,
@@ -118,7 +119,7 @@ export function PipelineSection() {
         <SectionHeading
           eyebrow="The journey"
           title="Fly a request through the system"
-          description="Scroll to pilot the camera through Bidstream's multi-agent loop — the same architecture that cut proposal rework from ~50% of sections to ~5% minor edits."
+          description="Scroll to pilot the camera through Bidstream's multi-agent loop, the same architecture that cut proposal rework from ~50% of sections to ~5% minor edits."
           className="reveal"
         />
 
@@ -127,7 +128,8 @@ export function PipelineSection() {
             ref={stageRef}
             className={cn(
               "glass-strong relative rounded-3xl",
-              animated && "flex min-h-[calc(100vh-2rem)] flex-col justify-center py-10",
+              animated &&
+                "flex min-h-[calc(100svh-6.5rem)] flex-col justify-center py-8 md:py-10",
               !animated && "p-6 md:p-10",
               inFocus && "ring-1 ring-accent/20",
             )}
@@ -149,7 +151,7 @@ export function PipelineSection() {
 
             {animated ? (
               <div className="mt-10 px-8 md:px-12">
-                {/* HUD node strip — world carries the 3D; this is the HUD */}
+                {/* HUD node strip · world carries the 3D; this is the HUD */}
                 <ol className="relative flex items-start justify-between">
                   <div className="absolute left-0 right-0 top-7 h-px bg-border/80" />
                   <div
@@ -217,13 +219,13 @@ export function PipelineSection() {
                     <span className="caret-blink mt-1 inline-block h-3 w-1.5 bg-accent" />
                   ) : (
                     <p className="mt-1 text-accent">
-                      ✓ camera path complete — proposal scored, cached, logged
+                      ✓ camera path complete · proposal scored, cached, logged
                     </p>
                   )}
                 </div>
 
                 <p className="mt-6 font-mono text-[11px] text-fg-2">
-                  tip: the 3D world behind this HUD is the same graph — scroll to fly
+                  tip: the 3D world behind this HUD is the same graph · scroll to fly
                 </p>
               </div>
             ) : (

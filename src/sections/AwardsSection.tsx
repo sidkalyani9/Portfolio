@@ -2,7 +2,7 @@ import { awards, certifications } from "@/content/awards";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Chip } from "@/components/ui/Chip";
 
-/** Proof under pressure — awards + certs as a telemetry strip */
+/** Proof under pressure · awards + certs as a telemetry strip */
 export function AwardsSection() {
   return (
     <section id="awards" className="section-y">
@@ -10,7 +10,7 @@ export function AwardsSection() {
         <SectionHeading
           eyebrow="Recognition"
           title="Proof under pressure"
-          description="Hackathons, competitions, and credentials that back the production work — not the other way around."
+          description="Hackathons, competitions, and credentials that back the production work · not the other way around."
           className="reveal"
         />
 

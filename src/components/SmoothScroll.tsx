@@ -13,9 +13,23 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { DUR, HEADER_OFFSET } from "@/lib/motion";
+import { HEADER_OFFSET } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger);
+
+/** Constant scroll speed (px/s) so near and far targets feel the same pace. */
+const SCROLL_SPEED_PX_S = 1450;
+const SCROLL_DUR_MIN = 0.95;
+const SCROLL_DUR_MAX = 2.35;
+
+function durationForDistance(px: number) {
+  const d = Math.abs(px) / SCROLL_SPEED_PX_S;
+  return Math.min(SCROLL_DUR_MAX, Math.max(SCROLL_DUR_MIN, d));
+}
+
+function easeOutQuint(t: number) {
+  return 1 - Math.pow(1 - t, 5);
+}
 
 type SmoothScrollContextValue = {
   scrollToId: (id: string) => void;
@@ -57,7 +71,7 @@ export function SmoothScroll({ children }: Props) {
     }
 
     const instance = new Lenis({
-      duration: 1.1,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
@@ -91,19 +105,26 @@ export function SmoothScroll({ children }: Props) {
       const map: Record<string, string> = {
         bidstream: "systems",
         proof: "about",
+        home: "home",
       };
       const id = map[rawId] ?? rawId;
       const el = document.getElementById(id);
       if (!el) return;
 
       const instance = lenisRef.current;
+      const targetTop =
+        el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+      const distance = targetTop - window.scrollY;
+      const duration = durationForDistance(distance);
+
       if (instance && isDesktop && !reduced) {
         instance.scrollTo(el, {
           offset: -HEADER_OFFSET,
-          duration: DUR.scroll,
-          easing: (t) => 1 - Math.pow(1 - t, 4),
+          duration,
+          easing: easeOutQuint,
         });
       } else {
+        // native smooth: approximate constant feel via CSS is limited; still better than jump
         el.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     },
@@ -113,8 +134,11 @@ export function SmoothScroll({ children }: Props) {
   const scrollToY = useCallback(
     (y: number) => {
       const instance = lenisRef.current;
+      const distance = y - window.scrollY;
+      const duration = durationForDistance(distance);
+
       if (instance && isDesktop && !reduced) {
-        instance.scrollTo(y, { duration: 0.9 });
+        instance.scrollTo(y, { duration, easing: easeOutQuint });
       } else {
         window.scrollTo({ top: y, behavior: "smooth" });
       }

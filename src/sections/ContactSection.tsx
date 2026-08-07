@@ -36,7 +36,7 @@ export function ContactSection() {
             align="center"
             eyebrow="Contact"
             title="Open to GenAI / FDE roles"
-            description="Hiring for AI / GenAI Developer or Forward Deployed Engineer roles — especially end-to-end LLM systems in production — get in touch."
+            description="Hiring for AI / GenAI Developer or Forward Deployed Engineer roles · especially end-to-end LLM systems in production · get in touch."
           />
 
           <p className="mt-8 font-mono text-sm text-fg-2">

@@ -18,7 +18,7 @@ export function AboutSection() {
             wide
             src="/media/display-pic.webp"
             alt={`Portrait of ${profile.name}`}
-            caption={`${profile.name} — AI/GenAI & Forward-Deployed Engineer.`}
+            caption={`${profile.name} · AI/GenAI & Forward-Deployed Engineer.`}
             credit="Portrait"
             className="!w-full"
             imgClassName="aspect-[4/5] w-full object-cover object-top"
@@ -28,7 +28,7 @@ export function AboutSection() {
           <SectionHeading
             eyebrow="About"
             title="Quiet systems, high stakes"
-            description={`I'm ${profile.name} — ${profile.roleLine} based in ${profile.location}, open to remote roles.`}
+            description={`I'm ${profile.name} · ${profile.roleLine} based in ${profile.location}, open to remote roles.`}
           />
           <div className="mt-8 max-w-[38rem] space-y-5 text-base leading-relaxed text-fg-1">
             <p>
@@ -38,12 +38,12 @@ export function AboutSection() {
               platform that cut inference cost by 80%.
             </p>
             <p>
-              The work that holds up is specialised, secured, and inspectable — not a
+              The work that holds up is specialised, secured, and inspectable · not a
               single chat prompt hoping for the best. Observability, caching, and
               fail-safe LLM paths are first-class, not afterthoughts.
             </p>
             <p className="text-sm text-fg-2">
-              Outside delivery: gym, Formula 1, travel, and occasional YouTube —
+              Outside delivery: gym, Formula 1, travel, and occasional YouTube · 
               secondary to shipping AI systems.
             </p>
           </div>

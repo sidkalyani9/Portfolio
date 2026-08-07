@@ -82,9 +82,13 @@ export function SplitText({
           aria-hidden
           className="inline-block whitespace-nowrap"
         >
-          <span className="inline-block overflow-hidden pb-[0.08em] align-bottom">
+          <span className="inline-block overflow-hidden px-[0.02em] pb-[0.22em] pt-[0.08em] align-bottom">
             {word.split("").map((ch, ci) => (
-              <span key={ci} data-char className="inline-block will-change-transform">
+              <span
+                key={ci}
+                data-char
+                className="inline-block will-change-transform"
+              >
                 {ch}
               </span>
             ))}

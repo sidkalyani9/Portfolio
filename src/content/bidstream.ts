@@ -95,14 +95,14 @@ export const bidstreamCaseStudy = {
   title: "Multi-agent proposal scoring",
   productLine: "BidStreamAI (internal product)",
   subtitle: "End-to-end RFP → proposal intelligence",
-  role: "GenAI Engineer / Forward Deployed Engineer — owned scoring, insights, CV generation, and L2 validation modules",
+  role: "GenAI Engineer / Forward Deployed Engineer · owned scoring, insights, CV generation, and L2 validation modules",
   problem:
-    "Bidding on complex RFPs is slow, inconsistent, and high-stakes. Teams need reliable extraction, relevance validation, document generation, and specialised scoring — not one-off chat prompts.",
+    "Bidding on complex RFPs is slow, inconsistent, and high-stakes. Teams need reliable extraction, relevance validation, document generation, and specialised scoring · not one-off chat prompts.",
   approach:
     "Contributed across the BidStreamAI pipeline while owning the Proposal Scoring multi-agent workflow, RFP insights with long-context handling, automatic Proposal CV generation, and Level-2 catalog-grounded validation with caching.",
   outcome:
     "A production GenAI workflow that specialises scoring personas, reuses cached prompts, handles long RFPs, generates resource CVs from a knowledge base, and validates fit against a medical-domain product catalog.",
-  /** Confidential — no company UI screenshots */
+  /** Confidential · no company UI screenshots */
   media: [] as string[],
   pipeline: [
     "Scrape RFPs",
