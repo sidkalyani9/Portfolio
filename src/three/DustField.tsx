@@ -42,7 +42,7 @@ export function DustField({ count = 280 }: { count?: number }) {
       </bufferGeometry>
       <pointsMaterial
         size={0.035}
-        color="#2ee6a6"
+        color="#c77dff"
         transparent
         opacity={0.55}
         depthWrite={false}

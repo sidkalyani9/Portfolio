@@ -1,25 +1,26 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg-0: #07080c;
-  --color-bg-1: #0e1016;
-  --color-bg-2: #161922;
-  --color-fg-0: #f3efe6;
-  --color-fg-1: #a39e94;
-  --color-fg-2: #8a847a;
-  --color-accent: #2ee6a6;
-  --color-accent-dim: color-mix(in oklab, #2ee6a6 16%, transparent);
-  --color-ink: #e11d48;
-  --color-ink-dim: color-mix(in oklab, #e11d48 14%, transparent);
-  --color-violet: #7c5cff;
-  --color-border: rgba(243, 239, 230, 0.07);
-  --color-focus: #7dd3fc;
+  /* Violet Heritage — refined v1 purple soul, professional dark editorial */
+  --color-bg-0: #0a0712;
+  --color-bg-1: #120c1c;
+  --color-bg-2: #1b1428;
+  --color-fg-0: #f2eef8;
+  --color-fg-1: #a89bb8;
+  --color-fg-2: #7d7390;
+  --color-accent: #c77dff;
+  --color-accent-dim: color-mix(in oklab, #c77dff 16%, transparent);
+  --color-ink: #e8a0bf;
+  --color-ink-dim: color-mix(in oklab, #e8a0bf 14%, transparent);
+  --color-violet: #8b5cf6;
+  --color-border: rgba(242, 238, 248, 0.08);
+  --color-focus: #d8b4fe;
   --font-display: "Instrument Serif", "Times New Roman", serif;
   --font-sans: "Syne", system-ui, sans-serif;
   --font-body: "Inter", "Geist", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
 
-  /* One easing language across the whole runtime */
+  /* Motion B — editorial balanced */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -130,22 +131,22 @@
 }
 
 @utility animate-marquee {
-  animation: marquee-x 28s linear infinite;
+  animation: marquee-x 36s linear infinite;
 }
 
-/* Status pulse dot */
+/* Status pulse dot — lilac accent */
 @keyframes pulse-dot {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(46, 230, 166, 0.55);
+    box-shadow: 0 0 0 0 rgba(199, 125, 255, 0.5);
   }
   70% {
-    box-shadow: 0 0 0 7px rgba(46, 230, 166, 0);
+    box-shadow: 0 0 0 8px rgba(199, 125, 255, 0);
   }
 }
 
 @utility status-dot {
-  animation: pulse-dot 2.2s var(--ease-out-expo) infinite;
+  animation: pulse-dot 2.6s var(--ease-out-expo) infinite;
 }
 
 @utility container-page {

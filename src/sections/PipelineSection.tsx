@@ -99,7 +99,7 @@ export function PipelineSection() {
         end: `+=${N * 70}%`,
         pin: stageRef.current,
         pinSpacing: true,
-        scrub: 0.55,
+        scrub: 0.95,
         anticipatePin: 1,
         onUpdate: (self) => setProgress(self.progress),
       });
@@ -153,7 +153,7 @@ export function PipelineSection() {
                 <ol className="relative flex items-start justify-between">
                   <div className="absolute left-0 right-0 top-7 h-px bg-border/80" />
                   <div
-                    className="absolute left-0 top-7 h-px bg-accent shadow-[0_0_12px_rgba(46,230,166,0.55)]"
+                    className="absolute left-0 top-7 h-px bg-accent shadow-[0_0_12px_rgba(199,125,255,0.55)]"
                     style={{ width: `${packetPct}%` }}
                   />
                   {NODES.map((node, i) => {
@@ -169,7 +169,7 @@ export function PipelineSection() {
                           className={cn(
                             "grid h-14 w-14 place-items-center rounded-2xl border backdrop-blur-md transition-all duration-500",
                             activeNode
-                              ? "scale-110 border-accent bg-accent/20 text-accent shadow-[0_0_40px_rgba(46,230,166,0.4)]"
+                              ? "scale-110 border-accent bg-accent/20 text-accent shadow-[0_0_40px_rgba(199,125,255,0.4)]"
                               : passed
                                 ? "border-accent/40 bg-bg-0/50 text-accent/80"
                                 : "border-border bg-bg-0/40 text-fg-2",

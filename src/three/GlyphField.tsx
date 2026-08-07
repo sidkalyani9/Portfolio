@@ -75,9 +75,9 @@ const FRAG = /* glsl */ `
     vec2 auv = vec2((g + uv.x) / 16.0, uv.y);
     float a = texture2D(uAtlas, auv).a;
 
-    vec3 dim = vec3(0.42, 0.41, 0.39);
-    vec3 accent = vec3(0.18, 0.90, 0.65);
-    vec3 ink = vec3(0.88, 0.11, 0.28);
+    vec3 dim = vec3(0.38, 0.34, 0.48);
+    vec3 accent = vec3(0.78, 0.49, 1.0);
+    vec3 ink = vec3(0.91, 0.63, 0.75);
 
     float bright = smoothstep(0.60, 0.95, n);
     vec3 col = mix(dim, accent, bright);

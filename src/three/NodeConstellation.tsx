@@ -45,8 +45,8 @@ function NodeMesh({
     }
   });
 
-  const color = active ? "#2ee6a6" : passed ? "#7c5cff" : "#3a3f4d";
-  const emissive = active ? "#2ee6a6" : passed ? "#7c5cff" : "#111318";
+  const color = active ? "#c77dff" : passed ? "#8b5cf6" : "#3a3548";
+  const emissive = active ? "#c77dff" : passed ? "#8b5cf6" : "#15101f";
 
   return (
     <group>
@@ -80,7 +80,7 @@ function NodeMesh({
           <div
             className="whitespace-nowrap font-mono text-[10px] tracking-wide"
             style={{
-              color: "#2ee6a6",
+              color: "#c77dff",
               textShadow: "0 2px 12px rgba(0,0,0,0.85)",
             }}
           >
@@ -120,14 +120,14 @@ function Edges({ activeFloat }: { activeFloat: number }) {
     <group>
       <Line
         points={points}
-        color="#2ee6a6"
+        color="#c77dff"
         lineWidth={1.5}
         transparent
         opacity={0.35}
       />
       <mesh ref={packet}>
         <sphereGeometry args={[0.09, 12, 12]} />
-        <meshBasicMaterial color="#2ee6a6" />
+        <meshBasicMaterial color="#c77dff" />
       </mesh>
     </group>
   );
@@ -156,8 +156,8 @@ export function NodeConstellation({ journey = 0 }: { journey?: number }) {
           passed={i < activeIndex}
         />
       ))}
-      <pointLight position={[0, 2, 2]} intensity={1.2} color="#2ee6a6" distance={12} />
-      <pointLight position={[4, -1, -2]} intensity={0.6} color="#7c5cff" distance={10} />
+      <pointLight position={[0, 2, 2]} intensity={1.2} color="#c77dff" distance={12} />
+      <pointLight position={[4, -1, -2]} intensity={0.6} color="#8b5cf6" distance={10} />
     </group>
   );
 }

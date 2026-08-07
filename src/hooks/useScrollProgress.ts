@@ -79,9 +79,9 @@ export function ScrollProgressProvider({ children }: { children: ReactNode }) {
       if (!alive) return;
       const t = target.current;
       const s = smooth.current;
-      // critically damped follow — buttery camera fuel
-      s.progress += (t.progress - s.progress) * 0.085;
-      s.y += (t.y - s.y) * 0.085;
+      // Motion B: softer camera fuel — more lag, silkier fly-through
+      s.progress += (t.progress - s.progress) * 0.06;
+      s.y += (t.y - s.y) * 0.06;
       setValue({
         progress: s.progress,
         y: s.y,

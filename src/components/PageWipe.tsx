@@ -104,12 +104,12 @@ export function PageWipe({ children }: { children: ReactNode }) {
           duration: DUR.wipe,
           ease: "expo.inOut",
         })
-        .add(() => navigate(to), "+=0.18")
+        .add(() => navigate(to), "+=0.24")
         .to(overlay, {
           clipPath: "inset(0 0 100% 0)",
-          duration: DUR.wipe + 0.15,
+          duration: DUR.wipe + 0.12,
           ease: "expo.inOut",
-        }, "+=0.22");
+        }, "+=0.28");
     },
     [navigate, reduced],
   );

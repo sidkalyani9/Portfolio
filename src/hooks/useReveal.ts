@@ -54,18 +54,18 @@ export function useReveal(rootSelector = "main") {
           return;
         }
 
-        // soft: opacity + micro rise — premium weight without slop
+        // Motion B: editorial rise — slow settle, premium weight
         gsap.fromTo(
           el,
-          { autoAlpha: 0, y: 18 },
+          { autoAlpha: 0, y: 36 },
           {
             autoAlpha: 1,
             y: 0,
-            duration: 0.85,
+            duration: DUR.reveal,
             ease: EASE_OUT_EXPO,
             scrollTrigger: {
               trigger: el,
-              start: "top 88%",
+              start: "top 90%",
               toggleActions: "play none none none",
             },
           },

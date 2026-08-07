@@ -33,7 +33,7 @@ export function HeroSection() {
       aria-label="Introduction"
     >
       {/* left readability veil — world shows through the right */}
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(105deg,rgba(7,8,12,0.78)_0%,rgba(7,8,12,0.35)_48%,transparent_72%)]" />
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(105deg,rgba(10,7,18,0.78)_0%,rgba(10,7,18,0.35)_48%,transparent_72%)]" />
 
       <div
         className="container-page relative z-10 grid gap-12 py-20 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-end lg:py-24"
@@ -63,7 +63,7 @@ export function HeroSection() {
               text="Kalyani"
               start={booted}
               delay={0.28}
-              className="block text-[clamp(3.6rem,12vw,9.5rem)] italic text-accent drop-shadow-[0_0_40px_rgba(46,230,166,0.25)]"
+              className="block text-[clamp(3.6rem,12vw,9.5rem)] italic text-accent drop-shadow-[0_0_40px_rgba(199,125,255,0.25)]"
             />
           </h1>
 
@@ -96,7 +96,7 @@ export function HeroSection() {
               <button
                 type="button"
                 onClick={() => scrollToId("pipeline")}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 font-sans text-sm font-semibold text-bg-0 shadow-[0_0_0_1px_rgba(46,230,166,0.25),0_10px_40px_rgba(46,230,166,0.12)] transition hover:brightness-110"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 font-sans text-sm font-semibold text-bg-0 shadow-[0_0_0_1px_rgba(199,125,255,0.25),0_10px_40px_rgba(199,125,255,0.12)] transition hover:brightness-110"
               >
                 Enter the journey
                 <ArrowDownRight size={16} aria-hidden />

@@ -71,7 +71,7 @@ export function SiteHeader() {
           className="group flex items-center gap-3"
           aria-label={`${profile.name} home`}
         >
-          <span className="grid h-9 w-9 place-items-center rounded-xl border border-border bg-bg-2 font-sans text-sm font-bold text-accent shadow-[0_0_24px_rgba(46,230,166,0.1)] transition group-hover:border-accent/30">
+          <span className="grid h-9 w-9 place-items-center rounded-xl border border-border bg-bg-2 font-sans text-sm font-bold text-accent shadow-[0_0_24px_rgba(199,125,255,0.1)] transition group-hover:border-accent/30">
             SK
           </span>
           <span className="flex max-w-[14rem] items-center gap-2 sm:max-w-none">

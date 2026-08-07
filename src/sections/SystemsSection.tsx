@@ -158,7 +158,7 @@ export function SystemsSection() {
         end: `+=${N * segment}`,
         pin: stageRef.current,
         pinSpacing: true,
-        scrub: 0.65,
+        scrub: 0.9,
         anticipatePin: 1,
         onUpdate: (self) => {
           const t = Math.min(1, Math.max(0, self.progress));
@@ -274,7 +274,7 @@ export function SystemsSection() {
                     className={cn(
                       "rounded-2xl border px-4 py-4 text-left transition",
                       selected
-                        ? "border-accent/40 bg-accent-dim shadow-[0_0_0_1px_rgba(46,230,166,0.12)]"
+                        ? "border-accent/40 bg-accent-dim shadow-[0_0_0_1px_rgba(199,125,255,0.12)]"
                         : "border-border bg-bg-1/40 hover:border-white/10",
                     )}
                   >

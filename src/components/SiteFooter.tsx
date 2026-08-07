@@ -93,7 +93,7 @@ export function SiteFooter() {
         <div className="container-page flex flex-wrap items-center justify-between gap-3 py-4 font-mono text-[11px] text-fg-2">
           <p>
             <span className="text-accent">$</span> colophon{" "}
-            <span className="text-fg-2/60">// agent-runtime v3.0</span>
+            <span className="text-fg-2/60">// cinematic · violet heritage · motion B</span>
           </p>
           <div className="flex flex-wrap items-center gap-4 tabular-nums">
             <span title="Asia/Kolkata">

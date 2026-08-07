@@ -80,7 +80,7 @@ export function CinematicWorld() {
           style={{ width: "100%", height: "100%" }}
           frameloop="always"
           onCreated={({ gl }) => {
-            gl.setClearColor(new THREE.Color("#07080c"), 1);
+            gl.setClearColor(new THREE.Color("#0a0712"), 1);
           }}
         >
           <Suspense fallback={null}>

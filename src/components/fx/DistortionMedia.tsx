@@ -27,7 +27,7 @@ export function DistortionMedia({ children, className }: Props) {
       rotateX: -y * 4,
       rotateY: x * 5,
       scale: 1.02,
-      duration: 0.45,
+      duration: 0.6,
       ease: "expo.out",
       transformPerspective: 900,
     });
@@ -39,7 +39,7 @@ export function DistortionMedia({ children, className }: Props) {
       rotateX: 0,
       rotateY: 0,
       scale: 1,
-      duration: 0.7,
+      duration: 0.9,
       ease: "expo.out",
     });
   };

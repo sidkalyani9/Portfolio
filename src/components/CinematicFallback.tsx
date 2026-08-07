@@ -9,10 +9,10 @@ export function CinematicFallback() {
   const shift = progress * 40;
   const hue =
     section === "pipeline" || section === "systems"
-      ? 160
+      ? 280
       : section === "contact"
         ? 320
-        : 150;
+        : 270;
 
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden>
@@ -20,15 +20,15 @@ export function CinematicFallback() {
         className="absolute inset-[-20%] opacity-90 transition-colors duration-1000"
         style={{
           background: `
-            radial-gradient(ellipse 60% 50% at ${30 + shift * 0.3}% ${40 - shift * 0.2}%, rgba(46,230,166,0.14), transparent 55%),
-            radial-gradient(ellipse 50% 45% at ${70 - shift * 0.25}% ${60 + shift * 0.15}%, rgba(124,92,255,0.12), transparent 50%),
-            radial-gradient(ellipse 40% 40% at 50% 100%, rgba(225,29,72,0.08), transparent 45%),
-            #07080c
+            radial-gradient(ellipse 60% 50% at ${30 + shift * 0.3}% ${40 - shift * 0.2}%, rgba(199,125,255,0.16), transparent 55%),
+            radial-gradient(ellipse 50% 45% at ${70 - shift * 0.25}% ${60 + shift * 0.15}%, rgba(139,92,246,0.12), transparent 50%),
+            radial-gradient(ellipse 40% 40% at 50% 100%, rgba(232,160,191,0.08), transparent 45%),
+            #0a0712
           `,
-          filter: `hue-rotate(${(hue - 150) * 0.15}deg)`,
+          filter: `hue-rotate(${(hue - 270) * 0.12}deg)`,
         }}
       />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(7,8,12,0.55)_70%,rgba(7,8,12,0.85)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(10,7,18,0.55)_70%,rgba(10,7,18,0.85)_100%)]" />
     </div>
   );
 }

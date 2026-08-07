@@ -13,7 +13,7 @@ const BOOT_LINES = [
   "ready — enter the journey",
 ] as const;
 
-const MIN_MS = 1750;
+const MIN_MS = 2200;
 
 /**
  * Cinematic boot sequence — log lines with timestamps, an epoch-style
@@ -109,7 +109,7 @@ export function BootPreloader() {
     if (!exiting || !rootRef.current) return;
     gsap.to(rootRef.current, {
       clipPath: "inset(0 0 100% 0)",
-      duration: 0.9,
+      duration: 1.05,
       ease: "expo.inOut",
     });
   }, [exiting]);

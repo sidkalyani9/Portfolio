@@ -63,19 +63,19 @@ const FRAG = /* glsl */ `
     );
     float f = fbm(p + 2.4 * r);
 
-    vec3 cDeep = vec3(0.027, 0.031, 0.047);
-    vec3 cMid  = vec3(0.055, 0.07, 0.12);
-    vec3 cMint = vec3(0.18, 0.90, 0.65);
-    vec3 cVio  = vec3(0.49, 0.36, 1.0);
-    vec3 cInk  = vec3(0.88, 0.11, 0.28);
+    vec3 cDeep = vec3(0.039, 0.027, 0.071);
+    vec3 cMid  = vec3(0.07, 0.047, 0.11);
+    vec3 cLilac = vec3(0.78, 0.49, 1.0);
+    vec3 cVio  = vec3(0.545, 0.361, 0.965);
+    vec3 cInk  = vec3(0.91, 0.63, 0.75);
 
     float bands = smoothstep(0.15, 0.75, f);
     vec3 col = mix(cDeep, cMid, bands);
-    col = mix(col, cMint * 0.55, smoothstep(0.45, 0.9, r.x) * 0.55);
+    col = mix(col, cLilac * 0.55, smoothstep(0.45, 0.9, r.x) * 0.55);
     col = mix(col, cVio * 0.5, smoothstep(0.4, 0.95, r.y) * 0.4 * (0.4 + uProgress));
 
     float fil = pow(smoothstep(0.55, 0.95, f), 3.0);
-    col += cMint * fil * 0.35;
+    col += cLilac * fil * 0.35;
     col += cInk * pow(smoothstep(0.82, 1.0, noise(r * 4.0 + t)), 8.0) * 0.45;
 
     float vig = smoothstep(1.25, 0.25, length(p * vec2(0.85, 1.0)));
