@@ -115,12 +115,11 @@ export function TelemetrySection() {
   }, [reduced]);
 
   return (
-    <section id="telemetry" aria-label="Production metrics" className="border-y border-border">
-      <div className="py-5">
+    <section id="telemetry" aria-label="Production metrics" className="section-y !py-10">
+      <div className="py-4">
         <Marquee items={MARQUEE_ITEMS} />
       </div>
-      <div className="rule" />
-      <div ref={rootRef} className="container-page py-14">
+      <div ref={rootRef} className="container-page py-10">
         <div className="glass rounded-3xl p-6 md:p-10">
           <p className="font-mono text-xs text-fg-2">
             <span className="text-accent">$</span> query --production-metrics{" "}

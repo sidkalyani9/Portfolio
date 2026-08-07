@@ -41,7 +41,7 @@ export function SiteFooter() {
   const loadMs = useLoadMs();
 
   return (
-    <footer className="relative z-10 border-t border-border bg-bg-0/70 backdrop-blur-xl">
+    <footer className="relative z-10 bg-transparent">
       <div className="container-page flex flex-col gap-8 py-12 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="font-display text-2xl text-fg-0">{profile.name}</p>
@@ -88,9 +88,9 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* colophon — the tiny details that read as craft */}
-      <div className="border-t border-border">
-        <div className="container-page flex flex-wrap items-center justify-between gap-3 py-4 font-mono text-[11px] text-fg-2">
+      {/* colophon — seamless with the world; no hard divider */}
+      <div className="mt-2">
+        <div className="container-page flex flex-wrap items-center justify-between gap-3 border-t border-border/40 py-4 font-mono text-[11px] text-fg-2">
           <p>
             <span className="text-accent">$</span> colophon{" "}
             <span className="text-fg-2/60">// cinematic · violet heritage · motion B</span>

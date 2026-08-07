@@ -198,44 +198,38 @@
   mix-blend-mode: overlay;
 }
 
-/* Glass panels — content sits over the cinematic WebGL world */
+/* Glass panels — soft over the violet world (no hard section bands) */
 @utility glass {
-  border: 1px solid rgba(243, 239, 230, 0.09);
-  background: rgba(14, 16, 22, 0.55);
+  border: 1px solid rgba(242, 238, 248, 0.08);
+  background: rgba(18, 12, 28, 0.48);
   backdrop-filter: blur(18px) saturate(1.15);
   -webkit-backdrop-filter: blur(18px) saturate(1.15);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
 }
 
 @utility glass-strong {
-  border: 1px solid rgba(243, 239, 230, 0.1);
-  background: rgba(7, 8, 12, 0.62);
+  border: 1px solid rgba(242, 238, 248, 0.09);
+  background: rgba(10, 7, 18, 0.55);
   backdrop-filter: blur(22px) saturate(1.2);
   -webkit-backdrop-filter: blur(22px) saturate(1.2);
   box-shadow:
-    0 30px 80px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    0 30px 80px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
-/* Section wash — keeps long copy readable without killing the world */
+/* Soft ambient veil — no hard top/bottom edges (seamless scroll) */
 @utility section-wash {
-  background: linear-gradient(
-    180deg,
-    rgba(7, 8, 12, 0.15) 0%,
-    rgba(7, 8, 12, 0.55) 40%,
-    rgba(7, 8, 12, 0.55) 60%,
-    rgba(7, 8, 12, 0.2) 100%
-  );
+  background: transparent;
 }
 
-/* Editorial hairline rules */
+/* Soft editorial hairline — never a hard full-width section cut */
 .rule {
   height: 1px;
   width: 100%;
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(243, 239, 230, 0.12),
+    rgba(242, 238, 248, 0.08),
     transparent
   );
 }

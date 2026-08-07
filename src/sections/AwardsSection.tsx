@@ -5,7 +5,7 @@ import { Chip } from "@/components/ui/Chip";
 /** Proof under pressure — awards + certs as a telemetry strip */
 export function AwardsSection() {
   return (
-    <section id="awards" className="section-y border-t border-border">
+    <section id="awards" className="section-y">
       <div className="container-page">
         <SectionHeading
           eyebrow="Recognition"

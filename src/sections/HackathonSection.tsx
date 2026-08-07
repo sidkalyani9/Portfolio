@@ -8,7 +8,7 @@ import { Magnetic } from "@/components/fx/Magnetic";
 
 export function HackathonSection() {
   return (
-    <section id="hackathon" className="section-y bg-bg-1/20">
+    <section id="hackathon" className="section-y">
       <div className="container-page">
         <div className="reveal mb-4 inline-flex items-center gap-2 font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">
           <Trophy size={14} aria-hidden />

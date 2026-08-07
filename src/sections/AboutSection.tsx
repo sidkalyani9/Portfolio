@@ -11,7 +11,7 @@ const FACTS = [
 
 export function AboutSection() {
   return (
-    <section id="about" className="section-y section-wash">
+    <section id="about" className="section-y">
       <div className="container-page grid items-start gap-14 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="reveal" data-reveal="clip">
           <FigureWithCaption
