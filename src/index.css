@@ -192,9 +192,39 @@
   position: fixed;
   inset: 0;
   z-index: 90;
-  opacity: 0.028;
+  opacity: 0.034;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   mix-blend-mode: overlay;
+}
+
+/* Glass panels — content sits over the cinematic WebGL world */
+@utility glass {
+  border: 1px solid rgba(243, 239, 230, 0.09);
+  background: rgba(14, 16, 22, 0.55);
+  backdrop-filter: blur(18px) saturate(1.15);
+  -webkit-backdrop-filter: blur(18px) saturate(1.15);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+@utility glass-strong {
+  border: 1px solid rgba(243, 239, 230, 0.1);
+  background: rgba(7, 8, 12, 0.62);
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Section wash — keeps long copy readable without killing the world */
+@utility section-wash {
+  background: linear-gradient(
+    180deg,
+    rgba(7, 8, 12, 0.15) 0%,
+    rgba(7, 8, 12, 0.55) 40%,
+    rgba(7, 8, 12, 0.55) 60%,
+    rgba(7, 8, 12, 0.2) 100%
+  );
 }
 
 /* Editorial hairline rules */

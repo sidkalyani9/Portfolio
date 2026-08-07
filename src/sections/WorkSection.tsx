@@ -4,6 +4,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { MediaFrame } from "@/components/ui/MediaFrame";
 import { Chip } from "@/components/ui/Chip";
 import { WipeLink } from "@/components/PageWipe";
+import { DistortionMedia } from "@/components/fx/DistortionMedia";
 import { cn } from "@/lib/cn";
 
 function ProjectMeta({ project }: { project: Project }) {
@@ -46,7 +47,7 @@ function MediaCard({ project, full }: { project: Project; full?: boolean }) {
   return (
     <article
       className={cn(
-        "group overflow-hidden rounded-3xl border border-border bg-bg-1/40 transition hover:border-accent/30 focus-within:border-accent/40",
+        "group glass overflow-hidden rounded-3xl transition hover:border-accent/30 focus-within:border-accent/40",
         full && "md:col-span-2",
       )}
     >
@@ -56,15 +57,17 @@ function MediaCard({ project, full }: { project: Project; full?: boolean }) {
         className={cn("grid gap-0 outline-none", full && "lg:grid-cols-2")}
       >
         {project.cover ? (
-          <MediaFrame
-            src={project.cover}
-            alt={`${project.title} preview`}
-            className="rounded-none border-0 shadow-none"
-            imgClassName={cn(
-              "w-full object-cover transition duration-500 group-hover:scale-[1.02]",
-              full ? "aspect-[16/10] lg:aspect-auto lg:min-h-[300px]" : "aspect-[16/10]",
-            )}
-          />
+          <DistortionMedia>
+            <MediaFrame
+              src={project.cover}
+              alt={`${project.title} preview`}
+              className="rounded-none border-0 shadow-none"
+              imgClassName={cn(
+                "w-full object-cover transition duration-500 group-hover:scale-[1.03]",
+                full ? "aspect-[16/10] lg:aspect-auto lg:min-h-[300px]" : "aspect-[16/10]",
+              )}
+            />
+          </DistortionMedia>
         ) : null}
         <div className="flex flex-col justify-center p-6 md:p-8">
           <ProjectMeta project={project} />
@@ -76,7 +79,7 @@ function MediaCard({ project, full }: { project: Project; full?: boolean }) {
 
 function TextRow({ project }: { project: Project }) {
   return (
-    <article className="group md:col-span-2 overflow-hidden rounded-3xl border border-border bg-bg-1/30 transition hover:border-accent/30 hover:bg-bg-1/50 focus-within:border-accent/40">
+    <article className="group glass md:col-span-2 overflow-hidden rounded-3xl transition hover:border-accent/30 focus-within:border-accent/40">
       <WipeLink
         to={`/work/${project.slug}`}
         data-cursor="view"

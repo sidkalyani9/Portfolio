@@ -9,7 +9,7 @@ import { profile } from "@/content/profile";
 import { useScrollTo } from "@/components/SmoothScroll";
 
 const nav = [
-  { label: "Runtime", id: "pipeline" },
+  { label: "Journey", id: "pipeline" },
   { label: "Systems", id: "systems" },
   { label: "Work", id: "work" },
   { label: "About", id: "about" },

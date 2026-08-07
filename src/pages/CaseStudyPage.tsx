@@ -53,7 +53,7 @@ export function CaseStudyPage() {
   if (slug === "bidstream-ai") {
     return (
       <article className="section-y pt-28">
-        <header className="container-measure reveal">
+        <header className="container-measure reveal glass rounded-3xl p-6 md:p-10">
           <BackLink section="systems" />
           <CaseEyebrow>Case study · P0 · Internal product</CaseEyebrow>
           <h1 className="mt-4 font-display text-[clamp(2.5rem,6vw,4.25rem)] text-fg-0">

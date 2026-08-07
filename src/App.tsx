@@ -9,6 +9,7 @@ import { CommandPalette } from "@/components/CommandPalette";
 import { PageWipe } from "@/components/PageWipe";
 import { CustomCursor } from "@/components/fx/CustomCursor";
 import { Konami } from "@/components/fx/Konami";
+import { CinematicShell } from "@/components/CinematicShell";
 import { HomePage } from "@/pages/HomePage";
 import { CaseStudyPage } from "@/pages/CaseStudyPage";
 
@@ -28,21 +29,23 @@ export default function App() {
       <BootProvider>
         <PageWipe>
           <SmoothScroll>
-            <div className="grain min-h-screen bg-bg-0 text-fg-0">
-              <BootPreloader />
-              <CustomCursor />
-              <Konami />
-              <SiteHeader />
-              <ScrollToTop />
-              <main id="main">
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/work/:slug" element={<CaseStudyPage />} />
-                </Routes>
-              </main>
-              <SiteFooter />
-            </div>
-            <CommandPalette />
+            <CinematicShell>
+              <div className="grain min-h-screen bg-transparent text-fg-0">
+                <BootPreloader />
+                <CustomCursor />
+                <Konami />
+                <SiteHeader />
+                <ScrollToTop />
+                <main id="main">
+                  <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/work/:slug" element={<CaseStudyPage />} />
+                  </Routes>
+                </main>
+                <SiteFooter />
+              </div>
+              <CommandPalette />
+            </CinematicShell>
           </SmoothScroll>
         </PageWipe>
       </BootProvider>

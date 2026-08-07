@@ -11,7 +11,7 @@ const FACTS = [
 
 export function AboutSection() {
   return (
-    <section id="about" className="section-y bg-bg-1/15">
+    <section id="about" className="section-y section-wash">
       <div className="container-page grid items-start gap-14 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="reveal" data-reveal="clip">
           <FigureWithCaption
@@ -24,7 +24,7 @@ export function AboutSection() {
             imgClassName="aspect-[4/5] w-full object-cover object-top"
           />
         </div>
-        <div className="reveal lg:pt-6">
+        <div className="reveal glass rounded-3xl p-6 md:p-8 lg:pt-8">
           <SectionHeading
             eyebrow="About"
             title="Quiet systems, high stakes"

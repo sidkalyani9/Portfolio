@@ -5,12 +5,12 @@ import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { cn } from "@/lib/cn";
 
 const BOOT_LINES = [
-  "initializing runtime v2.6.0",
-  "mounting /dev/skills · /dev/systems",
-  "loading glyph atlas [OK]",
-  "warming kv-cache …",
-  "serving 1B+ tokens of experience",
-  "ready",
+  "booting cinematic runtime v3.0",
+  "allocating fluid field · shader passes",
+  "mounting agent constellation [6 nodes]",
+  "warming bloom · chromatic · vignette",
+  "syncing camera path to scroll …",
+  "ready — enter the journey",
 ] as const;
 
 const MIN_MS = 1750;
@@ -142,9 +142,15 @@ export function BootPreloader() {
                 <span className="shrink-0 text-fg-2/70">
                   [{(0.2 + i * 0.31).toFixed(4).padStart(7, "0")}s]
                 </span>
-                <span className={cn(i === shown.length - 1 && line === "ready" && "text-accent")}>
+                <span
+                  className={cn(
+                    i === shown.length - 1 &&
+                      i === BOOT_LINES.length - 1 &&
+                      "text-accent",
+                  )}
+                >
                   {line}
-                  {line === "ready" ? " ✓" : ""}
+                  {i === BOOT_LINES.length - 1 ? " ✓" : ""}
                 </span>
               </p>
             ))}

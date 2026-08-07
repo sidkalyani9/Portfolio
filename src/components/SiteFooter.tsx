@@ -41,7 +41,7 @@ export function SiteFooter() {
   const loadMs = useLoadMs();
 
   return (
-    <footer className="border-t border-border bg-bg-1">
+    <footer className="relative z-10 border-t border-border bg-bg-0/70 backdrop-blur-xl">
       <div className="container-page flex flex-col gap-8 py-12 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="font-display text-2xl text-fg-0">{profile.name}</p>

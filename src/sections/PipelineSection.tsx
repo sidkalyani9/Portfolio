@@ -13,6 +13,7 @@ import {
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useScrollProgress } from "@/hooks/useScrollProgress";
 import { cn } from "@/lib/cn";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -73,9 +74,8 @@ const NODES: Node[] = [
 const N = NODES.length;
 
 /**
- * The set-piece: scroll scrubs a request through the multi-agent pipeline —
- * packet travels the wire, nodes ignite, the log streams.
- * Falls back to a static vertical timeline on mobile / reduced motion.
+ * Option C set-piece: a tall pin where the WebGL camera flies the agent graph.
+ * HUD overlays stream the same path; the world behind is the spectacle.
  */
 export function PipelineSection() {
   const pinRef = useRef<HTMLDivElement>(null);
@@ -83,6 +83,7 @@ export function PipelineSection() {
   const reduced = usePrefersReducedMotion();
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const animated = isDesktop && !reduced;
+  const { section } = useScrollProgress();
 
   const [progress, setProgress] = useState(animated ? 0 : 1);
 
@@ -95,10 +96,10 @@ export function PipelineSection() {
       ScrollTrigger.create({
         trigger: pinRef.current,
         start: "top top",
-        end: `+=${N * 55}%`,
+        end: `+=${N * 70}%`,
         pin: stageRef.current,
         pinSpacing: true,
-        scrub: 0.6,
+        scrub: 0.55,
         anticipatePin: 1,
         onUpdate: (self) => setProgress(self.progress),
       });
@@ -109,15 +110,15 @@ export function PipelineSection() {
   const activeFloat = progress * (N - 0.001);
   const activeIndex = Math.min(N - 1, Math.floor(activeFloat));
   const packetPct = Math.min(100, progress * 100);
+  const inFocus = section === "pipeline";
 
   return (
     <section id="pipeline" className="section-y relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(46,230,166,0.05),transparent_55%)]" />
       <div className="container-page relative">
         <SectionHeading
-          eyebrow="The runtime"
-          title="Trace a request through the system"
-          description="A real path through Bidstream's agent loop — the same architecture that cut proposal rework from ~50% of sections to ~5% minor edits."
+          eyebrow="The journey"
+          title="Fly a request through the system"
+          description="Scroll to pilot the camera through Bidstream's multi-agent loop — the same architecture that cut proposal rework from ~50% of sections to ~5% minor edits."
           className="reveal"
         />
 
@@ -125,82 +126,77 @@ export function PipelineSection() {
           <div
             ref={stageRef}
             className={cn(
-              "rounded-3xl border border-border bg-bg-1/40 backdrop-blur-sm",
+              "glass-strong relative rounded-3xl",
               animated && "flex min-h-[calc(100vh-2rem)] flex-col justify-center py-10",
               !animated && "p-6 md:p-10",
+              inFocus && "ring-1 ring-accent/20",
             )}
           >
-            {/* console header */}
-            <div className={cn("flex items-center justify-between font-mono text-xs text-fg-2", animated && "px-8 md:px-12")}>
+            {/* HUD header */}
+            <div
+              className={cn(
+                "flex items-center justify-between font-mono text-xs text-fg-2",
+                animated && "px-8 md:px-12",
+              )}
+            >
               <p>
-                <span className="text-accent">$</span> trace --request
-                bidstream/score
+                <span className="text-accent">$</span> cam --track bidstream/score
               </p>
               <p className="tabular-nums">
-                trace {String(Math.round(packetPct)).padStart(3, "0")}%
+                journey {String(Math.round(packetPct)).padStart(3, "0")}%
               </p>
             </div>
 
             {animated ? (
-              <div className="mt-12 px-8 md:px-12">
-                {/* the wire */}
-                <div className="relative">
-                  <div className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-border" />
+              <div className="mt-10 px-8 md:px-12">
+                {/* HUD node strip — world carries the 3D; this is the HUD */}
+                <ol className="relative flex items-start justify-between">
+                  <div className="absolute left-0 right-0 top-7 h-px bg-border/80" />
                   <div
-                    className="absolute left-0 top-1/2 h-px -translate-y-1/2 bg-accent shadow-[0_0_12px_rgba(46,230,166,0.6)] transition-none"
+                    className="absolute left-0 top-7 h-px bg-accent shadow-[0_0_12px_rgba(46,230,166,0.55)]"
                     style={{ width: `${packetPct}%` }}
                   />
-                  {/* packet */}
-                  <div
-                    className="absolute top-1/2 z-10 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent shadow-[0_0_18px_4px_rgba(46,230,166,0.5)]"
-                    style={{ left: `${packetPct}%` }}
-                  />
-                  {/* nodes */}
-                  <ol className="relative flex items-start justify-between">
-                    {NODES.map((node, i) => {
-                      const Icon = node.icon;
-                      const passed = i < activeIndex;
-                      const activeNode = i === activeIndex && progress > 0.02;
-                      return (
-                        <li
-                          key={node.id}
-                          className="flex w-16 flex-col items-center gap-3 text-center"
+                  {NODES.map((node, i) => {
+                    const Icon = node.icon;
+                    const passed = i < activeIndex;
+                    const activeNode = i === activeIndex && progress > 0.02;
+                    return (
+                      <li
+                        key={node.id}
+                        className="relative z-10 flex w-16 flex-col items-center gap-3 text-center"
+                      >
+                        <div
+                          className={cn(
+                            "grid h-14 w-14 place-items-center rounded-2xl border backdrop-blur-md transition-all duration-500",
+                            activeNode
+                              ? "scale-110 border-accent bg-accent/20 text-accent shadow-[0_0_40px_rgba(46,230,166,0.4)]"
+                              : passed
+                                ? "border-accent/40 bg-bg-0/50 text-accent/80"
+                                : "border-border bg-bg-0/40 text-fg-2",
+                          )}
                         >
-                          <div
+                          <Icon size={20} aria-hidden />
+                        </div>
+                        <div>
+                          <p
                             className={cn(
-                              "grid h-14 w-14 place-items-center rounded-2xl border transition-all duration-500",
-                              activeNode
-                                ? "border-accent bg-accent/15 text-accent shadow-[0_0_30px_rgba(46,230,166,0.35)] scale-110"
-                                : passed
-                                  ? "border-accent/40 bg-bg-1 text-accent/80"
-                                  : "border-border bg-bg-1/60 text-fg-2",
+                              "font-mono text-xs transition-colors duration-500",
+                              activeNode || passed ? "text-fg-0" : "text-fg-2",
                             )}
                           >
-                            <Icon size={20} aria-hidden />
-                          </div>
-                          <div>
-                            <p
-                              className={cn(
-                                "font-mono text-xs transition-colors duration-500",
-                                activeNode || passed
-                                  ? "text-fg-0"
-                                  : "text-fg-2",
-                              )}
-                            >
-                              {node.label}
-                            </p>
-                            <p className="mt-0.5 hidden text-[10px] text-fg-2 xl:block">
-                              {node.sub}
-                            </p>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ol>
-                </div>
+                            {node.label}
+                          </p>
+                          <p className="mt-0.5 hidden text-[10px] text-fg-2 xl:block">
+                            {node.sub}
+                          </p>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ol>
 
-                {/* streaming log */}
-                <div className="mt-14 min-h-[10.5rem] rounded-2xl border border-border bg-bg-0/70 p-5 font-mono text-[12px] leading-6 text-fg-1 md:text-[13px]">
+                {/* streaming log console */}
+                <div className="mt-12 min-h-[10.5rem] rounded-2xl border border-border bg-bg-0/55 p-5 font-mono text-[12px] leading-6 text-fg-1 backdrop-blur-md md:text-[13px]">
                   {NODES.slice(0, activeIndex + (progress > 0.02 ? 1 : 0)).map(
                     (node, i) => (
                       <p
@@ -221,14 +217,16 @@ export function PipelineSection() {
                     <span className="caret-blink mt-1 inline-block h-3 w-1.5 bg-accent" />
                   ) : (
                     <p className="mt-1 text-accent">
-                      ✓ request complete — proposal scored, cached, logged to
-                      observability
+                      ✓ camera path complete — proposal scored, cached, logged
                     </p>
                   )}
                 </div>
+
+                <p className="mt-6 font-mono text-[11px] text-fg-2">
+                  tip: the 3D world behind this HUD is the same graph — scroll to fly
+                </p>
               </div>
             ) : (
-              /* static timeline fallback */
               <ol className="mt-10 space-y-0">
                 {NODES.map((node, i) => {
                   const Icon = node.icon;
@@ -237,15 +235,13 @@ export function PipelineSection() {
                       {i < N - 1 ? (
                         <span className="absolute left-7 top-14 h-[calc(100%-3.5rem)] w-px bg-border" />
                       ) : null}
-                      <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-accent/40 bg-bg-1 text-accent">
+                      <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-accent/40 bg-bg-0/50 text-accent">
                         <Icon size={20} aria-hidden />
                       </div>
                       <div className="min-w-0">
                         <p className="font-mono text-sm text-fg-0">
                           {node.label}
-                          <span className="ml-3 text-xs text-fg-2">
-                            {node.sub}
-                          </span>
+                          <span className="ml-3 text-xs text-fg-2">{node.sub}</span>
                         </p>
                         <p className="mt-2 font-mono text-xs leading-relaxed text-fg-1">
                           {node.log}

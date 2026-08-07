@@ -304,7 +304,7 @@ export function SystemsSection() {
 
             <div
               ref={panelRef}
-              className="min-h-[320px] rounded-3xl border border-border bg-bg-1/50 p-6 md:p-8"
+              className="glass min-h-[320px] rounded-3xl p-6 md:p-8"
               role="tabpanel"
               id={`${baseId}-panel`}
               aria-labelledby={`${baseId}-tab-${panel.id}`}

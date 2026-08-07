@@ -18,7 +18,7 @@ export function AwardsSection() {
           {awards.map((a) => (
             <li
               key={a.title}
-              className="group relative overflow-hidden rounded-3xl border border-border bg-bg-1/40 p-6 transition hover:border-accent/30"
+              className="group glass relative overflow-hidden rounded-3xl p-6 transition hover:border-accent/30"
             >
               <div className="flex items-baseline justify-between gap-3">
                 <span className="font-mono text-xs text-accent">{a.rank}</span>

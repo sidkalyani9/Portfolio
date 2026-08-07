@@ -115,31 +115,33 @@ export function TelemetrySection() {
   }, [reduced]);
 
   return (
-    <section id="telemetry" aria-label="Production metrics" className="border-y border-border bg-bg-1/30">
+    <section id="telemetry" aria-label="Production metrics" className="border-y border-border">
       <div className="py-5">
         <Marquee items={MARQUEE_ITEMS} />
       </div>
       <div className="rule" />
       <div ref={rootRef} className="container-page py-14">
-        <p className="font-mono text-xs text-fg-2">
-          <span className="text-accent">$</span> query --production-metrics{" "}
-          <span className="text-fg-2/60">// measured, not marketing</span>
-        </p>
-        <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3 xl:grid-cols-6">
-          {STATS.map((stat) => (
-            <div key={stat.label} className="group">
-              <dt className="order-2 mt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-fg-1">
-                {stat.label}
-              </dt>
-              <dd className="order-1">
-                <Counter stat={stat} started={started} />
-              </dd>
-              <dd className="order-3 mt-2 text-xs leading-relaxed text-fg-2">
-                {stat.sub}
-              </dd>
-            </div>
-          ))}
-        </dl>
+        <div className="glass rounded-3xl p-6 md:p-10">
+          <p className="font-mono text-xs text-fg-2">
+            <span className="text-accent">$</span> query --production-metrics{" "}
+            <span className="text-fg-2/60">// measured, not marketing</span>
+          </p>
+          <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3 xl:grid-cols-6">
+            {STATS.map((stat) => (
+              <div key={stat.label} className="group">
+                <dt className="order-2 mt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-fg-1">
+                  {stat.label}
+                </dt>
+                <dd className="order-1">
+                  <Counter stat={stat} started={started} />
+                </dd>
+                <dd className="order-3 mt-2 text-xs leading-relaxed text-fg-2">
+                  {stat.sub}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
     </section>
   );
