@@ -17,10 +17,13 @@ import { HEADER_OFFSET } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/** Constant scroll speed (px/s) so near and far targets feel the same pace. */
-const SCROLL_SPEED_PX_S = 1450;
-const SCROLL_DUR_MIN = 0.95;
-const SCROLL_DUR_MAX = 2.35;
+/**
+ * Constant scroll speed (px/s) — lower = slower for long jumps.
+ * Duration scales with distance so far sections don't feel like a snap.
+ */
+const SCROLL_SPEED_PX_S = 520;
+const SCROLL_DUR_MIN = 1.2;
+const SCROLL_DUR_MAX = 5.5;
 
 function durationForDistance(px: number) {
   const d = Math.abs(px) / SCROLL_SPEED_PX_S;

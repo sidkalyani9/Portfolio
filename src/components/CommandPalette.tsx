@@ -24,15 +24,16 @@ import { useScrollTo } from "@/components/SmoothScroll";
 import { useWipe } from "@/components/PageWipe";
 import { cn } from "@/lib/cn";
 
+/** Page order for “go to” list. */
 const SECTIONS = [
-  { id: "pipeline", label: "the runtime · agent pipeline trace" },
-  { id: "telemetry", label: "production metrics" },
-  { id: "systems", label: "systems owned end-to-end" },
-  { id: "awards", label: "awards & recognition" },
-  { id: "work", label: "selected work" },
   { id: "about", label: "about" },
   { id: "experience", label: "experience" },
+  { id: "pipeline", label: "the runtime · agent pipeline trace" },
+  { id: "systems", label: "systems owned end-to-end" },
+  { id: "awards", label: "awards & recognition" },
   { id: "hackathon", label: "hackathon win · grantflow" },
+  { id: "work", label: "selected work" },
+  { id: "telemetry", label: "production metrics" },
   { id: "contact", label: "contact" },
 ] as const;
 

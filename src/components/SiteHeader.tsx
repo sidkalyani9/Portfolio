@@ -8,12 +8,13 @@ import { useResumeHref } from "@/hooks/useResumeHref";
 import { profile } from "@/content/profile";
 import { useScrollTo } from "@/components/SmoothScroll";
 
+/** Order matches page scroll order (after hero). */
 const nav = [
+  { label: "About", id: "about" },
+  { label: "Experience", id: "experience" },
   { label: "Journey", id: "pipeline" },
   { label: "Systems", id: "systems" },
   { label: "Work", id: "work" },
-  { label: "About", id: "about" },
-  { label: "Experience", id: "experience" },
   { label: "Contact", id: "contact" },
 ];
 
