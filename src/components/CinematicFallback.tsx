@@ -5,14 +5,16 @@ import { useScrollProgress } from "@/hooks/useScrollProgress";
  * without WebGL cost.
  */
 export function CinematicFallback() {
-  const { progress, section } = useScrollProgress();
+  const { progress, section, mode } = useScrollProgress();
   const shift = progress * 40;
   const hue =
-    section === "pipeline" || section === "systems"
-      ? 280
-      : section === "contact"
-        ? 320
-        : 270;
+    mode === "case-study"
+      ? 290
+      : section === "pipeline" || section === "systems"
+        ? 280
+        : section === "contact"
+          ? 320
+          : 270;
 
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden>

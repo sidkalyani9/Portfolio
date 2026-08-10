@@ -2,11 +2,14 @@ import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { Html, Line } from "@react-three/drei";
-import { GRAPH_NODES, type GraphNode } from "@/three/journeyGraph";
+import {
+  HOME_GRAPH_NODES,
+  type GraphNode,
+} from "@/three/journeyGraph";
 
-/** Re-export for CameraRig / consumers */
+/** Re-export for consumers */
 export type JourneyNode = GraphNode;
-export const JOURNEY_NODES = GRAPH_NODES;
+export const JOURNEY_NODES = HOME_GRAPH_NODES;
 
 function NodeMesh({
   node,
@@ -82,22 +85,21 @@ function NodeMesh({
   );
 }
 
-function Edges({ journey }: { journey: number }) {
+function Edges({ journey, nodes }: { journey: number; nodes: GraphNode[] }) {
   const points = useMemo(
-    () => GRAPH_NODES.map((n) => n.position as [number, number, number]),
-    [],
+    () => nodes.map((n) => n.position as [number, number, number]),
+    [nodes],
   );
   const packet = useRef<THREE.Mesh>(null);
-  const nEdges = GRAPH_NODES.length - 1;
+  const nEdges = Math.max(0, nodes.length - 1);
 
   useFrame(() => {
-    if (!packet.current || nEdges < 1) return;
-    // journey 0→1 maps linearly along the polyline (no discrete jumps)
+    if (!packet.current || nEdges < 1 || nodes.length < 2) return;
     const f = Math.min(0.9999, Math.max(0, journey)) * nEdges;
     const i = Math.min(nEdges - 1, Math.floor(f));
     const local = f - i;
-    const a = GRAPH_NODES[i].position;
-    const b = GRAPH_NODES[i + 1].position;
+    const a = nodes[i].position;
+    const b = nodes[i + 1].position;
     packet.current.position.set(
       a[0] + (b[0] - a[0]) * local,
       a[1] + (b[1] - a[1]) * local,
@@ -123,13 +125,18 @@ function Edges({ journey }: { journey: number }) {
 }
 
 /**
- * Background constellation — one node per page section.
- * `journey` is continuous 0→1 from section geometry (never remapped).
+ * Background constellation.
+ * `nodes` switches between home sections and case-study essay arc.
  */
-export function NodeConstellation({ journey = 0 }: { journey?: number }) {
+export function NodeConstellation({
+  journey = 0,
+  nodes = HOME_GRAPH_NODES,
+}: {
+  journey?: number;
+  nodes?: GraphNode[];
+}) {
   const group = useRef<THREE.Group>(null);
-  const n = GRAPH_NODES.length;
-  // active node: which segment we're on
+  const n = nodes.length;
   const edgeT = Math.min(0.999, Math.max(0, journey)) * Math.max(1, n - 1);
   const activeIndex = Math.min(n - 1, Math.floor(edgeT));
 
@@ -138,10 +145,13 @@ export function NodeConstellation({ journey = 0 }: { journey?: number }) {
     group.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.07) * 0.035;
   });
 
+  // Center case-study path a bit more; home path already laid out wide
+  const offsetX = n <= 6 ? -0.6 : -0.4;
+
   return (
-    <group ref={group} position={[-0.4, 0, 0]}>
-      <Edges journey={journey} />
-      {GRAPH_NODES.map((node, i) => (
+    <group ref={group} position={[offsetX, 0, 0]} key={nodes.map((n) => n.id).join("|")}>
+      <Edges journey={journey} nodes={nodes} />
+      {nodes.map((node, i) => (
         <NodeMesh
           key={node.id}
           node={node}
@@ -151,7 +161,7 @@ export function NodeConstellation({ journey = 0 }: { journey?: number }) {
         />
       ))}
       <pointLight position={[0, 2, 2]} intensity={1.15} color="#c77dff" distance={14} />
-      <pointLight position={[5, -1, -2]} intensity={0.55} color="#8b5cf6" distance={12} />
+      <pointLight position={[4, -1, -2]} intensity={0.55} color="#8b5cf6" distance={12} />
     </group>
   );
 }

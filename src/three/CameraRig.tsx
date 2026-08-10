@@ -1,7 +1,7 @@
 import { useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { GRAPH_NODES } from "@/three/journeyGraph";
+import { HOME_GRAPH_NODES, type GraphNode } from "@/three/journeyGraph";
 
 function catmull(
   p0: THREE.Vector3,
@@ -48,10 +48,15 @@ function samplePath(points: THREE.Vector3[], t: number, out: THREE.Vector3) {
 }
 
 /**
- * Camera follows the same continuous journey as the node graph.
- * No section-based remaps — avoids jumps when section flips.
+ * Camera follows the active graph's continuous journey.
  */
-export function CameraRig({ journey }: { journey: number }) {
+export function CameraRig({
+  journey,
+  nodes = HOME_GRAPH_NODES,
+}: {
+  journey: number;
+  nodes?: GraphNode[];
+}) {
   const { camera } = useThree();
   const look = useRef(new THREE.Vector3(0, 0.6, 0));
   const pos = useRef(new THREE.Vector3(0, 1.2, 7.5));
@@ -60,20 +65,22 @@ export function CameraRig({ journey }: { journey: number }) {
   const smoothJourney = useRef(0);
 
   const camPath = useMemo(() => {
-    // camera rides parallel to the node chain, slightly back and up
-    return GRAPH_NODES.map(
+    return nodes.map(
       (n) =>
-        new THREE.Vector3(n.position[0] * 0.55 - 0.4, n.position[1] + 1.1, n.position[2] + 5.8),
+        new THREE.Vector3(
+          n.position[0] * 0.55 - 0.4,
+          n.position[1] + 1.1,
+          n.position[2] + 5.8,
+        ),
     );
-  }, []);
+  }, [nodes]);
 
   const lookPath = useMemo(
-    () => GRAPH_NODES.map((n) => new THREE.Vector3(...n.position)),
-    [],
+    () => nodes.map((n) => new THREE.Vector3(...n.position)),
+    [nodes],
   );
 
   useFrame((_, delta) => {
-    // extra frame-level ease so R3F stays silky even if React updates sparsely
     const kJ = 1 - Math.exp(-delta * 5.5);
     smoothJourney.current += (journey - smoothJourney.current) * kJ;
     const t = Math.min(1, Math.max(0, smoothJourney.current));

@@ -11,18 +11,20 @@ import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 function SceneBridge({ highQuality }: { highQuality: boolean }) {
-  const { progress, journey } = useScrollProgress();
+  const { progress, journey, nodes, mode } = useScrollProgress();
 
   return (
     <>
-      {/* journey only — continuous section geometry, no remap jumps */}
-      <CameraRig journey={journey} />
+      <CameraRig journey={journey} nodes={nodes} />
       <ambientLight intensity={0.35} />
       <directionalLight position={[4, 6, 2]} intensity={0.55} color="#cfe8ff" />
       <FluidField intensity={highQuality ? 1 : 0.7} progress={progress} />
       <DustField count={highQuality ? 320 : 160} />
-      <NodeConstellation journey={journey} />
-      <PostFX enabled={highQuality} strength={highQuality ? 1 : 0.65} />
+      <NodeConstellation journey={journey} nodes={nodes} />
+      <PostFX
+        enabled={highQuality}
+        strength={mode === "case-study" ? 0.75 : highQuality ? 1 : 0.65}
+      />
     </>
   );
 }
