@@ -8,47 +8,61 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import {
+  GRAPH_SECTION_IDS,
+  measureSectionJourney,
+} from "@/three/journeyGraph";
 
 export type ScrollProgressValue = {
-  /** 0–1 page scroll progress */
+  /** 0–1 document scroll (smoothed) */
   progress: number;
-  /** pixels scrolled */
+  /** pixels scrolled (smoothed) */
   y: number;
-  /** active section id when known */
+  /** active section id */
   section: string | null;
+  /**
+   * Continuous 0–1 graph journey tied to section geometry.
+   * Monotonic — no jumps when section flips.
+   */
+  journey: number;
+  /** index into GRAPH_NODES / page sections */
+  sectionIndex: number;
+  /** 0–1 progress within the active section */
+  sectionLocal: number;
 };
 
 const ScrollProgressContext = createContext<ScrollProgressValue>({
   progress: 0,
   y: 0,
-  section: null,
+  section: "home",
+  journey: 0,
+  sectionIndex: 0,
+  sectionLocal: 0,
 });
 
-const SECTION_IDS = [
-  "home",
-  "telemetry",
-  "about",
-  "experience",
-  "pipeline",
-  "systems",
-  "awards",
-  "hackathon",
-  "work",
-  "contact",
-] as const;
-
 /**
- * Provides smoothed page scroll progress for the cinematic WebGL camera.
- * Uses rAF sampling so Lenis smooth scroll stays in sync with the 3D world.
+ * Scroll metrics for the cinematic world.
+ * journey is derived from section tops (not remapped page %), then lightly smoothed.
  */
 export function ScrollProgressProvider({ children }: { children: ReactNode }) {
   const [value, setValue] = useState<ScrollProgressValue>({
     progress: 0,
     y: 0,
     section: "home",
+    journey: 0,
+    sectionIndex: 0,
+    sectionLocal: 0,
   });
-  const target = useRef({ progress: 0, y: 0, section: "home" as string | null });
-  const smooth = useRef({ progress: 0, y: 0 });
+
+  const target = useRef({
+    progress: 0,
+    y: 0,
+    section: "home" as string | null,
+    journey: 0,
+    sectionIndex: 0,
+    sectionLocal: 0,
+  });
+  const smooth = useRef({ progress: 0, y: 0, journey: 0 });
 
   useEffect(() => {
     let raf = 0;
@@ -60,32 +74,42 @@ export function ScrollProgressProvider({ children }: { children: ReactNode }) {
       const y = window.scrollY || doc.scrollTop || 0;
       const progress = Math.min(1, Math.max(0, y / max));
 
-      let section: string | null = SECTION_IDS[0];
-      const mid = window.innerHeight * 0.35;
-      for (const id of SECTION_IDS) {
-        const el = document.getElementById(id);
-        if (!el) continue;
-        const r = el.getBoundingClientRect();
-        if (r.top <= mid && r.bottom > mid) {
-          section = id;
-          break;
-        }
-      }
+      const j = measureSectionJourney(GRAPH_SECTION_IDS, 0.38);
 
-      target.current = { progress, y, section };
+      target.current = {
+        progress,
+        y,
+        section: j.section,
+        journey: j.journey,
+        sectionIndex: j.sectionIndex,
+        sectionLocal: j.local,
+      };
     };
 
     const tick = () => {
       if (!alive) return;
       const t = target.current;
       const s = smooth.current;
-      // Motion B: softer camera fuel — more lag, silkier fly-through
-      s.progress += (t.progress - s.progress) * 0.06;
-      s.y += (t.y - s.y) * 0.06;
+
+      // Soft follow — journey must stay continuous (no section remap snap)
+      // Slightly tighter than progress so the graph feels locked to scroll
+      s.progress += (t.progress - s.progress) * 0.08;
+      s.y += (t.y - s.y) * 0.08;
+      s.journey += (t.journey - s.journey) * 0.1;
+
+      // Never let smoothed journey run ahead of target when scrolling down slowly,
+      // or lag so far it appears to skip nodes. Clamp overshoot.
+      const maxLead = 0.04;
+      if (s.journey > t.journey + maxLead) s.journey = t.journey + maxLead;
+      if (s.journey < t.journey - maxLead) s.journey = t.journey - maxLead;
+
       setValue({
         progress: s.progress,
         y: s.y,
         section: t.section,
+        journey: Math.min(1, Math.max(0, s.journey)),
+        sectionIndex: t.sectionIndex,
+        sectionLocal: t.sectionLocal,
       });
       raf = requestAnimationFrame(tick);
     };
@@ -93,11 +117,16 @@ export function ScrollProgressProvider({ children }: { children: ReactNode }) {
     measure();
     window.addEventListener("scroll", measure, { passive: true });
     window.addEventListener("resize", measure, { passive: true });
+    // remeasure after layout (boot, fonts, images)
+    const t1 = window.setTimeout(measure, 400);
+    const t2 = window.setTimeout(measure, 1200);
     raf = requestAnimationFrame(tick);
 
     return () => {
       alive = false;
       cancelAnimationFrame(raf);
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
       window.removeEventListener("scroll", measure);
       window.removeEventListener("resize", measure);
     };

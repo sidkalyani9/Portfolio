@@ -1,9 +1,15 @@
 import { useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { JOURNEY_NODES } from "@/three/NodeConstellation";
+import { GRAPH_NODES } from "@/three/journeyGraph";
 
-function catmull(p0: THREE.Vector3, p1: THREE.Vector3, p2: THREE.Vector3, p3: THREE.Vector3, t: number) {
+function catmull(
+  p0: THREE.Vector3,
+  p1: THREE.Vector3,
+  p2: THREE.Vector3,
+  p3: THREE.Vector3,
+  t: number,
+) {
   const t2 = t * t;
   const t3 = t2 * t;
   return new THREE.Vector3(
@@ -27,6 +33,10 @@ function catmull(p0: THREE.Vector3, p1: THREE.Vector3, p2: THREE.Vector3, p3: TH
 
 function samplePath(points: THREE.Vector3[], t: number, out: THREE.Vector3) {
   const n = points.length - 1;
+  if (n < 1) {
+    out.copy(points[0] ?? new THREE.Vector3());
+    return;
+  }
   const f = Math.min(0.999, Math.max(0, t)) * n;
   const i = Math.floor(f);
   const local = f - i;
@@ -34,64 +44,44 @@ function samplePath(points: THREE.Vector3[], t: number, out: THREE.Vector3) {
   const p1 = points[i];
   const p2 = points[Math.min(n, i + 1)];
   const p3 = points[Math.min(n, i + 2)];
-  const v = catmull(p0, p1, p2, p3, local);
-  out.copy(v);
+  out.copy(catmull(p0, p1, p2, p3, local));
 }
 
 /**
- * Scroll-driven cinematic camera — flies past the agent constellation.
+ * Camera follows the same continuous journey as the node graph.
+ * No section-based remaps — avoids jumps when section flips.
  */
-export function CameraRig({
-  progress,
-  journey,
-  section,
-}: {
-  progress: number;
-  journey: number;
-  section: string | null;
-}) {
+export function CameraRig({ journey }: { journey: number }) {
   const { camera } = useThree();
   const look = useRef(new THREE.Vector3(0, 0.6, 0));
   const pos = useRef(new THREE.Vector3(0, 1.2, 7.5));
   const targetPos = useRef(new THREE.Vector3());
   const targetLook = useRef(new THREE.Vector3());
+  const smoothJourney = useRef(0);
 
-  const camPath = useMemo(
-    () => [
-      new THREE.Vector3(-1.5, 1.4, 8.5),
-      new THREE.Vector3(-3.5, 1.6, 4.2),
-      new THREE.Vector3(-1.0, 1.0, 3.2),
-      new THREE.Vector3(1.2, 1.4, 3.6),
-      new THREE.Vector3(3.5, 1.0, 3.0),
-      new THREE.Vector3(5.2, 1.6, 4.5),
-      new THREE.Vector3(2.0, 2.2, 7.0),
-    ],
-    [],
-  );
+  const camPath = useMemo(() => {
+    // camera rides parallel to the node chain, slightly back and up
+    return GRAPH_NODES.map(
+      (n) =>
+        new THREE.Vector3(n.position[0] * 0.55 - 0.4, n.position[1] + 1.1, n.position[2] + 5.8),
+    );
+  }, []);
 
   const lookPath = useMemo(
-    () => [
-      new THREE.Vector3(-1.0, 0.6, 0),
-      ...JOURNEY_NODES.map((n) => new THREE.Vector3(...n.position)),
-      new THREE.Vector3(2.0, 0.8, 0),
-    ],
+    () => GRAPH_NODES.map((n) => new THREE.Vector3(...n.position)),
     [],
   );
 
   useFrame((_, delta) => {
-    let t = progress;
-    if (section === "pipeline" || section === "systems") {
-      t = 0.35 + journey * 0.45;
-    } else if (section === "home" || section === "telemetry") {
-      t = progress * 0.25;
-    } else if (section === "contact" || section === "work") {
-      t = 0.75 + progress * 0.2;
-    }
+    // extra frame-level ease so R3F stays silky even if React updates sparsely
+    const kJ = 1 - Math.exp(-delta * 5.5);
+    smoothJourney.current += (journey - smoothJourney.current) * kJ;
+    const t = Math.min(1, Math.max(0, smoothJourney.current));
 
     samplePath(camPath, t, targetPos.current);
-    samplePath(lookPath, Math.min(1, t * 1.05), targetLook.current);
+    samplePath(lookPath, t, targetLook.current);
 
-    const k = 1 - Math.exp(-delta * 2.4);
+    const k = 1 - Math.exp(-delta * 2.8);
     pos.current.lerp(targetPos.current, k);
     look.current.lerp(targetLook.current, k);
     camera.position.copy(pos.current);

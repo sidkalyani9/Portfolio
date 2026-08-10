@@ -2,22 +2,11 @@ import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { Html, Line } from "@react-three/drei";
+import { GRAPH_NODES, type GraphNode } from "@/three/journeyGraph";
 
-export type JourneyNode = {
-  id: string;
-  label: string;
-  sub: string;
-  position: [number, number, number];
-};
-
-export const JOURNEY_NODES: JourneyNode[] = [
-  { id: "intake", label: "intake", sub: "multimodal", position: [-4.2, 0.6, -1.2] },
-  { id: "planner", label: "planner", sub: "decompose", position: [-2.4, 1.4, 0.4] },
-  { id: "retriever", label: "retriever", sub: "GraphRAG", position: [-0.4, 0.2, 1.6] },
-  { id: "writer", label: "writer", sub: "grounded", position: [1.6, 1.1, 0.2] },
-  { id: "reviewer", label: "reviewer", sub: "persona", position: [3.4, 0.3, -0.8] },
-  { id: "score", label: "score", sub: "matrix", position: [5.0, 1.0, 0.6] },
-];
+/** Re-export for CameraRig / consumers */
+export type JourneyNode = GraphNode;
+export const JOURNEY_NODES = GRAPH_NODES;
 
 function NodeMesh({
   node,
@@ -25,7 +14,7 @@ function NodeMesh({
   active,
   passed,
 }: {
-  node: JourneyNode;
+  node: GraphNode;
   index: number;
   active: boolean;
   passed: boolean;
@@ -36,11 +25,11 @@ function NodeMesh({
   useFrame((state) => {
     if (!ref.current) return;
     const t = state.clock.elapsedTime;
-    const bob = Math.sin(t * 1.2 + index * 0.9) * 0.06;
+    const bob = Math.sin(t * 1.1 + index * 0.85) * 0.05;
     ref.current.position.y = node.position[1] + bob;
     if (glow.current) {
       glow.current.position.copy(ref.current.position);
-      const s = active ? 1.35 + Math.sin(t * 4) * 0.08 : passed ? 1.05 : 0.85;
+      const s = active ? 1.32 + Math.sin(t * 3.2) * 0.06 : passed ? 1.04 : 0.82;
       glow.current.scale.setScalar(s);
     }
   });
@@ -51,27 +40,27 @@ function NodeMesh({
   return (
     <group>
       <mesh ref={glow} position={node.position}>
-        <sphereGeometry args={[0.42, 24, 24]} />
+        <sphereGeometry args={[0.38, 24, 24]} />
         <meshBasicMaterial
           color={color}
           transparent
-          opacity={active ? 0.18 : passed ? 0.08 : 0.03}
+          opacity={active ? 0.2 : passed ? 0.09 : 0.03}
           depthWrite={false}
         />
       </mesh>
       <mesh ref={ref} position={node.position}>
-        <icosahedronGeometry args={[0.22, 1]} />
+        <icosahedronGeometry args={[0.2, 1]} />
         <meshStandardMaterial
           color={color}
           emissive={emissive}
-          emissiveIntensity={active ? 1.6 : passed ? 0.55 : 0.12}
+          emissiveIntensity={active ? 1.55 : passed ? 0.5 : 0.1}
           roughness={0.35}
           metalness={0.45}
         />
       </mesh>
       {active ? (
         <Html
-          position={[node.position[0], node.position[1] + 0.55, node.position[2]]}
+          position={[node.position[0], node.position[1] + 0.52, node.position[2]]}
           center
           distanceFactor={8}
           style={{ pointerEvents: "none", userSelect: "none" }}
@@ -93,22 +82,22 @@ function NodeMesh({
   );
 }
 
-function Edges({ activeFloat }: { activeFloat: number }) {
+function Edges({ journey }: { journey: number }) {
   const points = useMemo(
-    () => JOURNEY_NODES.map((n) => n.position as [number, number, number]),
+    () => GRAPH_NODES.map((n) => n.position as [number, number, number]),
     [],
   );
   const packet = useRef<THREE.Mesh>(null);
+  const nEdges = GRAPH_NODES.length - 1;
 
   useFrame(() => {
-    if (!packet.current) return;
-    const n = JOURNEY_NODES.length - 1;
-    const t = Math.min(1, Math.max(0, activeFloat / n));
-    const f = t * n;
-    const i = Math.min(n - 1, Math.floor(f));
+    if (!packet.current || nEdges < 1) return;
+    // journey 0→1 maps linearly along the polyline (no discrete jumps)
+    const f = Math.min(0.9999, Math.max(0, journey)) * nEdges;
+    const i = Math.min(nEdges - 1, Math.floor(f));
     const local = f - i;
-    const a = JOURNEY_NODES[i].position;
-    const b = JOURNEY_NODES[i + 1].position;
+    const a = GRAPH_NODES[i].position;
+    const b = GRAPH_NODES[i + 1].position;
     packet.current.position.set(
       a[0] + (b[0] - a[0]) * local,
       a[1] + (b[1] - a[1]) * local,
@@ -123,7 +112,7 @@ function Edges({ activeFloat }: { activeFloat: number }) {
         color="#c77dff"
         lineWidth={1.5}
         transparent
-        opacity={0.35}
+        opacity={0.32}
       />
       <mesh ref={packet}>
         <sphereGeometry args={[0.09, 12, 12]} />
@@ -133,31 +122,36 @@ function Edges({ activeFloat }: { activeFloat: number }) {
   );
 }
 
+/**
+ * Background constellation — one node per page section.
+ * `journey` is continuous 0→1 from section geometry (never remapped).
+ */
 export function NodeConstellation({ journey = 0 }: { journey?: number }) {
   const group = useRef<THREE.Group>(null);
-  const n = JOURNEY_NODES.length;
-  const activeFloat = journey * (n - 0.001);
-  const activeIndex = Math.min(n - 1, Math.floor(activeFloat));
+  const n = GRAPH_NODES.length;
+  // active node: which segment we're on
+  const edgeT = Math.min(0.999, Math.max(0, journey)) * Math.max(1, n - 1);
+  const activeIndex = Math.min(n - 1, Math.floor(edgeT));
 
   useFrame((state) => {
     if (!group.current) return;
-    group.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.08) * 0.04;
+    group.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.07) * 0.035;
   });
 
   return (
-    <group ref={group}>
-      <Edges activeFloat={activeFloat} />
-      {JOURNEY_NODES.map((node, i) => (
+    <group ref={group} position={[-0.4, 0, 0]}>
+      <Edges journey={journey} />
+      {GRAPH_NODES.map((node, i) => (
         <NodeMesh
           key={node.id}
           node={node}
           index={i}
-          active={i === activeIndex && journey > 0.02}
+          active={i === activeIndex}
           passed={i < activeIndex}
         />
       ))}
-      <pointLight position={[0, 2, 2]} intensity={1.2} color="#c77dff" distance={12} />
-      <pointLight position={[4, -1, -2]} intensity={0.6} color="#8b5cf6" distance={10} />
+      <pointLight position={[0, 2, 2]} intensity={1.15} color="#c77dff" distance={14} />
+      <pointLight position={[5, -1, -2]} intensity={0.55} color="#8b5cf6" distance={12} />
     </group>
   );
 }

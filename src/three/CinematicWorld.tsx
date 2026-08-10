@@ -10,26 +10,13 @@ import { useScrollProgress } from "@/hooks/useScrollProgress";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
-/** Map page scroll → agent-graph journey with a bias toward the pipeline climax. */
-function journeyFrom(section: string | null, progress: number): number {
-  // base: full page is the full path
-  let j = progress;
-  // emphasize fly-through while parked in the pipeline pin
-  if (section === "pipeline") {
-    j = 0.25 + progress * 0.55;
-  } else if (section === "systems") {
-    j = Math.max(j, 0.7);
-  }
-  return Math.min(1, Math.max(0, j));
-}
-
 function SceneBridge({ highQuality }: { highQuality: boolean }) {
-  const { progress, section } = useScrollProgress();
-  const journey = journeyFrom(section, progress);
+  const { progress, journey } = useScrollProgress();
 
   return (
     <>
-      <CameraRig progress={progress} journey={journey} section={section} />
+      {/* journey only — continuous section geometry, no remap jumps */}
+      <CameraRig journey={journey} />
       <ambientLight intensity={0.35} />
       <directionalLight position={[4, 6, 2]} intensity={0.55} color="#cfe8ff" />
       <FluidField intensity={highQuality ? 1 : 0.7} progress={progress} />
