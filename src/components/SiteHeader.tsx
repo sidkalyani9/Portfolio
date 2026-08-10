@@ -193,8 +193,15 @@ export function SiteHeader() {
           className="group flex min-w-0 items-center gap-2"
           aria-label={`${profile.name} · back to top`}
         >
-          <span className="truncate text-[13px] font-medium tracking-tight text-fg-0 transition group-hover:text-accent sm:text-sm">
-            {isCompact ? "S. Kalyani" : profile.name}
+          <span className="min-w-0">
+            <span className="block truncate text-[13px] font-medium tracking-tight text-fg-0 transition group-hover:text-accent sm:text-sm">
+              {profile.name}
+            </span>
+            {isCompact ? (
+              <span className="mt-0.5 block truncate font-mono text-[9px] tracking-wide text-fg-2">
+                GenAI · FDE
+              </span>
+            ) : null}
           </span>
           {!isCompact ? (
             <span className="hidden items-center gap-1.5 rounded-full border border-border bg-bg-1/60 px-2 py-0.5 font-mono text-[10px] text-fg-2 xl:inline-flex">
