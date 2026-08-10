@@ -1,4 +1,4 @@
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useLocation, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import {
   bidstreamCaseStudy,
@@ -17,14 +17,29 @@ import { SplitText } from "@/components/fx/SplitText";
 import { Magnetic } from "@/components/fx/Magnetic";
 import { WipeLink } from "@/components/PageWipe";
 import { useReveal } from "@/hooks/useReveal";
+import {
+  backLabelForSection,
+  getCaseStudyOrigin,
+  originFallbackForSlug,
+} from "@/lib/navOrigin";
 
-function BackLink({ section = "work" }: { section?: string }) {
+/** Return to the home section that opened this case study. */
+function BackLink() {
+  const { slug } = useParams();
+  const location = useLocation();
+  const stateSection = (
+    location.state as { fromSection?: string } | null
+  )?.fromSection;
+  const section =
+    stateSection ||
+    getCaseStudyOrigin(originFallbackForSlug(slug));
+
   return (
     <WipeLink
       to={`/#${section}`}
       className="inline-flex items-center gap-2 font-sans text-sm text-fg-1 transition hover:text-accent"
     >
-      <ArrowLeft size={16} aria-hidden /> Back to work
+      <ArrowLeft size={16} aria-hidden /> {backLabelForSection(section)}
     </WipeLink>
   );
 }
@@ -54,7 +69,7 @@ export function CaseStudyPage() {
     return (
       <article className="section-y pt-28">
         <header className="container-measure reveal glass rounded-3xl p-6 md:p-10">
-          <BackLink section="systems" />
+          <BackLink />
           <CaseEyebrow>Case study · P0 · Internal product</CaseEyebrow>
           <h1 className="mt-4 font-display text-[clamp(2.5rem,6vw,4.25rem)] text-fg-0">
             <SplitText text={bidstreamCaseStudy.title} start delay={0.05} />
@@ -230,7 +245,7 @@ export function CaseStudyPage() {
     return (
       <article className="section-y pt-28">
         <header className="container-measure reveal">
-          <BackLink section="systems" />
+          <BackLink />
           <CaseEyebrow>Case study · Confidential</CaseEyebrow>
           <h1 className="mt-4 font-display text-[clamp(2.5rem,6vw,4rem)] text-fg-0">
             <SplitText text={system.title} start delay={0.05} />

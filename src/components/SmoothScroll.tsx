@@ -18,12 +18,11 @@ import { HEADER_OFFSET } from "@/lib/motion";
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Constant scroll speed (px/s) — lower = slower for long jumps.
- * Duration scales with distance so far sections don't feel like a snap.
+ * Constant scroll speed (px/s). Long jumps get more time so they finish.
  */
 const SCROLL_SPEED_PX_S = 520;
 const SCROLL_DUR_MIN = 1.2;
-const SCROLL_DUR_MAX = 5.5;
+const SCROLL_DUR_MAX = 8.5;
 
 function durationForDistance(px: number) {
   const d = Math.abs(px) / SCROLL_SPEED_PX_S;
@@ -34,9 +33,26 @@ function easeOutQuint(t: number) {
   return 1 - Math.pow(1 - t, 5);
 }
 
+function currentScrollY(lenis: Lenis | null): number {
+  if (lenis) {
+    // Lenis 1.x exposes animated scroll; prefer animated value
+    return (lenis as unknown as { animatedScroll?: number }).animatedScroll ??
+      lenis.scroll ??
+      window.scrollY;
+  }
+  return window.scrollY || document.documentElement.scrollTop || 0;
+}
+
+function measureTargetY(el: HTMLElement): number {
+  const y = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+  return Math.max(0, y);
+}
+
 type SmoothScrollContextValue = {
   scrollToId: (id: string) => void;
   scrollToY: (y: number) => void;
+  /** Refresh Lenis + ScrollTrigger after big layout changes (route restore). */
+  refreshLayout: () => void;
   headerOffset: number;
   lenis: Lenis | null;
 };
@@ -51,6 +67,7 @@ export function useScrollTo() {
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
       },
       scrollToY: (y: number) => window.scrollTo({ top: y, behavior: "smooth" }),
+      refreshLayout: () => {},
       headerOffset: HEADER_OFFSET,
       lenis: null as Lenis | null,
     }
@@ -89,9 +106,15 @@ export function SmoothScroll({ children }: Props) {
     gsap.ticker.add(ticker);
     gsap.ticker.lagSmoothing(0);
 
-    const onResize = () => ScrollTrigger.refresh();
+    const onResize = () => {
+      instance.resize();
+      ScrollTrigger.refresh();
+    };
     window.addEventListener("resize", onResize);
-    requestAnimationFrame(() => ScrollTrigger.refresh());
+    requestAnimationFrame(() => {
+      instance.resize();
+      ScrollTrigger.refresh();
+    });
 
     return () => {
       window.removeEventListener("resize", onResize);
@@ -102,6 +125,35 @@ export function SmoothScroll({ children }: Props) {
       ScrollTrigger.refresh();
     };
   }, [reduced, isDesktop]);
+
+  const refreshLayout = useCallback(() => {
+    const instance = lenisRef.current;
+    // force reflow so sticky / tall tracks report real heights
+    void document.body.offsetHeight;
+    instance?.resize();
+    ScrollTrigger.refresh();
+  }, []);
+
+  const scrollToY = useCallback(
+    (y: number) => {
+      const instance = lenisRef.current;
+      refreshLayout();
+      const from = currentScrollY(instance);
+      const target = Math.max(0, y);
+      const duration = durationForDistance(target - from);
+
+      if (instance && isDesktop && !reduced) {
+        instance.scrollTo(target, {
+          duration,
+          easing: easeOutQuint,
+          force: true,
+        });
+      } else {
+        window.scrollTo({ top: target, behavior: "smooth" });
+      }
+    },
+    [isDesktop, reduced, refreshLayout],
+  );
 
   const scrollToId = useCallback(
     (rawId: string) => {
@@ -114,49 +166,37 @@ export function SmoothScroll({ children }: Props) {
       const el = document.getElementById(id);
       if (!el) return;
 
+      refreshLayout();
+
       const instance = lenisRef.current;
-      const targetTop =
-        el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
-      const distance = targetTop - window.scrollY;
-      const duration = durationForDistance(distance);
+      const target = measureTargetY(el);
+      const from = currentScrollY(instance);
+      const duration = durationForDistance(target - from);
 
       if (instance && isDesktop && !reduced) {
-        instance.scrollTo(el, {
-          offset: -HEADER_OFFSET,
+        // Numeric target after resize — more reliable than element target
+        // when sticky journey tracks change document height on mount.
+        instance.scrollTo(target, {
           duration,
           easing: easeOutQuint,
+          force: true,
         });
       } else {
-        // native smooth: approximate constant feel via CSS is limited; still better than jump
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        window.scrollTo({ top: target, behavior: "smooth" });
       }
     },
-    [isDesktop, reduced],
-  );
-
-  const scrollToY = useCallback(
-    (y: number) => {
-      const instance = lenisRef.current;
-      const distance = y - window.scrollY;
-      const duration = durationForDistance(distance);
-
-      if (instance && isDesktop && !reduced) {
-        instance.scrollTo(y, { duration, easing: easeOutQuint });
-      } else {
-        window.scrollTo({ top: y, behavior: "smooth" });
-      }
-    },
-    [isDesktop, reduced],
+    [isDesktop, reduced, refreshLayout],
   );
 
   const value = useMemo(
     () => ({
       scrollToId,
       scrollToY,
+      refreshLayout,
       headerOffset: HEADER_OFFSET,
       lenis,
     }),
-    [scrollToId, scrollToY, lenis],
+    [scrollToId, scrollToY, refreshLayout, lenis],
   );
 
   return (

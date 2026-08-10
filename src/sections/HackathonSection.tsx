@@ -43,6 +43,7 @@ export function HackathonSection() {
               <Magnetic strength={0.25}>
                 <WipeLink
                   to="/work/grantflow"
+                  fromSection="hackathon"
                   data-cursor="view"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-transparent px-5 py-2.5 font-sans text-sm font-semibold text-fg-0 transition hover:border-accent/40 hover:bg-accent-dim"
                 >

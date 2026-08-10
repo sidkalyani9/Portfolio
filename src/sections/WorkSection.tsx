@@ -53,6 +53,7 @@ function MediaCard({ project, full }: { project: Project; full?: boolean }) {
     >
       <WipeLink
         to={`/work/${project.slug}`}
+        fromSection="work"
         data-cursor="view"
         className={cn("grid gap-0 outline-none", full && "lg:grid-cols-2")}
       >
@@ -82,6 +83,7 @@ function TextRow({ project }: { project: Project }) {
     <article className="group glass md:col-span-2 overflow-hidden rounded-3xl transition hover:border-accent/30 focus-within:border-accent/40">
       <WipeLink
         to={`/work/${project.slug}`}
+        fromSection="work"
         data-cursor="view"
         className="grid gap-6 p-6 outline-none md:grid-cols-[1fr_1.1fr] md:p-8"
       >
@@ -152,6 +154,7 @@ export function WorkSection() {
               <li key={p.slug}>
                 <WipeLink
                   to={`/work/${p.slug}`}
+                  fromSection="work"
                   data-cursor="view"
                   className="inline-flex items-center gap-2 rounded-full border border-border bg-bg-1/50 px-4 py-2 text-sm text-fg-1 transition hover:border-accent/30 hover:text-fg-0"
                 >

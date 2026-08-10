@@ -115,7 +115,7 @@ export function CommandPalette() {
           icon: FolderGit2,
           run: () => {
             setOpen(false);
-            go(`/work/${p.slug}`);
+            go(`/work/${p.slug}`, { fromSection: "work" });
           },
         }),
       );

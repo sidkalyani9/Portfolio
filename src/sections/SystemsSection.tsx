@@ -82,6 +82,7 @@ function PanelBody({ panel }: { panel: SystemPanel }) {
       <div className="mt-auto pt-6">
         <WipeLink
           to={`/work/${panel.caseSlug}`}
+          fromSection="systems"
           data-cursor="view"
           className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-transparent px-5 py-2.5 font-sans text-sm font-semibold text-fg-0 transition hover:border-accent/40 hover:bg-accent-dim"
         >
@@ -323,6 +324,7 @@ export function SystemsSection() {
           {" · "}
           <WipeLink
             to="/work/bidstream-ai"
+            fromSection="systems"
             data-cursor="view"
             className="text-accent hover:underline"
           >
