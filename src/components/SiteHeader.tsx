@@ -1,6 +1,7 @@
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Menu, TerminalSquare, X } from "lucide-react";
+import gsap from "gsap";
 import { cn } from "@/lib/cn";
 import { ButtonLink } from "@/components/ui/Button";
 import { openPalette } from "@/components/CommandPalette";
@@ -8,6 +9,8 @@ import { useResumeHref } from "@/hooks/useResumeHref";
 import { profile } from "@/content/profile";
 import { useScrollTo } from "@/components/SmoothScroll";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import { STAGGER } from "@/lib/motion";
 
 /** Order matches page scroll order (after hero). */
 const nav = [
@@ -26,8 +29,12 @@ export function SiteHeader() {
   const location = useLocation();
   const navigate = useNavigate();
   const { scrollToId, scrollToY } = useScrollTo();
-  // Match section-rail / mobile world breakpoint
   const isCompact = useMediaQuery("(max-width: 899px)");
+  const reduced = usePrefersReducedMotion();
+
+  const menuPanelRef = useRef<HTMLDivElement>(null);
+  const menuListRef = useRef<HTMLElement>(null);
+  const menuTween = useRef<gsap.core.Timeline | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -49,6 +56,94 @@ export function SiteHeader() {
       document.body.style.overflow = prev;
     };
   }, [open, isCompact]);
+
+  // Premium open / close animation for mobile menu
+  useEffect(() => {
+    if (!isCompact) return;
+    const panel = menuPanelRef.current;
+    const list = menuListRef.current;
+    if (!panel || !list) return;
+
+    const items = list.querySelectorAll<HTMLElement>("[data-menu-item]");
+    menuTween.current?.kill();
+
+    if (reduced) {
+      gsap.set(panel, {
+        height: open ? "auto" : 0,
+        autoAlpha: open ? 1 : 0,
+        display: open ? "block" : "none",
+      });
+      gsap.set(items, { clearProps: "all" });
+      return;
+    }
+
+    if (open) {
+      gsap.set(panel, { display: "block", overflow: "hidden" });
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      menuTween.current = tl;
+
+      tl.fromTo(
+        panel,
+        { height: 0, autoAlpha: 0 },
+        {
+          height: "auto",
+          autoAlpha: 1,
+          duration: 0.48,
+          ease: "power3.out",
+        },
+      );
+      tl.fromTo(
+        items,
+        { y: 22, autoAlpha: 0, filter: "blur(6px)" },
+        {
+          y: 0,
+          autoAlpha: 1,
+          filter: "blur(0px)",
+          duration: 0.52,
+          stagger: STAGGER.menu,
+          ease: "power3.out",
+        },
+        "-=0.28",
+      );
+    } else {
+      // Only animate closed if panel was visible
+      const wasOpen = panel.style.display !== "none" && panel.clientHeight > 0;
+      if (!wasOpen) {
+        gsap.set(panel, { height: 0, autoAlpha: 0, display: "none" });
+        return;
+      }
+      const tl = gsap.timeline({
+        defaults: { ease: "power2.in" },
+        onComplete: () => {
+          gsap.set(panel, { display: "none", height: 0 });
+        },
+      });
+      menuTween.current = tl;
+      tl.to(items, {
+        y: -8,
+        autoAlpha: 0,
+        duration: 0.18,
+        stagger: { each: 0.03, from: "end" },
+      });
+      tl.to(
+        panel,
+        { height: 0, autoAlpha: 0, duration: 0.32, ease: "power3.inOut" },
+        "-=0.06",
+      );
+    }
+
+    return () => {
+      menuTween.current?.kill();
+    };
+  }, [open, isCompact, reduced]);
+
+  // Initial closed state for menu panel
+  useEffect(() => {
+    if (!isCompact) return;
+    const panel = menuPanelRef.current;
+    if (!panel || open) return;
+    gsap.set(panel, { height: 0, autoAlpha: 0, display: "none" });
+  }, [isCompact, open]);
 
   const goSection = (e: MouseEvent, id: string) => {
     e.preventDefault();
@@ -109,7 +204,6 @@ export function SiteHeader() {
           ) : null}
         </a>
 
-        {/* Desktop / tablet primary nav (compact uses the hamburger) */}
         {!isCompact ? (
           <nav
             className="flex items-center gap-5 xl:gap-8"
@@ -165,13 +259,10 @@ export function SiteHeader() {
             </>
           ) : (
             <>
-              {/* Mobile: single compact CTA + menu — no LinkedIn/Email clutter */}
               <a
                 href={resume.href}
                 className="inline-flex h-9 items-center justify-center rounded-full bg-accent px-3.5 font-sans text-xs font-semibold text-bg-0 shadow-[0_0_0_1px_rgba(199,125,255,0.25)] touch-manipulation active:scale-[0.98]"
-                {...(resume.download
-                  ? { download: resume.download }
-                  : {})}
+                {...(resume.download ? { download: resume.download } : {})}
               >
                 Resume
               </a>
@@ -190,30 +281,48 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* Mobile full-screen menu */}
+      {/* Mobile menu — always mounted for GSAP; height/visibility driven by animation */}
       {isCompact ? (
         <div
+          ref={menuPanelRef}
           id="mobile-nav"
-          className={cn(
-            "border-t border-border bg-bg-0/95 backdrop-blur-xl",
-            open ? "block" : "hidden",
-          )}
+          className="overflow-hidden border-t border-border bg-bg-0/95 backdrop-blur-xl"
+          style={{ display: "none", height: 0, opacity: 0 }}
+          aria-hidden={!open}
         >
           <nav
-            className="flex max-h-[min(72dvh,32rem)] flex-col gap-0.5 overflow-y-auto overscroll-contain px-4 py-3 pb-[max(1rem,env(safe-area-inset-bottom))]"
+            ref={menuListRef}
+            className="flex max-h-[min(72dvh,32rem)] flex-col gap-0.5 overflow-y-auto overscroll-contain px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))]"
             aria-label="Mobile"
           >
-            {nav.map((item) => (
+            {nav.map((item, i) => (
               <a
                 key={item.id}
                 href={`/#${item.id}`}
-                className="rounded-xl px-3 py-3.5 text-base text-fg-0 touch-manipulation active:bg-white/8"
+                data-menu-item
+                className="group flex items-center justify-between rounded-xl px-3 py-3.5 touch-manipulation active:bg-white/8"
                 onClick={(e) => goSection(e, item.id)}
               >
-                {item.label}
+                <span className="flex items-baseline gap-3">
+                  <span className="font-mono text-[10px] tabular-nums text-accent/70 transition group-hover:text-accent">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="font-display text-2xl leading-none text-fg-0 transition group-hover:text-accent">
+                    {item.label}
+                  </span>
+                </span>
+                <span
+                  className="font-mono text-[10px] text-fg-2/50 transition group-hover:text-accent/70"
+                  aria-hidden
+                >
+                  ↗
+                </span>
               </a>
             ))}
-            <div className="mt-2 grid grid-cols-2 gap-2 border-t border-border/60 pt-3">
+            <div
+              data-menu-item
+              className="mt-3 grid grid-cols-2 gap-2 border-t border-border/60 pt-4"
+            >
               <a
                 href="https://www.linkedin.com/in/siddharth-kalyani/"
                 target="_blank"
