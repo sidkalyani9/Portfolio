@@ -190,19 +190,22 @@ function JourneyHud({
         {NODES.map((node, i) => {
           const Icon = node.icon;
           return (
-            <li key={node.id} className="relative flex gap-5 pb-8">
+            <li key={node.id} className="relative flex gap-3.5 pb-7 sm:gap-5 sm:pb-8">
               {i < N - 1 ? (
-                <span className="absolute left-7 top-14 h-[calc(100%-3.5rem)] w-px bg-border" />
+                <span className="absolute left-5 top-12 h-[calc(100%-3rem)] w-px bg-gradient-to-b from-accent/50 to-border sm:left-7 sm:top-14 sm:h-[calc(100%-3.5rem)]" />
               ) : null}
-              <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-accent/40 bg-bg-0/50 text-accent">
-                <Icon size={20} aria-hidden />
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-accent/40 bg-bg-0/50 text-accent sm:h-14 sm:w-14 sm:rounded-2xl">
+                <Icon size={18} className="sm:hidden" aria-hidden />
+                <Icon size={20} className="hidden sm:block" aria-hidden />
               </div>
-              <div className="min-w-0">
-                <p className="font-mono text-sm text-fg-0">
+              <div className="min-w-0 pt-0.5">
+                <p className="font-mono text-[13px] text-fg-0 sm:text-sm">
                   {node.label}
-                  <span className="ml-3 text-xs text-fg-2">{node.sub}</span>
+                  <span className="ml-2 text-[11px] text-fg-2 sm:ml-3 sm:text-xs">
+                    {node.sub}
+                  </span>
                 </p>
-                <p className="mt-2 font-mono text-xs leading-relaxed text-fg-1">
+                <p className="mt-1.5 font-mono text-[11px] leading-relaxed text-fg-1 sm:mt-2 sm:text-xs">
                   {node.log}
                 </p>
               </div>

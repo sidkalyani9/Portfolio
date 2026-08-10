@@ -41,8 +41,8 @@ export function SiteFooter() {
   const loadMs = useLoadMs();
 
   return (
-    <footer className="relative z-10 bg-transparent">
-      <div className="container-page flex flex-col gap-8 py-12 md:flex-row md:items-end md:justify-between">
+    <footer className="relative z-10 bg-transparent pb-[env(safe-area-inset-bottom)]">
+      <div className="container-page flex flex-col gap-8 py-10 sm:py-12 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="font-display text-2xl text-fg-0">{profile.name}</p>
           <p className="mt-1 text-sm text-fg-1">{profile.roleLine}</p>
@@ -116,7 +116,7 @@ export function SiteFooter() {
             </span>
             <span>
               built with{" "}
-              <span className="text-fg-1">React · GSAP · R3F · Lenis</span>
+              <span className="text-fg-1">React · GSAP · R3F · canvas</span>
             </span>
           </div>
         </div>

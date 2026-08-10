@@ -29,9 +29,9 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="section-y">
+    <section id="contact" className="section-y pb-[max(2rem,env(safe-area-inset-bottom))]">
       <div className="container-measure text-center">
-        <div className="reveal glass-strong rounded-3xl px-6 py-12 md:px-12">
+        <div className="reveal glass-strong rounded-2xl px-5 py-10 sm:rounded-3xl sm:px-6 sm:py-12 md:px-12">
           <SectionHeading
             align="center"
             eyebrow="Contact"

@@ -28,6 +28,8 @@
 @layer base {
   html {
     scroll-behavior: auto;
+    /* iOS rubber-band + dynamic viewport */
+    -webkit-text-size-adjust: 100%;
   }
 
   html.lenis,
@@ -46,6 +48,7 @@
   body {
     margin: 0;
     min-height: 100vh;
+    min-height: 100dvh;
     background: var(--color-bg-0);
     color: var(--color-fg-0);
     font-family: var(--font-body);
@@ -54,6 +57,9 @@
     letter-spacing: -0.011em;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    /* notch / home indicator */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
 
   ::selection {
@@ -150,23 +156,35 @@
 }
 
 @utility container-page {
-  width: min(1120px, calc(100% - 2 * clamp(20px, 5vw, 40px)));
+  width: min(1120px, calc(100% - 2 * clamp(16px, 5vw, 40px)));
   margin-inline: auto;
 }
 
 @utility container-narrow {
-  width: min(38rem, calc(100% - 2 * clamp(20px, 5vw, 40px)));
+  width: min(38rem, calc(100% - 2 * clamp(16px, 5vw, 40px)));
   margin-inline: auto;
 }
 
 @utility container-measure {
-  width: min(65ch, calc(100% - 2 * clamp(20px, 5vw, 40px)));
+  width: min(65ch, calc(100% - 2 * clamp(16px, 5vw, 40px)));
   margin-inline: auto;
 }
 
 @utility section-y {
-  padding-block: clamp(5.5rem, 14vh, 10rem);
-  scroll-margin-top: 5.5rem;
+  padding-block: clamp(4.25rem, 12vh, 10rem);
+  scroll-margin-top: calc(4.5rem + env(safe-area-inset-top));
+}
+
+/* Mobile: full width content + space for bottom journey HUD */
+@media (max-width: 899px) {
+  .section-y {
+    padding-block: clamp(3.5rem, 10vh, 6.5rem);
+  }
+
+  /* leave room so last content isn't under the bottom HUD */
+  main#main {
+    padding-bottom: 5.5rem;
+  }
 }
 
 @utility prose-editorial {
@@ -234,6 +252,44 @@
   );
 }
 
+/* Hero scroll cue — soft breathing line */
+@keyframes scroll-cue {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scaleY(0.75);
+    transform-origin: top;
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+}
+
+.scroll-cue-line {
+  animation: scroll-cue 2.4s var(--ease-out-expo) infinite;
+}
+
+/* Mobile glass: slightly denser so type stays crisp over particles */
+@media (max-width: 899px) {
+  .glass {
+    background: rgba(18, 12, 28, 0.62);
+    backdrop-filter: blur(20px) saturate(1.2);
+    -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  }
+
+  .glass-strong {
+    background: rgba(10, 7, 18, 0.68);
+  }
+
+  /* Prefer larger touch targets; kill sticky hover ghosts on iOS */
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -242,6 +298,11 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .scroll-cue-line {
+    animation: none;
+    opacity: 0.7;
   }
 }
 

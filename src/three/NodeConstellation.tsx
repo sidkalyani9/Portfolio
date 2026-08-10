@@ -4,8 +4,11 @@ import * as THREE from "three";
 import { Html, Line } from "@react-three/drei";
 import {
   HOME_GRAPH_NODES,
+  activeIndexFromJourney,
   type GraphNode,
 } from "@/three/journeyGraph";
+
+export { activeIndexFromJourney };
 
 /** Re-export for consumers */
 export type JourneyNode = GraphNode;
@@ -83,16 +86,6 @@ function NodeMesh({
       ) : null}
     </group>
   );
-}
-
-/** Map continuous journey 0→1 onto node index 0…n-1 (last node activates at end). */
-export function activeIndexFromJourney(journey: number, n: number): number {
-  if (n <= 1) return 0;
-  const j = Math.min(1, Math.max(0, journey));
-  // At j === 1, floor((n-1)) would work, but values like 0.999 never reached n-1
-  // with the old 0.999 clamp. Treat the final sliver as the last node.
-  if (j >= 1 - 1e-4) return n - 1;
-  return Math.min(n - 1, Math.floor(j * (n - 1)));
 }
 
 function Edges({ journey, nodes }: { journey: number; nodes: GraphNode[] }) {

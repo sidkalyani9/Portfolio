@@ -86,7 +86,7 @@ function Counter({ stat, started }: { stat: Stat; started: boolean }) {
   }, [started, reduced, stat]);
 
   return (
-    <span className="font-mono text-[clamp(2.2rem,4.5vw,3.6rem)] leading-none tabular-nums text-fg-0">
+    <span className="font-mono text-[clamp(1.65rem,7vw,3.6rem)] leading-none tabular-nums text-fg-0">
       {stat.format(value)}
     </span>
   );
@@ -115,17 +115,17 @@ export function TelemetrySection() {
   }, [reduced]);
 
   return (
-    <section id="telemetry" aria-label="Production metrics" className="section-y !py-10">
-      <div className="py-4">
+    <section id="telemetry" aria-label="Production metrics" className="section-y !py-8 sm:!py-10">
+      <div className="py-3 sm:py-4">
         <Marquee items={MARQUEE_ITEMS} />
       </div>
-      <div ref={rootRef} className="container-page py-10">
-        <div className="glass rounded-3xl p-6 md:p-10">
-          <p className="font-mono text-xs text-fg-2">
+      <div ref={rootRef} className="container-page py-6 sm:py-10">
+        <div className="glass rounded-2xl p-5 sm:rounded-3xl sm:p-6 md:p-10">
+          <p className="font-mono text-[11px] text-fg-2 sm:text-xs">
             <span className="text-accent">$</span> query --production-metrics{" "}
             <span className="text-fg-2/60">// measured, not marketing</span>
           </p>
-          <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3 xl:grid-cols-6">
+          <dl className="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 sm:mt-10 sm:gap-x-6 sm:gap-y-12 md:grid-cols-3 xl:grid-cols-6">
             {STATS.map((stat) => (
               <div key={stat.label} className="group">
                 <dt className="order-2 mt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-fg-1">

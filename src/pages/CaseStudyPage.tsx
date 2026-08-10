@@ -67,8 +67,8 @@ export function CaseStudyPage() {
 
   if (slug === "bidstream-ai") {
     return (
-      <article className="section-y pt-28">
-        <header className="container-measure reveal glass rounded-3xl p-6 md:p-10">
+      <article className="section-y pt-[max(6.5rem,calc(env(safe-area-inset-top)+5.5rem))]">
+        <header className="container-measure reveal glass rounded-2xl p-5 sm:rounded-3xl sm:p-6 md:p-10">
           <BackLink />
           <CaseEyebrow>Case study · P0 · Internal product</CaseEyebrow>
           <h1 className="mt-4 font-display text-[clamp(2.5rem,6vw,4.25rem)] text-fg-0">
@@ -173,7 +173,7 @@ export function CaseStudyPage() {
 
   if (slug === "grantflow") {
     return (
-      <article className="section-y pt-28">
+      <article className="section-y pt-[max(6.5rem,calc(env(safe-area-inset-top)+5.5rem))]">
         <header className="container-measure reveal">
           <BackLink />
           <CaseEyebrow>
@@ -243,7 +243,7 @@ export function CaseStudyPage() {
   const system = systemPanels.find((p) => p.caseSlug === slug && p.kind === "anonymous");
   if (system) {
     return (
-      <article className="section-y pt-28">
+      <article className="section-y pt-[max(6.5rem,calc(env(safe-area-inset-top)+5.5rem))]">
         <header className="container-measure reveal">
           <BackLink />
           <CaseEyebrow>Case study · Confidential</CaseEyebrow>
@@ -313,7 +313,7 @@ export function CaseStudyPage() {
   if (!project) return <Navigate to="/" replace />;
 
   return (
-    <article className="section-y pt-28">
+    <article className="section-y pt-[max(6.5rem,calc(env(safe-area-inset-top)+5.5rem))]">
       <div className="container-measure reveal">
         <BackLink />
         <h1 className="mt-10 font-display text-[clamp(2.25rem,5vw,3.5rem)] text-fg-0">
