@@ -14,7 +14,7 @@ import { WorkSection } from "@/sections/WorkSection";
 import { ContactSection } from "@/sections/ContactSection";
 import { useReveal } from "@/hooks/useReveal";
 import { useScrollTo } from "@/components/SmoothScroll";
-import { HEADER_OFFSET } from "@/lib/motion";
+import { HEADER_OFFSET, HEADER_OFFSET_MOBILE } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,9 +45,13 @@ function useHashRestore() {
     const targetY = () => {
       const el = document.getElementById(id);
       if (!el) return null;
+      const offset =
+        window.matchMedia("(max-width: 899px)").matches
+          ? HEADER_OFFSET_MOBILE
+          : HEADER_OFFSET;
       return Math.max(
         0,
-        el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET,
+        el.getBoundingClientRect().top + window.scrollY - offset,
       );
     };
 

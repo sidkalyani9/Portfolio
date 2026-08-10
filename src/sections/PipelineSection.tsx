@@ -151,9 +151,10 @@ export function PipelineSection() {
   const stickyTopDesktop = HEADER_OFFSET + 16;
   const stageHDesktop = `calc(100svh - ${stickyTopDesktop + 24}px)`;
 
-  const stickyTopMobile = 56;
+  const stickyTopMobile =
+    "calc(3.5rem + env(safe-area-inset-top, 0px) + 10px)";
   const stageHMobile =
-    "calc(100svh - 56px - 5.75rem - env(safe-area-inset-bottom, 0px) - env(safe-area-inset-top, 0px))";
+    "calc(100svh - 3.5rem - env(safe-area-inset-top, 0px) - 10px - 5.25rem - env(safe-area-inset-bottom, 0px))";
 
   return (
     <section id="pipeline" className="section-y relative">
@@ -208,7 +209,7 @@ export function PipelineSection() {
           /* —— Mobile animated journey —— */
           <div
             ref={mobileTrackRef}
-            className="relative mt-8"
+            className="relative mt-6"
             style={{ height: `${Math.max(N * 80, 320)}vh` }}
             data-reveal="none"
           >
@@ -218,7 +219,7 @@ export function PipelineSection() {
                 inFocus && "ring-1 ring-accent/20",
               )}
               style={{
-                top: `calc(${stickyTopMobile}px + env(safe-area-inset-top, 0px))`,
+                top: stickyTopMobile,
                 height: stageHMobile,
                 maxHeight: stageHMobile,
                 touchAction: "pan-y",

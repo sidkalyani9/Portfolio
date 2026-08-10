@@ -151,11 +151,15 @@ function MobileSystemsStage({
   const activeRef = useRef(active);
   activeRef.current = active;
 
-  // Header is h-14 (3.5rem) + safe area on mobile
-  const stickyTop = 56;
-  // Leave room for bottom journey HUD (~5.5rem)
+  /**
+   * Mobile header: h-14 (3.5rem) + safe-area-top on the header itself.
+   * Sit the stage 10px under that — no awkward floating gap, no overlap.
+   */
+  const stickyTopCss =
+    "calc(3.5rem + env(safe-area-inset-top, 0px) + 10px)";
+  // Remaining viewport: header + gap + bottom journey HUD
   const stageH =
-    "calc(100svh - 56px - 5.75rem - env(safe-area-inset-bottom, 0px) - env(safe-area-inset-top, 0px))";
+    "calc(100svh - 3.5rem - env(safe-area-inset-top, 0px) - 10px - 5.25rem - env(safe-area-inset-bottom, 0px))";
 
   // Native scroll → active index (works with mobile native scroll, no Lenis)
   useEffect(() => {
@@ -238,21 +242,21 @@ function MobileSystemsStage({
   return (
     <div
       ref={trackRef}
-      className="relative mt-8"
+      className="relative mt-6"
       style={{ height: `${trackVh}vh` }}
       data-reveal="none"
     >
       <div
         className="glass-strong sticky z-[1] flex flex-col overflow-hidden rounded-2xl border border-border/70"
         style={{
-          top: `calc(${stickyTop}px + env(safe-area-inset-top, 0px))`,
+          top: stickyTopCss,
           height: stageH,
           maxHeight: stageH,
           /* vertical gestures must scroll the page (switch systems), not a nested box */
           touchAction: "pan-y",
         }}
       >
-        <div className="flex shrink-0 items-center justify-between gap-3 border-b border-border/50 px-4 py-2.5">
+        <div className="flex shrink-0 items-center justify-between gap-3 border-b border-border/50 px-3.5 py-2 sm:px-4">
           <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-fg-2">
             <span className="text-accent">sys</span> · scroll to switch
           </p>
@@ -271,10 +275,10 @@ function MobileSystemsStage({
           />
         </div>
 
-        <div className="shrink-0 border-b border-border/40 px-4 py-3">
+        <div className="shrink-0 border-b border-border/40 px-3.5 py-2.5 sm:px-4 sm:py-3">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <p className="truncate font-display text-lg leading-tight text-fg-0">
+              <p className="truncate font-display text-base leading-tight text-fg-0 sm:text-lg">
                 {panel.title}
               </p>
               <p className="mt-0.5 truncate text-xs text-fg-1">{panel.short}</p>

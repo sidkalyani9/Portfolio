@@ -172,13 +172,17 @@
 
 @utility section-y {
   padding-block: clamp(4.25rem, 12vh, 10rem);
-  scroll-margin-top: calc(4.5rem + env(safe-area-inset-top));
+  /* clear fixed header (desktop ~4.25rem bar) */
+  scroll-margin-top: calc(5.25rem + env(safe-area-inset-top));
 }
 
-/* Mobile: full width content + space for bottom journey HUD */
+/* Mobile: clear h-14 header + safe area; room for bottom journey HUD */
 @media (max-width: 899px) {
   .section-y {
-    padding-block: clamp(3.5rem, 10vh, 6.5rem);
+    /* extra top so titles never sit under the sticky nav */
+    padding-top: max(5.75rem, calc(env(safe-area-inset-top) + 5rem));
+    padding-bottom: clamp(3.5rem, 10vh, 6rem);
+    scroll-margin-top: max(5.25rem, calc(env(safe-area-inset-top) + 4.5rem));
   }
 
   /* leave room so last content isn't under the bottom HUD */

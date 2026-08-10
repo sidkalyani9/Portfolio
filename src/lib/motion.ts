@@ -35,4 +35,7 @@ export const STAGGER = {
   menu: 0.085,
 } as const;
 
+/** Desktop header clearance for scroll-to / pin. Mobile uses CSS calc against h-14. */
 export const HEADER_OFFSET = 88;
+/** Mobile fixed header: h-14 + small breathing room */
+export const HEADER_OFFSET_MOBILE = 72;

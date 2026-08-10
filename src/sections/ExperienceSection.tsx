@@ -13,11 +13,11 @@ export function ExperienceSection() {
           className="reveal"
         />
 
-        <div className="reveal glass mt-16 overflow-hidden rounded-3xl border-t-0">
+        <div className="reveal glass mt-8 overflow-hidden rounded-2xl border-t-0 sm:mt-12 sm:rounded-3xl md:mt-16">
           {experience.map((item) => (
             <article
               key={`${item.title}-${item.date}`}
-              className="group grid gap-4 border-b border-border py-8 last:border-b-0 transition hover:bg-white/[0.02] md:grid-cols-[minmax(0,0.35fr)_minmax(0,0.65fr)] md:gap-10 md:px-6"
+              className="group grid gap-4 border-b border-border px-4 py-7 last:border-b-0 transition hover:bg-white/[0.02] sm:px-5 sm:py-8 md:grid-cols-[minmax(0,0.35fr)_minmax(0,0.65fr)] md:gap-10 md:px-6"
             >
               <div>
                 <p className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-fg-2">

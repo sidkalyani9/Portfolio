@@ -44,7 +44,14 @@ function currentScrollY(lenis: Lenis | null): number {
 }
 
 function measureTargetY(el: HTMLElement): number {
-  const y = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+  // Mobile header is h-14 (~56px); desktop is taller with more padding
+  const isMobile =
+    typeof window !== "undefined" &&
+    window.matchMedia("(max-width: 899px)").matches;
+  const offset = isMobile
+    ? Math.max(72, 56 + 16) // header + breathing room
+    : HEADER_OFFSET;
+  const y = el.getBoundingClientRect().top + window.scrollY - offset;
   return Math.max(0, y);
 }
 
