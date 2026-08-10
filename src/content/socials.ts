@@ -9,10 +9,12 @@ export type Social = {
 
 export const resume = {
   path: "/resume.pdf",
+  /** Suggested filename for the browser download */
+  downloadName: "Siddharth-Kalyani-Resume.pdf",
   /** When PDF is missing, UI uses mailto with this subject */
   requestMailto:
-    "mailto:sidkalyani9@gmail.com?subject=Resume%20request%20 · %20Siddharth%20Kalyani",
-  exists: false, // set true when public/resume.pdf is added
+    "mailto:sidkalyani9@gmail.com?subject=Resume%20request%20-%20Siddharth%20Kalyani",
+  exists: true,
 } as const;
 
 export const socials: Social[] = [

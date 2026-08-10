@@ -29,7 +29,7 @@ export function ButtonLink({
   ...rest
 }: Common & {
   to: string;
-  download?: boolean;
+  download?: boolean | string;
 } & Omit<ComponentPropsWithoutRef<typeof Link>, "to" | "className">) {
   const external = to.startsWith("http") || to.startsWith("mailto:") || to.endsWith(".pdf");
   if (external) {

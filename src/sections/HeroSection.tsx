@@ -103,7 +103,11 @@ export function HeroSection() {
               </button>
             </Magnetic>
             <Magnetic strength={0.25}>
-              <ButtonLink to={resume.href} variant="outline">
+              <ButtonLink
+                to={resume.href}
+                variant="outline"
+                {...(resume.download ? { download: resume.download } : {})}
+              >
                 {resume.label}
               </ButtonLink>
             </Magnetic>

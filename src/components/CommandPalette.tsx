@@ -133,7 +133,17 @@ export function CommandPalette() {
         label: resume.isMailto ? "request resume via email" : "download resume",
         icon: FileText,
         run: () => {
-          window.open(resume.href, resume.isMailto ? "_self" : "_blank");
+          if (resume.isMailto) {
+            window.location.href = resume.href;
+          } else {
+            const a = document.createElement("a");
+            a.href = resume.href;
+            a.download = resume.download || "resume.pdf";
+            a.rel = "noopener";
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+          }
           setOpen(false);
         },
       },

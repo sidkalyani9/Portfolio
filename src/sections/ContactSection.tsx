@@ -56,7 +56,11 @@ export function ContactSection() {
               </ButtonLink>
             </Magnetic>
             <Magnetic strength={0.25}>
-              <ButtonLink to={resume.href} variant="ghost">
+              <ButtonLink
+                to={resume.href}
+                variant="ghost"
+                {...(resume.download ? { download: resume.download } : {})}
+              >
                 {resume.label}
               </ButtonLink>
             </Magnetic>

@@ -67,6 +67,9 @@ export function SiteFooter() {
             <a
               href={resume.href}
               className="text-sm text-fg-1 transition hover:text-accent"
+              {...(resume.download
+                ? { download: resume.download }
+                : {})}
             >
               {resume.label}
             </a>

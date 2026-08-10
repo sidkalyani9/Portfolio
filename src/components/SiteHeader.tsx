@@ -122,7 +122,7 @@ export function SiteHeader() {
             to={resume.href}
             variant="primary"
             className="!px-4 !py-2 text-xs md:text-sm"
-            {...(resume.isMailto ? {} : { download: true })}
+            {...(resume.download ? { download: resume.download } : {})}
           >
             {resume.label}
           </ButtonLink>
