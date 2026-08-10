@@ -142,17 +142,24 @@ export function ScrollProgressProvider({ children }: { children: ReactNode }) {
 
       s.progress += (t.progress - s.progress) * 0.08;
       s.y += (t.y - s.y) * 0.08;
-      s.journey += (t.journey - s.journey) * 0.1;
+      s.journey += (t.journey - s.journey) * 0.12;
 
       const maxLead = 0.04;
       if (s.journey > t.journey + maxLead) s.journey = t.journey + maxLead;
       if (s.journey < t.journey - maxLead) s.journey = t.journey - maxLead;
 
+      // Snap to end so the last graph node can fully activate
+      let journeyOut = Math.min(1, Math.max(0, s.journey));
+      if (t.journey >= 0.995 || t.progress >= 0.995) {
+        journeyOut = 1;
+        s.journey = 1;
+      }
+
       setValue({
         progress: s.progress,
         y: s.y,
         section: t.section,
-        journey: Math.min(1, Math.max(0, s.journey)),
+        journey: journeyOut,
         sectionIndex: t.sectionIndex,
         sectionLocal: t.sectionLocal,
         mode: modeRef.current,

@@ -85,6 +85,16 @@ function NodeMesh({
   );
 }
 
+/** Map continuous journey 0→1 onto node index 0…n-1 (last node activates at end). */
+export function activeIndexFromJourney(journey: number, n: number): number {
+  if (n <= 1) return 0;
+  const j = Math.min(1, Math.max(0, journey));
+  // At j === 1, floor((n-1)) would work, but values like 0.999 never reached n-1
+  // with the old 0.999 clamp. Treat the final sliver as the last node.
+  if (j >= 1 - 1e-4) return n - 1;
+  return Math.min(n - 1, Math.floor(j * (n - 1)));
+}
+
 function Edges({ journey, nodes }: { journey: number; nodes: GraphNode[] }) {
   const points = useMemo(
     () => nodes.map((n) => n.position as [number, number, number]),
@@ -95,7 +105,14 @@ function Edges({ journey, nodes }: { journey: number; nodes: GraphNode[] }) {
 
   useFrame(() => {
     if (!packet.current || nEdges < 1 || nodes.length < 2) return;
-    const f = Math.min(0.9999, Math.max(0, journey)) * nEdges;
+    const j = Math.min(1, Math.max(0, journey));
+    // Sit fully on the last node when journey completes
+    if (j >= 1 - 1e-4) {
+      const last = nodes[nodes.length - 1].position;
+      packet.current.position.set(last[0], last[1], last[2]);
+      return;
+    }
+    const f = j * nEdges;
     const i = Math.min(nEdges - 1, Math.floor(f));
     const local = f - i;
     const a = nodes[i].position;
@@ -137,8 +154,7 @@ export function NodeConstellation({
 }) {
   const group = useRef<THREE.Group>(null);
   const n = nodes.length;
-  const edgeT = Math.min(0.999, Math.max(0, journey)) * Math.max(1, n - 1);
-  const activeIndex = Math.min(n - 1, Math.floor(edgeT));
+  const activeIndex = activeIndexFromJourney(journey, n);
 
   useFrame((state) => {
     if (!group.current) return;
@@ -149,7 +165,7 @@ export function NodeConstellation({
   const offsetX = n <= 6 ? -0.6 : -0.4;
 
   return (
-    <group ref={group} position={[offsetX, 0, 0]} key={nodes.map((n) => n.id).join("|")}>
+    <group ref={group} position={[offsetX, 0, 0]} key={nodes.map((nd) => nd.id).join("|")}>
       <Edges journey={journey} nodes={nodes} />
       {nodes.map((node, i) => (
         <NodeMesh
@@ -157,7 +173,8 @@ export function NodeConstellation({
           node={node}
           index={i}
           active={i === activeIndex}
-          passed={i < activeIndex}
+          // last node when active is also "reached" (glow), not left dark
+          passed={i < activeIndex || (i === activeIndex && i === n - 1)}
         />
       ))}
       <pointLight position={[0, 2, 2]} intensity={1.15} color="#c77dff" distance={14} />

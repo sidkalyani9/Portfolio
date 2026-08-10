@@ -115,8 +115,17 @@ export function measureSectionJourney(
   const span = Math.max(1, bottoms[i] - tops[i]);
   const local = Math.min(1, Math.max(0, (cursor - tops[i]) / span));
 
-  const journey =
-    n === 1 ? local : Math.min(1, Math.max(0, (i + local) / (n - 1)));
+  // On the last section, progress through local so journey ends at 1 when
+  // the section is fully scrolled — last node can light up.
+  let journey: number;
+  if (n === 1) {
+    journey = local;
+  } else if (i >= n - 1) {
+    // map last section local 0→1 onto final node (journey → 1)
+    journey = Math.min(1, (n - 2 + local) / (n - 1));
+  } else {
+    journey = Math.min(1, Math.max(0, (i + local) / (n - 1)));
+  }
 
   return {
     journey,
