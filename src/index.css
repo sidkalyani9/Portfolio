@@ -271,6 +271,38 @@
   animation: scroll-cue 2.4s var(--ease-out-expo) infinite;
 }
 
+/* Journey packet pulse on the line */
+@keyframes journey-packet-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(199, 125, 255, 0.7);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(199, 125, 255, 1);
+    transform: scale(1.15);
+  }
+}
+
+.journey-packet {
+  animation: journey-packet-pulse 1.4s var(--ease-out-expo) infinite;
+}
+
+@keyframes journey-stage-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.journey-stage-card {
+  animation: journey-stage-in 0.42s var(--ease-out-expo) both;
+}
+
 /* Mobile glass: slightly denser so type stays crisp over particles */
 @media (max-width: 899px) {
   .glass {
