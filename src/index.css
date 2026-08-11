@@ -1,14 +1,357 @@
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");
-body {
-  margin: 0;
-  font-family: "Raleway", serif !important;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-image: linear-gradient(to left, rgb(27 20 41), rgb(20 15 35));
+@import "tailwindcss";
+
+@theme {
+  /* Violet Heritage — refined v1 purple soul, professional dark editorial */
+  --color-bg-0: #0a0712;
+  --color-bg-1: #120c1c;
+  --color-bg-2: #1b1428;
+  --color-fg-0: #f2eef8;
+  --color-fg-1: #a89bb8;
+  --color-fg-2: #7d7390;
+  --color-accent: #c77dff;
+  --color-accent-dim: color-mix(in oklab, #c77dff 16%, transparent);
+  --color-ink: #e8a0bf;
+  --color-ink-dim: color-mix(in oklab, #e8a0bf 14%, transparent);
+  --color-violet: #8b5cf6;
+  --color-border: rgba(242, 238, 248, 0.08);
+  --color-focus: #d8b4fe;
+  --font-display: "Instrument Serif", "Times New Roman", serif;
+  --font-sans: "Syne", system-ui, sans-serif;
+  --font-body: "Inter", "Geist", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+
+  /* Motion B — editorial balanced */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+@layer base {
+  html {
+    scroll-behavior: auto;
+    /* iOS rubber-band + dynamic viewport */
+    -webkit-text-size-adjust: 100%;
+  }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: var(--color-bg-0);
+    color: var(--color-fg-0);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    letter-spacing: -0.011em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* notch / home indicator */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 30%, transparent);
+    color: var(--color-fg-0);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+  }
+
+  .font-sans {
+    font-family: var(--font-sans);
+    letter-spacing: -0.03em;
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
+    letter-spacing: -0.01em;
+  }
+
+  /* Custom caret cursor takes over on fine pointers */
+  html.fx-cursor,
+  html.fx-cursor * {
+    cursor: none !important;
+  }
+}
+
+/* Blinking terminal caret */
+@keyframes caret-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  95% {
+    opacity: 0;
+  }
+}
+
+@utility caret-blink {
+  animation: caret-blink 1.1s steps(1) infinite;
+}
+
+/* Infinite marquee */
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility animate-marquee {
+  animation: marquee-x 36s linear infinite;
+}
+
+/* Status pulse dot — lilac accent */
+@keyframes pulse-dot {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(199, 125, 255, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(199, 125, 255, 0);
+  }
+}
+
+@utility status-dot {
+  animation: pulse-dot 2.6s var(--ease-out-expo) infinite;
+}
+
+@utility container-page {
+  width: min(1120px, calc(100% - 2 * clamp(16px, 5vw, 40px)));
+  margin-inline: auto;
+}
+
+@utility container-narrow {
+  width: min(38rem, calc(100% - 2 * clamp(16px, 5vw, 40px)));
+  margin-inline: auto;
+}
+
+@utility container-measure {
+  width: min(65ch, calc(100% - 2 * clamp(16px, 5vw, 40px)));
+  margin-inline: auto;
+}
+
+@utility section-y {
+  padding-block: clamp(4.25rem, 12vh, 10rem);
+  /* clear fixed header (desktop ~4.25rem bar) */
+  scroll-margin-top: calc(5.25rem + env(safe-area-inset-top));
+}
+
+/* Mobile: clear h-14 header + safe area; room for bottom journey HUD */
+@media (max-width: 899px) {
+  .section-y {
+    /* extra top so titles never sit under the sticky nav */
+    padding-top: max(5.75rem, calc(env(safe-area-inset-top) + 5rem));
+    padding-bottom: clamp(3.5rem, 10vh, 6rem);
+    scroll-margin-top: max(5.25rem, calc(env(safe-area-inset-top) + 4.5rem));
+  }
+
+  /* leave room so last content isn't under the bottom HUD */
+  main#main {
+    padding-bottom: 5.5rem;
+  }
+}
+
+@utility prose-editorial {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--color-fg-1);
+  max-width: 65ch;
+}
+
+@utility prose-editorial-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--color-fg-0);
+  letter-spacing: -0.02em;
+}
+
+@utility grain {
+  position: relative;
+}
+
+.grain::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  opacity: 0.034;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* Glass panels — soft over the violet world (no hard section bands) */
+@utility glass {
+  border: 1px solid rgba(242, 238, 248, 0.08);
+  background: rgba(18, 12, 28, 0.48);
+  backdrop-filter: blur(18px) saturate(1.15);
+  -webkit-backdrop-filter: blur(18px) saturate(1.15);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+}
+
+@utility glass-strong {
+  border: 1px solid rgba(242, 238, 248, 0.09);
+  background: rgba(10, 7, 18, 0.55);
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* Soft ambient veil — no hard top/bottom edges (seamless scroll) */
+@utility section-wash {
+  background: transparent;
+}
+
+/* Soft editorial hairline — never a hard full-width section cut */
+.rule {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(242, 238, 248, 0.08),
+    transparent
+  );
+}
+
+/* Hero scroll cue — soft breathing line */
+@keyframes scroll-cue {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scaleY(0.75);
+    transform-origin: top;
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+}
+
+.scroll-cue-line {
+  animation: scroll-cue 2.4s var(--ease-out-expo) infinite;
+}
+
+/* Journey packet pulse on the line */
+@keyframes journey-packet-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(199, 125, 255, 0.7);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(199, 125, 255, 1);
+    transform: scale(1.15);
+  }
+}
+
+.journey-packet {
+  animation: journey-packet-pulse 1.4s var(--ease-out-expo) infinite;
+}
+
+@keyframes journey-stage-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.journey-stage-card {
+  animation: journey-stage-in 0.42s var(--ease-out-expo) both;
+}
+
+/* Mobile glass: slightly denser so type stays crisp over particles */
+@media (max-width: 899px) {
+  .glass {
+    background: rgba(18, 12, 28, 0.62);
+    backdrop-filter: blur(20px) saturate(1.2);
+    -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  }
+
+  .glass-strong {
+    background: rgba(10, 7, 18, 0.68);
+  }
+
+  /* Prefer larger touch targets; kill sticky hover ghosts on iOS */
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .scroll-cue-line {
+    animation: none;
+    opacity: 0.7;
+  }
+}
+
+@media (min-width: 1024px) {
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg-0);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #252833;
+    border-radius: 999px;
+    border: 2px solid var(--color-bg-0);
+  }
 }
