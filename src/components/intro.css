@@ -1,0 +1,54 @@
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 160;
+  overflow: hidden;
+  color: #eeeae5;
+  touch-action: none;
+  cursor: default;
+}
+
+.intro-curtain {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: calc(50% + 1px);
+  background: #0d0a12;
+  will-change: transform;
+}
+
+.intro-curtain--top { top: 0; }
+.intro-curtain--bottom { bottom: 0; }
+
+.intro-aperture-name {
+  position: absolute;
+  bottom: calc(50% + clamp(44px, 7vh, 80px));
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0 24px;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  text-align: center;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.intro-aperture-seam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: #d8c8e2;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-overlay { display: none; }
+}
