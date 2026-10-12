@@ -47,6 +47,7 @@
   opacity: 0;
   transform: scaleX(0);
   transform-origin: center;
+  will-change: transform, opacity;
 }
 
 /* Preserve italic overhang without changing the hero's spacing or layout. */

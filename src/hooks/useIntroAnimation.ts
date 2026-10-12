@@ -1,12 +1,11 @@
 import { useLayoutEffect, useRef } from "react";
-import gsap from "gsap";
 import { useIntroControls } from "@/components/Boot";
 
 export type IntroAnimation = (
-  timeline: gsap.core.Timeline,
   root: HTMLDivElement,
   reveal: () => void,
-) => void;
+  finish: () => void,
+) => () => void;
 
 /** Shared lifecycle: font readiness, cancellation, input locking and a bounded wait. */
 export function useIntroAnimation(animate: IntroAnimation) {
@@ -19,9 +18,9 @@ export function useIntroAnimation(animate: IntroAnimation) {
 
     let cancelled = false;
     let fontTimeout: number | undefined;
+    let disposeAnimation: (() => void) | undefined;
     const previousOverflow = document.documentElement.style.overflow;
     document.documentElement.style.overflow = "hidden";
-    const context = gsap.context(() => {}, root);
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const finishNow = () => {
@@ -53,10 +52,7 @@ export function useIntroAnimation(animate: IntroAnimation) {
         finishNow();
         return;
       }
-      context.add(() => {
-        const timeline = gsap.timeline({ onComplete: finishNow });
-        animate(timeline, root, reveal);
-      });
+      disposeAnimation = animate(root, reveal, finishNow);
     });
 
     return () => {
@@ -66,7 +62,7 @@ export function useIntroAnimation(animate: IntroAnimation) {
       document.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("resize", finishNow);
       reduced.removeEventListener("change", onMotionChange);
-      context.revert();
+      disposeAnimation?.();
       document.documentElement.style.overflow = previousOverflow;
     };
   }, [visible, reveal, finish, animate]);
