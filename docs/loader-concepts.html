@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Three entrances — Siddharth Kalyani</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: dark; --paper: #eeeae5; --muted: #a59fa9; --line: #ffffff20; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #111013; color: var(--paper); font: 14px/1.6 Inter, sans-serif; -webkit-font-smoothing: antialiased; }
+    button, input { font: inherit; }
+    button { color: inherit; cursor: pointer; }
+    button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid #d2bbeb; outline-offset: 5px; }
+    a { color: inherit; text-underline-offset: 4px; }
+    .page { max-width: 1200px; padding: 36px 40px 48px; margin: auto; }
+    .masthead { display: flex; justify-content: space-between; gap: 24px; border-bottom: 1px solid var(--line); padding-bottom: 18px; color: var(--muted); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+    .intro { margin: 32px 0 28px; display: flex; justify-content: space-between; align-items: end; gap: 32px; }
+    h1 { margin: 0; font: 400 clamp(36px, 5vw, 62px)/1.05 'Instrument Serif', Georgia, serif; letter-spacing: -.025em; }
+    h1 em { color: #c8b5d7; font-weight: 400; }
+    .intro p { max-width: 320px; color: var(--muted); margin: 0; font-size: 13px; }
+    .controls { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 18px; }
+    .choices { display: flex; gap: 6px; flex-wrap: wrap; }
+    .choice { background: transparent; border: 1px solid transparent; padding: 10px 14px; color: var(--muted); border-radius: 3px; text-align: left; }
+    .choice[aria-pressed="true"] { color: var(--paper); border-color: #ffffff30; background: #ffffff06; }
+    .choice span { margin-right: 9px; opacity: .5; font-size: 10px; }
+    .playback { display: flex; align-items: center; gap: 20px; flex-shrink: 0; }
+    .playback label { color: var(--muted); font-size: 12px; display: flex; align-items: center; gap: 6px; }
+    input { accent-color: #c8b5d7; }
+    .replay { border: 0; background: none; padding: 10px 0; }
+    .replay span { margin-right: 8px; }
+    .stage { container-type: inline-size; position: relative; isolation: isolate; aspect-ratio: 16/9; background: #0a0712; overflow: hidden; border: 1px solid #ffffff18; }
+    .stage.fullscreen { aspect-ratio: auto; width: 100%; height: 100%; border: 0; }
+    .hero { position: absolute; inset: 0; background: #0a0712; overflow: hidden; }
+    .atmosphere { position: absolute; inset: -20%; background: radial-gradient(ellipse at 78% 68%, #67488750, transparent 37%), radial-gradient(ellipse at 72% 35%, #9a819d1f, transparent 30%); }
+    .orb { width: 36cqw; height: 36cqw; position: absolute; top: 17%; right: -4%; border-radius: 50%; background: radial-gradient(circle at 22% 25%, #bc9cc327, #70447a16 38%, #100c1800 68%); box-shadow: inset 1px 1px 0 #d9b8e826, inset -2px -2px 40px #42265515; transform: rotate(-30deg); }
+    .hero-header { display: flex; position: absolute; top: 6%; left: 5%; right: 5%; align-items: center; justify-content: space-between; font-size: max(9px, 1cqw); }
+    .identity { display: flex; align-items: center; gap: 12px; }
+    .mark-target { width: 3cqw; height: 3cqw; min-width: 22px; min-height: 22px; }
+    .header-name { font-size: max(10px, 1.05cqw); }
+    .hero-nav { display: flex; gap: 2.5cqw; color: #a89bb8; }
+    .hero-content { position: absolute; top: 31%; left: 9%; width: 78%; }
+    .eyebrow { color: #b5a9c1; font-size: max(8px, .8cqw); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 2cqw; }
+    .hero-name { margin: 0; font: 400 9.7cqw/.9 'Instrument Serif', Georgia, serif; letter-spacing: -.035em; }
+    .hero-name em { color: #cfb5e2; font-weight: 400; }
+    .hero-description { font-size: max(10px, 1.1cqw); color: #b7acbf; max-width: 32em; margin: 2.5cqw 0 0; }
+    .hero-bottom { position: absolute; left: 9%; right: 5%; bottom: 6%; display: flex; justify-content: space-between; font-size: max(8px, .8cqw); color: #9c90ab; }
+    .overlay { position: absolute; inset: 0; z-index: 3; background: #0d0a12; }
+    .signature { position: absolute; left: 0; right: 0; top: 39%; text-align: center; }
+    .mask { overflow: hidden; padding-bottom: .1em; }
+    .signature-word { font: 400 5.6cqw/1.15 'Instrument Serif', Georgia, serif; letter-spacing: -.025em; }
+    .signature-word em { color: #cfbddb; font-weight: 400; }
+    .signature-rule { position: absolute; left: 46%; top: 66%; width: 8%; height: 1px; background: #b49bc9; transform-origin: left; }
+    .monogram { position: absolute; z-index: 4; top: 50%; left: 50%; font: 400 10cqw/1 'Instrument Serif', Georgia, serif; letter-spacing: -.13em; width: 12cqw; transform: translate(-50%, -50%); transform-origin: left top; }
+    .monogram em { font-weight: 400; }
+    .mono-caption { position: absolute; z-index: 4; left: 0; right: 0; top: 69%; font-size: max(8px, .75cqw); text-align: center; text-transform: uppercase; letter-spacing: .22em; color: #ac9fb5; }
+    .curtain { position: absolute; left: 0; right: 0; height: 50.1%; z-index: 3; background: #0d0a12; }
+    .curtain.top { top: 0; }
+    .curtain.bottom { bottom: 0; }
+    .aperture-name { position: absolute; z-index: 4; width: 100%; top: 34%; text-align: center; font: 400 3.5cqw/1.2 'Instrument Serif', Georgia, serif; }
+    .aperture-line { position: absolute; top: 50%; left: 0; right: 0; height: 1px; z-index: 4; background: #d8c8e2; }
+    .stage-tools { margin: 9px 0 0; display: flex; justify-content: space-between; gap: 20px; color: #8f8997; font-size: 11px; }
+    .fullscreen-button { color: #bfb7c8; border: 0; background: transparent; padding: 0; font-size: 11px; }
+    .details { display: grid; grid-template-columns: 1.1fr 1.2fr 1fr; gap: 40px; border-bottom: 1px solid var(--line); padding: 28px 0 30px; }
+    .details h2 { font: 400 30px/1.1 'Instrument Serif', Georgia, serif; margin: 7px 0 9px; }
+    .details p { color: var(--muted); font-size: 12px; margin: 7px 0 0; }
+    .label { font-size: 10px; letter-spacing: .11em; text-transform: uppercase; color: #c8b5d7; }
+    .details a { color: #d4cadc; }
+    .footnote { color: #8f8997; font-size: 11px; margin: 18px 0 0; max-width: 85em; }
+    @media (max-width: 760px) {
+      .page { padding: 22px 20px 32px; }
+      .masthead { font-size: 9px; }
+      .intro { display: block; margin: 28px 0 20px; }
+      .intro p { margin-top: 14px; max-width: 440px; }
+      .controls { display: block; }
+      .choices { gap: 0; }
+      .choice { padding: 9px 10px; font-size: 12px; }
+      .playback { margin-top: 10px; justify-content: space-between; }
+      .stage { aspect-ratio: 4/5; }
+      .hero-content { top: 34%; }
+      .hero-name { font-size: 15cqw; }
+      .hero-description { max-width: 24em; font-size: 11px; margin-top: 6cqw; }
+      .hero-nav { gap: 12px; }
+      .hero-nav span:last-child { display: none; }
+      .orb { width: 75cqw; height: 75cqw; right: -30%; top: 25%; }
+      .signature { top: 43%; }
+      .signature-word { font-size: 8cqw; }
+      .signature-rule { top: 60%; left: 43%; width: 14%; }
+      .monogram { font-size: 19cqw; width: 23cqw; }
+      .mono-caption { top: 62%; }
+      .aperture-name { font-size: 6cqw; top: 38%; }
+      .details { grid-template-columns: 1fr; gap: 22px; }
+      .details p { font-size: 13px; }
+      .stage-tools { font-size: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="masthead"><span>Siddharth Kalyani</span><span>Loader studies · October 2026</span></div>
+    <div class="intro">
+      <h1>A considered <em>first impression.</em></h1>
+      <p>Three entrances in your existing palette and typeface. Select a direction, then replay it to feel the transition.</p>
+    </div>
+    <div class="controls">
+      <div class="choices" role="group" aria-label="Loader direction">
+        <button class="choice" data-concept="signature" aria-pressed="true"><span>01</span>Signature</button>
+        <button class="choice" data-concept="monogram" aria-pressed="false"><span>02</span>Monogram</button>
+        <button class="choice" data-concept="aperture" aria-pressed="false"><span>03</span>Aperture</button>
+      </div>
+      <div class="playback">
+        <label><input id="slow" type="checkbox"> Half speed</label>
+        <button class="replay" id="replay"><span aria-hidden="true">↻</span> Replay</button>
+      </div>
+    </div>
+    <div class="stage" id="stage" role="img" aria-label="Animated loader concept leading into a simplified portfolio homepage"></div>
+    <div class="stage-tools"><span id="motion-status" role="status">Concept preview · simplified homepage</span><button class="fullscreen-button" id="fullscreen">View full screen ↗</button></div>
+    <div class="details" aria-live="polite">
+      <div><span class="label" id="positioning"></span><h2 id="title"></h2><p id="summary"></p></div>
+      <div><span class="label">The motion</span><p id="motion"></p></div>
+      <div><span class="label">Research reference</span><p id="reference"></p></div>
+    </div>
+    <p class="footnote">Original motion proposals, informed by the linked case studies. These previews demonstrate choreography, not download progress. For the finished site: reveal as soon as ready, skip repeat intros within a session, and use a static entrance for reduced motion. The homepage here is a simplified backdrop for comparison.</p>
+  </main>
+  <template id="hero-template">
+    <div class="hero">
+      <div class="atmosphere"></div><div class="orb"></div>
+      <div class="hero-header"><div class="identity"><div class="mark-target" hidden></div><span class="header-name">Siddharth Kalyani</span></div><div class="hero-nav"><span>Work</span><span>About</span><span>Contact</span></div></div>
+      <div class="hero-content"><div class="eyebrow">AI &amp; Forward-Deployed Engineer</div><div class="hero-name">Siddharth<br><em>Kalyani</em></div><p class="hero-description">I architect and ship production LLM systems.<br>Currently at Argusoft.</p></div>
+      <div class="hero-bottom"><span>Ahmedabad, India · Available worldwide</span><span>Selected work ↓</span></div>
+    </div>
+  </template>
+  <script>
+    const stage = document.querySelector('#stage');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const concepts = {
+      signature: {
+        title: 'The editorial signature', positioning: '01 · Recommended · 1.65 seconds',
+        summary: 'Quiet, assured and personal. The strongest fit for the Instrument Serif typography already on your site.',
+        motion: 'Your name rises through a fine mask as one phrase. A short rule draws underneath. The name recedes as a single dark curtain lifts, with the homepage already moving into place.',
+        reference: '<a href="https://www.awwwards.com/exo-ape-wins-site-of-the-month-may-2022.html" target="_blank" rel="noopener noreferrer">Exo Ape — Awwwards Site of the Month</a><br>Their case study explains the emphasis on timeless art direction, carefully tuned easing and seamless transitions. This is our own typographic application of those principles.'
+      },
+      monogram: {
+        title: 'The moving monogram', positioning: '02 · Most personal · 1.60 seconds',
+        summary: 'A compact SK mark becomes the anchor of the page. Best if you want to introduce a lasting personal identity in the header.',
+        motion: 'A serif SK resolves at the center, rests briefly, then scales and travels to its permanent position beside your name. The homepage emerges around it in the same movement.',
+        reference: '<a href="https://www.commarts.com/project/37548/aim-ai-modernism-of-kharkiv" target="_blank" rel="noopener noreferrer">AIM by Obys — Awwwards Site of the Month</a><br>The designers describe a preloader that transitions into the logo and onward into the page. We borrow the continuity principle; the SK design and motion are original.'
+      },
+      aperture: {
+        title: 'The opening aperture', positioning: '03 · Most cinematic · 1.55 seconds',
+        summary: 'A composed opening for the existing dark, atmospheric homepage. The reveal itself is the main event.',
+        motion: 'A fine horizontal seam expands beneath your name. Two dark panels glide apart, exposing the homepage from the center outward while its typography settles into position.',
+        reference: '<a href="https://www.awwwards.com/exo-ape-wins-site-of-the-month-may-2022.html" target="_blank" rel="noopener noreferrer">Exo Ape — motion and transitions case study</a><br>The useful principle is a continuous transition with deliberate easing. This two-panel aperture is an original proposal for your site, not a recreation of their loader.'
+      }
+    };
+    let current = 'signature';
+    let animations = [];
+    let generation = 0;
+    function animate(el, frames, duration, delay = 0, easing = 'cubic-bezier(.22,1,.36,1)', fill = 'both') {
+      const rate = document.querySelector('#slow').checked ? 2 : 1;
+      const animation = el.animate(frames, { duration: duration * rate, delay: delay * rate, easing, fill });
+      animations.push(animation);
+      return animation;
+    }
+    function add(className, html = '') {
+      const el = document.createElement('div'); el.className = className; el.innerHTML = html; stage.append(el); return el;
+    }
+    function play() {
+      const run = ++generation;
+      animations.forEach(a => a.cancel()); animations = [];
+      stage.replaceChildren(document.querySelector('#hero-template').content.cloneNode(true));
+      const data = concepts[current];
+      for (const key of ['title', 'positioning', 'summary', 'motion']) document.getElementById(key).textContent = data[key];
+      document.querySelector('#reference').innerHTML = data.reference;
+      document.querySelectorAll('.choice').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.concept === current)));
+      document.querySelector('#motion-status').textContent = reduced.matches ? 'Reduced motion · static homepage' : 'Concept preview · simplified homepage';
+      if (reduced.matches) return;
+      const hero = stage.querySelector('.hero');
+      const content = stage.querySelector('.hero-content');
+      if (current === 'signature') {
+        const cover = add('overlay');
+        cover.innerHTML = '<div class="signature"><div class="mask"><div class="signature-word">Siddharth <em>Kalyani</em></div></div></div><div class="signature-rule"></div>';
+        animate(cover.querySelector('.signature-word'), [{ transform: 'translateY(112%)' }, { transform: 'translateY(0)' }], 720, 50);
+        animate(cover.querySelector('.signature-rule'), [{ transform: 'scaleX(0)', opacity: 0 }, { transform: 'scaleX(1)', opacity: .65 }], 650, 240);
+        animate(cover.querySelector('.signature'), [{ opacity: 1, transform: 'translateY(0)' }, { opacity: 0, transform: 'translateY(-16px)' }], 300, 830);
+        animate(cover.querySelector('.signature-rule'), [{ opacity: .65 }, { opacity: 0 }], 200, 850, 'ease-out', 'forwards');
+        animate(cover, [{ transform: 'translateY(0)' }, { transform: 'translateY(-100%)' }], 750, 900, 'cubic-bezier(.76,0,.24,1)');
+        animate(hero, [{ transform: 'translateY(22px)' }, { transform: 'translateY(0)' }], 750, 900);
+        animate(content, [{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'translateY(0)' }], 620, 1030);
+      } else if (current === 'monogram') {
+        stage.querySelector('.mark-target').hidden = false;
+        const cover = add('overlay');
+        const mark = add('monogram', 'S<em>K</em>');
+        const caption = add('mono-caption', 'Siddharth Kalyani');
+        animate(mark, [{ opacity: 0, clipPath: 'inset(100% 0 0 0)' }, { opacity: 1, clipPath: 'inset(0% 0 0 0)' }], 620);
+        animate(caption, [{ opacity: 0 }, { opacity: 1 }], 450, 220);
+        animate(caption, [{ opacity: 1 }, { opacity: 0 }], 240, 660, 'ease-out', 'forwards');
+        const target = stage.querySelector('.mark-target').getBoundingClientRect();
+        const bounds = stage.getBoundingClientRect();
+        const scale = target.width / mark.offsetWidth;
+        const targetX = target.left - bounds.left - stage.clientLeft;
+        const targetY = target.top - bounds.top - stage.clientTop;
+        animate(mark, [{ left: '50%', top: '50%', transform: 'translate(-50%, -50%) scale(1)' }, { left: targetX + 'px', top: targetY + 'px', transform: 'translate(0, 0) scale(' + scale + ')' }], 820, 780, 'cubic-bezier(.76,0,.24,1)');
+        animate(cover, [{ opacity: 1 }, { opacity: 0 }], 700, 850);
+        animate(hero, [{ opacity: 0 }, { opacity: 1 }], 650, 900);
+        animate(content, [{ transform: 'translateY(18px)' }, { transform: 'translateY(0)' }], 700, 900);
+      } else {
+        const top = add('curtain top'); const bottom = add('curtain bottom');
+        const name = add('aperture-name', 'Siddharth Kalyani'); const line = add('aperture-line');
+        animate(name, [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }], 480, 30);
+        animate(name, [{ opacity: 1 }, { opacity: 0 }], 220, 630, 'ease-out', 'forwards');
+        animate(line, [{ transform: 'scaleX(0)', opacity: 0 }, { transform: 'scaleX(.16)', opacity: .6 }], 560, 60);
+        animate(line, [{ transform: 'scaleX(.16)', opacity: .6 }, { transform: 'scaleX(1)', opacity: 0 }], 520, 650, 'cubic-bezier(.65,0,.35,1)', 'forwards');
+        animate(top, [{ transform: 'translateY(0)' }, { transform: 'translateY(-100%)' }], 900, 650, 'cubic-bezier(.76,0,.24,1)');
+        animate(bottom, [{ transform: 'translateY(0)' }, { transform: 'translateY(100%)' }], 900, 650, 'cubic-bezier(.76,0,.24,1)');
+        animate(hero, [{ transform: 'scale(1.025)' }, { transform: 'scale(1)' }], 900, 650);
+        animate(content, [{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'translateY(0)' }], 600, 900);
+      }
+      Promise.all(animations.map(a => a.finished)).then(() => {
+        if (run === generation) document.querySelector('#motion-status').textContent = 'Preview complete · replay to compare';
+      }).catch(() => {});
+    }
+    document.querySelectorAll('.choice').forEach(button => button.addEventListener('click', () => { current = button.dataset.concept; play(); }));
+    document.querySelector('#replay').addEventListener('click', play);
+    document.querySelector('#slow').addEventListener('change', play);
+    const fullscreenButton = document.querySelector('#fullscreen');
+    if (!document.fullscreenEnabled) fullscreenButton.hidden = true;
+    fullscreenButton.addEventListener('click', async () => {
+      try { await stage.requestFullscreen(); } catch { document.querySelector('#motion-status').textContent = 'Full screen is unavailable in this browser'; }
+    });
+    document.addEventListener('fullscreenchange', () => { stage.classList.toggle('fullscreen', document.fullscreenElement === stage); play(); });
+    let resizeTimer;
+    window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(play, 180); });
+    reduced.addEventListener('change', play);
+    // A font request must never prevent these concept previews from becoming usable.
+    Promise.race([document.fonts.ready, new Promise(resolve => setTimeout(resolve, 1200))]).then(play);
+  </script>
+</body>
+</html>

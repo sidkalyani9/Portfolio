@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { BootPreloader } from "@/components/BootPreloader";
-import { BootProvider } from "@/components/Boot";
+import { BootProvider, IntroContent } from "@/components/Boot";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { CommandPalette } from "@/components/CommandPalette";
 import { PageWipe } from "@/components/PageWipe";
@@ -29,22 +29,24 @@ export default function App() {
       <BootProvider>
         <PageWipe>
           <SmoothScroll>
+            <BootPreloader />
             <CinematicShell>
-              <div className="grain min-h-screen bg-transparent text-fg-0">
-                <BootPreloader />
-                <CustomCursor />
-                <Konami />
-                <SiteHeader />
-                <ScrollToTop />
-                <main id="main">
-                  <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/work/:slug" element={<CaseStudyPage />} />
-                  </Routes>
-                </main>
-                <SiteFooter />
-              </div>
-              <CommandPalette />
+              <IntroContent>
+                <div className="grain min-h-screen bg-transparent text-fg-0">
+                  <CustomCursor />
+                  <Konami />
+                  <SiteHeader />
+                  <ScrollToTop />
+                  <main id="main">
+                    <Routes>
+                      <Route path="/" element={<HomePage />} />
+                      <Route path="/work/:slug" element={<CaseStudyPage />} />
+                    </Routes>
+                  </main>
+                  <SiteFooter />
+                </div>
+                <CommandPalette />
+              </IntroContent>
             </CinematicShell>
           </SmoothScroll>
         </PageWipe>

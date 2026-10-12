@@ -4,6 +4,7 @@ import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { DUR, EASE_OUT_EXPO } from "@/lib/motion";
 import { cn } from "@/lib/cn";
+import { useIntroControls } from "@/components/Boot";
 
 type CursorState = "default" | "link" | "view" | "text";
 
@@ -13,7 +14,8 @@ type CursorState = "default" | "link" | "view" | "text";
 export function CustomCursor() {
   const reduced = usePrefersReducedMotion();
   const fine = useMediaQuery("(pointer: fine)");
-  const active = fine && !reduced;
+  const { introVisible } = useIntroControls();
+  const active = fine && !reduced && !introVisible;
 
   const rootRef = useRef<HTMLDivElement>(null);
   const [state, setState] = useState<CursorState>("default");
