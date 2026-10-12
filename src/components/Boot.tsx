@@ -4,6 +4,7 @@ import { rememberIntro, shouldPlayIntro } from "@/lib/intro";
 type BootContextValue = {
   booted: boolean;
   introVisible: boolean;
+  titleInIntro: boolean;
   reveal: () => void;
   finish: () => void;
 };
@@ -11,12 +12,14 @@ type BootContextValue = {
 const BootContext = createContext<BootContextValue>({
   booted: false,
   introVisible: false,
+  titleInIntro: false,
   reveal: () => {},
   finish: () => {},
 });
 
 export function BootProvider({ children }: { children: ReactNode }) {
   const [introVisible, setIntroVisible] = useState(shouldPlayIntro);
+  const [titleInIntro] = useState(introVisible);
   const [booted, setBooted] = useState(!introVisible);
   const reveal = useCallback(() => setBooted(true), []);
   const finish = useCallback(() => {
@@ -25,8 +28,8 @@ export function BootProvider({ children }: { children: ReactNode }) {
     setIntroVisible(false);
   }, []);
   const value = useMemo(
-    () => ({ booted, introVisible, reveal, finish }),
-    [booted, introVisible, reveal, finish],
+    () => ({ booted, introVisible, titleInIntro, reveal, finish }),
+    [booted, introVisible, titleInIntro, reveal, finish],
   );
   return <BootContext.Provider value={value}>{children}</BootContext.Provider>;
 }

@@ -1,4 +1,4 @@
-export const INTRO_STORAGE_KEY = "portfolio:intro:aperture:v1";
+export const INTRO_STORAGE_KEY = "portfolio:intro:aperture-title:v1";
 
 /** Only introduce the homepage once per tab; local reviews can explicitly replay. */
 export function shouldPlayIntro() {

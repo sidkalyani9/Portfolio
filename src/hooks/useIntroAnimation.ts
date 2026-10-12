@@ -41,14 +41,20 @@ export function useIntroAnimation(animate: IntroAnimation) {
     const fonts = Promise.allSettled([
       document.fonts.load('400 64px "Instrument Serif"'),
       document.fonts.load('italic 400 64px "Instrument Serif"'),
-    ]);
-    const boundedWait = new Promise<void>((resolve) => {
-      fontTimeout = window.setTimeout(resolve, 900);
+      document.fonts.load('400 16px "Inter"'),
+      document.fonts.load('400 14px "IBM Plex Mono"'),
+      document.fonts.load('600 14px "Syne"'),
+      document.fonts.ready,
+    ]).then(() => true);
+    const boundedWait = new Promise<boolean>((resolve) => {
+      fontTimeout = window.setTimeout(() => resolve(false), 900);
     });
-    void Promise.race([fonts, boundedWait]).then(() => {
+    void Promise.race([fonts, boundedWait]).then((fontsReady) => {
       window.clearTimeout(fontTimeout);
       if (cancelled) return;
-      if (reduced.matches) {
+      // A late font swap would move the measured hero destination. Release the
+      // page instead of animating toward unstable text on a slow connection.
+      if (!fontsReady || reduced.matches) {
         finishNow();
         return;
       }

@@ -17,6 +17,8 @@ type Props = {
   onScroll?: boolean;
   delay?: number;
   stagger?: number;
+  /** The introduction already animates these letters; leave the destination still. */
+  skipEntrance?: boolean;
 };
 
 /**
@@ -30,6 +32,7 @@ export function SplitText({
   onScroll = false,
   delay = 0,
   stagger = STAGGER.char,
+  skipEntrance = false,
 }: Props) {
   const ref = useRef<HTMLElement>(null);
   const reduced = usePrefersReducedMotion();
@@ -39,7 +42,7 @@ export function SplitText({
     const el = ref.current;
     if (!el) return;
     const chars = el.querySelectorAll<HTMLElement>("[data-char]");
-    if (reduced) {
+    if (reduced || skipEntrance) {
       gsap.set(chars, { yPercent: 0 });
       return;
     }
@@ -68,7 +71,7 @@ export function SplitText({
     }
     if (start) play();
     return undefined;
-  }, [reduced, start, onScroll, delay, stagger, text]);
+  }, [reduced, start, onScroll, delay, stagger, text, skipEntrance]);
 
   const words = text.split(" ");
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
