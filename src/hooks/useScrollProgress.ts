@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { useLocation } from "react-router-dom";
+import { useBooted } from "@/components/Boot";
 import {
   CASE_STUDY_GRAPH_NODES,
   GRAPH_SECTION_IDS,
@@ -58,6 +59,7 @@ const ScrollProgressContext = createContext<ScrollProgressValue>({
  * Switches topology when leaving the home page for a case study.
  */
 export function ScrollProgressProvider({ children }: { children: ReactNode }) {
+  const booted = useBooted();
   const { pathname } = useLocation();
   const mode = graphModeFromPath(pathname);
   const nodes = useMemo(() => nodesForMode(mode), [mode]);
@@ -110,6 +112,9 @@ export function ScrollProgressProvider({ children }: { children: ReactNode }) {
   }, [mode, nodes, pathname]);
 
   useEffect(() => {
+    // Scrolling is locked behind the loader. Avoid publishing identical scroll
+    // state every frame and repeatedly rendering the covered hero and 3D scene.
+    if (!booted) return;
     let raf = 0;
     let alive = true;
 
@@ -183,7 +188,7 @@ export function ScrollProgressProvider({ children }: { children: ReactNode }) {
       window.removeEventListener("scroll", measure);
       window.removeEventListener("resize", measure);
     };
-  }, [pathname, mode]);
+  }, [pathname, mode, booted]);
 
   const memo = useMemo(() => value, [value]);
   return createElement(ScrollProgressContext.Provider, { value: memo }, children);

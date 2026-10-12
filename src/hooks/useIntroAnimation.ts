@@ -36,7 +36,7 @@ export function useIntroAnimation(animate: IntroAnimation) {
     window.addEventListener("resize", finishNow);
     reduced.addEventListener("change", onMotionChange);
     // Even failed fonts or a paused animation must release the content.
-    const deadline = window.setTimeout(finishNow, 3400);
+    const deadline = window.setTimeout(finishNow, 4400);
 
     const fonts = Promise.allSettled([
       document.fonts.load('400 64px "Instrument Serif"'),

@@ -1,11 +1,10 @@
 import { useIntroAnimation, type IntroAnimation } from "@/hooks/useIntroAnimation";
+import { CSS_EASE_OUT_EXPO } from "@/lib/motion";
 import "./intro.css";
 
-const OPEN_AT = 650;
-const OPEN_DURATION = 900;
-const UNFOLD_AT = OPEN_AT + 180;
-const COMPLETE_AT = OPEN_AT + OPEN_DURATION;
-const EASE_OUT = "cubic-bezier(0.22, 1, 0.36, 1)";
+const OPEN_AT = 1550;
+const OPEN_DURATION = 1100;
+const EASE_LINE = "cubic-bezier(0.45, 0, 0.55, 1)";
 const EASE_OPEN = "cubic-bezier(0.76, 0, 0.24, 1)";
 
 const animateAperture: IntroAnimation = (root, reveal, finish) => {
@@ -51,47 +50,63 @@ const animateAperture: IntroAnimation = (root, reveal, finish) => {
       fontStyle: style.fontStyle, lineHeight: style.lineHeight,
       letterSpacing: style.letterSpacing, textTransform: style.textTransform,
       color: style.color, filter: "none", transformOrigin: "0 0",
-      willChange: "transform, opacity",
+      willChange: "transform",
     });
     word.querySelectorAll<HTMLElement>("[data-char]").forEach((char) => {
-      // One composited layer per word; individual letters are static here.
-      char.style.transform = "none";
-      char.style.willChange = "auto";
+      char.style.transform = "translate3d(0, 112%, 0)";
     });
     return word;
   });
   stage.replaceChildren(...words);
 
-  // All five animations share the browser's clock. No per-frame JavaScript or
-  // layout reads compete with initial page/scene work during the handoff.
+  // Both the letter rise and the word travel run on the browser's clock.
+  // Build the path once; no per-frame JavaScript or layout reads are needed.
   const startTime = document.timeline.currentTime;
+  const letterAnimations: Animation[] = [];
   const nameAnimations = words.map((word, index) => {
     const x = startX + (index === 0 ? 0 : (metrics[0].textWidth + gap) * scale);
     const compact = `translate3d(${x}px, ${startY}px, 0) scale(${scale})`;
-    // Give the words their own rows before they grow and converge horizontally.
-    // This keeps the final H and first K from crossing during the single-line
-    // to two-line transition, while the aperture begins to open beneath them.
-    const unfoldY = startY + (index === 0 ? -0.5 : 0.5)
-      * (metrics[0].rect.height + 4) * scale;
+    word.style.transform = compact;
+    word.querySelectorAll<HTMLElement>("[data-char]").forEach((char, charIndex) => {
+      const rise = char.animate([
+        { transform: "translate3d(0, 112%, 0)" },
+        { transform: "translate3d(0, 0, 0)" },
+      ], {
+        duration: 1050,
+        delay: (index === 0 ? 50 : 210) + charIndex * 45,
+        easing: CSS_EASE_OUT_EXPO,
+        fill: "both",
+      });
+      rise.id = `intro-letter-${index}-${charIndex}`;
+      letterAnimations.push(rise);
+    });
+
     const { rect } = metrics[index];
-    const animation = word.animate([
-      { offset: 0, opacity: 0, transform: `translate3d(${x}px, ${startY + 8}px, 0) scale(${scale})` },
-      { offset: 30 / COMPLETE_AT, opacity: 0, transform: `translate3d(${x}px, ${startY + 8}px, 0) scale(${scale})`, easing: EASE_OUT },
-      { offset: 510 / COMPLETE_AT, opacity: 1, transform: compact },
-      { offset: OPEN_AT / COMPLETE_AT, opacity: 1, transform: compact, easing: EASE_OUT },
-      { offset: UNFOLD_AT / COMPLETE_AT, opacity: 1, transform: `translate3d(${x}px, ${unfoldY}px, 0) scale(${scale})`, easing: EASE_OPEN },
-      { offset: 1, opacity: 1, transform: `translate3d(${rect.left}px, ${rect.top}px, 0) scale(1)` },
-    ], { duration: COMPLETE_AT, fill: "both" });
+    // Overlap the gentle row separation with travel, instead of stopping at a
+    // waypoint. The rows clear each other before scaling or moving together.
+    const separation = (index === 0 ? -0.5 : 0.5) * (metrics[0].rect.height + 4) * scale;
+    const path = Array.from({ length: 61 }, (_, frame): Keyframe => {
+      const t = frame / 60;
+      const unfold = 1 - (1 - Math.min(t / 0.3, 1)) ** 3;
+      const p = Math.max(0, (t - 0.16) / 0.84);
+      // Quintic ease: zero velocity and acceleration at either end.
+      const travel = p * p * p * (p * (p * 6 - 15) + 10);
+      const fromY = startY + separation * unfold;
+      return {
+        offset: t,
+        transform: `translate3d(${x + (rect.left - x) * travel}px, ${fromY + (rect.top - fromY) * travel}px, 0) scale(${scale + (1 - scale) * travel})`,
+      };
+    });
+    const animation = word.animate(path, { delay: OPEN_AT, duration: OPEN_DURATION, fill: "both" });
     animation.id = `intro-word-${index}`;
     return animation;
   });
 
   const seamAnimation = seam.animate([
-    { offset: 0, opacity: 0, transform: "scaleX(0)", easing: EASE_OUT },
-    { offset: 560 / 1110, opacity: 0.6, transform: "scaleX(0.16)" },
-    { offset: 590 / 1110, opacity: 0.6, transform: "scaleX(0.16)", easing: "cubic-bezier(0.65, 0, 0.35, 1)" },
+    { offset: 0, opacity: 0, transform: "scaleX(0)", easing: EASE_LINE },
+    { offset: 1150 / 2150, opacity: 0.6, transform: "scaleX(0.22)", easing: "cubic-bezier(0.65, 0, 0.35, 1)" },
     { offset: 1, opacity: 0, transform: "scaleX(1)" },
-  ], { duration: 1110, delay: 60, fill: "both" });
+  ], { duration: 2150, delay: 120, fill: "both" });
 
   const curtainOptions: KeyframeAnimationOptions = {
     duration: OPEN_DURATION,
@@ -108,7 +123,7 @@ const animateAperture: IntroAnimation = (root, reveal, finish) => {
     { transform: "translate3d(0, 100%, 0)" },
   ], curtainOptions);
 
-  const animations = [...nameAnimations, seamAnimation, topAnimation, bottomAnimation];
+  const animations = [...letterAnimations, ...nameAnimations, seamAnimation, topAnimation, bottomAnimation];
   animations.forEach((animation) => { animation.startTime = startTime; });
   const revealTimer = window.setTimeout(reveal, OPEN_AT);
   bottomAnimation.onfinish = finish;
