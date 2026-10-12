@@ -1,30 +1,54 @@
-import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
+import { rememberIntro, shouldPlayIntro } from "@/lib/intro";
 
 type BootContextValue = {
   booted: boolean;
-  complete: () => void;
+  introVisible: boolean;
+  titleInIntro: boolean;
+  reveal: () => void;
+  finish: () => void;
 };
 
 const BootContext = createContext<BootContextValue>({
   booted: false,
-  complete: () => {},
+  introVisible: false,
+  titleInIntro: false,
+  reveal: () => {},
+  finish: () => {},
 });
 
 export function BootProvider({ children }: { children: ReactNode }) {
-  const [booted, setBooted] = useState(false);
+  const [introVisible, setIntroVisible] = useState(shouldPlayIntro);
+  const [titleInIntro] = useState(introVisible);
+  const [booted, setBooted] = useState(!introVisible);
+  const reveal = useCallback(() => setBooted(true), []);
+  const finish = useCallback(() => {
+    rememberIntro();
+    setBooted(true);
+    setIntroVisible(false);
+  }, []);
   const value = useMemo(
-    () => ({ booted, complete: () => setBooted(true) }),
-    [booted],
+    () => ({ booted, introVisible, titleInIntro, reveal, finish }),
+    [booted, introVisible, titleInIntro, reveal, finish],
   );
   return <BootContext.Provider value={value}>{children}</BootContext.Provider>;
 }
 
-/** True once the boot sequence has finished and the hero may stream. */
+/** Starts the hero while the introduction is revealing the page. */
 export function useBooted() {
   return useContext(BootContext).booted;
 }
 
-/** Marks the boot sequence complete — used by the preloader only. */
-export function useBootComplete() {
-  return useContext(BootContext).complete;
+export function useIntroControls() {
+  return useContext(BootContext);
+}
+
+/** Keep obscured controls out of the keyboard and accessibility tree. */
+export function IntroContent({ children }: { children: ReactNode }) {
+  const { introVisible } = useIntroControls();
+  return (
+    <div data-intro-content inert={introVisible} aria-hidden={introVisible || undefined}>
+      {children}
+    </div>
+  );
 }

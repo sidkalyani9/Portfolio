@@ -5,12 +5,14 @@ import { useScrollTo } from "@/components/SmoothScroll";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { activeIndexFromJourney } from "@/three/journeyGraph";
 import { cn } from "@/lib/cn";
+import { useIntroControls } from "@/components/Boot";
 
 /**
  * Mobile journey HUD — sits at the bottom, never steals horizontal space.
  * Thin progress + current node only. No right-edge sticky rail.
  */
 export function SectionRail() {
+  const { introVisible } = useIntroControls();
   const isMobileLayout = useMediaQuery("(max-width: 899px)");
   const { journey, nodes, mode } = useScrollProgress();
   const location = useLocation();
@@ -30,7 +32,7 @@ export function SectionRail() {
     [nodes],
   );
 
-  if (!isMobileLayout) return null;
+  if (!isMobileLayout || introVisible) return null;
   if (items.length < 2) return null;
 
   const current = items[active] ?? items[0];

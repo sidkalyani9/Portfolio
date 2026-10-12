@@ -5,7 +5,7 @@ import { Magnetic } from "@/components/fx/Magnetic";
 import { SplitText } from "@/components/fx/SplitText";
 import { TokenStream } from "@/components/fx/TokenStream";
 import { useResumeHref } from "@/hooks/useResumeHref";
-import { useBooted } from "@/components/Boot";
+import { useBooted, useIntroControls } from "@/components/Boot";
 import { openPalette } from "@/components/CommandPalette";
 import { useScrollTo } from "@/components/SmoothScroll";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
@@ -21,6 +21,7 @@ const STATUS_ROWS: [string, string][] = [
 export function HeroSection() {
   const resume = useResumeHref();
   const booted = useBooted();
+  const { introVisible, titleInIntro } = useIntroControls();
   const { scrollToId } = useScrollTo();
   const { progress, journey, nodes } = useScrollProgress();
   const active = activeIndexFromJourney(journey, nodes.length);
@@ -55,23 +56,36 @@ export function HeroSection() {
             <MapPin size={12} className="ml-2 inline text-accent" aria-hidden />
           </p>
 
-          <h1 className="mt-5 font-display uppercase leading-[0.92] text-fg-0 sm:mt-6 sm:leading-[0.95]">
+          <h1
+            data-intro-title
+            className="mt-5 font-display uppercase leading-[0.92] text-fg-0 sm:mt-6 sm:leading-[0.95]"
+            style={{ visibility: introVisible ? "hidden" : undefined }}
+          >
             <SplitText
               text="Siddharth"
               start={booted}
+              skipEntrance={titleInIntro}
               delay={0.05}
-              className="block text-[clamp(2.85rem,12.5vw,9rem)] drop-shadow-[0_8px_40px_rgba(0,0,0,0.55)]"
+              className="block text-[clamp(2.85rem,12.5vw,9rem)]"
             />
             <SplitText
               text="Kalyani"
               start={booted}
+              skipEntrance={titleInIntro}
               delay={0.28}
-              className="mt-0.5 block text-[clamp(2.85rem,12.5vw,9rem)] italic text-accent drop-shadow-[0_0_40px_rgba(199,125,255,0.25)] sm:mt-1"
+              className="mt-0.5 block text-[clamp(2.85rem,12.5vw,9rem)] italic text-accent sm:mt-1"
             />
           </h1>
 
-          <p className="mt-5 min-h-[1.5em] font-mono text-[13px] leading-relaxed text-accent sm:mt-7 sm:text-sm md:text-base">
+          <p
+            className="mt-5 grid min-h-[1.5em] font-mono text-[13px] leading-relaxed text-accent transition-opacity duration-700 sm:mt-7 sm:text-sm md:text-base"
+            style={{ opacity: booted ? 1 : 0 }}
+          >
+            <span className="invisible col-start-1 row-start-1" aria-hidden="true">
+              {`${profile.roleLine} · ${profile.roleSub}`}
+            </span>
             <TokenStream
+              className="col-start-1 row-start-1"
               text={`${profile.roleLine} · ${profile.roleSub}`}
               start={booted}
               speed={0.72}

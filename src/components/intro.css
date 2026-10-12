@@ -1,0 +1,55 @@
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 160;
+  overflow: hidden;
+  color: #eeeae5;
+  touch-action: none;
+  cursor: default;
+}
+
+.intro-curtain {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: calc(50% + 1px);
+  background: #0d0a12;
+  will-change: transform;
+}
+
+.intro-curtain--top { top: 0; }
+.intro-curtain--bottom { bottom: 0; }
+
+.intro-aperture-title {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.intro-aperture-seam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: #d8c8e2;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+/* Preserve italic overhang without changing the hero's spacing or layout. */
+:is([data-intro-title], [data-intro-word]) [data-char] {
+  padding-inline: 0.12em;
+  margin-inline: -0.12em;
+}
+
+:is([data-intro-title], [data-intro-word]) [data-char-mask] {
+  padding-inline: 0.12em;
+  margin-inline: -0.1em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-overlay { display: none; }
+}

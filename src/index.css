@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./fonts.css";
 
 @theme {
   /* Violet Heritage — refined v1 purple soul, professional dark editorial */

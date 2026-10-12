@@ -9,6 +9,7 @@ import { PostFX } from "@/three/PostFX";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useBooted } from "@/components/Boot";
 
 function SceneBridge({ highQuality }: { highQuality: boolean }) {
   const { progress, journey, nodes, mode } = useScrollProgress();
@@ -33,6 +34,7 @@ function SceneBridge({ highQuality }: { highQuality: boolean }) {
  * Fixed full-viewport cinematic WebGL world (Option C).
  */
 export function CinematicWorld() {
+  const booted = useBooted();
   const reduced = usePrefersReducedMotion();
   const isDesktop = useMediaQuery("(min-width: 900px)");
   const fine = useMediaQuery("(pointer: fine)");
@@ -67,7 +69,9 @@ export function CinematicWorld() {
           dpr={dpr}
           camera={{ position: [0, 1.2, 7.5], fov: 45, near: 0.1, far: 60 }}
           style={{ width: "100%", height: "100%" }}
-          frameloop="always"
+          // Prepare a frame behind the opaque loader; start continuous drawing
+          // only when the curtains reveal it, leaving the letter rise GPU time.
+          frameloop={booted ? "always" : "demand"}
           onCreated={({ gl }) => {
             gl.setClearColor(new THREE.Color("#0a0712"), 1);
           }}

@@ -1,176 +1,152 @@
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { useBootComplete } from "@/components/Boot";
-import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { cn } from "@/lib/cn";
+import { useIntroAnimation, type IntroAnimation } from "@/hooks/useIntroAnimation";
+import { CSS_EASE_OUT_EXPO } from "@/lib/motion";
+import "./intro.css";
 
-const BOOT_LINES = [
-  "booting cinematic runtime v3.0",
-  "allocating fluid field · shader passes",
-  "mounting agent constellation [6 nodes]",
-  "warming bloom · chromatic · vignette",
-  "syncing camera path to scroll …",
-  "ready · enter the journey",
-] as const;
+const OPEN_AT = 1550;
+const OPEN_DURATION = 1100;
+const EASE_LINE = "cubic-bezier(0.45, 0, 0.55, 1)";
+const EASE_OPEN = "cubic-bezier(0.76, 0, 0.24, 1)";
 
-const MIN_MS = 2200;
+const animateAperture: IntroAnimation = (root, reveal, finish) => {
+  const stage = root.querySelector<HTMLElement>("[data-intro-stage]")!;
+  const targets = Array.from(document.querySelectorAll<HTMLElement>("[data-intro-title] > span"));
+  const seam = root.querySelector<HTMLElement>(".intro-aperture-seam")!;
+  const top = root.querySelector<HTMLElement>(".intro-curtain--top")!;
+  const bottom = root.querySelector<HTMLElement>(".intro-curtain--bottom")!;
 
-/**
- * Cinematic boot sequence · log lines with timestamps, an epoch-style
- * progress bar synced to *real* page readiness, then a curtain lift.
- */
-export function BootPreloader() {
-  const complete = useBootComplete();
-  const reduced = usePrefersReducedMotion();
-  const [lines, setLines] = useState(0);
-  const [progress, setProgress] = useState(0);
-  const [exiting, setExiting] = useState(false);
-  const [gone, setGone] = useState(false);
-  const rootRef = useRef<HTMLDivElement>(null);
-  const doneRef = useRef(false);
+  if (targets.length !== 2) {
+    finish();
+    return () => {};
+  }
 
-  // Reduced motion: skip the theater entirely.
-  useEffect(() => {
-    if (reduced) {
-      setGone(true);
-      complete();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reduced]);
+  // Read the final layout once, with fonts loaded and the role line reserved.
+  // The actual hero markup supplies identical glyphs, spacing and italic masks.
+  const metrics = targets.map((target) => ({
+    rect: target.getBoundingClientRect(),
+    textWidth: target.firstElementChild!.getBoundingClientRect().width,
+    style: getComputedStyle(target),
+  }));
+  const { width, height } = root.getBoundingClientRect();
+  const fontSize = parseFloat(metrics[0].style.fontSize);
+  const gap = fontSize * 0.28;
+  const textWidth = metrics[0].textWidth + gap + metrics[1].textWidth;
+  const compactSize = Math.min(56, Math.max(24, width * 0.035));
+  const scale = Math.min(compactSize / fontSize, (width - 48) / textWidth);
+  const startX = (width - textWidth * scale) / 2;
+  const startY = height / 2 - Math.min(80, Math.max(44, height * 0.07))
+    - Math.max(...metrics.map(({ rect }) => rect.height)) * scale;
 
-  useEffect(() => {
-    if (reduced) return;
-    const t0 = performance.now();
-    let pageReady = document.readyState === "complete";
-    const onLoad = () => (pageReady = true);
-    window.addEventListener("load", onLoad);
-    document.fonts?.ready.then(() => (pageReady = true)).catch(() => {});
-
-    // Line + progress schedule
-    const timers: number[] = [];
-    BOOT_LINES.forEach((_, i) => {
-      timers.push(
-        window.setTimeout(() => setLines(i + 1), 180 + i * 260),
-      );
+  const words = targets.map((target, index) => {
+    const { rect, style } = metrics[index];
+    const word = target.cloneNode(true) as HTMLElement;
+    word.removeAttribute("aria-label");
+    word.setAttribute("data-intro-word", String(index));
+    word.classList.add("intro-aperture-word");
+    Object.assign(word.style, {
+      position: "absolute", left: "0", top: "0", margin: "0",
+      width: `${rect.width}px`, height: `${rect.height}px`,
+      visibility: "visible", fontFamily: style.fontFamily,
+      fontSize: style.fontSize, fontWeight: style.fontWeight,
+      fontStyle: style.fontStyle, lineHeight: style.lineHeight,
+      letterSpacing: style.letterSpacing, textTransform: style.textTransform,
+      color: style.color, filter: "none", transformOrigin: "0 0",
+      willChange: "transform",
     });
+    word.querySelectorAll<HTMLElement>("[data-char]").forEach((char) => {
+      char.style.transform = "translate3d(0, 112%, 0)";
+    });
+    return word;
+  });
+  stage.replaceChildren(...words);
 
-    // Smooth progress toward ~92%, holding until the page is truly ready
-    const progressTimer = window.setInterval(() => {
-      setProgress((p) => {
-        const target = pageReady ? 100 : 92;
-        if (p >= target) return p;
-        return Math.min(target, p + Math.random() * 7 + 2.5);
+  // Both the letter rise and the word travel run on the browser's clock.
+  // Build the path once; no per-frame JavaScript or layout reads are needed.
+  const startTime = document.timeline.currentTime;
+  const letterAnimations: Animation[] = [];
+  const nameAnimations = words.map((word, index) => {
+    const x = startX + (index === 0 ? 0 : (metrics[0].textWidth + gap) * scale);
+    const compact = `translate3d(${x}px, ${startY}px, 0) scale(${scale})`;
+    word.style.transform = compact;
+    word.querySelectorAll<HTMLElement>("[data-char]").forEach((char, charIndex) => {
+      const rise = char.animate([
+        { transform: "translate3d(0, 112%, 0)" },
+        { transform: "translate3d(0, 0, 0)" },
+      ], {
+        duration: 1050,
+        delay: (index === 0 ? 50 : 210) + charIndex * 45,
+        easing: CSS_EASE_OUT_EXPO,
+        fill: "both",
       });
-    }, 90);
-
-    const finish = window.setInterval(() => {
-      const elapsed = performance.now() - t0;
-      if (elapsed > MIN_MS && pageReady && !doneRef.current) {
-        doneRef.current = true;
-        window.clearInterval(progressTimer);
-        setProgress(100);
-        setLines(BOOT_LINES.length);
-        timers.push(
-          window.setTimeout(() => setExiting(true), 320),
-          window.setTimeout(() => {
-            setGone(true);
-            complete();
-          }, 320 + 900),
-        );
-        window.clearInterval(finish);
-      }
-      // hard cap · never hold the page hostage
-      if (elapsed > 3400 && !doneRef.current) {
-        doneRef.current = true;
-        window.clearInterval(progressTimer);
-        setProgress(100);
-        setExiting(true);
-        timers.push(
-          window.setTimeout(() => {
-            setGone(true);
-            complete();
-          }, 900),
-        );
-        window.clearInterval(finish);
-      }
-    }, 120);
-
-    return () => {
-      window.removeEventListener("load", onLoad);
-      window.clearInterval(progressTimer);
-      window.clearInterval(finish);
-      timers.forEach((t) => window.clearTimeout(t));
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reduced]);
-
-  // Curtain lift
-  useEffect(() => {
-    if (!exiting || !rootRef.current) return;
-    gsap.to(rootRef.current, {
-      clipPath: "inset(0 0 100% 0)",
-      duration: 1.05,
-      ease: "expo.inOut",
+      rise.id = `intro-letter-${index}-${charIndex}`;
+      letterAnimations.push(rise);
     });
-  }, [exiting]);
 
-  if (gone) return null;
+    const { rect } = metrics[index];
+    // Overlap the gentle row separation with travel, instead of stopping at a
+    // waypoint. The rows clear each other before scaling or moving together.
+    const separation = (index === 0 ? -0.5 : 0.5) * (metrics[0].rect.height + 4) * scale;
+    const path = Array.from({ length: 61 }, (_, frame): Keyframe => {
+      const t = frame / 60;
+      const unfold = 1 - (1 - Math.min(t / 0.3, 1)) ** 3;
+      const p = Math.max(0, (t - 0.16) / 0.84);
+      // Quintic ease: zero velocity and acceleration at either end.
+      const travel = p * p * p * (p * (p * 6 - 15) + 10);
+      const fromY = startY + separation * unfold;
+      return {
+        offset: t,
+        transform: `translate3d(${x + (rect.left - x) * travel}px, ${fromY + (rect.top - fromY) * travel}px, 0) scale(${scale + (1 - scale) * travel})`,
+      };
+    });
+    const animation = word.animate(path, { delay: OPEN_AT, duration: OPEN_DURATION, fill: "both" });
+    animation.id = `intro-word-${index}`;
+    return animation;
+  });
 
-  const shown = BOOT_LINES.slice(0, lines);
-  const blocks = 22;
-  const filled = Math.round((progress / 100) * blocks);
+  const seamAnimation = seam.animate([
+    { offset: 0, opacity: 0, transform: "scaleX(0)", easing: EASE_LINE },
+    { offset: 1150 / 2150, opacity: 0.6, transform: "scaleX(0.22)", easing: "cubic-bezier(0.65, 0, 0.35, 1)" },
+    { offset: 1, opacity: 0, transform: "scaleX(1)" },
+  ], { duration: 2150, delay: 120, fill: "both" });
+
+  const curtainOptions: KeyframeAnimationOptions = {
+    duration: OPEN_DURATION,
+    delay: OPEN_AT,
+    easing: EASE_OPEN,
+    fill: "both",
+  };
+  const topAnimation = top.animate([
+    { transform: "translate3d(0, 0, 0)" },
+    { transform: "translate3d(0, -100%, 0)" },
+  ], curtainOptions);
+  const bottomAnimation = bottom.animate([
+    { transform: "translate3d(0, 0, 0)" },
+    { transform: "translate3d(0, 100%, 0)" },
+  ], curtainOptions);
+
+  const animations = [...letterAnimations, ...nameAnimations, seamAnimation, topAnimation, bottomAnimation];
+  animations.forEach((animation) => { animation.startTime = startTime; });
+  const revealTimer = window.setTimeout(reveal, OPEN_AT);
+  bottomAnimation.onfinish = finish;
+
+  return () => {
+    window.clearTimeout(revealTimer);
+    bottomAnimation.onfinish = null;
+    animations.forEach((animation) => animation.cancel());
+    stage.replaceChildren();
+  };
+};
+
+/** The aperture opens while its compact title becomes the hero title. */
+export function BootPreloader() {
+  const { rootRef, visible } = useIntroAnimation(animateAperture);
+  if (!visible) return null;
 
   return (
-    <div
-      ref={rootRef}
-      className={cn("fixed inset-0 z-[120] bg-bg-0", exiting && "pointer-events-none")}
-      style={{ clipPath: "inset(0 0 0% 0)" }}
-      aria-hidden={exiting}
-      role="status"
-      aria-label="Loading"
-    >
-      <div className="flex h-full flex-col items-center justify-center px-6">
-        <div className="w-full max-w-md">
-          <p className="font-mono text-xs text-fg-2">
-            <span className="text-accent">siddharth</span>@portfolio:~${" "}
-            <span className="text-fg-0">./boot</span>
-          </p>
-
-          <div className="mt-6 min-h-[9.5rem] font-mono text-[13px] leading-6">
-            {shown.map((line, i) => (
-              <p key={line} className="flex gap-3 text-fg-1">
-                <span className="shrink-0 text-fg-2/70">
-                  [{(0.2 + i * 0.31).toFixed(4).padStart(7, "0")}s]
-                </span>
-                <span
-                  className={cn(
-                    i === shown.length - 1 &&
-                      i === BOOT_LINES.length - 1 &&
-                      "text-accent",
-                  )}
-                >
-                  {line}
-                  {i === BOOT_LINES.length - 1 ? " ✓" : ""}
-                </span>
-              </p>
-            ))}
-            {lines < BOOT_LINES.length ? (
-              <span className="caret-blink mt-1 inline-block h-3.5 w-2 bg-accent" />
-            ) : null}
-          </div>
-
-          <div className="mt-8 font-mono text-xs text-fg-2">
-            <div className="flex items-center justify-between">
-              <span>epoch 1/1</span>
-              <span className="tabular-nums text-fg-1">{Math.floor(progress)}%</span>
-            </div>
-            <div className="mt-2 tracking-tight text-accent" aria-hidden>
-              {"█".repeat(filled)}
-              <span className="text-fg-2/40">{"░".repeat(blocks - filled)}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div ref={rootRef} className="intro-overlay intro-aperture" data-intro="aperture-title" data-lenis-prevent role="status" aria-label="Loading portfolio">
+      <div className="intro-curtain intro-curtain--top" aria-hidden="true" />
+      <div className="intro-curtain intro-curtain--bottom" aria-hidden="true" />
+      <div className="intro-aperture-seam" aria-hidden="true" />
+      <div className="intro-aperture-title" data-intro-stage aria-hidden="true" />
     </div>
   );
 }
