@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import { EASE_OUT_EXPO } from "@/lib/motion";
+import { CSS_EASE_OUT_EXPO } from "@/lib/motion";
 import { useIntroAnimation, type IntroAnimation } from "@/hooks/useIntroAnimation";
 import "./intro.css";
 
@@ -28,6 +28,8 @@ const animateSignature: IntroAnimation = (timeline, root, reveal) => {
   const groupHeight = (first.rect.height + gap + second.rect.height) * scale;
   const startX = (root.clientWidth - width * scale) / 2;
   const startY = (root.clientHeight - groupHeight) / 2 - root.clientHeight * 0.02;
+  const letterAnimations: Animation[] = [];
+  const riseStart = document.timeline.currentTime;
 
   stage.replaceChildren();
   targets.forEach((target, index) => {
@@ -64,25 +66,41 @@ const animateSignature: IntroAnimation = (timeline, root, reveal) => {
       y: startY + (index === 0 ? 0 : (first.rect.height + gap) * scale),
       scale,
     });
-    timeline
-      .fromTo(chars,
-        { y: 0, yPercent: 112 },
-        { yPercent: 0, duration: 1.05, stagger: 0.045, ease: EASE_OUT_EXPO },
-        index === 0 ? 0.05 : 0.21)
-      .to(word, {
-        x: rect.left,
-        y: rect.top,
-        scale: 1,
-        duration: TRAVEL_DURATION,
-        ease: "power3.inOut",
-      }, TRAVEL_START);
+    // Transform-only native animations stay on the compositor during startup
+    // work. Keep the original stagger and the GSAP travel timeline unchanged.
+    chars.forEach((char, charIndex) => {
+      const animation = char.animate(
+        [
+          { transform: "translate3d(0, 112%, 0)" },
+          { transform: "translate3d(0, 0, 0)" },
+        ],
+        {
+          duration: 1050,
+          delay: (index === 0 ? 50 : 210) + charIndex * 45,
+          easing: CSS_EASE_OUT_EXPO,
+          fill: "both",
+        },
+      );
+      animation.startTime = riseStart;
+      letterAnimations.push(animation);
+    });
+    timeline.to(word, {
+      x: rect.left,
+      y: rect.top,
+      scale: 1,
+      duration: TRAVEL_DURATION,
+      ease: "power3.inOut",
+    }, TRAVEL_START);
   });
 
   timeline
     .call(reveal, [], TRAVEL_START + 0.65)
     .to(backdrop, { opacity: 0, duration: 0.87, ease: "power2.inOut" }, TRAVEL_START + 0.18);
 
-  return () => stage.replaceChildren();
+  return () => {
+    letterAnimations.forEach((animation) => animation.cancel());
+    stage.replaceChildren();
+  };
 };
 
 /** The opening title becomes the hero title in one continuous motion. */

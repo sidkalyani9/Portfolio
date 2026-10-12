@@ -21,6 +21,18 @@
   pointer-events: none;
 }
 
+/* Italic serifs extend beyond their advance boxes. Give both the glyph layers
+   and the reveal mask room to paint, while preserving the original spacing. */
+:is([data-intro-title], [data-intro-word]) [data-char] {
+  padding-inline: 0.12em;
+  margin-inline: -0.12em;
+}
+
+:is([data-intro-title], [data-intro-word]) [data-char-mask] {
+  padding-inline: 0.12em;
+  margin-inline: -0.1em;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .intro-overlay { display: none; }
 }
