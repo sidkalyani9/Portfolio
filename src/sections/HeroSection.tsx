@@ -55,7 +55,7 @@ export function HeroSection() {
             <MapPin size={12} className="ml-2 inline text-accent" aria-hidden />
           </p>
 
-          <h1 className="mt-5 font-display uppercase leading-[0.92] text-fg-0 sm:mt-6 sm:leading-[0.95]">
+          <h1 data-intro-title className="mt-5 font-display uppercase leading-[0.92] text-fg-0 sm:mt-6 sm:leading-[0.95]">
             <SplitText
               text="Siddharth"
               start={booted}

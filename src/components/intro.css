@@ -49,6 +49,17 @@
   transform-origin: center;
 }
 
+/* Preserve italic overhang without changing the hero's spacing or layout. */
+[data-intro-title] [data-char] {
+  padding-inline: 0.12em;
+  margin-inline: -0.12em;
+}
+
+[data-intro-title] [data-char-mask] {
+  padding-inline: 0.12em;
+  margin-inline: -0.1em;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .intro-overlay { display: none; }
 }
