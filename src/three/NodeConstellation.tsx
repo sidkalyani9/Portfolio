@@ -64,15 +64,14 @@ function NodeMesh({
       <mesh ref={ref} position={node.position}>
         <icosahedronGeometry args={[0.2, 1]} />
         <meshStandardMaterial
-          key={theme}
           color={color}
           emissive={emissive}
           emissiveIntensity={dark ? (active ? 1.55 : passed ? 0.5 : 0.1) : (active ? 0.16 : 0.08)}
           roughness={dark ? 0.35 : 0.55}
           metalness={dark ? 0.45 : 0.08}
-          transparent={!dark}
+          transparent
           opacity={dark ? 1 : active ? 0.5 : passed ? 0.35 : 0.25}
-          depthWrite={dark}
+          depthWrite={false}
         />
       </mesh>
       {active ? (

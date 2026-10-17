@@ -1,42 +1,39 @@
+import { useLayoutEffect, useMemo, useRef } from "react";
 import { EffectComposer, Bloom, ChromaticAberration, Vignette, Noise, ToneMapping } from "@react-three/postprocessing";
-import { BlendFunction, ToneMappingMode } from "postprocessing";
+import { BlendFunction, ToneMappingMode, type BloomEffect, type ChromaticAberrationEffect, type VignetteEffect, type NoiseEffect, type ToneMappingEffect } from "postprocessing";
 import { Vector2 } from "three";
 import { useTheme } from "@/components/ThemeProvider";
-import { useMemo } from "react";
 
-/**
- * Restore the luminous cinematic stack at night; keep only fine texture on white.
- */
-export function PostFX({
-  enabled = true,
-  strength = 1,
-}: {
-  enabled?: boolean;
-  strength?: number;
-}) {
+/** Keep the GPU pipeline compiled; a theme change only updates uniforms. */
+export function PostFX({ enabled = true, strength = 1 }: { enabled?: boolean; strength?: number }) {
   const { theme } = useTheme();
-  const aberration = useMemo(() => new Vector2(0.0009 * strength, 0.0007 * strength), [strength]);
+  const bloom = useRef<BloomEffect>(null);
+  const aberration = useRef<ChromaticAberrationEffect>(null);
+  const noise = useRef<NoiseEffect>(null);
+  const vignette = useRef<VignetteEffect>(null);
+  const toneMapping = useRef<ToneMappingEffect>(null);
+
+  // EffectComposer rebuilds its passes when children change identity. Keep
+  // these elements stable even when theme or scroll-driven strength changes.
+  const effects = useMemo(() => [
+    <Bloom key="bloom" ref={bloom} intensity={0.55} luminanceThreshold={0.35} luminanceSmoothing={0.4} mipmapBlur />,
+    <ChromaticAberration key="aberration" ref={aberration} blendFunction={BlendFunction.NORMAL} offset={new Vector2(0.0009, 0.0007)} radialModulation={false} modulationOffset={0} />,
+    <Noise key="noise" ref={noise} premultiply blendFunction={BlendFunction.SOFT_LIGHT} />,
+    <Vignette key="vignette" ref={vignette} eskil={false} offset={0.22} darkness={0.72} />,
+    // SRC (the default) ignores opacity; NORMAL preserves white when inactive.
+    <ToneMapping key="tone" ref={toneMapping} blendFunction={BlendFunction.NORMAL} mode={ToneMappingMode.ACES_FILMIC} />,
+  ], []);
+
+  useLayoutEffect(() => {
+    const night = theme === "dark" ? 1 : 0;
+    for (const effect of [bloom.current, aberration.current, vignette.current, toneMapping.current]) {
+      if (effect) effect.blendMode.opacity.value = night;
+    }
+    if (bloom.current) bloom.current.intensity = 0.55 * strength;
+    if (aberration.current) aberration.current.offset.set(0.0009 * strength, 0.0007 * strength);
+    if (noise.current) noise.current.blendMode.opacity.value = (night ? 0.22 : 0.025) * strength;
+  }, [theme, strength, enabled]);
+
   if (!enabled) return null;
-
-  if (theme === "dark") {
-    return (
-      <EffectComposer key="dark" multisampling={0} enableNormalPass={false}>
-        <Bloom intensity={0.55 * strength} luminanceThreshold={0.35} luminanceSmoothing={0.4} mipmapBlur />
-        <ChromaticAberration blendFunction={BlendFunction.NORMAL} offset={aberration} radialModulation={false} modulationOffset={0} />
-        <Noise premultiply blendFunction={BlendFunction.SOFT_LIGHT} opacity={0.22 * strength} />
-        <Vignette eskil={false} offset={0.22} darkness={0.72} />
-        <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
-      </EffectComposer>
-    );
-  }
-
-  return (
-    <EffectComposer key="light" multisampling={0} enableNormalPass={false}>
-      <Noise
-        premultiply
-        blendFunction={BlendFunction.SOFT_LIGHT}
-        opacity={0.025 * strength}
-      />
-    </EffectComposer>
-  );
+  return <EffectComposer multisampling={0} enableNormalPass={false}>{effects}</EffectComposer>;
 }

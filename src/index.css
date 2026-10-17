@@ -41,9 +41,9 @@
   --grain-opacity: 0.018;
   --grain-blend: multiply;
   --scrollbar-thumb: #c7bbd6;
-  --hero-veil: linear-gradient(105deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.7) 44%, rgba(255,255,255,0.08) 80%);
-  --hero-mobile-veil: linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0.72) 52%, rgba(255,255,255,0.48));
-  --ambient-veil: radial-gradient(ellipse at center, transparent 10%, rgba(255,255,255,0.3) 60%, rgba(255,255,255,0.7) 100%);
+  --hero-veil: linear-gradient(105deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.12) 48%, transparent 80%);
+  --hero-mobile-veil: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.25) 52%, rgba(255,255,255,0.12));
+  --ambient-veil: radial-gradient(ellipse at center, transparent 10%, rgba(255,255,255,0.06) 60%, rgba(255,255,255,0.12) 100%);
 }
 
 :root[data-theme="dark"] {
@@ -126,17 +126,7 @@
 [data-theme="dark"] .theme-toggle__sun { transform: rotate(90deg) scale(0.35); opacity: 0; }
 [data-theme="dark"] .theme-toggle__moon { transform: rotate(0) scale(1); opacity: 1; }
 
-::view-transition { pointer-events: none; }
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 420ms;
-  animation-timing-function: ease-in-out;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) { animation: none; }
   .theme-toggle:hover .theme-toggle__disc,
   .theme-toggle:active .theme-toggle__disc { transform: none; }
 }

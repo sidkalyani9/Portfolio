@@ -8,7 +8,7 @@ Light by default, with an optional dark theme, on `codex/light-violet`, branched
 - [Azzerad Studios — Awwwards](https://www.awwwards.com/sites/azzerad-studios): Site of the Day, January 14, 2022; the award entry highlights white, typography, galleries, and motion.
 - [White Coffee — Awwwards](https://www.awwwards.com/sites/white-coffee): Honorable Mention, June 5, 2024; a tightly limited white and charcoal palette with minimalist art direction.
 
-The application to this portfolio is a design judgment: keep its distinctive serif typography and cinematic identity, give the typography a white canvas, and make the moving atmosphere subordinate to reading. These references inform the treatment; no layouts or assets are copied.
+The application to this portfolio is a design judgment: keep its distinctive serif typography and cinematic identity, give the typography a white canvas with visible purple clouds across the viewport, and keep text readable over the moving atmosphere. These references inform the treatment; no layouts or assets are copied.
 
 ## Color recommendation
 
@@ -31,9 +31,9 @@ Calculated contrast on solid white: heading 17.01:1, body 8.16:1, muted text 6.2
 
 - Preserve content, routes, typography, section layout, scroll choreography, intro timing, and interactions. Hide the redundant hero scroll cue below 900px, where it overlapped the runtime card; the persistent mobile journey navigation remains available.
 - Replace dark glass with translucent white, quieter violet shadows, and visible ink-tinted borders.
-- Retune the actual procedural gas shader as violet pigment on white. Preserve pointer response and scroll movement.
+- Retune the procedural gas shader as violet pigment on white across the entire viewport. Preserve pointer response and scroll movement. Remove the horizontal mask and radial crop, and reduce white veils so clouds remain visible on the left, center, and lower background.
 - Use normal particle blending, since additive particles disappear against white. Reduce the opacity of constellation solids so they do not obscure reading.
-- In light mode, omit the dark vignette, bloom, chromatic aberration, and filmic tone mapping; retain a trace of texture. In dark mode, restore the original cinematic stack, gas shader, luminous dust, and constellation materials.
+- Keep one stable, compiled effects pipeline for both themes. In light mode, set the dark vignette, bloom, chromatic aberration, and tone-mapping blend opacity to zero; retain a trace of texture. In dark mode, restore their original strengths, the gas shader, luminous dust, and constellation colors. Tone mapping explicitly uses NORMAL blending so zero opacity actually disables it.
 - Give the mobile 2D canvas, CSS fallback, intro curtains, navigation, command palette, cursor, and progress HUD matching light treatments.
 - Retain reduced-motion handling; repaint the static mobile canvas when resized.
 - Keep system selectors more opaque than decorative surfaces so moving graphics cannot interfere with their labels.
@@ -52,9 +52,17 @@ Calculated contrast on solid white: heading 17.01:1, body 8.16:1, muted text 6.2
 ## Theme control
 
 - A circular sun/moon button sits beside the résumé action in the fixed header. On phones it sits between Resume and the menu, so appearance is accessible without opening navigation. The visible disc is 36px with a 44px hit target.
-- The icon rotates and scales between states. Supported browsers crossfade the full page over 420ms using the [View Transition API](https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition); other browsers retain the icon animation and update the palette immediately. Reduced motion bypasses the page transition and disables icon animation.
+- The sun/moon icon rotates and scales between states. The palette updates immediately; there is no full-page snapshot, render wait, or temporary click lock. Reduced motion disables icon animation. This replaces the earlier View Transition implementation, whose canvas-frame wait caused a roughly four-second rendering stall in the local browser.
 - A first visit always uses light, regardless of the operating-system setting. An explicit choice is saved under `portfolio-theme` and restored in the document head before the first paint. Storage failures fall back safely; changes also synchronize between tabs.
 - Shared CSS tokens, intro curtains, browser chrome, glass, foregrounds, glows, desktop WebGL, and mobile 2D rendering follow the selected theme. The scene stays mounted and keeps its progress. Small dark-theme labels use a slightly brighter muted color for readability.
 - At compact desktop widths, redundant social links and the command shortcut leave the header to give navigation and the theme control enough space. The same actions remain available in the page/footer, and the keyboard command shortcut remains active.
 
 Additional validation: production build and TypeScript pass; browser checks at 320px, 900px, 975px, and 1440px show no horizontal overflow. Confirmed both palettes, Space-key activation, saved dark preference after reload, mobile navigation while switching, unchanged scroll position (9975px) when switching within Systems, and Bidstream case-study navigation and switching. Bootstrap checks cover no preference, light, dark, invalid preference, and blocked storage (all five pass). No application console errors observed. Reduced-motion and unsupported-browser fallback paths reviewed in source; these were not emulated in the browser.
+
+## Full-field gas and switching performance follow-up
+
+The light shader now uses the same viewport-wide flow coordinates as dark mode, with stronger violet pigment and no directional suppression. CSS and mobile canvas atmospheres are also broader and stronger; white text veils and the bottom fade are reduced. Dark-mode gas keeps its existing formula.
+
+Theme changes reuse the effect instances, composer passes, and node materials. Effects are memoized so a new React children array cannot rebuild the composer during theme or scroll updates. Node materials remain in the transparent rendering path in both themes (opacity reaches 1 at night), avoiding material disposal and shader variant recompilation on each click.
+
+A temporary local-preview frame probe sampled 1.2 seconds after clicks at 1280×720. Before the fix, the longest frame gaps were 4017ms and 4056ms. After the fix, both directions updated the document theme in about 1ms, with longest observed frame gaps of 17–18ms and no gaps over 50ms. These are local browser measurements, not a guarantee for every device. Repeated switching, immediate command-palette interaction, and the mobile menu also passed. The probe is not included in the source or final preview.

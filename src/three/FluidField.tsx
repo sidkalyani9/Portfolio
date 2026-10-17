@@ -91,22 +91,19 @@ const FRAG = /* glsl */ `
       return;
     }
 
-    // Pigment suspended in white, rather than light added to a dark field.
-    // Keep the left reading area quiet; concentrate the gas to the right.
+    // The same full-frame flow as night mode, rendered as violet pigment.
+    // No horizontal mask or radial crop: clouds reach every edge as we scroll.
     vec3 paper = vec3(1.0);
-    vec3 lilac = vec3(0.58, 0.3, 0.82);
-    vec3 violet = vec3(0.46, 0.23, 0.72);
-    float spread = mix(0.16, 1.0, smoothstep(-0.65, 0.65, p.x));
-    float edge = 1.0 - smoothstep(0.65, 1.7, length(p * vec2(0.75, 0.9)));
-    float body = smoothstep(0.28, 0.76, f);
-    float folds = smoothstep(0.38, 0.82, r.x);
-    float density = (body * 0.72 + folds * 0.28) * spread * edge * uIntensity;
+    vec3 lilac = vec3(0.52, 0.24, 0.84);
+    vec3 violet = vec3(0.48, 0.25, 0.76);
+    float body = smoothstep(0.20, 0.78, f);
+    float folds = smoothstep(0.30, 0.85, r.x);
+    float drift = smoothstep(0.30, 0.90, r.y);
+    float density = clamp((body * 0.58 + folds * 0.26 + drift * 0.16) * uIntensity, 0.0, 0.74);
     vec3 col = mix(paper, lilac, density);
 
     float fil = pow(smoothstep(0.48, 0.84, f), 2.0);
-    col = mix(col, violet, fil * 0.15 * spread * edge * uIntensity);
-
-    // Stationary, almost imperceptible texture avoids sparkling on white.
+    col = mix(col, violet, fil * 0.19 * uIntensity);
     col -= hash(gl_FragCoord.xy) * 0.003 * density;
 
     gl_FragColor = vec4(col, 1.0);

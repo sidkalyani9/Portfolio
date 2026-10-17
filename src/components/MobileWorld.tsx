@@ -160,21 +160,21 @@ export function MobileWorld() {
           x: w * (0.2 + shift * 0.12),
           y: h * 0.22,
           r: w * 0.55,
-          c0: dark ? "rgba(199,125,255,0.22)" : "rgba(167,116,224,0.09)",
+          c0: dark ? "rgba(199,125,255,0.22)" : "rgba(167,116,224,0.22)",
           c1: `rgba(${pigment},0)`,
         },
         {
           x: w * (0.85 - shift * 0.08),
           y: h * 0.48,
           r: w * 0.5,
-          c0: dark ? "rgba(139,92,246,0.18)" : "rgba(139,92,246,0.06)",
+          c0: dark ? "rgba(139,92,246,0.18)" : "rgba(139,92,246,0.16)",
           c1: "rgba(139,92,246,0)",
         },
         {
           x: w * 0.5,
           y: h * (0.88 - shift * 0.05),
           r: w * 0.6,
-          c0: dark ? "rgba(232,160,191,0.1)" : "rgba(204,175,223,0.04)",
+          c0: dark ? "rgba(232,160,191,0.1)" : "rgba(167,116,224,0.14)",
           c1: "rgba(232,160,191,0)",
         },
       ];
@@ -337,7 +337,7 @@ export function MobileWorld() {
       // Light bottom fade only — keep particles visible mid-screen
       const fade = ctx.createLinearGradient(0, h * 0.55, 0, h);
       fade.addColorStop(0, `rgba(${base},0)`);
-      fade.addColorStop(1, `rgba(${base},${dark ? 0.35 : 0.6})`);
+      fade.addColorStop(1, `rgba(${base},${dark ? 0.35 : 0.12})`);
       ctx.fillStyle = fade;
       ctx.fillRect(0, h * 0.55, w, h * 0.45);
     };
