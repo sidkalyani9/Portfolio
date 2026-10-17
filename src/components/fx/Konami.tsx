@@ -73,7 +73,7 @@ export function Konami() {
   return (
     <div
       ref={toastRef}
-      className="pointer-events-none fixed bottom-8 left-1/2 z-[160] w-[min(92vw,28rem)] -translate-x-1/2 rounded-2xl border border-accent/40 bg-bg-1/95 p-5 font-mono text-sm shadow-[0_30px_80px_rgba(0,0,0,0.55)] backdrop-blur-xl"
+      className="pointer-events-none fixed bottom-8 left-1/2 z-[160] w-[min(92vw,28rem)] -translate-x-1/2 rounded-2xl border border-accent/40 bg-bg-1/95 p-5 font-mono text-sm shadow-raised backdrop-blur-xl"
       role="status"
     >
       <p className="text-accent">root@portfolio:~#</p>

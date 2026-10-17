@@ -268,7 +268,7 @@ export function SiteHeader() {
             <>
               <a
                 href={resume.href}
-                className="inline-flex h-9 items-center justify-center rounded-full bg-accent px-3.5 font-sans text-xs font-semibold text-bg-0 shadow-[0_0_0_1px_rgba(199,125,255,0.25)] touch-manipulation active:scale-[0.98]"
+                className="inline-flex h-9 items-center justify-center rounded-full bg-accent px-3.5 font-sans text-xs font-semibold text-on-accent shadow-accent touch-manipulation active:scale-[0.98]"
                 {...(resume.download ? { download: resume.download } : {})}
               >
                 Resume
@@ -307,11 +307,11 @@ export function SiteHeader() {
                 key={item.id}
                 href={`/#${item.id}`}
                 data-menu-item
-                className="group flex items-center justify-between rounded-xl px-3 py-3.5 touch-manipulation active:bg-white/8"
+                className="group flex items-center justify-between rounded-xl px-3 py-3.5 touch-manipulation active:bg-accent/8"
                 onClick={(e) => goSection(e, item.id)}
               >
                 <span className="flex items-baseline gap-3">
-                  <span className="font-mono text-[10px] tabular-nums text-accent/70 transition group-hover:text-accent">
+                  <span className="font-mono text-[10px] tabular-nums text-accent transition group-hover:text-accent">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="font-display text-2xl leading-none text-fg-0 transition group-hover:text-accent">
@@ -319,7 +319,7 @@ export function SiteHeader() {
                   </span>
                 </span>
                 <span
-                  className="font-mono text-[10px] text-fg-2/50 transition group-hover:text-accent/70"
+                  className="font-mono text-[10px] text-fg-2 transition group-hover:text-accent"
                   aria-hidden
                 >
                   ↗

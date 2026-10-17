@@ -2,20 +2,24 @@
 @import "./fonts.css";
 
 @theme {
-  /* Violet Heritage — refined v1 purple soul, professional dark editorial */
-  --color-bg-0: #0a0712;
-  --color-bg-1: #120c1c;
-  --color-bg-2: #1b1428;
-  --color-fg-0: #f2eef8;
-  --color-fg-1: #a89bb8;
-  --color-fg-2: #7d7390;
-  --color-accent: #c77dff;
-  --color-accent-dim: color-mix(in oklab, #c77dff 16%, transparent);
-  --color-ink: #e8a0bf;
-  --color-ink-dim: color-mix(in oklab, #e8a0bf 14%, transparent);
-  --color-violet: #8b5cf6;
-  --color-border: rgba(242, 238, 248, 0.08);
-  --color-focus: #d8b4fe;
+  /* Violet on paper — white canvas, editorial ink, and a single violet accent. */
+  --color-bg-0: #ffffff;
+  --color-bg-1: #faf9fc;
+  --color-bg-2: #f1edf7;
+  --color-fg-0: #21182e;
+  --color-fg-1: #554b63;
+  --color-fg-2: #685c76;
+  --color-accent: #7139bb;
+  --color-on-accent: #ffffff;
+  --color-accent-dim: color-mix(in oklab, var(--color-accent) 7%, transparent);
+  --color-ink: #87506e;
+  --color-ink-dim: color-mix(in oklab, var(--color-ink) 7%, transparent);
+  --color-violet: #7044ac;
+  --color-border: rgba(65, 39, 89, 0.14);
+  --color-focus: #7139bb;
+  --shadow-soft: 0 12px 40px rgba(49, 28, 74, 0.06);
+  --shadow-raised: 0 24px 70px rgba(49, 28, 74, 0.1);
+  --shadow-accent: 0 6px 20px rgba(113, 57, 187, 0.16);
   --font-display: "Instrument Serif", "Times New Roman", serif;
   --font-sans: "Syne", system-ui, sans-serif;
   --font-body: "Inter", "Geist", system-ui, sans-serif;
@@ -28,6 +32,7 @@
 
 @layer base {
   html {
+    color-scheme: light;
     scroll-behavior: auto;
     /* iOS rubber-band + dynamic viewport */
     -webkit-text-size-adjust: 100%;
@@ -145,10 +150,10 @@
 @keyframes pulse-dot {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(199, 125, 255, 0.5);
+    box-shadow: 0 0 0 0 rgba(113, 57, 187, 0.22);
   }
   70% {
-    box-shadow: 0 0 0 8px rgba(199, 125, 255, 0);
+    box-shadow: 0 0 0 8px rgba(113, 57, 187, 0);
   }
 }
 
@@ -216,28 +221,36 @@
   position: fixed;
   inset: 0;
   z-index: 90;
-  opacity: 0.034;
+  opacity: 0.018;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
+  mix-blend-mode: multiply;
 }
 
-/* Glass panels — soft over the violet world (no hard section bands) */
+.hero-reading-veil {
+  background: linear-gradient(105deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.7) 44%, rgba(255, 255, 255, 0.08) 80%);
+}
+
+@media (max-width: 899px) {
+  .hero-reading-veil {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.72) 52%, rgba(255, 255, 255, 0.48));
+  }
+}
+
+/* Frosted paper surfaces retain atmosphere with enough opacity for small text. */
 @utility glass {
-  border: 1px solid rgba(242, 238, 248, 0.08);
-  background: rgba(18, 12, 28, 0.48);
-  backdrop-filter: blur(18px) saturate(1.15);
-  -webkit-backdrop-filter: blur(18px) saturate(1.15);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px) saturate(1.05);
+  -webkit-backdrop-filter: blur(18px) saturate(1.05);
+  box-shadow: var(--shadow-soft), inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 @utility glass-strong {
-  border: 1px solid rgba(242, 238, 248, 0.09);
-  background: rgba(10, 7, 18, 0.55);
-  backdrop-filter: blur(22px) saturate(1.2);
-  -webkit-backdrop-filter: blur(22px) saturate(1.2);
-  box-shadow:
-    0 30px 80px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(22px) saturate(1.05);
+  -webkit-backdrop-filter: blur(22px) saturate(1.05);
+  box-shadow: var(--shadow-raised), inset 0 1px 0 #fff;
 }
 
 /* Soft ambient veil — no hard top/bottom edges (seamless scroll) */
@@ -252,7 +265,7 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(242, 238, 248, 0.08),
+    var(--color-border),
     transparent
   );
 }
@@ -280,11 +293,11 @@
 @keyframes journey-packet-pulse {
   0%,
   100% {
-    box-shadow: 0 0 10px rgba(199, 125, 255, 0.7);
+    box-shadow: 0 0 10px rgba(113, 57, 187, 0.2);
     transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 18px rgba(199, 125, 255, 1);
+    box-shadow: 0 0 18px rgba(113, 57, 187, 0.35);
     transform: scale(1.15);
   }
 }
@@ -311,13 +324,13 @@
 /* Mobile glass: slightly denser so type stays crisp over particles */
 @media (max-width: 899px) {
   .glass {
-    background: rgba(18, 12, 28, 0.62);
-    backdrop-filter: blur(20px) saturate(1.2);
-    -webkit-backdrop-filter: blur(20px) saturate(1.2);
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px) saturate(1.05);
+    -webkit-backdrop-filter: blur(20px) saturate(1.05);
   }
 
   .glass-strong {
-    background: rgba(10, 7, 18, 0.68);
+    background: rgba(255, 255, 255, 0.96);
   }
 
   /* Prefer larger touch targets; kill sticky hover ghosts on iOS */
@@ -351,7 +364,7 @@
     background: var(--color-bg-0);
   }
   ::-webkit-scrollbar-thumb {
-    background: #252833;
+    background: #c7bbd6;
     border-radius: 999px;
     border: 2px solid var(--color-bg-0);
   }

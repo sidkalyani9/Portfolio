@@ -280,7 +280,7 @@ export function CommandPalette() {
       />
       <div
         ref={panelRef}
-        className="relative w-full max-w-xl overflow-hidden rounded-2xl border border-border bg-bg-1/95 shadow-[0_40px_120px_rgba(0,0,0,0.6)] backdrop-blur-xl"
+        className="relative w-full max-w-xl overflow-hidden rounded-2xl border border-border bg-bg-1/95 shadow-raised backdrop-blur-xl"
       >
         <div className="flex items-center gap-3 border-b border-border px-5 py-4">
           <span className="font-mono text-sm text-accent">$</span>
@@ -293,7 +293,7 @@ export function CommandPalette() {
             }}
             onKeyDown={onInputKey}
             placeholder="type a command or search…"
-            className="w-full bg-transparent font-mono text-sm text-fg-0 placeholder:text-fg-2/60 focus:outline-none"
+            className="w-full bg-transparent font-mono text-sm text-fg-0 placeholder:text-fg-2 focus:outline-none"
             aria-label="Command"
           />
           <kbd className="rounded border border-border px-1.5 py-0.5 font-mono text-[10px] text-fg-2">
@@ -314,7 +314,7 @@ export function CommandPalette() {
               return (
                 <div key={item.id}>
                   {header ? (
-                    <p className="px-3 pb-1 pt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-fg-2/70">
+                    <p className="px-3 pb-1 pt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-fg-2">
                       {header}
                     </p>
                   ) : null}
@@ -327,7 +327,7 @@ export function CommandPalette() {
                       "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left font-mono text-[13px] transition-colors",
                       i === active
                         ? "bg-accent/10 text-accent"
-                        : "text-fg-1 hover:bg-white/5",
+                        : "text-fg-1 hover:bg-accent/5",
                     )}
                   >
                     <Icon size={14} className="shrink-0 opacity-70" aria-hidden />

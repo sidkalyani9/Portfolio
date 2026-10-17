@@ -124,6 +124,7 @@ export function MobileWorld() {
       // Plenty of visible dust on phones
       const count = Math.min(160, Math.max(80, Math.floor((w * h) / 9000)));
       particles = seedParticles(count, w, h);
+      if (reduced) paint(0);
     };
 
     const onVis = () => {
@@ -142,27 +143,27 @@ export function MobileWorld() {
 
       ctx.clearRect(0, 0, w, h);
 
-      // --- Ambient orbs (stronger so the void feels alive) ---
+      // --- A dilute violet atmosphere on white ---
       const orbs = [
         {
           x: w * (0.2 + shift * 0.12),
           y: h * 0.22,
           r: w * 0.55,
-          c0: "rgba(199,125,255,0.22)",
-          c1: "rgba(199,125,255,0)",
+          c0: "rgba(167,116,224,0.09)",
+          c1: "rgba(113,57,187,0)",
         },
         {
           x: w * (0.85 - shift * 0.08),
           y: h * 0.48,
           r: w * 0.5,
-          c0: "rgba(139,92,246,0.18)",
+          c0: "rgba(139,92,246,0.06)",
           c1: "rgba(139,92,246,0)",
         },
         {
           x: w * 0.5,
           y: h * (0.88 - shift * 0.05),
           r: w * 0.6,
-          c0: "rgba(232,160,191,0.1)",
+          c0: "rgba(204,175,223,0.04)",
           c1: "rgba(232,160,191,0)",
         },
       ];
@@ -179,7 +180,7 @@ export function MobileWorld() {
         ctx.fill();
       }
 
-      // --- Particles (bright, readable) ---
+      // --- Fine violet pigment particles ---
       ctx.save();
       for (const p of particles) {
         if (!reduced) {
@@ -194,15 +195,15 @@ export function MobileWorld() {
         }
         const tw =
           0.55 + 0.45 * Math.sin(elapsed * 0.0028 + p.phase);
-        const alpha = Math.min(1, p.a * tw);
+        const alpha = Math.min(0.42, p.a * tw * 0.48);
         // soft glow
         const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 3.2);
         if (p.warm) {
           glow.addColorStop(0, `rgba(232,160,191,${alpha * 0.55})`);
           glow.addColorStop(1, "rgba(232,160,191,0)");
         } else {
-          glow.addColorStop(0, `rgba(199,125,255,${alpha * 0.65})`);
-          glow.addColorStop(1, "rgba(199,125,255,0)");
+          glow.addColorStop(0, `rgba(113,57,187,${alpha * 0.65})`);
+          glow.addColorStop(1, "rgba(113,57,187,0)");
         }
         ctx.fillStyle = glow;
         ctx.beginPath();
@@ -211,8 +212,8 @@ export function MobileWorld() {
         // core
         ctx.beginPath();
         ctx.fillStyle = p.warm
-          ? `rgba(255,220,235,${alpha})`
-          : `rgba(232,210,255,${alpha})`;
+          ? `rgba(135,80,110,${alpha})`
+          : `rgba(113,57,187,${alpha})`;
         ctx.arc(p.x, p.y, p.r * 0.55, 0, Math.PI * 2);
         ctx.fill();
       }
@@ -226,7 +227,7 @@ export function MobileWorld() {
         ctx.lineJoin = "round";
 
         // faint full path
-        ctx.strokeStyle = "rgba(199,125,255,0.14)";
+        ctx.strokeStyle = "rgba(113,57,187,0.14)";
         ctx.lineWidth = 1.25;
         ctx.beginPath();
         ctx.moveTo(pts[0].x, pts[0].y);
@@ -250,9 +251,9 @@ export function MobileWorld() {
           const f = Math.min(1, s.journey) * nEdges;
           const ei = Math.min(nEdges - 1, Math.floor(f));
           const local = f - ei;
-          ctx.strokeStyle = "rgba(199,125,255,0.38)";
+          ctx.strokeStyle = "rgba(113,57,187,0.38)";
           ctx.lineWidth = 1.6;
-          ctx.shadowColor = "rgba(199,125,255,0.35)";
+          ctx.shadowColor = "rgba(113,57,187,0.35)";
           ctx.shadowBlur = 8;
           ctx.beginPath();
           ctx.moveTo(pts[0].x, pts[0].y);
@@ -282,15 +283,15 @@ export function MobileWorld() {
           const alpha = isActive ? 0.9 : isPassed ? 0.45 : 0.22;
 
           const gg = ctx.createRadialGradient(p.x, cy, 0, p.x, cy, glowR);
-          gg.addColorStop(0, `rgba(199,125,255,${alpha * 0.5})`);
-          gg.addColorStop(1, "rgba(199,125,255,0)");
+          gg.addColorStop(0, `rgba(113,57,187,${alpha * 0.5})`);
+          gg.addColorStop(1, "rgba(113,57,187,0)");
           ctx.fillStyle = gg;
           ctx.beginPath();
           ctx.arc(p.x, cy, glowR, 0, Math.PI * 2);
           ctx.fill();
 
           ctx.beginPath();
-          ctx.fillStyle = `rgba(210,170,255,${alpha})`;
+          ctx.fillStyle = `rgba(113,57,187,${alpha})`;
           ctx.arc(p.x, cy, coreR, 0, Math.PI * 2);
           ctx.fill();
         }
@@ -306,15 +307,15 @@ export function MobileWorld() {
             packet.y,
             pr * 5,
           );
-          pg.addColorStop(0, "rgba(232,210,255,0.9)");
-          pg.addColorStop(0.3, "rgba(199,125,255,0.35)");
-          pg.addColorStop(1, "rgba(199,125,255,0)");
+          pg.addColorStop(0, "rgba(113,57,187,0.6)");
+          pg.addColorStop(0.3, "rgba(113,57,187,0.35)");
+          pg.addColorStop(1, "rgba(113,57,187,0)");
           ctx.fillStyle = pg;
           ctx.beginPath();
           ctx.arc(packet.x, packet.y, pr * 5, 0, Math.PI * 2);
           ctx.fill();
           ctx.beginPath();
-          ctx.fillStyle = "#f0e4ff";
+          ctx.fillStyle = "#7139bb";
           ctx.arc(packet.x, packet.y, pr, 0, Math.PI * 2);
           ctx.fill();
         }
@@ -324,8 +325,8 @@ export function MobileWorld() {
 
       // Light bottom fade only — keep particles visible mid-screen
       const fade = ctx.createLinearGradient(0, h * 0.55, 0, h);
-      fade.addColorStop(0, "rgba(10,7,18,0)");
-      fade.addColorStop(1, "rgba(10,7,18,0.35)");
+      fade.addColorStop(0, "rgba(255,255,255,0)");
+      fade.addColorStop(1, "rgba(255,255,255,0.6)");
       ctx.fillStyle = fade;
       ctx.fillRect(0, h * 0.55, w, h * 0.45);
     };
@@ -340,9 +341,8 @@ export function MobileWorld() {
     window.addEventListener("resize", resize, { passive: true });
     document.addEventListener("visibilitychange", onVis);
 
-    if (reduced) {
-      paint(0);
-    } else {
+    // resize() also paints the static reduced-motion frame.
+    if (!reduced) {
       raf = requestAnimationFrame(frame);
     }
 

@@ -86,11 +86,11 @@ export function CustomCursor() {
         className={cn(
           "grid place-items-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
           state === "default" &&
-            "h-3.5 w-2 bg-accent mix-blend-difference shadow-[0_0_18px_rgba(199,125,255,0.45)]",
+            "h-3.5 w-2 bg-accent shadow-[0_0_18px_rgba(113,57,187,0.45)]",
           state === "link" &&
             "h-9 w-9 rounded-full border border-accent/80 bg-accent/10 backdrop-blur-[2px]",
           state === "view" &&
-            "h-20 w-20 rounded-full bg-accent text-bg-0 shadow-[0_0_50px_rgba(199,125,255,0.35)]",
+            "h-20 w-20 rounded-full bg-accent text-on-accent shadow-[0_0_50px_rgba(113,57,187,0.35)]",
           state === "text" && "h-6 w-[3px] bg-accent",
         )}
       >

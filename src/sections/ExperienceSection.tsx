@@ -17,7 +17,7 @@ export function ExperienceSection() {
           {experience.map((item) => (
             <article
               key={`${item.title}-${item.date}`}
-              className="group grid gap-4 border-b border-border px-4 py-7 last:border-b-0 transition hover:bg-white/[0.02] sm:px-5 sm:py-8 md:grid-cols-[minmax(0,0.35fr)_minmax(0,0.65fr)] md:gap-10 md:px-6"
+              className="group grid gap-4 border-b border-border px-4 py-7 last:border-b-0 transition hover:bg-accent/[0.035] sm:px-5 sm:py-8 md:grid-cols-[minmax(0,0.35fr)_minmax(0,0.65fr)] md:gap-10 md:px-6"
             >
               <div>
                 <p className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-fg-2">

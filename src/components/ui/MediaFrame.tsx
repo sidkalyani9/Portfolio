@@ -17,7 +17,7 @@ export function MediaFrame({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-2xl border border-border bg-bg-2 shadow-[0_20px_60px_rgba(0,0,0,0.35)]",
+        "relative overflow-hidden rounded-2xl border border-border bg-bg-2 shadow-soft",
         className,
       )}
     >
@@ -35,7 +35,7 @@ export function MediaFrame({
           className={cn("h-full w-full object-cover", imgClassName)}
         />
       )}
-      <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/5" />
+      <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-fg-0/5" />
     </div>
   );
 }

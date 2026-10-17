@@ -17,8 +17,8 @@ function SceneBridge({ highQuality }: { highQuality: boolean }) {
   return (
     <>
       <CameraRig journey={journey} nodes={nodes} />
-      <ambientLight intensity={0.35} />
-      <directionalLight position={[4, 6, 2]} intensity={0.55} color="#cfe8ff" />
+      <ambientLight intensity={1.3} />
+      <directionalLight position={[4, 6, 2]} intensity={2} color="#f4edff" />
       <FluidField intensity={highQuality ? 1 : 0.7} progress={progress} />
       <DustField count={highQuality ? 320 : 160} />
       <NodeConstellation journey={journey} nodes={nodes} />
@@ -73,7 +73,7 @@ export function CinematicWorld() {
           // only when the curtains reveal it, leaving the letter rise GPU time.
           frameloop={booted ? "always" : "demand"}
           onCreated={({ gl }) => {
-            gl.setClearColor(new THREE.Color("#0a0712"), 1);
+            gl.setClearColor(new THREE.Color("#ffffff"), 1);
           }}
         >
           <Suspense fallback={null}>

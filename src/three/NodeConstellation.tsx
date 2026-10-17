@@ -40,8 +40,8 @@ function NodeMesh({
     }
   });
 
-  const color = active ? "#c77dff" : passed ? "#8b5cf6" : "#3a3548";
-  const emissive = active ? "#c77dff" : passed ? "#8b5cf6" : "#15101f";
+  const color = active ? "#9966d0" : passed ? "#c2a3e1" : "#e1d5ed";
+  const emissive = active ? "#7139bb" : passed ? "#9d7cc4" : "#d6c6e7";
 
   return (
     <group>
@@ -50,7 +50,7 @@ function NodeMesh({
         <meshBasicMaterial
           color={color}
           transparent
-          opacity={active ? 0.2 : passed ? 0.09 : 0.03}
+          opacity={active ? 0.1 : passed ? 0.05 : 0.025}
           depthWrite={false}
         />
       </mesh>
@@ -59,9 +59,12 @@ function NodeMesh({
         <meshStandardMaterial
           color={color}
           emissive={emissive}
-          emissiveIntensity={active ? 1.55 : passed ? 0.5 : 0.1}
-          roughness={0.35}
-          metalness={0.45}
+          emissiveIntensity={active ? 0.16 : 0.08}
+          roughness={0.55}
+          metalness={0.08}
+          transparent
+          opacity={active ? 0.5 : passed ? 0.35 : 0.25}
+          depthWrite={false}
         />
       </mesh>
       {active ? (
@@ -75,8 +78,8 @@ function NodeMesh({
           <div
             className="whitespace-nowrap font-mono text-[10px] tracking-wide"
             style={{
-              color: "#c77dff",
-              textShadow: "0 2px 12px rgba(0,0,0,0.85)",
+              color: "#7139bb",
+              textShadow: "0 1px 8px rgba(255,255,255,0.9)",
             }}
           >
             {node.label}
@@ -121,14 +124,14 @@ function Edges({ journey, nodes }: { journey: number; nodes: GraphNode[] }) {
     <group>
       <Line
         points={points}
-        color="#c77dff"
-        lineWidth={1.5}
+        color="#9465c7"
+        lineWidth={1}
         transparent
-        opacity={0.32}
+        opacity={0.22}
       />
       <mesh ref={packet}>
         <sphereGeometry args={[0.09, 12, 12]} />
-        <meshBasicMaterial color="#c77dff" />
+        <meshBasicMaterial color="#7139bb" />
       </mesh>
     </group>
   );

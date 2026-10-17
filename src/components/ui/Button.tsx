@@ -12,8 +12,8 @@ type Common = {
 
 const styles: Record<Variant, string> = {
   primary:
-    "bg-accent text-bg-0 hover:brightness-110 shadow-[0_0_0_1px_rgba(199,125,255,0.25),0_10px_40px_rgba(199,125,255,0.12)]",
-  ghost: "bg-transparent text-fg-0 hover:bg-white/5",
+    "bg-accent text-on-accent hover:brightness-110 shadow-accent",
+  ghost: "bg-transparent text-fg-0 hover:bg-accent/5",
   outline:
     "bg-transparent text-fg-0 border border-border hover:border-accent/40 hover:bg-accent-dim",
 };

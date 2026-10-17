@@ -79,7 +79,7 @@ function PanelBody({
 
       {!compact && panel.id === "scoring" ? (
         <div className="mt-6 rounded-2xl border border-violet/25 bg-violet/10 p-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[#cfc0ff]">
+          <div className="flex items-center gap-2 text-sm font-semibold text-violet">
             <Database size={16} aria-hidden />
             Flagship: specialised persona classifier
           </div>
@@ -264,11 +264,11 @@ function MobileSystemsStage({
             <span className="text-accent">
               {String(active + 1).padStart(2, "0")}
             </span>
-            <span className="text-fg-2/45">/{String(N).padStart(2, "0")}</span>
+            <span className="text-fg-2">/{String(N).padStart(2, "0")}</span>
           </p>
         </div>
 
-        <div className="h-[2px] shrink-0 bg-white/6">
+        <div className="h-[2px] shrink-0 bg-accent/8">
           <div
             className="h-full bg-gradient-to-r from-violet to-accent transition-[width] duration-300 ease-out"
             style={{ width: `${((active + 1) / N) * 100}%` }}
@@ -287,7 +287,7 @@ function MobileSystemsStage({
               className={cn(
                 "shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide",
                 panel.badge === "Owned"
-                  ? "bg-violet/15 text-[#b9a7ff]"
+                  ? "bg-violet/15 text-violet"
                   : "bg-ink-dim text-ink",
               )}
             >
@@ -309,7 +309,7 @@ function MobileSystemsStage({
                     className={cn(
                       "block h-1 w-full rounded-full transition-all duration-300",
                       idx === active
-                        ? "bg-accent shadow-[0_0_8px_rgba(199,125,255,0.55)]"
+                        ? "bg-accent shadow-[0_0_8px_rgba(113,57,187,0.55)]"
                         : idx < active
                           ? "bg-violet/55"
                           : "bg-fg-2/25",
@@ -535,8 +535,8 @@ export function SystemsSection() {
                       className={cn(
                         "rounded-2xl border px-4 py-4 text-left transition",
                         selected
-                          ? "border-accent/40 bg-accent-dim shadow-[0_0_0_1px_rgba(199,125,255,0.12)]"
-                          : "border-border bg-bg-1/40 hover:border-white/10",
+                          ? "border-accent/40 bg-bg-2/95 shadow-[0_0_0_1px_rgba(113,57,187,0.12)]"
+                          : "border-border bg-bg-0/85 hover:border-accent/25 hover:bg-bg-1",
                       )}
                     >
                       <div className="flex items-start justify-between gap-3">
@@ -551,7 +551,7 @@ export function SystemsSection() {
                           className={cn(
                             "shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide",
                             m.badge === "Owned"
-                              ? "bg-violet/15 text-[#b9a7ff]"
+                              ? "bg-violet/15 text-violet"
                               : "bg-ink-dim text-ink",
                           )}
                         >

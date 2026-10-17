@@ -63,26 +63,23 @@ const FRAG = /* glsl */ `
     );
     float f = fbm(p + 2.4 * r);
 
-    vec3 cDeep = vec3(0.039, 0.027, 0.071);
-    vec3 cMid  = vec3(0.07, 0.047, 0.11);
-    vec3 cLilac = vec3(0.78, 0.49, 1.0);
-    vec3 cVio  = vec3(0.545, 0.361, 0.965);
-    vec3 cInk  = vec3(0.91, 0.63, 0.75);
+    // Pigment suspended in white, rather than light added to a dark field.
+    // Keep the left reading area quiet; concentrate the gas to the right.
+    vec3 paper = vec3(1.0);
+    vec3 lilac = vec3(0.58, 0.3, 0.82);
+    vec3 violet = vec3(0.46, 0.23, 0.72);
+    float spread = mix(0.16, 1.0, smoothstep(-0.65, 0.65, p.x));
+    float edge = 1.0 - smoothstep(0.65, 1.7, length(p * vec2(0.75, 0.9)));
+    float body = smoothstep(0.28, 0.76, f);
+    float folds = smoothstep(0.38, 0.82, r.x);
+    float density = (body * 0.72 + folds * 0.28) * spread * edge * uIntensity;
+    vec3 col = mix(paper, lilac, density);
 
-    float bands = smoothstep(0.15, 0.75, f);
-    vec3 col = mix(cDeep, cMid, bands);
-    col = mix(col, cLilac * 0.55, smoothstep(0.45, 0.9, r.x) * 0.55);
-    col = mix(col, cVio * 0.5, smoothstep(0.4, 0.95, r.y) * 0.4 * (0.4 + uProgress));
+    float fil = pow(smoothstep(0.48, 0.84, f), 2.0);
+    col = mix(col, violet, fil * 0.15 * spread * edge * uIntensity);
 
-    float fil = pow(smoothstep(0.55, 0.95, f), 3.0);
-    col += cLilac * fil * 0.35;
-    col += cInk * pow(smoothstep(0.82, 1.0, noise(r * 4.0 + t)), 8.0) * 0.45;
-
-    float vig = smoothstep(1.25, 0.25, length(p * vec2(0.85, 1.0)));
-    col *= mix(0.45, 1.0, vig);
-
-    float g = hash(gl_FragCoord.xy + floor(uTime * 20.0)) * 0.035;
-    col += g;
+    // Stationary, almost imperceptible texture avoids sparkling on white.
+    col -= hash(gl_FragCoord.xy) * 0.003 * density;
 
     gl_FragColor = vec4(col, 1.0);
   }

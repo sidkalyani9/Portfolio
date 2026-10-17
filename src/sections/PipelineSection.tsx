@@ -271,7 +271,7 @@ function MobileJourneyHud({
       </div>
 
       {/* progress bar under header */}
-      <div className="h-[2px] shrink-0 bg-white/6">
+      <div className="h-[2px] shrink-0 bg-accent/8">
         <div
           className="h-full bg-gradient-to-r from-violet to-accent transition-[width] duration-150 ease-out"
           style={{ width: `${packetPct}%` }}
@@ -289,7 +289,7 @@ function MobileJourneyHud({
           />
           {/* lit fill */}
           <div
-            className="absolute left-1/2 top-3 w-px -translate-x-1/2 bg-gradient-to-b from-accent via-accent to-violet shadow-[0_0_10px_rgba(199,125,255,0.55)] transition-[height] duration-150 ease-out"
+            className="absolute left-1/2 top-3 w-px -translate-x-1/2 bg-gradient-to-b from-accent via-accent to-violet shadow-[0_0_10px_rgba(113,57,187,0.55)] transition-[height] duration-150 ease-out"
             style={{
               height: `calc((100% - 1.5rem) * ${packetTop / 100})`,
             }}
@@ -303,7 +303,7 @@ function MobileJourneyHud({
             }}
             aria-hidden
           >
-            <span className="journey-packet block h-2.5 w-2.5 rounded-full bg-[#f0e4ff] shadow-[0_0_14px_rgba(199,125,255,0.9)]" />
+            <span className="journey-packet block h-2.5 w-2.5 rounded-full bg-accent shadow-[0_0_14px_rgba(113,57,187,0.9)]" />
           </div>
 
           {/* node dots */}
@@ -320,7 +320,7 @@ function MobileJourneyHud({
                     className={cn(
                       "block rounded-full border transition-all duration-300",
                       isActive
-                        ? "h-3 w-3 border-accent bg-accent shadow-[0_0_12px_rgba(199,125,255,0.75)] scale-110"
+                        ? "h-3 w-3 border-accent bg-accent shadow-[0_0_12px_rgba(113,57,187,0.75)] scale-110"
                         : passed
                           ? "h-2 w-2 border-violet/70 bg-violet/60"
                           : "h-2 w-2 border-fg-2/40 bg-bg-1",
@@ -347,7 +347,7 @@ function MobileJourneyHud({
                     className={cn(
                       "grid h-9 w-9 place-items-center rounded-xl border transition-all duration-400",
                       isActive
-                        ? "scale-105 border-accent bg-accent/20 text-accent shadow-[0_0_24px_rgba(199,125,255,0.35)]"
+                        ? "scale-105 border-accent bg-accent/20 text-accent shadow-[0_0_24px_rgba(113,57,187,0.35)]"
                         : passed
                           ? "border-accent/35 bg-bg-0/50 text-accent/80"
                           : "border-border bg-bg-0/35 text-fg-2",
@@ -358,7 +358,7 @@ function MobileJourneyHud({
                   <span
                     className={cn(
                       "max-w-[2.75rem] truncate font-mono text-[8px] leading-none",
-                      isActive || passed ? "text-fg-0" : "text-fg-2/70",
+                      isActive || passed ? "text-fg-0" : "text-fg-2",
                     )}
                   >
                     {node.label}
@@ -399,7 +399,7 @@ function MobileJourneyHud({
                       isLive ? "text-accent" : "text-fg-2",
                     )}
                   >
-                    <span className="mr-2 text-fg-2/50">
+                    <span className="mr-2 text-fg-2">
                       {(0.04 + globalIdx * 0.61).toFixed(2)}s
                     </span>
                     {node.log}
@@ -415,7 +415,7 @@ function MobileJourneyHud({
             )}
           </div>
 
-          <p className="mt-2 shrink-0 font-mono text-[9px] text-fg-2/70">
+          <p className="mt-2 shrink-0 font-mono text-[9px] text-fg-2">
             scroll · packet rides the line · stages unlock
           </p>
         </div>
@@ -485,7 +485,7 @@ function JourneyHud({
         <ol className="relative flex items-start justify-between gap-1">
           <div className="absolute left-0 right-0 top-7 h-px bg-border/80" />
           <div
-            className="absolute left-0 top-7 h-px bg-accent shadow-[0_0_12px_rgba(199,125,255,0.55)]"
+            className="absolute left-0 top-7 h-px bg-accent shadow-[0_0_12px_rgba(113,57,187,0.55)]"
             style={{ width: `${packetPct}%` }}
           />
           {/* packet on horizontal line */}
@@ -494,7 +494,7 @@ function JourneyHud({
             style={{ left: `${packetPct}%` }}
             aria-hidden
           >
-            <span className="journey-packet block h-2.5 w-2.5 rounded-full bg-[#f0e4ff] shadow-[0_0_14px_rgba(199,125,255,0.9)]" />
+            <span className="journey-packet block h-2.5 w-2.5 rounded-full bg-accent shadow-[0_0_14px_rgba(113,57,187,0.9)]" />
           </div>
           {NODES.map((node, i) => {
             const Icon = node.icon;
@@ -509,7 +509,7 @@ function JourneyHud({
                   className={cn(
                     "grid h-14 w-14 place-items-center rounded-2xl border backdrop-blur-md transition-all duration-500",
                     activeNode
-                      ? "scale-110 border-accent bg-accent/20 text-accent shadow-[0_0_40px_rgba(199,125,255,0.4)]"
+                      ? "scale-110 border-accent bg-accent/20 text-accent shadow-[0_0_40px_rgba(113,57,187,0.4)]"
                       : passed
                         ? "border-accent/40 bg-bg-0/50 text-accent/80"
                         : "border-border bg-bg-0/40 text-fg-2",
@@ -545,7 +545,7 @@ function JourneyHud({
                   i === activeIndex && "text-accent",
                 )}
               >
-                <span className="mr-3 text-fg-2/60">
+                <span className="mr-3 text-fg-2">
                   {(0.04 + i * 0.61).toFixed(2)}s
                 </span>
                 {node.log}

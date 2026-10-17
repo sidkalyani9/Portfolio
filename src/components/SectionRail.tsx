@@ -71,10 +71,10 @@ export function SectionRail() {
         className="pointer-events-auto w-full max-w-md"
         aria-label="Section progress"
       >
-        <div className="rounded-2xl border border-border/70 bg-bg-0/75 px-3.5 py-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.45)] backdrop-blur-xl">
+        <div className="rounded-2xl border border-border/70 bg-bg-0/75 px-3.5 py-2.5 shadow-soft backdrop-blur-xl">
           {/* progress track */}
           <div
-            className="mb-2 h-[3px] overflow-hidden rounded-full bg-white/8"
+            className="mb-2 h-[3px] overflow-hidden rounded-full bg-accent/8"
             role="progressbar"
             aria-valuenow={pct}
             aria-valuemin={0}
@@ -90,12 +90,12 @@ export function SectionRail() {
           <div className="flex items-center gap-2">
             <p className="min-w-0 flex-1 font-mono text-[11px] leading-none">
               <span className="text-accent">{current.label}</span>
-              <span className="text-fg-2/50"> · </span>
+              <span className="text-fg-2"> · </span>
               <span className="text-fg-2">{current.sub}</span>
             </p>
             <span className="shrink-0 font-mono text-[10px] tabular-nums text-fg-2">
               {String(active + 1).padStart(2, "0")}
-              <span className="text-fg-2/40">
+              <span className="text-fg-2">
                 /{String(items.length).padStart(2, "0")}
               </span>
             </span>
@@ -122,7 +122,7 @@ export function SectionRail() {
                       className={cn(
                         "block h-1.5 rounded-full transition-all duration-300",
                         isActive
-                          ? "w-4 bg-accent shadow-[0_0_8px_rgba(199,125,255,0.7)]"
+                          ? "w-4 bg-accent shadow-[0_0_8px_rgba(113,57,187,0.7)]"
                           : isPassed
                             ? "w-1.5 bg-violet/70"
                             : "w-1.5 bg-fg-2/35",

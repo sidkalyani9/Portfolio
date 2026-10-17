@@ -3,7 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 /**
- * Floating luminous dust — cheap volumetric feel between camera and nodes.
+ * Violet pigment dust — normal blending keeps particles visible on white.
  */
 export function DustField({ count = 280 }: { count?: number }) {
   const ref = useRef<THREE.Points>(null);
@@ -41,13 +41,13 @@ export function DustField({ count = 280 }: { count?: number }) {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.035}
-        color="#c77dff"
+        size={0.025}
+        color="#8850c7"
         transparent
-        opacity={0.55}
+        opacity={0.3}
         depthWrite={false}
         sizeAttenuation
-        blending={THREE.AdditiveBlending}
+        blending={THREE.NormalBlending}
       />
     </points>
   );

@@ -123,7 +123,7 @@ export function TelemetrySection() {
         <div className="glass rounded-2xl p-5 sm:rounded-3xl sm:p-6 md:p-10">
           <p className="font-mono text-[11px] text-fg-2 sm:text-xs">
             <span className="text-accent">$</span> query --production-metrics{" "}
-            <span className="text-fg-2/60">// measured, not marketing</span>
+            <span className="text-fg-2">// measured, not marketing</span>
           </p>
           <dl className="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 sm:mt-10 sm:gap-x-6 sm:gap-y-12 md:grid-cols-3 xl:grid-cols-6">
             {STATS.map((stat) => (

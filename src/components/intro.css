@@ -3,7 +3,7 @@
   inset: 0;
   z-index: 160;
   overflow: hidden;
-  color: #eeeae5;
+  color: var(--color-fg-0);
   touch-action: none;
   cursor: default;
 }
@@ -13,7 +13,7 @@
   left: 0;
   right: 0;
   height: calc(50% + 1px);
-  background: #0d0a12;
+  background: var(--color-bg-0);
   will-change: transform;
 }
 
@@ -32,7 +32,7 @@
   right: 0;
   top: 50%;
   height: 1px;
-  background: #d8c8e2;
+  background: var(--color-accent);
   opacity: 0;
   transform: scaleX(0);
   transform-origin: center;

@@ -36,8 +36,8 @@ export function HeroSection() {
       className="relative flex min-h-[100svh] min-h-[100dvh] items-center overflow-hidden pt-[max(5rem,calc(env(safe-area-inset-top)+4.5rem))] pb-[max(1.5rem,env(safe-area-inset-bottom))]"
       aria-label="Introduction"
     >
-      {/* readability veil — lighter on mobile so particles stay visible */}
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(105deg,rgba(10,7,18,0.78)_0%,rgba(10,7,18,0.4)_52%,transparent_78%)] max-[899px]:bg-[linear-gradient(180deg,rgba(10,7,18,0.35)_0%,rgba(10,7,18,0.5)_50%,rgba(10,7,18,0.25)_100%)]" />
+      {/* White reading veil lets the violet atmosphere breathe on the right. */}
+      <div className="pointer-events-none absolute inset-0 z-[1] hero-reading-veil" />
 
       <div
         className="container-page relative z-10 grid gap-10 py-12 sm:gap-12 sm:py-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-end lg:py-24"
@@ -111,7 +111,7 @@ export function HeroSection() {
             <span className="status-dot inline-block h-1.5 w-1.5 rounded-full bg-accent" />
             <span className="text-fg-1">node</span>
             <span className="text-accent">{activeNode?.label ?? "boot"}</span>
-            <span className="text-fg-2/50">·</span>
+            <span className="text-fg-2">·</span>
             <span>{activeNode?.sub ?? "intro"}</span>
           </div>
 
@@ -126,7 +126,7 @@ export function HeroSection() {
               <button
                 type="button"
                 onClick={() => scrollToId("pipeline")}
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 font-sans text-sm font-semibold text-bg-0 shadow-[0_0_0_1px_rgba(199,125,255,0.25),0_10px_40px_rgba(199,125,255,0.12)] transition hover:brightness-110 active:scale-[0.98]"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 font-sans text-sm font-semibold text-on-accent shadow-accent transition hover:brightness-110 active:scale-[0.98]"
               >
                 Enter the journey
                 <ArrowDownRight size={16} aria-hidden />
@@ -169,26 +169,26 @@ export function HeroSection() {
             transform: booted ? "none" : "translateY(14px)",
           }}
         >
-          <div className="glass ml-auto max-w-sm p-6 font-mono text-[13px] leading-7">
+          <div className="glass ml-auto max-w-sm rounded-2xl p-6 font-mono text-[13px] leading-7">
             <p className="text-fg-2">
               <span className="text-accent">$</span> status --cinematic
             </p>
             <dl className="mt-3 space-y-1.5">
               {STATUS_ROWS.map(([k, v]) => (
                 <div key={k} className="flex gap-3">
-                  <dt className="w-14 shrink-0 text-fg-2/70">{k}</dt>
+                  <dt className="w-14 shrink-0 text-fg-2">{k}</dt>
                   <dd className="text-fg-1">{v}</dd>
                 </div>
               ))}
               <div className="flex gap-3">
-                <dt className="w-14 shrink-0 text-fg-2/70">state</dt>
+                <dt className="w-14 shrink-0 text-fg-2">state</dt>
                 <dd className="flex items-center gap-2 text-fg-0">
                   <span className="status-dot inline-block h-1.5 w-1.5 rounded-full bg-accent" />
                   open to GenAI / FDE roles
                 </dd>
               </div>
               <div className="flex gap-3">
-                <dt className="w-14 shrink-0 text-fg-2/70">world</dt>
+                <dt className="w-14 shrink-0 text-fg-2">world</dt>
                 <dd className="text-fg-1">scroll to fly the agent graph</dd>
               </div>
             </dl>
@@ -207,11 +207,11 @@ export function HeroSection() {
         >
           <div className="glass grid grid-cols-2 gap-x-4 gap-y-2.5 rounded-2xl p-4 font-mono text-[11px] leading-snug">
             <div>
-              <p className="text-fg-2/70">org</p>
+              <p className="text-fg-2">org</p>
               <p className="mt-0.5 text-fg-1">Argusoft · Bidstream</p>
             </div>
             <div>
-              <p className="text-fg-2/70">scale</p>
+              <p className="text-fg-2">scale</p>
               <p className="mt-0.5 text-fg-1">1B+ tokens · 1M+ pages</p>
             </div>
             <div className="col-span-2 flex items-center gap-2 border-t border-border/60 pt-2.5">
@@ -225,7 +225,7 @@ export function HeroSection() {
       <button
         type="button"
         onClick={() => scrollToId("pipeline")}
-        className="absolute bottom-[max(5.5rem,calc(env(safe-area-inset-bottom)+4.5rem))] left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 font-mono text-[10px] uppercase tracking-[0.28em] text-fg-2 transition hover:text-accent min-[900px]:bottom-8"
+        className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-[10px] uppercase tracking-[0.28em] text-fg-2 transition hover:text-accent min-[900px]:flex"
       >
         <span className="scroll-cue-line block h-8 w-px bg-gradient-to-b from-accent/80 to-transparent" />
         <span>scroll</span>
