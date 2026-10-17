@@ -1,11 +1,14 @@
 import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { useTheme } from "@/components/ThemeProvider";
 
 /**
- * Violet pigment dust — normal blending keeps particles visible on white.
+ * Normal blending preserves pigment on white; additive blending restores night glow.
  */
 export function DustField({ count = 280 }: { count?: number }) {
+  const { theme } = useTheme();
+  const dark = theme === "dark";
   const ref = useRef<THREE.Points>(null);
   const { positions, speeds } = useMemo(() => {
     const positions = new Float32Array(count * 3);
@@ -41,13 +44,13 @@ export function DustField({ count = 280 }: { count?: number }) {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.025}
-        color="#8850c7"
+        size={dark ? 0.035 : 0.025}
+        color={dark ? "#c77dff" : "#8850c7"}
         transparent
-        opacity={0.3}
+        opacity={dark ? 0.55 : 0.3}
         depthWrite={false}
         sizeAttenuation
-        blending={THREE.NormalBlending}
+        blending={dark ? THREE.AdditiveBlending : THREE.NormalBlending}
       />
     </points>
   );

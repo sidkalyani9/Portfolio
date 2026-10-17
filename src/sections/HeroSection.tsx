@@ -36,7 +36,7 @@ export function HeroSection() {
       className="relative flex min-h-[100svh] min-h-[100dvh] items-center overflow-hidden pt-[max(5rem,calc(env(safe-area-inset-top)+4.5rem))] pb-[max(1.5rem,env(safe-area-inset-bottom))]"
       aria-label="Introduction"
     >
-      {/* White reading veil lets the violet atmosphere breathe on the right. */}
+      {/* Theme-aware reading veil lets the violet atmosphere breathe on the right. */}
       <div className="pointer-events-none absolute inset-0 z-[1] hero-reading-veil" />
 
       <div

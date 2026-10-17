@@ -11,6 +11,7 @@ import { useScrollTo } from "@/components/SmoothScroll";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { STAGGER } from "@/lib/motion";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 /** Order matches page scroll order (after hero). */
 const nav = [
@@ -213,7 +214,7 @@ export function SiteHeader() {
 
         {!isCompact ? (
           <nav
-            className="flex items-center gap-5 xl:gap-8"
+            className="flex items-center gap-4 xl:gap-6"
             aria-label="Primary"
           >
             {nav.map((item) => (
@@ -236,11 +237,12 @@ export function SiteHeader() {
                 type="button"
                 onClick={openPalette}
                 aria-label="Open command palette"
-                className="hidden items-center gap-2 rounded-lg border border-border bg-bg-1/50 px-3 py-2 font-mono text-xs text-fg-2 transition hover:border-accent/40 hover:text-accent md:inline-flex"
+                className="hidden items-center gap-2 rounded-lg border border-border bg-bg-1/50 px-3 py-2 font-mono text-xs text-fg-2 transition hover:border-accent/40 hover:text-accent xl:inline-flex"
               >
                 <TerminalSquare size={14} aria-hidden />
                 <span>⌘K</span>
               </button>
+              <ThemeToggle />
               <ButtonLink
                 to={resume.href}
                 variant="primary"
@@ -252,14 +254,14 @@ export function SiteHeader() {
               <ButtonLink
                 to="https://www.linkedin.com/in/siddharth-kalyani/"
                 variant="ghost"
-                className="!px-3 !py-2 text-sm"
+                className="!px-3 !py-2 text-sm max-xl:!hidden"
               >
                 LinkedIn
               </ButtonLink>
               <ButtonLink
                 to="mailto:sidkalyani9@gmail.com"
                 variant="ghost"
-                className="!px-3 !py-2 text-sm max-lg:!hidden"
+                className="!px-3 !py-2 text-sm max-xl:!hidden"
               >
                 Email
               </ButtonLink>
@@ -273,6 +275,7 @@ export function SiteHeader() {
               >
                 Resume
               </a>
+              <ThemeToggle />
               <button
                 type="button"
                 className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-bg-2/60 text-fg-0 touch-manipulation"

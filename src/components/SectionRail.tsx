@@ -122,7 +122,7 @@ export function SectionRail() {
                       className={cn(
                         "block h-1.5 rounded-full transition-all duration-300",
                         isActive
-                          ? "w-4 bg-accent shadow-[0_0_8px_rgba(113,57,187,0.7)]"
+                          ? "w-4 bg-accent shadow-[0_0_8px_rgba(var(--accent-rgb),0.7)]"
                           : isPassed
                             ? "w-1.5 bg-violet/70"
                             : "w-1.5 bg-fg-2/35",

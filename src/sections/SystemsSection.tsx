@@ -309,7 +309,7 @@ function MobileSystemsStage({
                     className={cn(
                       "block h-1 w-full rounded-full transition-all duration-300",
                       idx === active
-                        ? "bg-accent shadow-[0_0_8px_rgba(113,57,187,0.55)]"
+                        ? "bg-accent shadow-[0_0_8px_rgba(var(--accent-rgb),0.55)]"
                         : idx < active
                           ? "bg-violet/55"
                           : "bg-fg-2/25",
@@ -535,7 +535,7 @@ export function SystemsSection() {
                       className={cn(
                         "rounded-2xl border px-4 py-4 text-left transition",
                         selected
-                          ? "border-accent/40 bg-bg-2/95 shadow-[0_0_0_1px_rgba(113,57,187,0.12)]"
+                          ? "border-accent/40 bg-bg-2/95 shadow-[0_0_0_1px_rgba(var(--accent-rgb),0.12)]"
                           : "border-border bg-bg-0/85 hover:border-accent/25 hover:bg-bg-1",
                       )}
                     >

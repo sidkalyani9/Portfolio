@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import * as THREE from "three";
+import { useTheme } from "@/components/ThemeProvider";
 import { FluidField } from "@/three/FluidField";
 import { NodeConstellation } from "@/three/NodeConstellation";
 import { DustField } from "@/three/DustField";
@@ -12,13 +12,16 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useBooted } from "@/components/Boot";
 
 function SceneBridge({ highQuality }: { highQuality: boolean }) {
+  const { theme } = useTheme();
+  const dark = theme === "dark";
   const { progress, journey, nodes, mode } = useScrollProgress();
 
   return (
     <>
       <CameraRig journey={journey} nodes={nodes} />
-      <ambientLight intensity={1.3} />
-      <directionalLight position={[4, 6, 2]} intensity={2} color="#f4edff" />
+      <color attach="background" args={[dark ? "#0a0712" : "#ffffff"]} />
+      <ambientLight intensity={dark ? 0.35 : 1.3} />
+      <directionalLight position={[4, 6, 2]} intensity={dark ? 0.55 : 2} color={dark ? "#cfe8ff" : "#f4edff"} />
       <FluidField intensity={highQuality ? 1 : 0.7} progress={progress} />
       <DustField count={highQuality ? 320 : 160} />
       <NodeConstellation journey={journey} nodes={nodes} />
@@ -72,9 +75,6 @@ export function CinematicWorld() {
           // Prepare a frame behind the opaque loader; start continuous drawing
           // only when the curtains reveal it, leaving the letter rise GPU time.
           frameloop={booted ? "always" : "demand"}
-          onCreated={({ gl }) => {
-            gl.setClearColor(new THREE.Color("#ffffff"), 1);
-          }}
         >
           <Suspense fallback={null}>
             <SceneBridge highQuality={isDesktop} />

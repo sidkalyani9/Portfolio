@@ -6,7 +6,7 @@ import { DUR, EASE_OUT_EXPO } from "@/lib/motion";
 import { cn } from "@/lib/cn";
 import { useIntroControls } from "@/components/Boot";
 
-type CursorState = "default" | "link" | "view" | "text";
+type CursorState = "default" | "link" | "view" | "text" | "control";
 
 /**
  * Terminal-caret custom cursor — Motion B lag + violet heritage glow.
@@ -86,11 +86,13 @@ export function CustomCursor() {
         className={cn(
           "grid place-items-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
           state === "default" &&
-            "h-3.5 w-2 bg-accent shadow-[0_0_18px_rgba(113,57,187,0.45)]",
+            "h-3.5 w-2 bg-accent shadow-[0_0_18px_rgba(var(--accent-rgb),0.45)]",
           state === "link" &&
             "h-9 w-9 rounded-full border border-accent/80 bg-accent/10 backdrop-blur-[2px]",
+          state === "control" &&
+            "h-11 w-11 rounded-full border border-accent/50",
           state === "view" &&
-            "h-20 w-20 rounded-full bg-accent text-on-accent shadow-[0_0_50px_rgba(113,57,187,0.35)]",
+            "h-20 w-20 rounded-full bg-accent text-on-accent shadow-[0_0_50px_rgba(var(--accent-rgb),0.35)]",
           state === "text" && "h-6 w-[3px] bg-accent",
         )}
       >

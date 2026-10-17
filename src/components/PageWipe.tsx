@@ -85,7 +85,7 @@ function rememberOriginIfCaseStudy(to: string, fromSection?: string) {
 }
 
 /**
- * Page transitions as terminal commands — a paper-white panel wipes up,
+ * Page transitions as terminal commands — a theme-matched panel wipes up,
  * types `cd ~/work/…`, navigates, and lifts away.
  */
 export function PageWipe({ children }: { children: ReactNode }) {

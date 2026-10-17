@@ -1,6 +1,6 @@
 # Violet on paper
 
-Light-theme direction for `codex/light-violet`, branched from `main` at `83d2432`.
+Light by default, with an optional dark theme, on `codex/light-violet`, branched from `main` at `83d2432`.
 
 ## Design references
 
@@ -33,7 +33,7 @@ Calculated contrast on solid white: heading 17.01:1, body 8.16:1, muted text 6.2
 - Replace dark glass with translucent white, quieter violet shadows, and visible ink-tinted borders.
 - Retune the actual procedural gas shader as violet pigment on white. Preserve pointer response and scroll movement.
 - Use normal particle blending, since additive particles disappear against white. Reduce the opacity of constellation solids so they do not obscure reading.
-- Remove the dark vignette, bloom, chromatic aberration, and filmic tone mapping; retain a trace of texture.
+- In light mode, omit the dark vignette, bloom, chromatic aberration, and filmic tone mapping; retain a trace of texture. In dark mode, restore the original cinematic stack, gas shader, luminous dust, and constellation materials.
 - Give the mobile 2D canvas, CSS fallback, intro curtains, navigation, command palette, cursor, and progress HUD matching light treatments.
 - Retain reduced-motion handling; repaint the static mobile canvas when resized.
 - Keep system selectors more opaque than decorative surfaces so moving graphics cannot interfere with their labels.
@@ -48,3 +48,13 @@ Calculated contrast on solid white: heading 17.01:1, body 8.16:1, muted text 6.2
 - Palette contrast ratios checked numerically. Reduced-motion branches inspected in source; the browser tool does not expose reduced-motion emulation.
 - Vite still reports the existing large Three.js chunk warning. The WebGL bundle remains lazy-loaded.
 - Generated `dist/` files are excluded from this change; Netlify builds from source with the existing configuration.
+
+## Theme control
+
+- A circular sun/moon button sits beside the résumé action in the fixed header. On phones it sits between Resume and the menu, so appearance is accessible without opening navigation. The visible disc is 36px with a 44px hit target.
+- The icon rotates and scales between states. Supported browsers crossfade the full page over 420ms using the [View Transition API](https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition); other browsers retain the icon animation and update the palette immediately. Reduced motion bypasses the page transition and disables icon animation.
+- A first visit always uses light, regardless of the operating-system setting. An explicit choice is saved under `portfolio-theme` and restored in the document head before the first paint. Storage failures fall back safely; changes also synchronize between tabs.
+- Shared CSS tokens, intro curtains, browser chrome, glass, foregrounds, glows, desktop WebGL, and mobile 2D rendering follow the selected theme. The scene stays mounted and keeps its progress. Small dark-theme labels use a slightly brighter muted color for readability.
+- At compact desktop widths, redundant social links and the command shortcut leave the header to give navigation and the theme control enough space. The same actions remain available in the page/footer, and the keyboard command shortcut remains active.
+
+Additional validation: production build and TypeScript pass; browser checks at 320px, 900px, 975px, and 1440px show no horizontal overflow. Confirmed both palettes, Space-key activation, saved dark preference after reload, mobile navigation while switching, unchanged scroll position (9975px) when switching within Systems, and Bidstream case-study navigation and switching. Bootstrap checks cover no preference, light, dark, invalid preference, and blocked storage (all five pass). No application console errors observed. Reduced-motion and unsupported-browser fallback paths reviewed in source; these were not emulated in the browser.

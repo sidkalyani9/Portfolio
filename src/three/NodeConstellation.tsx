@@ -1,6 +1,7 @@
 import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { useTheme } from "@/components/ThemeProvider";
 import { Html, Line } from "@react-three/drei";
 import {
   HOME_GRAPH_NODES,
@@ -25,6 +26,8 @@ function NodeMesh({
   active: boolean;
   passed: boolean;
 }) {
+  const { theme } = useTheme();
+  const dark = theme === "dark";
   const ref = useRef<THREE.Mesh>(null);
   const glow = useRef<THREE.Mesh>(null);
 
@@ -40,8 +43,12 @@ function NodeMesh({
     }
   });
 
-  const color = active ? "#9966d0" : passed ? "#c2a3e1" : "#e1d5ed";
-  const emissive = active ? "#7139bb" : passed ? "#9d7cc4" : "#d6c6e7";
+  const color = dark
+    ? active ? "#c77dff" : passed ? "#8b5cf6" : "#3a3548"
+    : active ? "#9966d0" : passed ? "#c2a3e1" : "#e1d5ed";
+  const emissive = dark
+    ? active ? "#c77dff" : passed ? "#8b5cf6" : "#15101f"
+    : active ? "#7139bb" : passed ? "#9d7cc4" : "#d6c6e7";
 
   return (
     <group>
@@ -50,21 +57,22 @@ function NodeMesh({
         <meshBasicMaterial
           color={color}
           transparent
-          opacity={active ? 0.1 : passed ? 0.05 : 0.025}
+          opacity={dark ? (active ? 0.2 : passed ? 0.09 : 0.03) : (active ? 0.1 : passed ? 0.05 : 0.025)}
           depthWrite={false}
         />
       </mesh>
       <mesh ref={ref} position={node.position}>
         <icosahedronGeometry args={[0.2, 1]} />
         <meshStandardMaterial
+          key={theme}
           color={color}
           emissive={emissive}
-          emissiveIntensity={active ? 0.16 : 0.08}
-          roughness={0.55}
-          metalness={0.08}
-          transparent
-          opacity={active ? 0.5 : passed ? 0.35 : 0.25}
-          depthWrite={false}
+          emissiveIntensity={dark ? (active ? 1.55 : passed ? 0.5 : 0.1) : (active ? 0.16 : 0.08)}
+          roughness={dark ? 0.35 : 0.55}
+          metalness={dark ? 0.45 : 0.08}
+          transparent={!dark}
+          opacity={dark ? 1 : active ? 0.5 : passed ? 0.35 : 0.25}
+          depthWrite={dark}
         />
       </mesh>
       {active ? (
@@ -78,8 +86,8 @@ function NodeMesh({
           <div
             className="whitespace-nowrap font-mono text-[10px] tracking-wide"
             style={{
-              color: "#7139bb",
-              textShadow: "0 1px 8px rgba(255,255,255,0.9)",
+              color: "var(--color-accent)",
+              textShadow: dark ? "0 2px 12px rgba(0,0,0,0.85)" : "0 1px 8px rgba(255,255,255,0.9)",
             }}
           >
             {node.label}
@@ -92,6 +100,8 @@ function NodeMesh({
 }
 
 function Edges({ journey, nodes }: { journey: number; nodes: GraphNode[] }) {
+  const { theme } = useTheme();
+  const dark = theme === "dark";
   const points = useMemo(
     () => nodes.map((n) => n.position as [number, number, number]),
     [nodes],
@@ -124,14 +134,14 @@ function Edges({ journey, nodes }: { journey: number; nodes: GraphNode[] }) {
     <group>
       <Line
         points={points}
-        color="#9465c7"
-        lineWidth={1}
+        color={dark ? "#c77dff" : "#9465c7"}
+        lineWidth={dark ? 1.5 : 1}
         transparent
-        opacity={0.22}
+        opacity={dark ? 0.32 : 0.22}
       />
       <mesh ref={packet}>
         <sphereGeometry args={[0.09, 12, 12]} />
-        <meshBasicMaterial color="#7139bb" />
+        <meshBasicMaterial color={dark ? "#c77dff" : "#7139bb"} />
       </mesh>
     </group>
   );
