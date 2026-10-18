@@ -91,25 +91,24 @@ const FRAG = /* glsl */ `
       return;
     }
 
-    // Daylight mist: keep the original flow, with two translucent depth layers.
-    // A broad density curve leaves clear air between clouds without contours.
+    // Daylight mist: the broad drift carries a distant lilac layer while the
+    // original fluid field supplies nearer violet billows. Continuous density
+    // curves keep their edges soft, with white air between the two layers.
     vec3 paper = vec3(1.0);
-    vec3 distantLilac = vec3(0.72, 0.54, 0.92);
-    vec3 nearViolet = vec3(0.50, 0.25, 0.80);
-    float body = smoothstep(0.20, 0.78, f);
-    float folds = smoothstep(0.30, 0.85, r.x);
-    float drift = smoothstep(0.30, 0.90, r.y);
-    float farDensity = (folds * 0.32 + drift * 0.22) * uIntensity;
-    float nearDensity = min(
-      (body * body * 0.88 + body * drift * 0.08) * uIntensity,
-      0.64
-    );
-    vec3 col = mix(paper, distantLilac, farDensity);
-    col = mix(col, nearViolet, nearDensity);
-    // Daylight gently passes through the thinner parts of the same flow.
-    float daylight = (1.0 - body) * smoothstep(0.2, 0.8, q.y) * 0.12;
+    float body = smoothstep(0.26, 0.72, f);
+    float drift = smoothstep(0.26, 0.72, r.y);
+    float farDensity = drift * drift * 0.48;
+    float nearDensity = pow(body, 2.4) * 1.25;
+    float density = (nearDensity + farDensity) * uIntensity;
+
+    // Light transmitted through violet vapor: density changes both brightness
+    // and saturation instead of placing another pale tint over the whole page.
+    vec3 absorption = mix(vec3(0.70, 0.80, 0.12), vec3(0.64, 1.72, 0.28), body);
+    // A daylight floor keeps even the densest billow pale enough behind copy.
+    vec3 col = mix(paper, exp(-absorption * density), 0.80);
+    float daylight = (1.0 - body) * (1.0 - drift) * 0.26;
     col = mix(col, paper, daylight);
-    col -= hash(gl_FragCoord.xy) * 0.002 * nearDensity;
+    col -= hash(gl_FragCoord.xy) * 0.002 * min(density, 1.0);
 
     gl_FragColor = vec4(col, 1.0);
   }
