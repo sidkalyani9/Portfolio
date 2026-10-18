@@ -91,20 +91,25 @@ const FRAG = /* glsl */ `
       return;
     }
 
-    // The same full-frame flow as night mode, rendered as violet pigment.
-    // No horizontal mask or radial crop: clouds reach every edge as we scroll.
+    // Daylight mist: keep the original flow, with two translucent depth layers.
+    // A broad density curve leaves clear air between clouds without contours.
     vec3 paper = vec3(1.0);
-    vec3 lilac = vec3(0.52, 0.24, 0.84);
-    vec3 violet = vec3(0.48, 0.25, 0.76);
+    vec3 distantLilac = vec3(0.72, 0.54, 0.92);
+    vec3 nearViolet = vec3(0.50, 0.25, 0.80);
     float body = smoothstep(0.20, 0.78, f);
     float folds = smoothstep(0.30, 0.85, r.x);
     float drift = smoothstep(0.30, 0.90, r.y);
-    float density = clamp((body * 0.58 + folds * 0.26 + drift * 0.16) * uIntensity, 0.0, 0.74);
-    vec3 col = mix(paper, lilac, density);
-
-    float fil = pow(smoothstep(0.48, 0.84, f), 2.0);
-    col = mix(col, violet, fil * 0.19 * uIntensity);
-    col -= hash(gl_FragCoord.xy) * 0.003 * density;
+    float farDensity = (folds * 0.32 + drift * 0.22) * uIntensity;
+    float nearDensity = min(
+      (body * body * 0.88 + body * drift * 0.08) * uIntensity,
+      0.64
+    );
+    vec3 col = mix(paper, distantLilac, farDensity);
+    col = mix(col, nearViolet, nearDensity);
+    // Daylight gently passes through the thinner parts of the same flow.
+    float daylight = (1.0 - body) * smoothstep(0.2, 0.8, q.y) * 0.12;
+    col = mix(col, paper, daylight);
+    col -= hash(gl_FragCoord.xy) * 0.002 * nearDensity;
 
     gl_FragColor = vec4(col, 1.0);
   }

@@ -154,27 +154,28 @@ export function MobileWorld() {
 
       ctx.clearRect(0, 0, w, h);
 
-      // --- Violet atmosphere, tuned to the selected canvas ---
+      // The CSS base supplies distant mist; these soft clouds form the nearer
+      // layer. Keep their original paths and linear feathering in both themes.
       const orbs = [
         {
           x: w * (0.2 + shift * 0.12),
           y: h * 0.22,
           r: w * 0.55,
-          c0: dark ? "rgba(199,125,255,0.22)" : "rgba(167,116,224,0.22)",
+          c0: dark ? "rgba(199,125,255,0.22)" : "rgba(156,104,215,0.28)",
           c1: `rgba(${pigment},0)`,
         },
         {
           x: w * (0.85 - shift * 0.08),
           y: h * 0.48,
           r: w * 0.5,
-          c0: dark ? "rgba(139,92,246,0.18)" : "rgba(139,92,246,0.16)",
+          c0: dark ? "rgba(139,92,246,0.18)" : "rgba(139,92,220,0.22)",
           c1: "rgba(139,92,246,0)",
         },
         {
           x: w * 0.5,
           y: h * (0.88 - shift * 0.05),
           r: w * 0.6,
-          c0: dark ? "rgba(232,160,191,0.1)" : "rgba(167,116,224,0.14)",
+          c0: dark ? "rgba(232,160,191,0.1)" : "rgba(156,104,215,0.19)",
           c1: "rgba(232,160,191,0)",
         },
       ];

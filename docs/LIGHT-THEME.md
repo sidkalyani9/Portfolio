@@ -2,6 +2,8 @@
 
 Dark by default, with an optional light theme. Originally developed on `codex/light-violet`, branched from `main` at `83d2432`.
 
+For the current light-atmosphere trial, saved alternatives, and user feedback, read [LIGHT-ATMOSPHERE-EXPERIMENTS.md](./LIGHT-ATMOSPHERE-EXPERIMENTS.md).
+
 ## Design references
 
 - [ET Studio — Studio](https://www.e-t.studio/studio): directly inspected the live page. Oversized typography, generous negative space, a restrained neutral palette, and clear editorial alignment. The studio lists its own site's 2023 Awwwards Site of the Day award on this page.
