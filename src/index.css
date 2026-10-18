@@ -133,7 +133,7 @@
 
 @layer base {
   html {
-    color-scheme: light;
+    color-scheme: dark;
     scroll-behavior: auto;
     /* iOS rubber-band + dynamic viewport */
     -webkit-text-size-adjust: 100%;

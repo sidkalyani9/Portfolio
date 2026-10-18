@@ -242,7 +242,6 @@ export function SiteHeader() {
                 <TerminalSquare size={14} aria-hidden />
                 <span>⌘K</span>
               </button>
-              <ThemeToggle />
               <ButtonLink
                 to={resume.href}
                 variant="primary"
@@ -275,7 +274,6 @@ export function SiteHeader() {
               >
                 Resume
               </a>
-              <ThemeToggle />
               <button
                 type="button"
                 className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-bg-2/60 text-fg-0 touch-manipulation"
@@ -288,6 +286,7 @@ export function SiteHeader() {
               </button>
             </>
           )}
+          <ThemeToggle />
         </div>
       </div>
 

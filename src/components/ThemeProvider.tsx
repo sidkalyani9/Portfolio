@@ -6,9 +6,9 @@ const ThemeContext = createContext<{ theme: Theme; toggleTheme: () => void } | n
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   // index.html restores the preference before the first paint. New visitors
-  // always start in light mode, regardless of their operating-system theme.
+  // always start in dark mode, regardless of their operating-system theme.
   const [theme, setTheme] = useState<Theme>(() =>
-    document.documentElement.dataset.theme === "dark" ? "dark" : "light",
+    document.documentElement.dataset.theme === "light" ? "light" : "dark",
   );
 
   useLayoutEffect(() => {
@@ -22,7 +22,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const sync = (event: StorageEvent) => {
       if (event.key === STORAGE_KEY || event.key === null) {
-        setTheme(event.newValue === "dark" ? "dark" : "light");
+        setTheme(event.newValue === "light" ? "light" : "dark");
       }
     };
     window.addEventListener("storage", sync);

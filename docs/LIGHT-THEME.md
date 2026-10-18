@@ -1,6 +1,6 @@
 # Violet on paper
 
-Light by default, with an optional dark theme, on `codex/light-violet`, branched from `main` at `83d2432`.
+Dark by default, with an optional light theme. Originally developed on `codex/light-violet`, branched from `main` at `83d2432`.
 
 ## Design references
 
@@ -51,9 +51,9 @@ Calculated contrast on solid white: heading 17.01:1, body 8.16:1, muted text 6.2
 
 ## Theme control
 
-- A circular sun/moon button sits beside the résumé action in the fixed header. On phones it sits between Resume and the menu, so appearance is accessible without opening navigation. The visible disc is 36px with a 44px hit target.
+- A circular sun/moon button is the rightmost control in the fixed header, after social actions on desktop and after the menu on phones. Appearance stays accessible without opening navigation. The visible disc is 36px with a 44px hit target.
 - The sun/moon icon rotates and scales between states. The palette updates immediately; there is no full-page snapshot, render wait, or temporary click lock. Reduced motion disables icon animation. This replaces the earlier View Transition implementation, whose canvas-frame wait caused a roughly four-second rendering stall in the local browser.
-- A first visit always uses light, regardless of the operating-system setting. An explicit choice is saved under `portfolio-theme` and restored in the document head before the first paint. Storage failures fall back safely; changes also synchronize between tabs.
+- A first visit always uses dark, regardless of the operating-system setting. An explicit choice is saved under `portfolio-theme` and restored in the document head before the first paint. Missing, invalid, or unavailable storage falls back to dark; changes also synchronize between tabs. Existing saved light preferences remain respected.
 - Shared CSS tokens, intro curtains, browser chrome, glass, foregrounds, glows, desktop WebGL, and mobile 2D rendering follow the selected theme. The scene stays mounted and keeps its progress. Small dark-theme labels use a slightly brighter muted color for readability.
 - At compact desktop widths, redundant social links and the command shortcut leave the header to give navigation and the theme control enough space. The same actions remain available in the page/footer, and the keyboard command shortcut remains active.
 
