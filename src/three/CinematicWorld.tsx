@@ -20,8 +20,8 @@ function SceneBridge({ highQuality }: { highQuality: boolean }) {
     <>
       <CameraRig journey={journey} nodes={nodes} />
       <color attach="background" args={[dark ? "#0a0712" : "#ffffff"]} />
-      <ambientLight intensity={dark ? 0.35 : 1.3} />
-      <directionalLight position={[4, 6, 2]} intensity={dark ? 0.55 : 2} color={dark ? "#cfe8ff" : "#f4edff"} />
+      <ambientLight intensity={dark ? 0.35 : 0.7} />
+      <directionalLight position={[4, 6, 2]} intensity={dark ? 0.55 : 2.4} color={dark ? "#cfe8ff" : "#ffffff"} />
       <FluidField intensity={highQuality ? 1 : 0.7} progress={progress} />
       <DustField count={highQuality ? 320 : 160} />
       <NodeConstellation journey={journey} nodes={nodes} />

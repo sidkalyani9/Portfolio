@@ -45,10 +45,10 @@ function NodeMesh({
 
   const color = dark
     ? active ? "#c77dff" : passed ? "#8b5cf6" : "#3a3548"
-    : active ? "#9966d0" : passed ? "#c2a3e1" : "#e1d5ed";
+    : active ? "#7734c4" : passed ? "#9252c9" : "#a071c7";
   const emissive = dark
     ? active ? "#c77dff" : passed ? "#8b5cf6" : "#15101f"
-    : active ? "#7139bb" : passed ? "#9d7cc4" : "#d6c6e7";
+    : active ? "#7139bb" : passed ? "#623c97" : "#4e3769";
 
   return (
     <group>
@@ -57,7 +57,7 @@ function NodeMesh({
         <meshBasicMaterial
           color={color}
           transparent
-          opacity={dark ? (active ? 0.2 : passed ? 0.09 : 0.03) : (active ? 0.1 : passed ? 0.05 : 0.025)}
+          opacity={dark ? (active ? 0.2 : passed ? 0.09 : 0.03) : (active ? 0.14 : passed ? 0.06 : 0.025)}
           depthWrite={false}
         />
       </mesh>
@@ -66,15 +66,16 @@ function NodeMesh({
         <meshStandardMaterial
           color={color}
           emissive={emissive}
-          emissiveIntensity={dark ? (active ? 1.55 : passed ? 0.5 : 0.1) : (active ? 0.16 : 0.08)}
-          roughness={dark ? 0.35 : 0.55}
-          metalness={dark ? 0.45 : 0.08}
+          emissiveIntensity={dark ? (active ? 1.55 : passed ? 0.5 : 0.1) : (active ? 0.22 : 0.04)}
+          roughness={dark ? 0.35 : 0.28}
+          metalness={dark ? 0.45 : 0.12}
           transparent
-          opacity={dark ? 1 : active ? 0.5 : passed ? 0.35 : 0.25}
+          opacity={dark ? 1 : active ? 0.94 : passed ? 0.8 : 0.64}
           depthWrite={false}
         />
       </mesh>
-      {active ? (
+      {/* The light hero's oversized name already introduces this node. */}
+      {active && (dark || node.id !== "home") ? (
         <Html
           position={[node.position[0], node.position[1] + 0.52, node.position[2]]}
           center
@@ -133,10 +134,10 @@ function Edges({ journey, nodes }: { journey: number; nodes: GraphNode[] }) {
     <group>
       <Line
         points={points}
-        color={dark ? "#c77dff" : "#9465c7"}
-        lineWidth={dark ? 1.5 : 1}
+        color={dark ? "#c77dff" : "#7840b5"}
+        lineWidth={dark ? 1.5 : 1.4}
         transparent
-        opacity={dark ? 0.32 : 0.22}
+        opacity={dark ? 0.32 : 0.46}
       />
       <mesh ref={packet}>
         <sphereGeometry args={[0.09, 12, 12]} />

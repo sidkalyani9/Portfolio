@@ -30,10 +30,10 @@ export function CinematicFallback() {
             radial-gradient(ellipse 30% 28% at ${50 + shift * 0.1}% ${20 + shift * 0.08}%, rgba(199,125,255,0.06), transparent 60%),
             #0a0712
           ` : `
-            radial-gradient(ellipse 70% 55% at ${28 + shift * 0.35}% ${38 - shift * 0.22}%, rgba(167,116,224,0.32), transparent 75%),
-            radial-gradient(ellipse 55% 48% at ${72 - shift * 0.28}% ${62 + shift * 0.16}%, rgba(139,92,246,0.24), transparent 75%),
-            radial-gradient(ellipse 65% 55% at 35% 90%, rgba(167,116,224,0.22), transparent 75%),
-            radial-gradient(ellipse 30% 28% at ${50 + shift * 0.1}% ${20 + shift * 0.08}%, rgba(167,116,224,0.12), transparent 75%),
+            radial-gradient(ellipse 45% 40% at ${24 + shift * 0.35}% ${30 - shift * 0.22}%, rgba(139,74,218,0.3), transparent 72%),
+            radial-gradient(ellipse 40% 42% at ${85 - shift * 0.28}% ${62 + shift * 0.16}%, rgba(117,60,202,0.26), transparent 72%),
+            radial-gradient(ellipse 55% 45% at 25% 95%, rgba(139,74,218,0.28), transparent 72%),
+            radial-gradient(ellipse 35% 25% at ${62 + shift * 0.1}% ${15 + shift * 0.08}%, rgba(153,98,225,0.18), transparent 72%),
             #ffffff
           `,
           filter: `hue-rotate(${(hue - 270) * 0.12}deg)`,

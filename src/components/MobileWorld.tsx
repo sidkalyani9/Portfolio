@@ -155,28 +155,35 @@ export function MobileWorld() {
       ctx.clearRect(0, 0, w, h);
 
       // --- Violet atmosphere, tuned to the selected canvas ---
-      const orbs = [
+      const orbs = dark ? [
         {
           x: w * (0.2 + shift * 0.12),
           y: h * 0.22,
           r: w * 0.55,
-          c0: dark ? "rgba(199,125,255,0.22)" : "rgba(167,116,224,0.22)",
+          c0: "rgba(199,125,255,0.22)",
           c1: `rgba(${pigment},0)`,
         },
         {
           x: w * (0.85 - shift * 0.08),
           y: h * 0.48,
           r: w * 0.5,
-          c0: dark ? "rgba(139,92,246,0.18)" : "rgba(139,92,246,0.16)",
+          c0: "rgba(139,92,246,0.18)",
           c1: "rgba(139,92,246,0)",
         },
         {
           x: w * 0.5,
           y: h * (0.88 - shift * 0.05),
           r: w * 0.6,
-          c0: dark ? "rgba(232,160,191,0.1)" : "rgba(167,116,224,0.14)",
+          c0: "rgba(232,160,191,0.1)",
           c1: "rgba(232,160,191,0)",
         },
+      ] : [
+        // Overlapping narrow clouds leave white openings between violet folds.
+        { x: w * (0.12 + shift * 0.12), y: h * 0.16, r: w * 0.58, c0: "rgba(139,74,218,0.36)", c1: "rgba(139,74,218,0)" },
+        { x: w * 0.64, y: h * 0.05, r: w * 0.44, c0: "rgba(153,98,225,0.28)", c1: "rgba(153,98,225,0)" },
+        { x: w * (0.92 - shift * 0.08), y: h * 0.46, r: w * 0.58, c0: "rgba(117,60,202,0.32)", c1: "rgba(117,60,202,0)" },
+        { x: w * 0.58, y: h * 0.59, r: w * 0.4, c0: "rgba(153,98,225,0.22)", c1: "rgba(153,98,225,0)" },
+        { x: w * 0.12, y: h * (0.86 - shift * 0.05), r: w * 0.6, c0: "rgba(139,74,218,0.32)", c1: "rgba(139,74,218,0)" },
       ];
       for (let i = 0; i < orbs.length; i++) {
         const o = orbs[i];
@@ -184,6 +191,7 @@ export function MobileWorld() {
         const oy = o.y + Math.cos(elapsed * 0.00012 + i) * 18;
         const g = ctx.createRadialGradient(ox, oy, 0, ox, oy, o.r);
         g.addColorStop(0, o.c0);
+        if (!dark) g.addColorStop(0.22, o.c0);
         g.addColorStop(1, o.c1);
         ctx.fillStyle = g;
         ctx.beginPath();
@@ -230,15 +238,15 @@ export function MobileWorld() {
       }
       ctx.restore();
 
-      // --- Ambient graph (very soft, no labels) ---
+      // --- Ambient graph: violet ink on white, soft light at night ---
       if (pts.length >= 2) {
         ctx.save();
-        ctx.globalAlpha = 0.55;
+        ctx.globalAlpha = dark ? 0.55 : 0.8;
         ctx.lineCap = "round";
         ctx.lineJoin = "round";
 
         // faint full path
-        ctx.strokeStyle = `rgba(${pigment},0.14)`;
+        ctx.strokeStyle = `rgba(${pigment},${dark ? 0.14 : 0.32})`;
         ctx.lineWidth = 1.25;
         ctx.beginPath();
         ctx.moveTo(pts[0].x, pts[0].y);
@@ -262,7 +270,7 @@ export function MobileWorld() {
           const f = Math.min(1, s.journey) * nEdges;
           const ei = Math.min(nEdges - 1, Math.floor(f));
           const local = f - ei;
-          ctx.strokeStyle = `rgba(${pigment},0.38)`;
+          ctx.strokeStyle = `rgba(${pigment},${dark ? 0.38 : 0.6})`;
           ctx.lineWidth = 1.6;
           ctx.shadowColor = `rgba(${pigment},0.35)`;
           ctx.shadowBlur = 8;
@@ -291,7 +299,7 @@ export function MobileWorld() {
           const cy = p.y + bob;
           const coreR = isActive ? 4.5 : isPassed ? 2.8 : 2;
           const glowR = isActive ? 16 : isPassed ? 8 : 5;
-          const alpha = isActive ? 0.9 : isPassed ? 0.45 : 0.22;
+          const alpha = isActive ? 0.9 : isPassed ? (dark ? 0.45 : 0.65) : (dark ? 0.22 : 0.42);
 
           const gg = ctx.createRadialGradient(p.x, cy, 0, p.x, cy, glowR);
           gg.addColorStop(0, `rgba(${pigment},${alpha * 0.5})`);

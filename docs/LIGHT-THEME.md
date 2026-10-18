@@ -32,7 +32,7 @@ Calculated contrast on solid white: heading 17.01:1, body 8.16:1, muted text 6.2
 - Preserve content, routes, typography, section layout, scroll choreography, intro timing, and interactions. Hide the redundant hero scroll cue below 900px, where it overlapped the runtime card; the persistent mobile journey navigation remains available.
 - Replace dark glass with translucent white, quieter violet shadows, and visible ink-tinted borders.
 - Retune the procedural gas shader as violet pigment on white across the entire viewport. Preserve pointer response and scroll movement. Remove the horizontal mask and radial crop, and reduce white veils so clouds remain visible on the left, center, and lower background.
-- Use normal particle blending, since additive particles disappear against white. Reduce the opacity of constellation solids so they do not obscure reading.
+- Use normal particle blending, since additive particles disappear against white. Give the light constellation saturated violet surfaces, controlled transparency, directional highlights, and darker connections so its depth reads against the clouds.
 - Keep one stable, compiled effects pipeline for both themes. In light mode, set the dark vignette, bloom, chromatic aberration, and tone-mapping blend opacity to zero; retain a trace of texture. In dark mode, restore their original strengths, the gas shader, luminous dust, and constellation colors. Tone mapping explicitly uses NORMAL blending so zero opacity actually disables it.
 - Give the mobile 2D canvas, CSS fallback, intro curtains, navigation, command palette, cursor, and progress HUD matching light treatments.
 - Retain reduced-motion handling; repaint the static mobile canvas when resized.
@@ -66,3 +66,15 @@ The light shader now uses the same viewport-wide flow coordinates as dark mode, 
 Theme changes reuse the effect instances, composer passes, and node materials. Effects are memoized so a new React children array cannot rebuild the composer during theme or scroll updates. Node materials remain in the transparent rendering path in both themes (opacity reaches 1 at night), avoiding material disposal and shader variant recompilation on each click.
 
 A temporary local-preview frame probe sampled 1.2 seconds after clicks at 1280×720. Before the fix, the longest frame gaps were 4017ms and 4056ms. After the fix, both directions updated the document theme in about 1ms, with longest observed frame gaps of 17–18ms and no gaps over 50ms. These are local browser measurements, not a guarantee for every device. Repeated switching, immediate command-palette interaction, and the mobile menu also passed. The probe is not included in the source or final preview.
+
+## Light atmosphere refinement
+
+The dark-default release and rightmost theme control were pushed to `main` at `df27afc`. This follow-up is developed separately on `codex/light-atmosphere-refinement`.
+
+The previous light field covered the viewport but compressed the smoke into a pale wash. The new light shader increases spatial detail, shapes violet density around curled contours, and leaves clean white openings between the clouds. It uses the existing noise fields with no additional texture sampling or postprocessing passes. Dark-mode flow, colors, lighting, and effect strengths retain their existing values.
+
+The graph now has darker violet connections, more saturated nodes, stronger directional highlights, and a clearer active state. Light-mode node opacity increases from 25–50% to 64–94%, while ambient lighting decreases so it no longer flattens the facets. The redundant light hero node label is hidden where it crossed the oversized name. The node materials and effects remain mounted during switching.
+
+Mobile uses five violet cloud layers separated by white openings, plus clearer graph lines and progress nodes. The CSS fallback uses the same palette; existing reduced-motion behavior remains in place.
+
+Validation: TypeScript and the production build pass. Checked the desktop hero and journey, 390px mobile atmosphere and menu switching, and 320px header fit without horizontal overflow. A temporary preview probe recorded longest frame gaps of 17–18ms for desktop theme changes and 22ms for the checked mobile change, with no frames above 50ms in those 1.2-second samples. These are local measurements. The existing Three.js bundle-size warning remains.
