@@ -67,14 +67,14 @@ Theme changes reuse the effect instances, composer passes, and node materials. E
 
 A temporary local-preview frame probe sampled 1.2 seconds after clicks at 1280×720. Before the fix, the longest frame gaps were 4017ms and 4056ms. After the fix, both directions updated the document theme in about 1ms, with longest observed frame gaps of 17–18ms and no gaps over 50ms. These are local browser measurements, not a guarantee for every device. Repeated switching, immediate command-palette interaction, and the mobile menu also passed. The probe is not included in the source or final preview.
 
-## Light atmosphere refinement
+## Light graph refinement
 
 The dark-default release and rightmost theme control were pushed to `main` at `df27afc`. This follow-up is developed separately on `codex/light-atmosphere-refinement`.
 
-The previous light field covered the viewport but compressed the smoke into a pale wash. The new light shader increases spatial detail, shapes violet density around curled contours, and leaves clean white openings between the clouds. It uses the existing noise fields with no additional texture sampling or postprocessing passes. Dark-mode flow, colors, lighting, and effect strengths retain their existing values.
+The atmosphere uses the soft, full-field gas from `df27afc`. The later contour-based treatment was rejected because it made the gas look marbled. Its shader scale, contour bands, increased pigment density, and mobile cloud changes have been reverted exactly to the earlier atmosphere.
 
 The graph now has darker violet connections, more saturated nodes, stronger directional highlights, and a clearer active state. Light-mode node opacity increases from 25–50% to 64–94%, while ambient lighting decreases so it no longer flattens the facets. The redundant light hero node label is hidden where it crossed the oversized name. The node materials and effects remain mounted during switching.
 
-Mobile uses five violet cloud layers separated by white openings, plus clearer graph lines and progress nodes. The CSS fallback uses the same palette; existing reduced-motion behavior remains in place.
+Mobile retains the earlier three soft cloud layers and CSS atmosphere, alongside the clearer graph lines and progress nodes. Existing reduced-motion behavior remains in place.
 
 Validation: TypeScript and the production build pass. Checked the desktop hero and journey, 390px mobile atmosphere and menu switching, and 320px header fit without horizontal overflow. A temporary preview probe recorded longest frame gaps of 17–18ms for desktop theme changes and 22ms for the checked mobile change, with no frames above 50ms in those 1.2-second samples. These are local measurements. The existing Three.js bundle-size warning remains.

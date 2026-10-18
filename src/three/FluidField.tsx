@@ -58,10 +58,6 @@ const FRAG = /* glsl */ `
     float md = length(p - m);
     p += normalize(p - m + 0.0001) * exp(-md * 2.4) * 0.12 * uIntensity;
 
-    // White needs more local structure to separate pigment from paper.
-    // Keep night mode's original scale and use the same flow across all edges.
-    if (uDark < 0.5) p *= 1.65;
-
     vec2 q = vec2(fbm(p + t), fbm(p + vec2(5.2, 1.3) - t * 0.7));
     vec2 r = vec2(
       fbm(p + 1.8 * q + vec2(1.7, 9.2) + t * 0.3),
@@ -95,19 +91,20 @@ const FRAG = /* glsl */ `
       return;
     }
 
-    // Violet smoke on paper: clear openings, dense folds, fine curled edges.
-    // Reuse the existing noise fields; no extra texture fetches or blur passes.
+    // The same full-frame flow as night mode, rendered as violet pigment.
+    // No horizontal mask or radial crop: clouds reach every edge as we scroll.
     vec3 paper = vec3(1.0);
-    vec3 violet = vec3(0.35, 0.08, 0.72);
-    vec3 iris = vec3(0.52, 0.20, 0.86);
-    float body = pow(smoothstep(0.30, 0.70, f), 1.35);
-    float folds = smoothstep(0.32, 0.72, r.x);
-    float contour = abs(f - (0.49 + (r.y - 0.5) * 0.12));
-    float wisps = pow(1.0 - smoothstep(0.0, 0.095, contour), 2.0);
-    float density = clamp((body * 0.72 + folds * 0.10 + wisps * 0.25) * uIntensity, 0.0, 0.82);
-    vec3 pigment = mix(iris, violet, smoothstep(0.36, 0.72, r.y));
-    vec3 col = mix(paper, pigment, density);
-    col -= hash(gl_FragCoord.xy) * 0.004 * density;
+    vec3 lilac = vec3(0.52, 0.24, 0.84);
+    vec3 violet = vec3(0.48, 0.25, 0.76);
+    float body = smoothstep(0.20, 0.78, f);
+    float folds = smoothstep(0.30, 0.85, r.x);
+    float drift = smoothstep(0.30, 0.90, r.y);
+    float density = clamp((body * 0.58 + folds * 0.26 + drift * 0.16) * uIntensity, 0.0, 0.74);
+    vec3 col = mix(paper, lilac, density);
+
+    float fil = pow(smoothstep(0.48, 0.84, f), 2.0);
+    col = mix(col, violet, fil * 0.19 * uIntensity);
+    col -= hash(gl_FragCoord.xy) * 0.003 * density;
 
     gl_FragColor = vec4(col, 1.0);
   }
