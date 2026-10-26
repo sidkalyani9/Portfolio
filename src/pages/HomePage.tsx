@@ -57,9 +57,7 @@ function useHashRestore() {
 
     const go = () => {
       if (cancelled) return;
-      refreshLayout();
-      ScrollTrigger.refresh();
-      // Prefer scrollToId (handles duration / Lenis)
+      // scrollToId already refreshes layout before measuring its target.
       scrollToId(id);
     };
 

@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { ArrowDownRight, MapPin } from "lucide-react";
 import { profile } from "@/content/profile";
 import { ButtonLink } from "@/components/ui/Button";
@@ -8,7 +9,7 @@ import { useResumeHref } from "@/hooks/useResumeHref";
 import { useBooted, useIntroControls } from "@/components/Boot";
 import { openPalette } from "@/components/CommandPalette";
 import { useScrollTo } from "@/components/SmoothScroll";
-import { useScrollProgress } from "@/hooks/useScrollProgress";
+import { useScrollProgressEffect, useScrollProgressRef, useScrollProgressSelector } from "@/hooks/useScrollProgress";
 import { activeIndexFromJourney } from "@/three/journeyGraph";
 
 const STATUS_ROWS: [string, string][] = [
@@ -23,8 +24,15 @@ export function HeroSection() {
   const booted = useBooted();
   const { introVisible, titleInIntro } = useIntroControls();
   const { scrollToId } = useScrollTo();
-  const { progress, journey, nodes } = useScrollProgress();
-  const active = activeIndexFromJourney(journey, nodes.length);
+  const scroll = useScrollProgressRef();
+  const { progress, nodes } = scroll.current;
+  const active = useScrollProgressSelector((value) => activeIndexFromJourney(value.journey, value.nodes.length));
+  const copy = useRef<HTMLDivElement>(null);
+  useScrollProgressEffect(({ progress }) => {
+    if (!copy.current) return;
+    copy.current.style.transform = `translate3d(0, ${Math.min(1, progress * 4) * 24}px, 0)`;
+    copy.current.style.opacity = String(1 - Math.min(0.35, progress * 1.2));
+  });
   const activeNode = nodes[active];
 
   // slight parallax on the copy as you leave hero
@@ -40,6 +48,7 @@ export function HeroSection() {
       <div className="pointer-events-none absolute inset-0 z-[1] hero-reading-veil" />
 
       <div
+        ref={copy}
         className="container-page relative z-10 grid gap-10 py-12 sm:gap-12 sm:py-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-end lg:py-24"
         style={{
           transform: `translate3d(0, ${lift}px, 0)`,

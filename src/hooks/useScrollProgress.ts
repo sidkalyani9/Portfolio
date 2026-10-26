@@ -3,9 +3,10 @@ import {
   createElement,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
-  useState,
+  useSyncExternalStore,
   type ReactNode,
 } from "react";
 import { useLocation } from "react-router-dom";
@@ -17,42 +18,15 @@ import {
   measurePageJourney,
   measureSectionJourney,
   nodesForMode,
-  type GraphMode,
-  type GraphNode,
 } from "@/three/journeyGraph";
 
-export type ScrollProgressValue = {
-  /** 0–1 document scroll (smoothed) */
-  progress: number;
-  /** pixels scrolled (smoothed) */
-  y: number;
-  /** active section id (or "case-study") */
-  section: string | null;
-  /**
-   * Continuous 0–1 graph journey.
-   * Home: section geometry. Case study: page scroll.
-   */
-  journey: number;
-  sectionIndex: number;
-  sectionLocal: number;
-  /** which graph topology is active */
-  mode: GraphMode;
-  /** nodes the constellation / camera should use */
-  nodes: GraphNode[];
-};
+import { createScrollProgressStore, type ScrollProgressValue } from "@/lib/scrollProgressStore";
+export type { ScrollProgressValue } from "@/lib/scrollProgressStore";
 
-const defaultNodes = nodesForMode("home");
-
-const ScrollProgressContext = createContext<ScrollProgressValue>({
-  progress: 0,
-  y: 0,
-  section: "home",
-  journey: 0,
-  sectionIndex: 0,
-  sectionLocal: 0,
-  mode: "home",
-  nodes: defaultNodes,
-});
+const ScrollProgressContext = createContext(createScrollProgressStore({
+  progress: 0, y: 0, section: "home", journey: 0,
+  sectionIndex: 0, sectionLocal: 0, mode: "home", nodes: nodesForMode("home"),
+}));
 
 /**
  * Scroll metrics for the cinematic world.
@@ -64,16 +38,10 @@ export function ScrollProgressProvider({ children }: { children: ReactNode }) {
   const mode = graphModeFromPath(pathname);
   const nodes = useMemo(() => nodesForMode(mode), [mode]);
 
-  const [value, setValue] = useState<ScrollProgressValue>({
-    progress: 0,
-    y: 0,
-    section: mode === "home" ? "home" : "case-study",
-    journey: 0,
-    sectionIndex: 0,
-    sectionLocal: 0,
-    mode,
-    nodes,
-  });
+  const store = useMemo(() => createScrollProgressStore({
+    progress: 0, y: 0, section: mode === "home" ? "home" : "case-study",
+    journey: 0, sectionIndex: 0, sectionLocal: 0, mode, nodes,
+  }), []);
 
   const target = useRef({
     progress: 0,
@@ -98,8 +66,7 @@ export function ScrollProgressProvider({ children }: { children: ReactNode }) {
       sectionIndex: 0,
       sectionLocal: 0,
     };
-    setValue((v) => ({
-      ...v,
+    store.publish({
       progress: 0,
       y: 0,
       journey: 0,
@@ -108,14 +75,14 @@ export function ScrollProgressProvider({ children }: { children: ReactNode }) {
       section: mode === "home" ? "home" : "case-study",
       mode,
       nodes,
-    }));
-  }, [mode, nodes, pathname]);
+    });
+  }, [mode, nodes, pathname, store]);
 
   useEffect(() => {
     // Scrolling is locked behind the loader. Avoid publishing identical scroll
     // state every frame and repeatedly rendering the covered hero and 3D scene.
     if (!booted) return;
-    let raf = 0;
+    let raf: number | null = null;
     let alive = true;
 
     const measure = () => {
@@ -138,9 +105,11 @@ export function ScrollProgressProvider({ children }: { children: ReactNode }) {
         sectionIndex: j.sectionIndex,
         sectionLocal: j.local,
       };
+      if (raf === null) raf = requestAnimationFrame(tick);
     };
 
     const tick = () => {
+      raf = null;
       if (!alive) return;
       const t = target.current;
       const s = smooth.current;
@@ -160,7 +129,7 @@ export function ScrollProgressProvider({ children }: { children: ReactNode }) {
         s.journey = 1;
       }
 
-      setValue({
+      const changed = store.publish({
         progress: s.progress,
         y: s.y,
         section: t.section,
@@ -170,7 +139,9 @@ export function ScrollProgressProvider({ children }: { children: ReactNode }) {
         mode: modeRef.current,
         nodes: nodesForMode(modeRef.current),
       });
-      raf = requestAnimationFrame(tick);
+      // Stop only once the exact numbers stop changing: no epsilon, rounding,
+      // reduced frame rate or shortened smoothing tail. Measurement wakes it.
+      if (changed) raf = requestAnimationFrame(tick);
     };
 
     measure();
@@ -178,29 +149,45 @@ export function ScrollProgressProvider({ children }: { children: ReactNode }) {
     window.addEventListener("resize", measure, { passive: true });
     const t1 = window.setTimeout(measure, 200);
     const t2 = window.setTimeout(measure, 800);
-    raf = requestAnimationFrame(tick);
-
     return () => {
       alive = false;
-      cancelAnimationFrame(raf);
+      if (raf !== null) cancelAnimationFrame(raf);
+      raf = null;
       window.clearTimeout(t1);
       window.clearTimeout(t2);
       window.removeEventListener("scroll", measure);
       window.removeEventListener("resize", measure);
     };
-  }, [pathname, mode, booted]);
+  }, [pathname, mode, booted, store]);
 
-  const memo = useMemo(() => value, [value]);
-  return createElement(ScrollProgressContext.Provider, { value: memo }, children);
+  return createElement(ScrollProgressContext.Provider, { value: store }, children);
 }
 
 export function useScrollProgress() {
-  return useContext(ScrollProgressContext);
+  const store = useContext(ScrollProgressContext);
+  return useSyncExternalStore(store.subscribe, store.getSnapshot, store.getSnapshot);
 }
 
+/** Select stable primitives or canonical objects to avoid unrelated renders. */
+export function useScrollProgressSelector<T>(select: (value: ScrollProgressValue) => T) {
+  const store = useContext(ScrollProgressContext);
+  const snapshot = () => select(store.ref.current);
+  return useSyncExternalStore(store.subscribe, snapshot, snapshot);
+}
+
+/** Frame consumers read current data without subscribing React to every frame. */
 export function useScrollProgressRef() {
-  const value = useScrollProgress();
-  const ref = useRef(value);
-  ref.current = value;
-  return ref;
+  return useContext(ScrollProgressContext).ref;
+}
+
+/** Apply identical continuous values to DOM styles without rebuilding JSX. */
+export function useScrollProgressEffect(effect: (value: ScrollProgressValue) => void) {
+  const store = useContext(ScrollProgressContext);
+  const callback = useRef(effect);
+  callback.current = effect;
+  useLayoutEffect(() => {
+    const update = () => callback.current(store.ref.current);
+    update();
+    return store.subscribe(update);
+  }, [store]);
 }

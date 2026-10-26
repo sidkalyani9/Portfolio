@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useTheme } from "@/components/ThemeProvider";
-import { useScrollProgress } from "@/hooks/useScrollProgress";
+import { useScrollProgressRef } from "@/hooks/useScrollProgress";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import {
   activeIndexFromJourney,
@@ -90,16 +90,11 @@ export function MobileWorld() {
   const { theme } = useTheme();
   const repaint = useRef<(() => void) | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { journey, nodes, progress } = useScrollProgress();
+  const scroll = useScrollProgressRef();
   const reduced = usePrefersReducedMotion();
 
-  const stateRef = useRef({
-    theme,
-    journey: 0,
-    progress: 0,
-    nodes: nodes as GraphNode[],
-  });
-  stateRef.current = { theme, journey, progress, nodes };
+  const themeRef = useRef(theme);
+  themeRef.current = theme;
 
   useEffect(() => { repaint.current?.(); }, [theme]);
 
@@ -109,7 +104,7 @@ export function MobileWorld() {
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    let raf = 0;
+    let raf: number | null = null;
     let alive = true;
     let w = 0;
     let h = 0;
@@ -133,16 +128,26 @@ export function MobileWorld() {
       if (reduced) paint(0);
     };
 
-    const onVis = () => {
-      visible = document.visibilityState === "visible";
-      if (visible && alive && !reduced) {
+    const scheduleFrame = () => {
+      if (alive && visible && !reduced && raf === null) {
         raf = requestAnimationFrame(frame);
       }
     };
 
+    const onVis = () => {
+      visible = document.visibilityState === "visible";
+      // A background tab may suspend its pending RAF instead of running it.
+      // Cancel that callback before resuming, so one loop owns every frame.
+      if (!visible && raf !== null) {
+        cancelAnimationFrame(raf);
+        raf = null;
+      }
+      scheduleFrame();
+    };
+
     const paint = (elapsed: number) => {
-      const s = stateRef.current;
-      const dark = s.theme === "dark";
+      const s = scroll.current;
+      const dark = themeRef.current === "dark";
       const pigment = dark ? "199,125,255" : "113,57,187";
       const core = dark ? "232,210,255" : pigment;
       const warm = dark ? "255,220,235" : "135,80,110";
@@ -344,9 +349,10 @@ export function MobileWorld() {
     };
 
     const frame = (now: number) => {
+      raf = null;
       if (!alive || !visible) return;
       paint(now - t0);
-      if (!reduced) raf = requestAnimationFrame(frame);
+      scheduleFrame();
     };
 
     repaint.current = () => paint(performance.now() - t0);
@@ -355,18 +361,17 @@ export function MobileWorld() {
     document.addEventListener("visibilitychange", onVis);
 
     // resize() also paints the static reduced-motion frame.
-    if (!reduced) {
-      raf = requestAnimationFrame(frame);
-    }
+    scheduleFrame();
 
     return () => {
       repaint.current = null;
       alive = false;
-      cancelAnimationFrame(raf);
+      if (raf !== null) cancelAnimationFrame(raf);
+      raf = null;
       window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", onVis);
     };
-  }, [reduced]);
+  }, [reduced, scroll]);
 
   return (
     <canvas

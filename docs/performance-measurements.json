@@ -1,0 +1,301 @@
+[
+  {
+    "ref": "c1cfd41",
+    "theme": "light",
+    "scenario": "idle",
+    "width": 982,
+    "height": 950,
+    "durationMs": 4005,
+    "frames": 445,
+    "frameMedianMs": 8.300000000017462,
+    "frameP95Ms": 9.10000000000582,
+    "longFrames": 1,
+    "rafCallbackMs": 130.6,
+    "counts": {
+      "gpuDraws": 12905,
+      "ScrollProgressProvider": 444,
+      "CinematicFallback": 444,
+      "HeroSection": 444,
+      "PipelineSection": 444,
+      "SectionRail": 444,
+      "SceneBridge": 444,
+      "NodeMesh": 4440
+    }
+  },
+  {
+    "ref": "c1cfd41",
+    "theme": "light",
+    "scenario": "scroll",
+    "width": 982,
+    "height": 950,
+    "durationMs": 4173,
+    "frames": 309,
+    "frameMedianMs": 8.39999999999418,
+    "frameP95Ms": 16.70000000001164,
+    "longFrames": 7,
+    "rafCallbackMs": 97.2,
+    "counts": {
+      "gpuDraws": 9264,
+      "ScrollProgressProvider": 308,
+      "CinematicFallback": 308,
+      "HeroSection": 308,
+      "PipelineSection": 308,
+      "SectionRail": 308,
+      "SceneBridge": 308,
+      "NodeMesh": 3080,
+      "layoutReads": 3701
+    }
+  },
+  {
+    "ref": "c1cfd41",
+    "theme": "dark",
+    "scenario": "idle",
+    "width": 982,
+    "height": 950,
+    "durationMs": 4006,
+    "frames": 481,
+    "frameMedianMs": 8.30000000000291,
+    "frameP95Ms": 9.30000000000291,
+    "longFrames": 0,
+    "rafCallbackMs": 153.3,
+    "counts": {
+      "gpuDraws": 13949,
+      "ScrollProgressProvider": 480,
+      "CinematicFallback": 480,
+      "HeroSection": 480,
+      "PipelineSection": 480,
+      "SectionRail": 480,
+      "SceneBridge": 480,
+      "NodeMesh": 4800
+    },
+    "position": "hero"
+  },
+  {
+    "ref": "c1cfd41",
+    "theme": "dark",
+    "scenario": "scroll",
+    "width": 982,
+    "height": 950,
+    "durationMs": 4003,
+    "frames": 417,
+    "frameMedianMs": 8.30000000000291,
+    "frameP95Ms": 16.69999999999709,
+    "longFrames": 0,
+    "rafCallbackMs": 136.3,
+    "counts": {
+      "gpuDraws": 12513,
+      "ScrollProgressProvider": 416,
+      "CinematicFallback": 416,
+      "HeroSection": 416,
+      "PipelineSection": 416,
+      "SectionRail": 416,
+      "SceneBridge": 416,
+      "NodeMesh": 4160,
+      "layoutReads": 4990
+    },
+    "position": "hero to 1200px"
+  },
+  {
+    "ref": "working",
+    "theme": "light",
+    "scenario": "idle",
+    "width": 982,
+    "height": 950,
+    "durationMs": 4000,
+    "frames": 481,
+    "frameMedianMs": 8.300000000000182,
+    "frameP95Ms": 9.300000000000182,
+    "longFrames": 0,
+    "rafCallbackMs": 110.5,
+    "counts": {
+      "gpuDraws": 6253
+    },
+    "position": "hero",
+    "iteration": "final"
+  },
+  {
+    "ref": "working",
+    "theme": "light",
+    "scenario": "scroll",
+    "width": 982,
+    "height": 950,
+    "durationMs": 4000,
+    "frames": 473,
+    "frameMedianMs": 8.299999999999272,
+    "frameP95Ms": 9.30000000000291,
+    "longFrames": 0,
+    "rafCallbackMs": 174,
+    "counts": {
+      "gpuDraws": 6621,
+      "layoutReads": 5650,
+      "PipelineSection": 2,
+      "HeroSection": 1,
+      "NodeMesh": 10
+    },
+    "position": "hero to 1200px",
+    "iteration": "final"
+  },
+  {
+    "ref": "working",
+    "theme": "dark",
+    "scenario": "idle",
+    "width": 982,
+    "height": 950,
+    "durationMs": 4023,
+    "frames": 125,
+    "frameMedianMs": 33.30000000000291,
+    "frameP95Ms": 34.299999999995634,
+    "longFrames": 0,
+    "rafCallbackMs": 132.2,
+    "counts": {
+      "gpuDraws": 3625
+    },
+    "position": "hero",
+    "iteration": "final"
+  },
+  {
+    "ref": "working",
+    "theme": "dark",
+    "scenario": "scroll",
+    "width": 982,
+    "height": 950,
+    "durationMs": 4006,
+    "frames": 126,
+    "frameMedianMs": 33.30000000000291,
+    "frameP95Ms": 34.20000000001164,
+    "longFrames": 0,
+    "rafCallbackMs": 75.9,
+    "counts": {
+      "gpuDraws": 3765,
+      "layoutReads": 1498,
+      "PipelineSection": 2,
+      "HeroSection": 1,
+      "NodeMesh": 10
+    },
+    "position": "hero to 1200px",
+    "iteration": "final"
+  },
+  {
+    "ref": "c1cfd41",
+    "theme": "dark",
+    "scenario": "idle",
+    "width": 982,
+    "height": 950,
+    "durationMs": 4002,
+    "frames": 505,
+    "frameMedianMs": 8.299999999999272,
+    "frameP95Ms": 9.199999999998909,
+    "longFrames": 0,
+    "rafCallbackMs": 156.5,
+    "counts": {
+      "gpuDraws": 14645,
+      "ScrollProgressProvider": 504,
+      "CinematicFallback": 504,
+      "HeroSection": 504,
+      "PipelineSection": 504,
+      "SectionRail": 504,
+      "SceneBridge": 504,
+      "NodeMesh": 5040
+    },
+    "position": "hero",
+    "iteration": "timing cross-check"
+  },
+  {
+    "ref": "working",
+    "theme": "dark",
+    "scenario": "idle",
+    "width": 982,
+    "height": 950,
+    "durationMs": 4032,
+    "frames": 125,
+    "frameMedianMs": 33.29999999999927,
+    "frameP95Ms": 34.20000000000073,
+    "longFrames": 0,
+    "rafCallbackMs": 65.3,
+    "counts": {
+      "gpuDraws": 3625
+    },
+    "position": "hero",
+    "iteration": "timing cross-check"
+  },
+  {
+    "ref": "working",
+    "theme": "dark",
+    "scenario": "idle",
+    "width": 981,
+    "height": 950,
+    "durationMs": 4003,
+    "frames": 481,
+    "frameMedianMs": 8.300000000001091,
+    "frameP95Ms": 8.700000000000728,
+    "longFrames": 0,
+    "rafCallbackMs": 155.2,
+    "counts": {
+      "gpuDraws": 13949
+    },
+    "position": "hero",
+    "iteration": "visible preview, complete implementation with bloom warm-up",
+    "previewVisible": true
+  },
+  {
+    "ref": "working",
+    "theme": "dark",
+    "scenario": "idle",
+    "width": 981,
+    "height": 950,
+    "durationMs": 4000,
+    "frames": 467,
+    "frameMedianMs": 8.30000000000291,
+    "frameP95Ms": 9.30000000000291,
+    "longFrames": 1,
+    "rafCallbackMs": 176.3,
+    "counts": {
+      "gpuDraws": 13543
+    },
+    "position": "hero",
+    "iteration": "visibility isolation",
+    "previewVisible": false
+  },
+  {
+    "ref": "working",
+    "theme": "dark",
+    "scenario": "scroll",
+    "width": 981,
+    "height": 950,
+    "durationMs": 4002,
+    "frames": 273,
+    "frameMedianMs": 16.59999999999127,
+    "frameP95Ms": 18.19999999999709,
+    "longFrames": 0,
+    "rafCallbackMs": 117.9,
+    "counts": {
+      "gpuDraws": 8183,
+      "layoutReads": 3262,
+      "PipelineSection": 2,
+      "HeroSection": 1,
+      "NodeMesh": 10
+    },
+    "position": "hero to 1200px",
+    "iteration": "visible preview, complete implementation with bloom warm-up",
+    "previewVisible": true
+  },
+  {
+    "ref": "working",
+    "theme": "light",
+    "scenario": "idle",
+    "width": 981,
+    "height": 950,
+    "durationMs": 4006,
+    "frames": 481,
+    "frameMedianMs": 8.300000000017462,
+    "frameP95Ms": 9.300000000017462,
+    "longFrames": 0,
+    "rafCallbackMs": 176.1,
+    "counts": {
+      "gpuDraws": 6253
+    },
+    "position": "hero",
+    "iteration": "visible preview, complete implementation with bloom warm-up",
+    "previewVisible": true
+  }
+]

@@ -13,7 +13,7 @@ import {
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { useScrollProgress } from "@/hooks/useScrollProgress";
+import { useScrollProgressSelector } from "@/hooks/useScrollProgress";
 import { HEADER_OFFSET } from "@/lib/motion";
 import { cn } from "@/lib/cn";
 
@@ -84,7 +84,7 @@ export function PipelineSection() {
   const mobileTrackRef = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
   const isDesktop = useMediaQuery("(min-width: 1024px)");
-  const { section } = useScrollProgress();
+  const section = useScrollProgressSelector((value) => value.section);
 
   const [progress, setProgress] = useState(0);
 

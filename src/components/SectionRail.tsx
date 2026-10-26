@@ -1,6 +1,6 @@
 import { useMemo, type MouseEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useScrollProgress } from "@/hooks/useScrollProgress";
+import { useScrollProgressSelector } from "@/hooks/useScrollProgress";
 import { useScrollTo } from "@/components/SmoothScroll";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { activeIndexFromJourney } from "@/three/journeyGraph";
@@ -14,12 +14,17 @@ import { useIntroControls } from "@/components/Boot";
 export function SectionRail() {
   const { introVisible } = useIntroControls();
   const isMobileLayout = useMediaQuery("(max-width: 899px)");
-  const { journey, nodes, mode } = useScrollProgress();
+  const nodes = useScrollProgressSelector((value) => value.nodes);
+  const mode = useScrollProgressSelector((value) => value.mode);
+  const active = useScrollProgressSelector((value) =>
+    isMobileLayout ? activeIndexFromJourney(value.journey, value.nodes.length) : 0,
+  );
+  const pct = useScrollProgressSelector((value) =>
+    isMobileLayout ? Math.round(Math.min(1, Math.max(0, value.journey)) * 100) : 0,
+  );
   const location = useLocation();
   const navigate = useNavigate();
   const { scrollToId, scrollToY } = useScrollTo();
-
-  const active = activeIndexFromJourney(journey, nodes.length);
 
   const items = useMemo(
     () =>
@@ -36,7 +41,6 @@ export function SectionRail() {
   if (items.length < 2) return null;
 
   const current = items[active] ?? items[0];
-  const pct = Math.round(Math.min(1, Math.max(0, journey)) * 100);
 
   const go = (e: MouseEvent, id: string, index: number) => {
     e.preventDefault();

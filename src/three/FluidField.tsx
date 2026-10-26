@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { useScrollProgressRef } from "@/hooks/useScrollProgress";
 import { useTheme } from "@/components/ThemeProvider";
 
 const VERT = /* glsl */ `
@@ -119,18 +120,15 @@ const FRAG = /* glsl */ `
  */
 export function FluidField({
   intensity = 1,
-  progress = 0,
 }: {
   intensity?: number;
-  progress?: number;
 }) {
   const { theme } = useTheme();
   const mat = useRef<THREE.ShaderMaterial>(null);
   const { size } = useThree();
   const mouse = useRef(new THREE.Vector2(-9999, -9999));
   const mouseSm = useRef(new THREE.Vector2(-9999, -9999));
-  const progressRef = useRef(progress);
-  progressRef.current = progress;
+  const scroll = useScrollProgressRef();
 
   const uniforms = useMemo(
     () => ({
@@ -161,7 +159,7 @@ export function FluidField({
     m.uniforms.uTime.value = state.clock.elapsedTime;
     m.uniforms.uRes.value.set(size.width * dpr, size.height * dpr);
     m.uniforms.uIntensity.value = intensity;
-    m.uniforms.uProgress.value = progressRef.current;
+    m.uniforms.uProgress.value = scroll.current.progress;
 
     const k = 1 - Math.exp(-delta * 6);
     mouseSm.current.lerp(mouse.current, k);

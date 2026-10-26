@@ -10,7 +10,8 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test:performance": "node --test scripts/tests/*.test.mjs && node scripts/check-visible-bloom.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.6",

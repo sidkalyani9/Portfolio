@@ -90,3 +90,9 @@ These option-1 artifacts are historical. Preserve the branch and screenshots whe
 - Restored the complete latest option-1 application from `314547c`, including its fuller violet clouds and clearer white openings.
 - Retained the original dark default, rightmost theme toggle, graph and smooth switching.
 - Options 2 and 3 remain archived on their own branches; all three directions and feedback are preserved here.
+
+## Performance work — 2026-10-26
+
+- `codex/animation-performance` optimizes the selected latest option 1 without changing its gas shader, palettes, particle counts or animation formulas.
+- See [PERFORMANCE.md](PERFORMANCE.md) for changes, measured work reduction and regression checks. The three atmosphere options and prior feedback above remain the design record.
+- Clean preview uses only port 4173, with output `/tmp/portfolio-perf-final`. No main merge or push is part of this performance task.

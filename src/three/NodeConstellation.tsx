@@ -2,6 +2,7 @@ import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { useTheme } from "@/components/ThemeProvider";
+import { useScrollProgressRef, useScrollProgressSelector } from "@/hooks/useScrollProgress";
 import { Html, Line } from "@react-three/drei";
 import {
   HOME_GRAPH_NODES,
@@ -99,7 +100,8 @@ function NodeMesh({
   );
 }
 
-function Edges({ journey, nodes }: { journey: number; nodes: GraphNode[] }) {
+function Edges({ nodes }: { nodes: GraphNode[] }) {
+  const scroll = useScrollProgressRef();
   const { theme } = useTheme();
   const dark = theme === "dark";
   const points = useMemo(
@@ -111,7 +113,7 @@ function Edges({ journey, nodes }: { journey: number; nodes: GraphNode[] }) {
 
   useFrame(() => {
     if (!packet.current || nEdges < 1 || nodes.length < 2) return;
-    const j = Math.min(1, Math.max(0, journey));
+    const j = Math.min(1, Math.max(0, scroll.current.journey));
     // Sit fully on the last node when journey completes
     if (j >= 1 - 1e-4) {
       const last = nodes[nodes.length - 1].position;
@@ -152,15 +154,13 @@ function Edges({ journey, nodes }: { journey: number; nodes: GraphNode[] }) {
  * `nodes` switches between home sections and case-study essay arc.
  */
 export function NodeConstellation({
-  journey = 0,
   nodes = HOME_GRAPH_NODES,
 }: {
-  journey?: number;
   nodes?: GraphNode[];
 }) {
   const group = useRef<THREE.Group>(null);
   const n = nodes.length;
-  const activeIndex = activeIndexFromJourney(journey, n);
+  const activeIndex = useScrollProgressSelector((value) => activeIndexFromJourney(value.journey, n));
 
   useFrame((state) => {
     if (!group.current) return;
@@ -172,7 +172,7 @@ export function NodeConstellation({
 
   return (
     <group ref={group} position={[offsetX, 0, 0]} key={nodes.map((nd) => nd.id).join("|")}>
-      <Edges journey={journey} nodes={nodes} />
+      <Edges nodes={nodes} />
       {nodes.map((node, i) => (
         <NodeMesh
           key={node.id}

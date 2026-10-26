@@ -1,6 +1,7 @@
 import { useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { useScrollProgressRef } from "@/hooks/useScrollProgress";
 import { HOME_GRAPH_NODES, type GraphNode } from "@/three/journeyGraph";
 
 function catmull(
@@ -9,10 +10,11 @@ function catmull(
   p2: THREE.Vector3,
   p3: THREE.Vector3,
   t: number,
+  out: THREE.Vector3,
 ) {
   const t2 = t * t;
   const t3 = t2 * t;
-  return new THREE.Vector3(
+  return out.set(
     0.5 *
       (2 * p1.x +
         (-p0.x + p2.x) * t +
@@ -34,7 +36,8 @@ function catmull(
 function samplePath(points: THREE.Vector3[], t: number, out: THREE.Vector3) {
   const n = points.length - 1;
   if (n < 1) {
-    out.copy(points[0] ?? new THREE.Vector3());
+    if (points[0]) out.copy(points[0]);
+    else out.set(0, 0, 0);
     return;
   }
   const f = Math.min(0.999, Math.max(0, t)) * n;
@@ -44,20 +47,19 @@ function samplePath(points: THREE.Vector3[], t: number, out: THREE.Vector3) {
   const p1 = points[i];
   const p2 = points[Math.min(n, i + 1)];
   const p3 = points[Math.min(n, i + 2)];
-  out.copy(catmull(p0, p1, p2, p3, local));
+  catmull(p0, p1, p2, p3, local, out);
 }
 
 /**
  * Camera follows the active graph's continuous journey.
  */
 export function CameraRig({
-  journey,
   nodes = HOME_GRAPH_NODES,
 }: {
-  journey: number;
   nodes?: GraphNode[];
 }) {
   const { camera } = useThree();
+  const scroll = useScrollProgressRef();
   const look = useRef(new THREE.Vector3(0, 0.6, 0));
   const pos = useRef(new THREE.Vector3(0, 1.2, 7.5));
   const targetPos = useRef(new THREE.Vector3());
@@ -82,7 +84,7 @@ export function CameraRig({
 
   useFrame((_, delta) => {
     const kJ = 1 - Math.exp(-delta * 5.5);
-    smoothJourney.current += (journey - smoothJourney.current) * kJ;
+    smoothJourney.current += (scroll.current.journey - smoothJourney.current) * kJ;
     const t = Math.min(1, Math.max(0, smoothJourney.current));
 
     samplePath(camPath, t, targetPos.current);

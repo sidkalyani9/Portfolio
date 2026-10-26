@@ -68,7 +68,7 @@ const MARQUEE_ITEMS = [
 
 function Counter({ stat, started }: { stat: Stat; started: boolean }) {
   const reduced = usePrefersReducedMotion();
-  const [value, setValue] = useState(reduced ? stat.target : 0);
+  const [value, setValue] = useState(() => stat.format(reduced ? stat.target : 0));
 
   useEffect(() => {
     if (!started || reduced) return;
@@ -77,8 +77,8 @@ function Counter({ stat, started }: { stat: Stat; started: boolean }) {
       v: stat.target,
       duration: DUR.counter,
       ease: EASE_OUT_EXPO,
-      onUpdate: () => setValue(obj.v),
-      onComplete: () => setValue(stat.target),
+      onUpdate: () => setValue(stat.format(obj.v)),
+      onComplete: () => setValue(stat.format(stat.target)),
     });
     return () => {
       tween.kill();
@@ -87,7 +87,7 @@ function Counter({ stat, started }: { stat: Stat; started: boolean }) {
 
   return (
     <span className="font-mono text-[clamp(1.65rem,7vw,3.6rem)] leading-none tabular-nums text-fg-0">
-      {stat.format(value)}
+      {value}
     </span>
   );
 }

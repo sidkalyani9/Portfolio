@@ -6,7 +6,7 @@ import { NodeConstellation } from "@/three/NodeConstellation";
 import { DustField } from "@/three/DustField";
 import { CameraRig } from "@/three/CameraRig";
 import { PostFX } from "@/three/PostFX";
-import { useScrollProgress } from "@/hooks/useScrollProgress";
+import { useScrollProgressSelector } from "@/hooks/useScrollProgress";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useBooted } from "@/components/Boot";
@@ -14,17 +14,18 @@ import { useBooted } from "@/components/Boot";
 function SceneBridge({ highQuality }: { highQuality: boolean }) {
   const { theme } = useTheme();
   const dark = theme === "dark";
-  const { progress, journey, nodes, mode } = useScrollProgress();
+  const nodes = useScrollProgressSelector((value) => value.nodes);
+  const mode = useScrollProgressSelector((value) => value.mode);
 
   return (
     <>
-      <CameraRig journey={journey} nodes={nodes} />
+      <CameraRig nodes={nodes} />
       <color attach="background" args={[dark ? "#0a0712" : "#ffffff"]} />
       <ambientLight intensity={dark ? 0.35 : 0.7} />
       <directionalLight position={[4, 6, 2]} intensity={dark ? 0.55 : 2.4} color={dark ? "#cfe8ff" : "#ffffff"} />
-      <FluidField intensity={highQuality ? 1 : 0.7} progress={progress} />
+      <FluidField intensity={highQuality ? 1 : 0.7} />
       <DustField count={highQuality ? 320 : 160} />
-      <NodeConstellation journey={journey} nodes={nodes} />
+      <NodeConstellation nodes={nodes} />
       <PostFX
         enabled={highQuality}
         strength={mode === "case-study" ? 0.75 : highQuality ? 1 : 0.65}
