@@ -1,9 +1,10 @@
-import { useLayoutEffect, useMemo, useRef } from "react";
+import { useCallback, useLayoutEffect, useMemo, useRef } from "react";
 import { EffectComposer, wrapEffect, ChromaticAberration, Vignette, Noise, ToneMapping } from "@react-three/postprocessing";
-import { BlendFunction, ToneMappingMode, type BloomEffect, type ChromaticAberrationEffect, type VignetteEffect, type NoiseEffect, type ToneMappingEffect } from "postprocessing";
+import { BlendFunction, ToneMappingMode, type EffectComposer as EffectComposerImpl, type ChromaticAberrationEffect, type VignetteEffect, type NoiseEffect, type ToneMappingEffect } from "postprocessing";
 import { Vector2 } from "three";
 import { useTheme } from "@/components/ThemeProvider";
 import { VisibleBloomEffect } from "@/three/VisibleBloomEffect";
+import { preparePostprocessingBuffers } from "@/three/preparePostprocessingBuffers";
 
 // Match the React Bloom wrapper's ADD blend (the raw class defaults to SCREEN).
 const VisibleBloom = wrapEffect(VisibleBloomEffect, { blendFunction: BlendFunction.ADD });
@@ -11,11 +12,14 @@ const VisibleBloom = wrapEffect(VisibleBloomEffect, { blendFunction: BlendFuncti
 /** Keep the GPU pipeline compiled; a theme change only updates uniforms. */
 export function PostFX({ enabled = true, strength = 1 }: { enabled?: boolean; strength?: number }) {
   const { theme } = useTheme();
-  const bloom = useRef<BloomEffect>(null);
+  const bloom = useRef<VisibleBloomEffect>(null);
   const aberration = useRef<ChromaticAberrationEffect>(null);
   const noise = useRef<NoiseEffect>(null);
   const vignette = useRef<VignetteEffect>(null);
   const toneMapping = useRef<ToneMappingEffect>(null);
+  const prepareComposer = useCallback((composer: EffectComposerImpl | null) => {
+    preparePostprocessingBuffers(composer, bloom.current);
+  }, []);
 
   // EffectComposer rebuilds its passes when children change identity. Keep
   // these elements stable even when theme or scroll-driven strength changes.
@@ -39,5 +43,5 @@ export function PostFX({ enabled = true, strength = 1 }: { enabled?: boolean; st
   }, [theme, strength, enabled]);
 
   if (!enabled) return null;
-  return <EffectComposer multisampling={0} enableNormalPass={false}>{effects}</EffectComposer>;
+  return <EffectComposer ref={prepareComposer} multisampling={0} enableNormalPass={false}>{effects}</EffectComposer>;
 }

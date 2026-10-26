@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -74,6 +74,66 @@ const NODES: Node[] = [
 
 const N = NODES.length;
 
+type ProgressElements = {
+  percentage: RefObject<HTMLSpanElement | null>;
+  horizontalFill: RefObject<HTMLDivElement | null>;
+  horizontalPacket: RefObject<HTMLDivElement | null>;
+  mobileBar: RefObject<HTMLDivElement | null>;
+  verticalFill: RefObject<HTMLDivElement | null>;
+  verticalPacket: RefObject<HTMLDivElement | null>;
+};
+
+// These are the only progress boundaries that change the node/log markup.
+function progressPhase(progress: number) {
+  const activeIndex = Math.min(N - 1, Math.floor(progress * (N - 0.001)));
+  return activeIndex * 8
+    + (progress > 0.01 ? 1 : 0)
+    + (progress > 0.02 ? 2 : 0)
+    + (progress < 0.98 ? 0 : 4);
+}
+
+function usePipelineProgress() {
+  const current = useRef(0);
+  const [, setPhase] = useState(() => progressPhase(0));
+  const percentage = useRef<HTMLSpanElement>(null);
+  const horizontalFill = useRef<HTMLDivElement>(null);
+  const horizontalPacket = useRef<HTMLDivElement>(null);
+  const mobileBar = useRef<HTMLDivElement>(null);
+  const verticalFill = useRef<HTMLDivElement>(null);
+  const verticalPacket = useRef<HTMLDivElement>(null);
+
+  const setProgress = useCallback((progress: number) => {
+    const previous = current.current;
+    if (progress === previous) return;
+    current.current = progress;
+    const packetPct = Math.min(100, progress * 100);
+    const packetTop = Math.min(100, Math.max(0, packetPct));
+    const label = `${String(Math.round(packetPct)).padStart(3, "0")}%`;
+    if (percentage.current && percentage.current.textContent !== label) {
+      percentage.current.textContent = label;
+    }
+    // Keep the existing properties and CSS transitions at the original scroll
+    // callback cadence; only the surrounding React tree waits for a boundary.
+    if (horizontalFill.current) horizontalFill.current.style.width = `${packetPct}%`;
+    if (horizontalPacket.current) horizontalPacket.current.style.left = `${packetPct}%`;
+    if (mobileBar.current) mobileBar.current.style.width = `${packetPct}%`;
+    if (verticalFill.current) {
+      verticalFill.current.style.height = `calc((100% - 1.5rem) * ${packetTop / 100})`;
+    }
+    if (verticalPacket.current) {
+      verticalPacket.current.style.top = `calc(0.75rem + (100% - 1.5rem) * ${packetTop / 100} - 5px)`;
+    }
+    const phase = progressPhase(progress);
+    if (phase !== progressPhase(previous)) setPhase(phase);
+  }, []);
+
+  return {
+    progress: current.current,
+    setProgress,
+    elements: { percentage, horizontalFill, horizontalPacket, mobileBar, verticalFill, verticalPacket },
+  };
+}
+
 /**
  * Journey set-piece.
  * Desktop: sticky horizontal HUD + ScrollTrigger scrub.
@@ -86,7 +146,7 @@ export function PipelineSection() {
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const section = useScrollProgressSelector((value) => value.section);
 
-  const [progress, setProgress] = useState(0);
+  const { progress, setProgress, elements } = usePipelineProgress();
 
   // Desktop: GSAP ScrollTrigger
   useEffect(() => {
@@ -105,7 +165,7 @@ export function PipelineSection() {
     }, trackRef);
 
     return () => ctx.revert();
-  }, [reduced, isDesktop]);
+  }, [reduced, isDesktop, setProgress]);
 
   // Mobile: native scroll → progress (reliable + no Lenis on phone)
   useEffect(() => {
@@ -136,12 +196,12 @@ export function PipelineSection() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, [reduced, isDesktop]);
+  }, [reduced, isDesktop, setProgress]);
 
   // Reduced motion: show full path
   useEffect(() => {
     if (reduced) setProgress(1);
-  }, [reduced]);
+  }, [reduced, setProgress]);
 
   const activeFloat = progress * (N - 0.001);
   const activeIndex = Math.min(N - 1, Math.floor(activeFloat));
@@ -201,6 +261,7 @@ export function PipelineSection() {
                   progress={progress}
                   packetPct={packetPct}
                   activeIndex={activeIndex}
+                  elements={elements}
                 />
               </div>
             </div>
@@ -229,6 +290,7 @@ export function PipelineSection() {
                 progress={progress}
                 packetPct={packetPct}
                 activeIndex={activeIndex}
+                elements={elements}
               />
             </div>
           </div>
@@ -243,10 +305,12 @@ function MobileJourneyHud({
   progress,
   packetPct,
   activeIndex,
+  elements,
 }: {
   progress: number;
   packetPct: number;
   activeIndex: number;
+  elements: ProgressElements;
 }) {
   const active = NODES[activeIndex] ?? NODES[0];
   // Packet position along vertical rail (0–100% of rail height)
@@ -264,8 +328,8 @@ function MobileJourneyHud({
         </p>
         <p className="font-mono text-[11px] tabular-nums text-fg-2">
           journey{" "}
-          <span className="text-accent">
-            {String(Math.round(packetPct)).padStart(3, "0")}%
+          <span ref={elements.percentage} className="text-accent">
+            {`${String(Math.round(packetPct)).padStart(3, "0")}%`}
           </span>
         </p>
       </div>
@@ -273,6 +337,7 @@ function MobileJourneyHud({
       {/* progress bar under header */}
       <div className="h-[2px] shrink-0 bg-accent/8">
         <div
+          ref={elements.mobileBar}
           className="h-full bg-gradient-to-r from-violet to-accent transition-[width] duration-150 ease-out"
           style={{ width: `${packetPct}%` }}
         />
@@ -289,6 +354,7 @@ function MobileJourneyHud({
           />
           {/* lit fill */}
           <div
+            ref={elements.verticalFill}
             className="absolute left-1/2 top-3 w-px -translate-x-1/2 bg-gradient-to-b from-accent via-accent to-violet shadow-[0_0_10px_rgba(var(--accent-rgb),0.55)] transition-[height] duration-150 ease-out"
             style={{
               height: `calc((100% - 1.5rem) * ${packetTop / 100})`,
@@ -297,6 +363,7 @@ function MobileJourneyHud({
           />
           {/* moving packet */}
           <div
+            ref={elements.verticalPacket}
             className="absolute left-1/2 z-20 -translate-x-1/2 transition-[top] duration-150 ease-out"
             style={{
               top: `calc(0.75rem + (100% - 1.5rem) * ${packetTop / 100} - 5px)`,
@@ -429,11 +496,13 @@ function JourneyHud({
   packetPct,
   activeIndex,
   staticTimeline = false,
+  elements,
 }: {
   progress: number;
   packetPct: number;
   activeIndex: number;
   staticTimeline?: boolean;
+  elements?: ProgressElements;
 }) {
   if (staticTimeline) {
     return (
@@ -477,7 +546,7 @@ function JourneyHud({
           <span className="text-accent">$</span> cam --track bidstream/score
         </p>
         <p className="tabular-nums">
-          journey {String(Math.round(packetPct)).padStart(3, "0")}%
+          journey <span ref={elements?.percentage}>{`${String(Math.round(packetPct)).padStart(3, "0")}%`}</span>
         </p>
       </div>
 
@@ -485,11 +554,13 @@ function JourneyHud({
         <ol className="relative flex items-start justify-between gap-1">
           <div className="absolute left-0 right-0 top-7 h-px bg-border/80" />
           <div
+            ref={elements?.horizontalFill}
             className="absolute left-0 top-7 h-px bg-accent shadow-[0_0_12px_rgba(var(--accent-rgb),0.55)]"
             style={{ width: `${packetPct}%` }}
           />
           {/* packet on horizontal line */}
           <div
+            ref={elements?.horizontalPacket}
             className="absolute top-7 z-20 -translate-x-1/2 -translate-y-1/2 transition-[left] duration-150 ease-out"
             style={{ left: `${packetPct}%` }}
             aria-hidden

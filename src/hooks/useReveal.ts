@@ -48,6 +48,7 @@ export function useReveal(rootSelector = "main") {
                 trigger: el,
                 start: "top 90%",
                 toggleActions: "play none none none",
+                once: true,
               },
             },
           );
@@ -67,6 +68,7 @@ export function useReveal(rootSelector = "main") {
               trigger: el,
               start: "top 90%",
               toggleActions: "play none none none",
+              once: true,
             },
           },
         );

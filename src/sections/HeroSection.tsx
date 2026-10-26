@@ -28,10 +28,15 @@ export function HeroSection() {
   const { progress, nodes } = scroll.current;
   const active = useScrollProgressSelector((value) => activeIndexFromJourney(value.journey, value.nodes.length));
   const copy = useRef<HTMLDivElement>(null);
+  const appliedCopy = useRef({ lift: Math.min(1, progress * 4) * 24, opacity: 1 - Math.min(0.35, progress * 1.2) });
   useScrollProgressEffect(({ progress }) => {
     if (!copy.current) return;
-    copy.current.style.transform = `translate3d(0, ${Math.min(1, progress * 4) * 24}px, 0)`;
-    copy.current.style.opacity = String(1 - Math.min(0.35, progress * 1.2));
+    const lift = Math.min(1, progress * 4) * 24;
+    const opacity = 1 - Math.min(0.35, progress * 1.2);
+    if (lift !== appliedCopy.current.lift) copy.current.style.transform = `translate3d(0, ${lift}px, 0)`;
+    if (opacity !== appliedCopy.current.opacity) copy.current.style.opacity = String(opacity);
+    appliedCopy.current.lift = lift;
+    appliedCopy.current.opacity = opacity;
   });
   const activeNode = nodes[active];
 

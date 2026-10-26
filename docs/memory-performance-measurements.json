@@ -1,0 +1,244 @@
+{
+  "date": "2026-10-26",
+  "browser": "Safari",
+  "viewportCSS": [
+    1800,
+    956
+  ],
+  "devicePixelRatio": 2,
+  "drawingBuffer": [
+    2685,
+    1434
+  ],
+  "baselineCommit": "1e7e31af74dfe07e3aa3bbb25a3a7372a30b5df2",
+  "candidateBranch": "codex/memory-performance",
+  "comparisonNotes": [
+    "Local baseline and local candidate served sequentially on the same port, not deployed main versus an identical local build.",
+    "Normal-build process samples at dark hero; one dedicated Safari tab reopened for each pass. Safari reused process 21591, so this is not process-isolated.",
+    "Memory cache history and machine activity affect physical footprint. No additional total idle CPU reduction is established.",
+    "Deterministic capture mode was used only for pixel comparison; normal animation was used for timing."
+  ],
+  "processMemory": [
+    {
+      "sample": "baseline-safari.txt",
+      "ref": "1e7e31a",
+      "physicalFootprintMiB": 648.5,
+      "graphicsVirtual": "625.7M",
+      "graphicsResident": "610.9M",
+      "graphicsDirty": "559.8M",
+      "graphicsSwapped": "0K"
+    },
+    {
+      "sample": "candidate-safari-1.txt",
+      "ref": "candidate",
+      "physicalFootprintMiB": 646.7,
+      "graphicsVirtual": "559.0M",
+      "graphicsResident": "544.3M",
+      "graphicsDirty": "520.0M",
+      "graphicsSwapped": "0K"
+    },
+    {
+      "sample": "baseline-safari-2.txt",
+      "ref": "1e7e31a",
+      "physicalFootprintMiB": 699.0,
+      "graphicsVirtual": "620.1M",
+      "graphicsResident": "581.0M",
+      "graphicsDirty": "581.0M",
+      "graphicsSwapped": "0K"
+    },
+    {
+      "sample": "candidate-safari-2.txt",
+      "ref": "candidate",
+      "physicalFootprintMiB": 629.1,
+      "graphicsVirtual": "544.5M",
+      "graphicsResident": "529.8M",
+      "graphicsDirty": "505.4M",
+      "graphicsSwapped": "0K"
+    }
+  ],
+  "processCpu": [
+    {
+      "sample": "baseline-cpu.txt",
+      "ref": "1e7e31a",
+      "exclusionReason": "Overlapped a production build; not used to compare CPU.",
+      "firstZeroSampleOmitted": true,
+      "cpuPercent": [
+        13.6,
+        24.4,
+        17.9,
+        22.5,
+        18.9,
+        22.0,
+        18.2
+      ],
+      "memoryM": [
+        "553M",
+        "614M",
+        "582M",
+        "556M",
+        "570M",
+        "556M",
+        "555M"
+      ]
+    },
+    {
+      "sample": "candidate-cpu-1.txt",
+      "ref": "candidate",
+      "exclusionReason": "Overlapped vmmap diagnostics; not used to compare CPU.",
+      "firstZeroSampleOmitted": true,
+      "cpuPercent": [
+        14.6,
+        17.1,
+        16.0,
+        15.6,
+        15.3,
+        18.0,
+        16.7
+      ],
+      "memoryM": [
+        "647M",
+        "647M",
+        "647M",
+        "647M",
+        "637M",
+        "622M",
+        "632M"
+      ]
+    },
+    {
+      "sample": "baseline-cpu-2.txt",
+      "ref": "1e7e31a",
+      "exclusionReason": null,
+      "firstZeroSampleOmitted": true,
+      "cpuPercent": [
+        11.7,
+        15.4,
+        15.5,
+        17.5,
+        14.6,
+        15.1,
+        17.4
+      ],
+      "memoryM": [
+        "708M",
+        "714M",
+        "714M",
+        "721M",
+        "726M",
+        "704M",
+        "704M"
+      ]
+    },
+    {
+      "sample": "candidate-cpu-2.txt",
+      "ref": "candidate",
+      "exclusionReason": null,
+      "firstZeroSampleOmitted": true,
+      "cpuPercent": [
+        11.8,
+        16.4,
+        15.1,
+        16.4,
+        15.3,
+        17.8,
+        16.4
+      ],
+      "memoryM": [
+        "646M",
+        "627M",
+        "634M",
+        "614M",
+        "629M",
+        "614M",
+        "648M"
+      ]
+    }
+  ],
+  "frameHashes": {
+    "dark": {
+      "baseline": "adacbbb2034bfb717143408c058b4599924d880dcf20d5d5afdb8e39ea44f58d",
+      "candidate": "adacbbb2034bfb717143408c058b4599924d880dcf20d5d5afdb8e39ea44f58d"
+    },
+    "light": {
+      "baseline": "8d6f20f26b1f5c6a7f9e40e09c0348ad0068012a52810d83e511de20a7f9a8c1",
+      "candidate": "8d6f20f26b1f5c6a7f9e40e09c0348ad0068012a52810d83e511de20a7f9a8c1"
+    }
+  },
+  "buffers": {
+    "baseline": {
+      "canvasDepth": true,
+      "explicitDepthRenderbuffers": 2
+    },
+    "candidate": {
+      "canvasDepth": false,
+      "explicitDepthRenderbuffers": 1
+    },
+    "rgba16fTextureEliminatedBytes": 30802320,
+    "estimatedTotalEliminatedMiB": [
+      51.406917572021484,
+      58.750762939453125
+    ]
+  },
+  "timingSamples": [
+    {
+      "ref": "1e7e31a",
+      "theme": "dark",
+      "scenario": "idle",
+      "durationMs": 4004,
+      "frames": 239,
+      "frameMedianMs": 16,
+      "frameP95Ms": 20,
+      "longFrames": 1,
+      "rafCallbackMs": 125,
+      "counts": {
+        "gpuDraws": 7409
+      }
+    },
+    {
+      "ref": "candidate",
+      "theme": "dark",
+      "scenario": "idle",
+      "durationMs": 4006,
+      "frames": 232,
+      "frameMedianMs": 18,
+      "frameP95Ms": 20,
+      "longFrames": 0,
+      "rafCallbackMs": 141,
+      "counts": {
+        "gpuDraws": 7192
+      }
+    },
+    {
+      "ref": "1e7e31a",
+      "theme": "dark",
+      "scenario": "journey-scroll",
+      "durationMs": 4015,
+      "frames": 179,
+      "frameMedianMs": 22,
+      "frameP95Ms": 29,
+      "longFrames": 1,
+      "rafCallbackMs": 97,
+      "counts": {
+        "gpuDraws": 7079,
+        "layoutReads": 1771,
+        "PipelineSection": 111
+      }
+    },
+    {
+      "ref": "candidate",
+      "theme": "dark",
+      "scenario": "journey-scroll",
+      "durationMs": 4004,
+      "frames": 181,
+      "frameMedianMs": 22,
+      "frameP95Ms": 28,
+      "longFrames": 0,
+      "rafCallbackMs": 99,
+      "counts": {
+        "gpuDraws": 7153,
+        "layoutReads": 1800,
+        "PipelineSection": 3
+      }
+    }
+  ]
+}

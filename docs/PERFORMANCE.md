@@ -1,8 +1,9 @@
 # Animation performance — 2026-10-26
 
 Optimizes the selected **latest option 1 / daylight violet mist** at `c1cfd41` on
-`codex/animation-performance`. Dark remains the default. This change does not
-merge or push the design trials to main.
+`codex/animation-performance`. Dark remains the default. This work was subsequently
+merged and pushed to main at `1e7e31a` on 2026-10-26. The next memory/scroll pass is
+documented separately in [MEMORY-PERFORMANCE.md](MEMORY-PERFORMANCE.md).
 
 ## What changed
 
@@ -121,7 +122,8 @@ TS/TSX is substituted only for this probe; CSS/assets use the working tree and m
 still match the baseline for comparisons. Use `/tmp` output because this repository
 has historical tracked build files in `dist/`.
 
-Current clean preview: `http://127.0.0.1:4173/`, output `/tmp/portfolio-perf-final`.
+Original production output: `/tmp/portfolio-perf-final`. The follow-up preview
+uses the same port and is described in the memory report.
 
 ## Reference checks
 

@@ -68,7 +68,9 @@ export function CinematicWorld() {
             antialias: false,
             powerPreference: "high-performance",
             stencil: false,
-            depth: true,
+            // Scene depth lives in the composer's input target. The canvas only
+            // receives its final fullscreen pass, which does not test depth.
+            depth: false,
           }}
           dpr={dpr}
           camera={{ position: [0, 1.2, 7.5], fov: 45, near: 0.1, far: 60 }}
